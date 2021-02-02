@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using System.Windows.Forms;
 
@@ -13,31 +13,35 @@ namespace NSW.StarCitizen.Tools.Controllers
 {
     public class AuthController
     {
-        private string authtoken;
-        private bool authed;
-        private static readonly HttpClient client = new HttpClient();
-        public AuthController()
+        private string _authtoken=null;
+        private bool _authed=false;
+        static AuthController()
         {
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
-
-            authtoken = "empty";
-            authed = false;
         }
         public async Task<bool> try_auth(string passwd)
         {
-            var payload = new StringContent("{\'passworsd\':" + passwd + "}", Encoding.UTF8, "application/json");
-            //var payload = new StringContent("{\'password\':" + passwd + "}", Encoding.UTF8);
-            MessageBox.Show("{\'password\':\'" + passwd + "\'}");
-            var response = await client.PostAsync("https://sc.galaxyhub.kr/api/v1/password/check", payload);
+            var values = new Dictionary<string, string>
+            {
+                { "password", passwd }
+            };
+            var payload = new System.Net.Http.FormUrlEncodedContent(values);
+
+            var response = await NSW.StarCitizen.Tools.Update.HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v1/password/check", payload);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var resultstr = await response.Content.ReadAsStringAsync();
-                var jresult = JsonConvert.DeserializeObject(resultstr);
-                MessageBox.Show(jresult.ToString());
-
-                //TODO: 코드 판정
-                return authed = true;
+                JObject jresult = JObject.Parse(resultstr);
+                //MessageBox.Show(jresult.ToString());
+                if (jresult["status"].ToString() == "200")
+                {
+                    _authtoken=jresult["value"].ToString();
+                    return _authed = true;
+                }
+                else
+                    return false;
+               
             }
             else
             {
@@ -47,7 +51,10 @@ namespace NSW.StarCitizen.Tools.Controllers
         }
         public string get_authtoken()
         {
-            return "asdf";
+            if (_authed)
+                return _authtoken;
+            else
+                return null;
         }
     }
 }

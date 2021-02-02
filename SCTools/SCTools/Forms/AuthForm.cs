@@ -16,11 +16,10 @@ namespace NSW.StarCitizen.Tools.Forms
 {
     public partial class AuthForm : MetroForm
     {
-        private Controllers.AuthController _author;
-        public AuthForm(Controllers.AuthController initauthor)
+        private readonly NSW.StarCitizen.Tools.Controllers.AuthController _controller;
+        public AuthForm()
         {
             this.Font = new Font("맑은 고딕",12);
-            _author = initauthor;
             InitializeComponent();
             AuthInfo.Location = new Point(this.Size.Width / 2 - AuthInfo.Size.Width / 2, this.Size.Width / 4);
         }
@@ -29,12 +28,15 @@ namespace NSW.StarCitizen.Tools.Forms
 
         private async void Applybtn_Click(object sender, EventArgs e)
         {
-            var result = await _author.try_auth(CodeInputBox.Text);
+            var result = await _controller.try_auth(CodeInputBox.Text);
             if (result)
-                MetroMessageBox.Show(this, "", "인증완료", MessageBoxButtons.OK, MessageBoxIcon.Question,100);
+            {
+                MetroMessageBox.Show(this, "", "인증완료", MessageBoxButtons.OK, MessageBoxIcon.Question, 100);
+                this.Close();
+            }
             else
             {
-                MetroMessageBox.Show(this, "인증코드를\n확인해주세요", "", MessageBoxButtons.OK, MessageBoxIcon.Error,150);
+                MetroMessageBox.Show(this, "인증코드를\n확인해주세요", "", MessageBoxButtons.OK, MessageBoxIcon.Error, 150);
             }
         }
     }

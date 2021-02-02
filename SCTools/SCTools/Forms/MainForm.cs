@@ -486,11 +486,8 @@ namespace NSW.StarCitizen.Tools.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //var author = new AuthController();
-            var auth = new AuthForm(new AuthController());
-            auth.ShowDialog(this);
-            //var authresult = auth.tryAuth();
-            //MessageBox.Show(authresult?"True":"False","authTest",MessageBoxButtons.OK);
+            var author = new AuthForm();
+            author.ShowDialog(this);
         }
     }
 }
