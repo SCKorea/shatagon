@@ -34,7 +34,7 @@ namespace NSW.StarCitizen.Tools.Update
         public ApplicationUpdater()
         {
             var updateInfoFactory = GitHubUpdateInfo.Factory.NewWithVersionByTagName();
-            _updateRepository = new GitHubUpdateRepository(GitHubDownloadType.Assets, updateInfoFactory, Program.Name, "h0useRus/StarCitizen");
+            _updateRepository = new GitHubUpdateRepository(GitHubDownloadType.Assets, updateInfoFactory, Program.Name, "marona/StarCitizen");
             _updateRepository.SetCurrentVersion(Program.Version.ToString(3));
             _updateRepository.MonitorStarted += OnMonitorStarted;
             _updateRepository.MonitorStopped += OnMonitorStopped;
