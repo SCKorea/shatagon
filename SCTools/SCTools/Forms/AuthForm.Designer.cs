@@ -32,6 +32,7 @@ namespace NSW.StarCitizen.Tools.Forms
             this.AuthInfo = new MetroFramework.Controls.MetroLabel();
             this.CodeInputBox = new MetroFramework.Controls.MetroTextBox();
             this.Applybtn = new MetroFramework.Controls.MetroButton();
+            this.exitbtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AuthInfo
@@ -110,11 +111,30 @@ namespace NSW.StarCitizen.Tools.Forms
             this.Applybtn.UseSelectable = true;
             this.Applybtn.Click += new System.EventHandler(this.Applybtn_Click);
             // 
+            // exitbtn
+            // 
+            this.exitbtn.BackColor = System.Drawing.Color.Transparent;
+            this.exitbtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.exitbtn.FlatAppearance.BorderSize = 0;
+            this.exitbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitbtn.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.exitbtn.Location = new System.Drawing.Point(175, 5);
+            this.exitbtn.Margin = new System.Windows.Forms.Padding(0);
+            this.exitbtn.Name = "exitbtn";
+            this.exitbtn.Size = new System.Drawing.Size(25, 25);
+            this.exitbtn.TabIndex = 4;
+            this.exitbtn.TabStop = false;
+            this.exitbtn.Text = "╳";
+            this.exitbtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.exitbtn.UseVisualStyleBackColor = false;
+            this.exitbtn.Click += new System.EventHandler(this.exitbtn_Click);
+            // 
             // AuthForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(200, 300);
             this.ControlBox = false;
+            this.Controls.Add(this.exitbtn);
             this.Controls.Add(this.Applybtn);
             this.Controls.Add(this.CodeInputBox);
             this.Controls.Add(this.AuthInfo);
@@ -145,5 +165,6 @@ namespace NSW.StarCitizen.Tools.Forms
         private MetroFramework.Controls.MetroLabel AuthInfo;
         private MetroFramework.Controls.MetroTextBox CodeInputBox;
         private MetroFramework.Controls.MetroButton Applybtn;
+        private System.Windows.Forms.Button exitbtn;
     }
 }

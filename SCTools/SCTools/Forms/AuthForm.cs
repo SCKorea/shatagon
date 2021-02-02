@@ -17,8 +17,9 @@ namespace NSW.StarCitizen.Tools.Forms
     public partial class AuthForm : MetroForm
     {
         private readonly NSW.StarCitizen.Tools.Controllers.AuthController _controller;
-        public AuthForm()
+        public AuthForm(Controllers.AuthController author)
         {
+            _controller = author;
             this.Font = new Font("맑은 고딕",12);
             InitializeComponent();
             AuthInfo.Location = new Point(this.Size.Width / 2 - AuthInfo.Size.Width / 2, this.Size.Width / 4);
@@ -38,6 +39,11 @@ namespace NSW.StarCitizen.Tools.Forms
             {
                 MetroMessageBox.Show(this, "인증코드를\n확인해주세요", "", MessageBoxButtons.OK, MessageBoxIcon.Error, 150);
             }
+        }
+
+        private void exitbtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

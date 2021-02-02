@@ -483,11 +483,5 @@ namespace NSW.StarCitizen.Tools.Forms
             combobox.ValueMember = "Key";
             combobox.SelectedValue = Program.Settings.Language;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var author = new AuthForm();
-            author.ShowDialog(this);
-        }
     }
 }

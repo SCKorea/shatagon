@@ -48,6 +48,27 @@ namespace NSW.StarCitizen.Tools.Update
             }
             return Enumerable.Empty<UpdateInfo>().ToList();
         }
+        public override async Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken,string authToken)
+        {
+            using var requestMessage = buildRequestMessage_withAuthToken(_repoReleasesUrl,authToken);
+            using var response = await HttpNetClient.Client.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+            await CheckRequestLimitStatusCodeAsync(response, cancellationToken);
+            System.Windows.Forms.MessageBox.Show(response.ToString());
+            System.Windows.Forms.MessageBox.Show(response.Content.ToString());
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var releases = JsonHelper.Read<GitRelease[]>(content);
+            if (releases != null && releases.Any())
+            {
+                return DownloadType switch
+                {
+                    GitHubDownloadType.Assets => GetAssetUpdates(releases).ToList(),
+                    GitHubDownloadType.Sources => GetSourceCodeUpdates(releases).ToList(),
+                    _ => throw new NotSupportedException("Not supported download type"),
+                };
+            }
+            return Enumerable.Empty<UpdateInfo>().ToList();
+        }
 
         public override async Task<string> DownloadAsync(UpdateInfo updateInfo, string downloadPath,
             CancellationToken cancellationToken, IDownloadProgress? downloadProgress)
@@ -158,6 +179,14 @@ namespace NSW.StarCitizen.Tools.Update
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             if (Program.Settings.AuthToken != null)
                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("token", Program.Settings.AuthToken);
+            return requestMessage;
+        }
+        private HttpRequestMessage buildRequestMessage_withAuthToken(string requestUri,string token)
+        {
+            System.Windows.Forms.MessageBox.Show(token);
+            var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            if (token != null)
+                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("token", token);
             return requestMessage;
         }
 

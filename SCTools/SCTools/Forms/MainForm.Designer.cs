@@ -66,7 +66,6 @@ namespace NSW.StarCitizen.Tools.Forms
             this.cbRefreshTime = new System.Windows.Forms.ComboBox();
             this.cbCheckNewVersions = new System.Windows.Forms.CheckBox();
             this.gbApplicationUpdate = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.gbGameInfo.SuspendLayout();
             this.gbButtonMenu.SuspendLayout();
             this.cmTrayMenu.SuspendLayout();
@@ -415,7 +414,6 @@ namespace NSW.StarCitizen.Tools.Forms
             // 
             // gbApplicationUpdate
             // 
-            this.gbApplicationUpdate.Controls.Add(this.button1);
             this.gbApplicationUpdate.Controls.Add(this.btnAppUpdate);
             this.gbApplicationUpdate.Controls.Add(this.lblMinutes);
             this.gbApplicationUpdate.Controls.Add(this.cbCheckNewVersions);
@@ -425,16 +423,6 @@ namespace NSW.StarCitizen.Tools.Forms
             this.gbApplicationUpdate.Size = new System.Drawing.Size(537, 78);
             this.gbApplicationUpdate.TabIndex = 5;
             this.gbApplicationUpdate.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(431, 49);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "authtest";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
@@ -506,6 +494,5 @@ namespace NSW.StarCitizen.Tools.Forms
         private System.Windows.Forms.ToolStripMenuItem miTools;
         private System.Windows.Forms.ToolStripMenuItem miMoveLiveToPtu;
         private System.Windows.Forms.ToolStripMenuItem miMovePtuToLive;
-        private System.Windows.Forms.Button button1;
     }
 }

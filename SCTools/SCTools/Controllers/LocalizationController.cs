@@ -69,6 +69,7 @@ namespace NSW.StarCitizen.Tools.Controllers
         {
             _logger.Info($"Refresh localization versions: {CurrentRepository.RepositoryUrl}");
             bool status = false;
+            LocalizationAuthToken? CurrentRepoToken = null;
             using var progressDlg = new ProgressForm(10000);
             try
             {
@@ -77,7 +78,18 @@ namespace NSW.StarCitizen.Tools.Controllers
                 progressDlg.Text = Resources.Localization_RefreshAvailableVersion_Title;
                 progressDlg.UserCancelText = Resources.Localization_Stop_Text;
                 progressDlg.Show(window);
-                await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken);
+                foreach(var authidx in LocalizationAuthToken.DefaultList)
+                    if (authidx.Name == CurrentRepository.Name)
+                    {
+                        CurrentRepoToken = authidx;   break;
+                    }
+
+                if(CurrentRepoToken != null)
+                    //await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken,CurrentRepoToken.VersionToken);
+                    await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken);
+                else
+                    await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken);
+
                 progressDlg.CurrentTaskProgress = 1.0f;
                 status = true;
             }

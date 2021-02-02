@@ -13,6 +13,9 @@ namespace NSW.StarCitizen.Tools.Settings
         public List<LocalizationInstallation> Installations { get; } = new List<LocalizationInstallation>();
         [JsonProperty]
         public int MonitorRefreshTime { get; set; } = 5;
+
+        [JsonProperty]
+        public List<LocalizationAuthToken> AuthTokens { get; set; } = new List<LocalizationAuthToken>();
     }
 
     public class LocalizationInstallation
@@ -82,6 +85,29 @@ namespace NSW.StarCitizen.Tools.Settings
             DefaultPolish,
             DefaultChinese,
             DefaultBaseModding
+        };
+    }
+
+    public class LocalizationAuthToken
+    {
+        [JsonProperty]
+        public string Name { get; }
+        [JsonProperty]
+        public string VersionToken { get; }
+        [JsonProperty]
+        public string DownloadToken { get; set; }
+
+        [JsonConstructor]
+        public LocalizationAuthToken(string name, string versiontoken, string downloadtoken)
+        {
+            Name = name;
+            VersionToken = versiontoken;
+            DownloadToken = downloadtoken;
+        }
+
+        public static LocalizationAuthToken DefaultKoreanAuth { get; } = new LocalizationAuthToken("Korean Community", "ec294acb43fff8b9b018b6b076396473e84935fe", "");
+        public static IReadOnlyList<LocalizationAuthToken> DefaultList { get; } = new List<LocalizationAuthToken>() {
+            DefaultKoreanAuth
         };
     }
 }

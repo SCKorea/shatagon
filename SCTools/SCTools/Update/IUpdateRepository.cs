@@ -18,6 +18,7 @@ namespace NSW.StarCitizen.Tools.Update
 
         Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken);
         Task<IEnumerable<UpdateInfo>> RefreshUpdatesAsync(CancellationToken cancellationToken);
+        Task<IEnumerable<UpdateInfo>> RefreshUpdatesAsync(CancellationToken cancellationToken, string authToken);
         Task<UpdateInfo?> GetLatestAsync(CancellationToken cancellationToken);
         Task<string> DownloadAsync(UpdateInfo updateInfo, string downloadPath, CancellationToken cancellationToken, IDownloadProgress downloadProgress);
         Task<bool> CheckAsync(CancellationToken cancellationToken);

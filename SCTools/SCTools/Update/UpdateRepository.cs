@@ -41,10 +41,18 @@ namespace NSW.StarCitizen.Tools.Update
         public void Dispose() => _monitorTimer.Dispose();
 
         public abstract Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken);
+        public abstract Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken,string authToken);
 
         public async Task<IEnumerable<UpdateInfo>> RefreshUpdatesAsync(CancellationToken cancellationToken)
         {
             var releases = await GetAllAsync(cancellationToken);
+            UpdateReleases = SortAndFilterReleases(releases).ToList();
+            return UpdateReleases;
+        }
+
+        public async Task<IEnumerable<UpdateInfo>> RefreshUpdatesAsync(CancellationToken cancellationToken, string authToken)
+        {
+            var releases = await GetAllAsync(cancellationToken,authToken);
             UpdateReleases = SortAndFilterReleases(releases).ToList();
             return UpdateReleases;
         }
