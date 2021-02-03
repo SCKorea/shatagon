@@ -18,6 +18,8 @@ namespace NSW.StarCitizen.Tools.Controllers
     public sealed class LocalizationController
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly AuthController _author;
+
         public readonly GameInfo CurrentGame;
         public readonly GameSettings GameSettings;
         public RepositoryManager RepositoryManager { get; }
@@ -34,6 +36,7 @@ namespace NSW.StarCitizen.Tools.Controllers
             Repositories = RepositoryManager.GetRepositoriesList();
             CurrentRepository = RepositoryManager.GetCurrentRepository(Repositories);
             CurrentInstallation = RepositoryManager.CreateRepositoryInstallation(CurrentRepository);
+            _author = new AuthController();
         }
 
         public void Load()
@@ -69,7 +72,7 @@ namespace NSW.StarCitizen.Tools.Controllers
         {
             _logger.Info($"Refresh localization versions: {CurrentRepository.RepositoryUrl}");
             bool status = false;
-            LocalizationAuthToken? CurrentRepoToken = null;
+
             using var progressDlg = new ProgressForm(10000);
             try
             {
@@ -78,17 +81,7 @@ namespace NSW.StarCitizen.Tools.Controllers
                 progressDlg.Text = Resources.Localization_RefreshAvailableVersion_Title;
                 progressDlg.UserCancelText = Resources.Localization_Stop_Text;
                 progressDlg.Show(window);
-                foreach(var authidx in LocalizationAuthToken.DefaultList)
-                    if (authidx.Name == CurrentRepository.Name)
-                    {
-                        CurrentRepoToken = authidx;   break;
-                    }
-
-                if(CurrentRepoToken != null)
-                    //await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken,CurrentRepoToken.VersionToken);
-                    await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken);
-                else
-                    await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken);
+                await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken);
 
                 progressDlg.CurrentTaskProgress = 1.0f;
                 status = true;
@@ -140,6 +133,16 @@ namespace NSW.StarCitizen.Tools.Controllers
                 Program.Settings.AcceptInstallWarning = true;
                 Program.SaveAppSettings();
             }
+            if (CurrentRepository.RepositoryUrl.EndsWith("xhatagon/sc_ko"))
+            {
+                using var authwin = new AuthForm(_author);
+                authwin.ShowDialog(window);
+                if ((Program.Settings.AuthToken = _author.get_authtoken()) == null) //auth failed!
+                {
+                    return false;
+                }   
+            }
+
             _logger.Info($"Install localization: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
             bool status = false;
             using var progressDlg = new ProgressForm();

@@ -20,12 +20,23 @@ namespace NSW.StarCitizen.Tools.Update
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly string _repoReleasesUrl;
         private readonly GitHubUpdateInfo.Factory _gitHubUpdateInfoFactory;
+        Settings.LocalizationAuthToken? CurrentRepoToken = null;
         public GitHubDownloadType DownloadType { get; }
         public GitHubUpdateRepository(GitHubDownloadType downloadType, GitHubUpdateInfo.Factory gitHubUpdateInfoFactory, string name, string repository) :
             base(UpdateRepositoryType.GitHub, name, repository, GitHubRepositoryUrl.Build(repository))
         {
             DownloadType = downloadType;
-            _repoReleasesUrl = $"{GitHubApiUrl}/{repository}/releases";
+            
+            foreach (var authidx in Settings.LocalizationAuthToken.DefaultList)
+                if (repository == authidx.Url)
+                {
+                    CurrentRepoToken = authidx;
+                    break;
+                }
+            if(CurrentRepoToken!=null)
+                _repoReleasesUrl = $"{CurrentRepoToken.VersionUrl}";
+            else
+                _repoReleasesUrl = $"{GitHubApiUrl}/{repository}/releases";
             _gitHubUpdateInfoFactory = gitHubUpdateInfoFactory;
         }
 

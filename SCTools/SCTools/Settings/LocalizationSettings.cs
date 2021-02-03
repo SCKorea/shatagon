@@ -91,21 +91,23 @@ namespace NSW.StarCitizen.Tools.Settings
     public class LocalizationAuthToken
     {
         [JsonProperty]
-        public string Name { get; }
+        public string Url { get; }
+        [JsonProperty]
+        public string VersionUrl { get; }
         [JsonProperty]
         public string VersionToken { get; }
         [JsonProperty]
         public string DownloadToken { get; set; }
 
         [JsonConstructor]
-        public LocalizationAuthToken(string name, string versiontoken, string downloadtoken)
+        public LocalizationAuthToken(string url, string versionurl, string downloadtoken)
         {
-            Name = name;
-            VersionToken = versiontoken;
+            Url = url;
+            VersionUrl = versionurl;
             DownloadToken = downloadtoken;
         }
 
-        public static LocalizationAuthToken DefaultKoreanAuth { get; } = new LocalizationAuthToken("Korean Community", "ec294acb43fff8b9b018b6b076396473e84935fe", "");
+        public static LocalizationAuthToken DefaultKoreanAuth { get; } = new LocalizationAuthToken("xhatagon/sc_ko", "https://sc.galaxyhub.kr/api/v1/releases/check", "");
         public static IReadOnlyList<LocalizationAuthToken> DefaultList { get; } = new List<LocalizationAuthToken>() {
             DefaultKoreanAuth
         };

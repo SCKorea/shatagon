@@ -13,15 +13,13 @@ namespace NSW.StarCitizen.Tools.Forms
     public partial class LocalizationForm : Form, ILocalizedForm
     {
         private readonly LocalizationController _controller;
-        private readonly AuthController _author;
 
         public LocalizationForm(GameInfo currentGame)
         {
             _controller = new LocalizationController(currentGame);
             InitializeComponent();
             UpdateLocalizedControls();
-            _author = new AuthController();
-    }
+        }
 
         public void UpdateLocalizedControls()
         {
@@ -56,15 +54,6 @@ namespace NSW.StarCitizen.Tools.Forms
         {
             if (cbRepository.SelectedItem is ILocalizationRepository repository)
             {
-                if(repository.RepositoryUrl.EndsWith("xhatagon/sc_ko"))
-                {
-                    using var authwin = new AuthForm(_author);
-                    authwin.ShowDialog(this);
-                    if((Program.Settings.AuthToken = _author.get_authtoken()) == null)
-                    {
-                        cbRepository.SelectedItem = cbRepository.Items[0];
-                    }   //revert selection
-                }
                 SetCurrentLocalizationRepository(repository);
             }
         }
