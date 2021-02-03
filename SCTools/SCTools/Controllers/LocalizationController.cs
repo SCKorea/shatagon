@@ -142,7 +142,8 @@ namespace NSW.StarCitizen.Tools.Controllers
                     return false;
                 }   
             }
-
+            //MessageBox.Show("Install Stage", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            //return false;
             _logger.Info($"Install localization: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
             bool status = false;
             using var progressDlg = new ProgressForm();
