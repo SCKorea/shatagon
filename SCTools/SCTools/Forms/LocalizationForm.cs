@@ -56,7 +56,7 @@ namespace NSW.StarCitizen.Tools.Forms
         {
             if (cbRepository.SelectedItem is ILocalizationRepository repository)
             {
-                if(repository.Name == "Korean Community")
+                if(repository.RepositoryUrl.EndsWith("xhatagon/sc_ko"))
                 {
                     using var authwin = new AuthForm(_author);
                     authwin.ShowDialog(this);
