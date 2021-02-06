@@ -1,0 +1,24 @@
+<Page x:Class="SCTool_Redesigned.Pages.selectLang"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="180" d:DesignWidth="360"
+      Title="selectLang">
+
+    <Grid>
+        <Button Content="언어 선택" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                Height="27" Margin="0,0,0,40" Width="96" VerticalAlignment="Bottom"
+                FontSize="14">
+
+        </Button>
+        <ComboBox x:Name="LangListBox" HorizontalAlignment="Center" Height="24" Margin="0,60,0,0" VerticalAlignment="Top" Width="196">
+            <ComboBoxItem Content="One"/>
+            <ComboBoxItem Content="Two"/>
+            <ComboBoxItem Content="Three"/>
+        </ComboBox>
+
+    </Grid>
+</Page>

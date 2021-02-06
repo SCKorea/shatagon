@@ -1,0 +1,17 @@
+<Page x:Class="SCTool_Redesigned.Pages.selectDir"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="selectDir">
+
+    <Grid>
+        <Label x:Name="PhaseNumber" Content="01" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="72"/>
+        <Label x:Name="Phasetext" Content="스타시티즌이 설치된 폴더를 찾아 선택합니다." HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="24"/>
+        <Label x:Name="PhaseDesc" Content="예) C:\Programe Files\Roberts Space Industries\StarCitizen" HorizontalAlignment="Left" Margin="50,160,0,0" VerticalAlignment="Top" Foreground="{StaticResource MediumGreyBrush}" FontSize="18"/>
+        <Button x:Name="PhaseBtn" Content="변경" HorizontalAlignment="Right" Height="40" Margin="0,360,50,0" VerticalAlignment="Top" Width="80" Style="{StaticResource subBtnStyle}"/>
+    </Grid>
+</Page>

@@ -1,0 +1,15 @@
+<Page x:Class="SCTool_Redesigned.Pages.installComplete"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="440" d:DesignWidth="960"
+      Title="installComplete">
+
+    <Grid>
+        <Label x:Name="PhaseNumber" Content="03" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="72"/>
+        <Label x:Name="Phasetext" Content="설치가 완료되었습니다." HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="24"/>
+    </Grid>
+</Page>

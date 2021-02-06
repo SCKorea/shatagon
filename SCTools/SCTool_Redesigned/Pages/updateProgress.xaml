@@ -1,0 +1,17 @@
+<Page x:Class="SCTool_Redesigned.Pages.updateProgress"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="180" d:DesignWidth="360"
+      Title="updateProgress">
+
+    <Grid>
+        <Label x:Name="MainText" FontWeight="SemiBold" Content="언어팩 런처 Mk.3" HorizontalContentAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="359" Foreground="{DynamicResource TextBrush}" FontSize="24"/>
+        <Label x:Name="SubText" Content="런처 업데이트 중" HorizontalContentAlignment="Center" Margin="0,92,0,0" VerticalAlignment="Top" Width="359" Foreground="{DynamicResource TextBrush}" FontSize="16"/>
+        <ProgressBar x:Name="ProgBar" HorizontalAlignment="Center" Height="10" Margin="0,170,0,0" VerticalAlignment="Top" Width="360" Background="{DynamicResource HeavyGreyBrush}" Foreground="{DynamicResource KeyPointBrush}" BorderBrush="Transparent"/>
+
+    </Grid>
+</Page>
