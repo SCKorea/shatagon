@@ -79,14 +79,14 @@
                   Grid.ColumnSpan="2"
                   CornerRadius="4"
                   Background="{StaticResource HeavyGreyBrush}"
-                  BorderBrush="Transparent"
-                  BorderThickness="1" />
+                  BorderBrush="{StaticResource HeavyGreyBrush}"
+                  BorderThickness="3" />
             <Border 
                   Grid.Column="0"
                   CornerRadius="4" 
                   Margin="1" 
                   Background="{StaticResource HeavyGreyBrush}" 
-                  BorderBrush="{StaticResource MediumGreyBrush}"
+                  BorderBrush="{StaticResource HeavyGreyBrush}"
                   BorderThickness="0" />
             <Path 
                   x:Name="Arrow"
