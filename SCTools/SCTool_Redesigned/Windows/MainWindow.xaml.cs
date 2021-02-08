@@ -19,6 +19,7 @@ namespace SCTool_Redesigned.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int _PhaseNumber;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace SCTool_Redesigned.Windows
             preface.startLang();
             //preface.Hide();
             this.Show();
+            _PhaseNumber = 0;
             frame_right.Content = new Pages.mainNotes();
         }
 
@@ -36,6 +38,36 @@ namespace SCTool_Redesigned.Windows
         {
             MessageBox.Show("HI!");
             //this.Close();
+        }
+        public int Phase
+        {
+            get { return _PhaseNumber; }
+            set
+            {
+                switch (value)
+                {
+                    case 0: //select patch Language
+                        InstallBtn.IsEnabled = false;
+                        UninstallBtn.IsEnabled = false;
+                        NextBtn.IsEnabled = false;
+                        PrevBtn.IsEnabled = false;
+                        break;
+                    case 1: //main Install
+                        
+                    case 2: //select Dir
+                        frame_left.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.selectDir();
+                        InstallBtn.IsEnabled = false;
+                        UninstallBtn.IsEnabled = false;
+                        NextBtn.IsEnabled = true;
+                        PrevBtn.IsEnabled = true;
+                        break;
+                    case 3:
+                    
+                    default: throw new Exception(value.ToString()+" Phase is not exist");
+                }
+            }
         }
     }
 }
