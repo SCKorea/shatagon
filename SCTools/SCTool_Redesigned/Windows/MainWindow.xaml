@@ -23,10 +23,17 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas Name="logoCanvas" Grid.Column="0" HorizontalAlignment="center" Height="184" Margin="144,0" VerticalAlignment="Top" Width="189">
-            <Image Source="/Resources/logo.png" Width="{Binding Path=ActualWidth, ElementName=logoCanvas}" Height="{Binding Path=ActualHeight, ElementName=logoCanvas}" Stretch="Uniform" Canvas.Top="70"/>
+        <Canvas Name="logoCanvas" Grid.Column="0" HorizontalAlignment="center" Height="180" Margin="0,40" VerticalAlignment="Top" Width="180">
+            <Image Source="/Resources/logo.png" Width="{Binding Path=ActualWidth, ElementName=logoCanvas}" Height="{Binding Path=ActualHeight, ElementName=logoCanvas}" Stretch="Uniform"/>
         </Canvas>
+        <Frame x:Name="frame_all" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2"/>
         <Frame x:Name="frame_left" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.RowSpan="2"/>
         <Frame x:Name="frame_right" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.RowSpan="2"/>
+        <TextBlock x:Name="PrevBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Left"
+                   Text="이전" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" TextAlignment="Center" />
+        <TextBlock x:Name="NextBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Right"
+                   Text="다음" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" TextAlignment="Center" />
+        <Button x:Name="InstallBtn"  Content="언어팩 설치" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,250,0,0" VerticalAlignment="Top" Width="200"/>
+        <Button x:Name="UninstallBtn"  Content="언어팩 제거" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,320,0,0" VerticalAlignment="Top" Width="200"/>
     </Grid>
 </Window>
