@@ -22,7 +22,7 @@ namespace SCTool_Redesigned.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SCTool_Redesigned.Properties {
         ///   이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SCTool_Redesigned.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,233 @@ namespace SCTool_Redesigned.Properties {
         ///   재정의합니다.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        public static byte[] GmarketSansBold {
+            get {
+                object obj = ResourceManager.GetObject("GmarketSansBold", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        public static byte[] GmarketSansMedium {
+            get {
+                object obj = ResourceManager.GetObject("GmarketSansMedium", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        public static byte[] SCDream3 {
+            get {
+                object obj = ResourceManager.GetObject("SCDream3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        public static byte[] SCDream5 {
+            get {
+                object obj = ResourceManager.GetObject("SCDream5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        public static byte[] SCDream9 {
+            get {
+                object obj = ResourceManager.GetObject("SCDream9", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Edit과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Edit {
+            get {
+                return ResourceManager.GetString("UI_Button_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Load과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Load {
+            get {
+                return ResourceManager.GetString("UI_Button_Load", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Next과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Next {
+            get {
+                return ResourceManager.GetString("UI_Button_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_No {
+            get {
+                return ResourceManager.GetString("UI_Button_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Save과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Save {
+            get {
+                return ResourceManager.GetString("UI_Button_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Select {
+            get {
+                return ResourceManager.GetString("UI_Button_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Yes과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Yes {
+            get {
+                return ResourceManager.GetString("UI_Button_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Find and select the &quot;StarCitizen&quot; folder.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_ChooseStarCItizenFolder {
+            get {
+                return ResourceManager.GetString("UI_Desc_ChooseStarCItizenFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ex) C:\Programe Files\Roberts Space Industries\StarCitizen과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_ChooseStarCitizenFolerExample {
+            get {
+                return ResourceManager.GetString("UI_Desc_ChooseStarCitizenFolerExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Installation is complete.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_InstallationComplete {
+            get {
+                return ResourceManager.GetString("UI_Desc_InstallationComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select Localization Version.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_SelectLocalizationVersion {
+            get {
+                return ResourceManager.GetString("UI_Desc_SelectLocalizationVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Updating SCTools과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_UpdatingProgram {
+            get {
+                return ResourceManager.GetString("UI_Desc_UpdatingProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Q&amp;A과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Tab_Main_Qna {
+            get {
+                return ResourceManager.GetString("UI_Tab_Main_Qna", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Releases과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Tab_Main_ReleaseNote {
+            get {
+                return ResourceManager.GetString("UI_Tab_Main_ReleaseNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Choose Localization과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Title_ChooseLocalization {
+            get {
+                return ResourceManager.GetString("UI_Title_ChooseLocalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SCTools과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Title_ProgramTitle {
+            get {
+                return ResourceManager.GetString("UI_Title_ProgramTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   01과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Title_Step_01 {
+            get {
+                return ResourceManager.GetString("UI_Title_Step_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   02과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Title_Step_02 {
+            get {
+                return ResourceManager.GetString("UI_Title_Step_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   03과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Title_Step_03 {
+            get {
+                return ResourceManager.GetString("UI_Title_Step_03", resourceCulture);
             }
         }
     }

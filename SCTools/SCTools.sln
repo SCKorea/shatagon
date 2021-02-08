@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCTools", "SCTools\SCTools.csproj", "{79E01D89-FE98-4EE9-8D7E-19A0DBD537FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCTools", "SCTools\SCTools.csproj", "{79E01D89-FE98-4EE9-8D7E-19A0DBD537FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCTool_Redesigned", "SCTool_Redesigned\SCTool_Redesigned.csproj", "{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{79E01D89-FE98-4EE9-8D7E-19A0DBD537FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79E01D89-FE98-4EE9-8D7E-19A0DBD537FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79E01D89-FE98-4EE9-8D7E-19A0DBD537FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

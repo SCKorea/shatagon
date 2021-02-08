@@ -101,6 +101,7 @@
     <Compile Include="Pages\updateProgress.xaml.cs">
       <DependentUpon>updateProgress.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.ko-KR.Designer.cs" />
     <Compile Include="Resources\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,6 +184,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.ko-KR.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -195,6 +197,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\fonts\GmarketSansBold.otf" />
+    <Resource Include="Resources\fonts\GmarketSansMedium.otf" />
+    <Resource Include="Resources\fonts\SCDream3.otf" />
+    <Resource Include="Resources\fonts\SCDream5.otf" />
+    <Resource Include="Resources\fonts\SCDream9.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

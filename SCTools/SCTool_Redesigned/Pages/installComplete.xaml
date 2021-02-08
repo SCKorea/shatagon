@@ -4,12 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="440" d:DesignWidth="800"
       Title="installComplete">
 
     <Grid>
-        <Label x:Name="PhaseNumber" Content="03" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="72"/>
-        <Label x:Name="Phasetext" Content="설치가 완료되었습니다." HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="24"/>
+        <Label x:Name="PhaseNumber" Content="{x:Static lang:Resources.UI_Title_Step_03}" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource GmarketSansB}" FontSize="72"/>
+        <Label x:Name="Phasetext" Content="{x:Static lang:Resources.UI_Desc_InstallationComplete}" HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="24"/>
     </Grid>
 </Page>
