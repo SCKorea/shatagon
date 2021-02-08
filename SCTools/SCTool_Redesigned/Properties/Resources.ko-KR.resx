@@ -134,52 +134,52 @@
     <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="UI_Button_Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>편집</value>
   </data>
   <data name="UI_Button_Load" xml:space="preserve">
-    <value>Load</value>
+    <value>불러오기</value>
   </data>
   <data name="UI_Button_Next" xml:space="preserve">
-    <value>Next</value>
+    <value>다음</value>
   </data>
   <data name="UI_Button_No" xml:space="preserve">
-    <value>No</value>
+    <value>아니요</value>
   </data>
   <data name="UI_Button_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>저장</value>
   </data>
   <data name="UI_Button_Select" xml:space="preserve">
-    <value>Select</value>
+    <value>선택</value>
   </data>
   <data name="UI_Button_Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>예</value>
   </data>
   <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
-    <value>Find and select the "StarCitizen" folder.</value>
+    <value>Star Citizen 폴더를 선택해 주십시오.</value>
   </data>
   <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
-    <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
+    <value>예) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
   </data>
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
-    <value>Installation is complete.</value>
+    <value>설치가 완료되었습니다.</value>
   </data>
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
-    <value>Select Localization Version.</value>
+    <value>언어팩 버전을 선택해주세요.</value>
   </data>
   <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
-    <value>Updating SCTools</value>
+    <value>언어팩 런처 Mk.3 업데이트 중...</value>
   </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
     <value>Q&amp;A</value>
   </data>
   <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
-    <value>Releases</value>
+    <value>패치노트</value>
   </data>
   <data name="UI_Title_ChooseLocalization" xml:space="preserve">
-    <value>Choose Localization</value>
+    <value>언어팩 선택</value>
   </data>
   <data name="UI_Title_ProgramTitle" xml:space="preserve">
-    <value>SCTools</value>
+    <value>언어팩 런처 Mk.3</value>
   </data>
   <data name="UI_Title_Step_01" xml:space="preserve">
     <value>01</value>
