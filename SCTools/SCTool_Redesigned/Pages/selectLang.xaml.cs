@@ -25,9 +25,9 @@ namespace SCTool_Redesigned.Pages
             InitializeComponent();
         }
 
-        private void setLangbtn_Click(object sender, RoutedEventArgs e)
+        private void applyBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("asdf");
+            ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
         }
     }
 }

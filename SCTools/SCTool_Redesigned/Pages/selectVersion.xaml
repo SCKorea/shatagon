@@ -10,6 +10,6 @@
     <Grid>
         <Label x:Name="PhaseNumber" Content="02" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="72"/>
         <Label x:Name="Phasetext" Content="버전을 선택하고 설치합니다." HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="24"/>
-        <Button x:Name="PhaseBtn" Content="버전 불러오기" HorizontalAlignment="Right" Height="40" Margin="0,360,50,0" VerticalAlignment="Top" Width="140" Style="{StaticResource subBtnStyle}"/>
+        <Button x:Name="PhaseBtn" Content="버전 불러오기" HorizontalAlignment="Right" Height="40" Margin="0,0,50,30" VerticalAlignment="Bottom" Width="140" Style="{StaticResource subBtnStyle}"/>
     </Grid>
 </Page>

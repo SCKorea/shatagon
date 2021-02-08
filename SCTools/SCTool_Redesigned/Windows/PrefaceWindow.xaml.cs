@@ -23,13 +23,5 @@ namespace SCTool_Redesigned.Windows
         {
             InitializeComponent();
         }
-        public void startUpdate()
-        {
-            Content = new Pages.updateProgress();
-        }
-        public void startLang()
-        {
-            Content = new Pages.selectLang();
-        }
     }
 }

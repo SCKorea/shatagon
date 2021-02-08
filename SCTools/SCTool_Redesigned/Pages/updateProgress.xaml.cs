@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,19 +21,30 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class updateProgress : Page
     {
-        private void TryUpdateLauncher()
-        {
-            
-            //TODO: 런쳐 업데이트
-            for (int i = 1; i <= 100; i++)
-            {
-                ProgBar.Value = i;
-            }
-        }
+
         public updateProgress()
         {
             InitializeComponent();
-            TryUpdateLauncher();
+            Progressbar_demo();
+        }
+        private DispatcherTimer timer1;
+        private void Progressbar_demo()
+        {
+            ProgBar.Value = 0;
+            timer1 = new DispatcherTimer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = TimeSpan.FromMilliseconds(30);
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ProgBar.Value += 5;
+            if (ProgBar.Value == ProgBar.Maximum)
+            {
+                timer1.Stop();
+                ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+            }
         }
     }
 }

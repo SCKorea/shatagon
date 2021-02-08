@@ -20,25 +20,15 @@ namespace SCTool_Redesigned.Windows
     public partial class MainWindow : Window
     {
         private int _PhaseNumber;
+        PrefaceWindow _prologue;
         public MainWindow()
         {
             InitializeComponent();
-            this.Hide();
-            Windows.PrefaceWindow preface = new PrefaceWindow();
-            preface.Show();
-            //preface.startUpdate();
-            preface.startLang();
-            //preface.Hide();
-            this.Show();
             _PhaseNumber = 0;
-            frame_right.Content = new Pages.mainNotes();
+            _prologue = new PrefaceWindow();
+            Phase = 0;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("HI!");
-            //this.Close();
-        }
         public int Phase
         {
             get { return _PhaseNumber; }
@@ -46,28 +36,115 @@ namespace SCTool_Redesigned.Windows
             {
                 switch (value)
                 {
-                    case 0: //select patch Language
-                        InstallBtn.IsEnabled = false;
-                        UninstallBtn.IsEnabled = false;
-                        NextBtn.IsEnabled = false;
-                        PrevBtn.IsEnabled = false;
+                    case 0:     //launcher update
+                        Hide();
+                        _prologue.Content = new Pages.updateProgress();
+                        _prologue.Show();
                         break;
-                    case 1: //main Install
-                        
-                    case 2: //select Dir
+                    case 1:     //select laucher language
+                        Hide();
+                        _prologue.Content = new Pages.selectLang();
+                        _prologue.Show();
+                        break;
+                    case 2: //select patch Language
+                        _prologue.Close();
+                        Show();
+                        frame_left.Content = null;
+                        frame_right.Content = new Pages.selectPatchLang();
+                        frame_all.Content = null;
+                        logoCanvas.Visibility = Visibility.Visible;
+                        logotitle.Visibility = Visibility.Visible;
+                        InstallBtn.Visibility = Visibility.Visible;
+                        InstallBtn.Visibility = Visibility.Hidden;
+                        UninstallBtn.Visibility = Visibility.Hidden;
+                        NextBtn.Visibility = Visibility.Hidden;
+                        PrevBtn.Visibility = Visibility.Hidden;
+                        break;
+                    case 3: //main Install
+                        frame_left.Content = null;
+                        frame_right.Content = new Pages.mainNotes();
+                        frame_all.Content = null;
+                        logoCanvas.Visibility = Visibility.Visible;
+                        logotitle.Visibility = Visibility.Visible;
+                        InstallBtn.Visibility = Visibility.Visible;
+                        UninstallBtn.Visibility = Visibility.Visible;
+                        NextBtn.Visibility = Visibility.Hidden;
+                        PrevBtn.Visibility = Visibility.Hidden;
+                        break;
+                    case 4: //select Dir
                         frame_left.Content = null;
                         frame_right.Content = null;
                         frame_all.Content = new Pages.selectDir();
-                        InstallBtn.IsEnabled = false;
-                        UninstallBtn.IsEnabled = false;
-                        NextBtn.IsEnabled = true;
-                        PrevBtn.IsEnabled = true;
+                        logoCanvas.Visibility = Visibility.Hidden;
+                        logotitle.Visibility = Visibility.Hidden;
+                        InstallBtn.Visibility = Visibility.Hidden;
+                        UninstallBtn.Visibility = Visibility.Hidden;
+                        NextBtn.Visibility = Visibility.Visible;
+                        NextBtn.Text = "다음";
+                        PrevBtn.Visibility = Visibility.Visible;
+                        PrevBtn.Text = "이전";
                         break;
-                    case 3:
-                    
+                    case 5: //select Version
+                        frame_left.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.selectVersion();
+                        logoCanvas.Visibility = Visibility.Hidden;
+                        logotitle.Visibility = Visibility.Hidden;
+                        InstallBtn.Visibility = Visibility.Hidden;
+                        UninstallBtn.Visibility = Visibility.Hidden;
+                        NextBtn.Visibility = Visibility.Visible;
+                        NextBtn.Text = "설치";
+                        PrevBtn.Visibility = Visibility.Visible;
+                        PrevBtn.Text = "이전";
+                        break;
+                    case 6: //installing?
+                        frame_left.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.installProgress();
+                        logoCanvas.Visibility = Visibility.Hidden;
+                        logotitle.Visibility = Visibility.Hidden;
+                        InstallBtn.Visibility = Visibility.Hidden;
+                        UninstallBtn.Visibility = Visibility.Hidden;
+                        NextBtn.Visibility = Visibility.Hidden;
+                        PrevBtn.Visibility = Visibility.Visible;
+                        PrevBtn.Text = "취소";
+                        break;
+                    case 7: //installComplete
+                        frame_left.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.installComplete();
+                        logoCanvas.Visibility = Visibility.Hidden;
+                        logotitle.Visibility = Visibility.Hidden;
+                        InstallBtn.Visibility = Visibility.Hidden;
+                        UninstallBtn.Visibility = Visibility.Hidden;
+                        NextBtn.Visibility = Visibility.Visible;
+                        NextBtn.Text = "종료";
+
+                        PrevBtn.Visibility = Visibility.Hidden;
+                        break;
+                    case 8:
+                        Application.Current.Shutdown();
+                        break;
                     default: throw new Exception(value.ToString()+" Phase is not exist");
                 }
+                //MessageBox.Show("Convert to Phase " + value.ToString());
+                _PhaseNumber = value;
             }
+        }
+
+        private void InstallBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Phase++;
+        }
+
+        private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Phase++;
+        }
+
+        private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Phase--;
         }
     }
 }

@@ -4,10 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned"
-        mc:Ignorable="d" Height="480" Width="960" Icon="/SCTool_Redesigned;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="SCTools Redesigned" Background="{DynamicResource BackgroundBrush}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        mc:Ignorable="d" Height="480" Width="960" Icon="/SCTool_Redesigned;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="SCTools Redesigned" Background="{DynamicResource BackgroundBrush}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
     </Window.Resources>
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo/>
     </Window.TaskbarItemInfo>
@@ -25,15 +28,18 @@
 
         <Canvas Name="logoCanvas" Grid.Column="0" HorizontalAlignment="center" Height="180" Margin="0,40" VerticalAlignment="Top" Width="180">
             <Image Source="/Resources/logo.png" Width="{Binding Path=ActualWidth, ElementName=logoCanvas}" Height="{Binding Path=ActualHeight, ElementName=logoCanvas}" Stretch="Uniform"/>
-        </Canvas>
+         </Canvas>
+        <Label Name="logotitle"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,70,0,0"
+                   Content="언어팩 런처" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" HorizontalContentAlignment="Center"/>
+
         <Frame x:Name="frame_all" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2"/>
         <Frame x:Name="frame_left" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.RowSpan="2"/>
         <Frame x:Name="frame_right" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.RowSpan="2"/>
         <TextBlock x:Name="PrevBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Left"
-                   Text="이전" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" TextAlignment="Center" />
+                   Text="이전" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" TextAlignment="Center" PreviewMouseDown="PrevBtn_PreviewMouseDown" />
         <TextBlock x:Name="NextBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Right"
-                   Text="다음" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" TextAlignment="Center" />
-        <Button x:Name="InstallBtn"  Content="언어팩 설치" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,250,0,0" VerticalAlignment="Top" Width="200"/>
-        <Button x:Name="UninstallBtn"  Content="언어팩 제거" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,320,0,0" VerticalAlignment="Top" Width="200"/>
-    </Grid>
+                   Text="다음" FontWeight="Bold" Foreground="{StaticResource KeyPointBrush}" FontSize="24" TextAlignment="Center" PreviewMouseDown="NextBtn_PreviewMouseDown" />
+        <Button x:Name="InstallBtn"  Content="언어팩 설치" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,270,0,0" VerticalAlignment="Top" Width="200" Click="InstallBtn_Click"/>
+        <Button x:Name="UninstallBtn"  Content="언어팩 제거" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,330,0,0" VerticalAlignment="Top" Width="200"/>
+   </Grid>
 </Window>

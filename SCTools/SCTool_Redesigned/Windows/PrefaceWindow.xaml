@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned.Windows"
         mc:Ignorable="d"
-        Title="preface" Height="180" Width="360" Margin="2,0" Background="{DynamicResource BackgroundBrush}" WindowStyle="None" Icon="/SCTool_Redesigned;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Topmost="True">
+        Title="preface" Height="180" Width="360" Margin="2,0" Background="{DynamicResource BackgroundBrush}" Icon="/SCTool_Redesigned;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
     <Grid Background="{DynamicResource BackgroundBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
