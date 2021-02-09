@@ -42,7 +42,7 @@ namespace NSW.StarCitizen.Tools.Settings
         public LocalizationSettings Localization { get; } = new LocalizationSettings();
         [JsonProperty]
         public LocalizationSettings LocalizationPtu { get; } = new LocalizationSettings();
-        [JsonProperty]
+        [JsonIgnore]
         public string? AuthToken { get; set; }
 
         public LocalizationSettings GetGameModeSettings(GameMode gameMode) =>

@@ -13,8 +13,7 @@ namespace NSW.StarCitizen.Tools.Settings
         public List<LocalizationInstallation> Installations { get; } = new List<LocalizationInstallation>();
         [JsonProperty]
         public int MonitorRefreshTime { get; set; } = 5;
-
-        [JsonProperty]
+        [JsonIgnore]
         public List<LocalizationAuthToken> AuthTokens { get; set; } = new List<LocalizationAuthToken>();
     }
 
@@ -90,16 +89,11 @@ namespace NSW.StarCitizen.Tools.Settings
 
     public class LocalizationAuthToken
     {
-        [JsonProperty]
-        public string Url { get; }
-        [JsonProperty]
-        public string VersionUrl { get; }
-        [JsonProperty]
-        public string VersionToken { get; }
-        [JsonProperty]
-        public string DownloadToken { get; set; }
+        public string? Url { get; }
+        public string? VersionUrl { get; }
+        public string? VersionToken { get; }
+        public string? DownloadToken { get; set; }
 
-        [JsonConstructor]
         public LocalizationAuthToken(string url, string versionurl, string downloadtoken)
         {
             Url = url;
