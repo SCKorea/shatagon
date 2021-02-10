@@ -36,10 +36,10 @@
         <Frame x:Name="frame_all" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2"/>
         <Frame x:Name="frame_left" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.RowSpan="2"/>
         <Frame x:Name="frame_right" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.RowSpan="2"/>
-        <TextBlock x:Name="PrevBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Left"
-                   Text="이전" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" TextAlignment="Center" PreviewMouseDown="PrevBtn_PreviewMouseDown" />
-        <TextBlock x:Name="NextBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Right"
-                   Text="다음" FontWeight="Bold" Foreground="{StaticResource KeyPointBrush}" FontSize="24" TextAlignment="Center" PreviewMouseDown="NextBtn_PreviewMouseDown" />
+        <TextBlock x:Name="PrevBtn" Height="30" Margin="15,2,0,13" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Width="150" HorizontalAlignment="Left" Cursor="Hand"
+                   Text="{x:Static lang:Resources.UI_Button_Previous}" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" PreviewMouseDown="PrevBtn_PreviewMouseDown" />
+        <TextBlock x:Name="NextBtn" Height="30" Margin="0,2,15,13" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="150" HorizontalAlignment="Right" Cursor="Hand"
+                   Text="{x:Static lang:Resources.UI_Button_Next}" FontWeight="Bold" Foreground="{StaticResource KeyPointBrush}" FontSize="24" TextAlignment="Right" PreviewMouseDown="NextBtn_PreviewMouseDown" />
         <Button x:Name="InstallBtn"  Content="{x:Static lang:Resources.UI_Button_InstallLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,270,0,0" VerticalAlignment="Top" Width="200" Click="InstallBtn_Click"/>
         <Button x:Name="UninstallBtn"  Content="{x:Static lang:Resources.UI_Button_RemoveLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,330,0,0" VerticalAlignment="Top" Width="200"/>
    </Grid>

@@ -255,6 +255,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Instralling...과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_LocailzationInstaling {
+            get {
+                return ResourceManager.GetString("UI_Desc_LocailzationInstaling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Select Localization Version.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_SelectLocalizationVersion {

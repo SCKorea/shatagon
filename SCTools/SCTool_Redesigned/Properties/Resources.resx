@@ -181,6 +181,9 @@
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
     <value>Installation is complete.</value>
   </data>
+  <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
+    <value>Instralling...</value>
+  </data>
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
     <value>Select Localization Version.</value>
   </data>
