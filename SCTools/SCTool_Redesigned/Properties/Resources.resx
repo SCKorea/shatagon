@@ -133,8 +133,17 @@
   <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="UI_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="UI_Button_Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="UI_Button_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="UI_Button_InstallLocalization" xml:space="preserve">
+    <value>Install Localization</value>
   </data>
   <data name="UI_Button_Load" xml:space="preserve">
     <value>Load</value>
@@ -144,6 +153,15 @@
   </data>
   <data name="UI_Button_No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="UI_Button_Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="UI_Button_Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="UI_Button_RemoveLocalization" xml:space="preserve">
+    <value>Remove Localization</value>
   </data>
   <data name="UI_Button_Save" xml:space="preserve">
     <value>Save</value>

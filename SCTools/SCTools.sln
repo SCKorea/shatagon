@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCTools", "SCTools\SCTools.csproj", "{79E01D89-FE98-4EE9-8D7E-19A0DBD537FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCTool_Redesigned", "SCTool_Redesigned\SCTool_Redesigned.csproj", "{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E} = {AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCToolsLib", "SCToolsLib\SCToolsLib.csproj", "{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}"
 EndProject

@@ -111,11 +111,38 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Cancel과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Cancel {
+            get {
+                return ResourceManager.GetString("UI_Button_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Edit과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_Edit {
             get {
                 return ResourceManager.GetString("UI_Button_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Install과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Install {
+            get {
+                return ResourceManager.GetString("UI_Button_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Install Localization과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_InstallLocalization {
+            get {
+                return ResourceManager.GetString("UI_Button_InstallLocalization", resourceCulture);
             }
         }
         
@@ -143,6 +170,33 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Button_No {
             get {
                 return ResourceManager.GetString("UI_Button_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Previous과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Previous {
+            get {
+                return ResourceManager.GetString("UI_Button_Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Quit과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Quit {
+            get {
+                return ResourceManager.GetString("UI_Button_Quit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove Localization과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_RemoveLocalization {
+            get {
+                return ResourceManager.GetString("UI_Button_RemoveLocalization", resourceCulture);
             }
         }
         

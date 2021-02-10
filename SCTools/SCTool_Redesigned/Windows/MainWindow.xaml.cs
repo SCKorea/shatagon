@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SCTool_Redesigned.Windows
 {
@@ -19,10 +20,14 @@ namespace SCTool_Redesigned.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+        internal static MainWindow UI;
+
         private int _PhaseNumber;
         PrefaceWindow _prologue;
         public MainWindow()
         {
+            UI = this;
+
             InitializeComponent();
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
@@ -47,6 +52,7 @@ namespace SCTool_Redesigned.Windows
                         _prologue.Show();
                         break;
                     case 2: //select patch Language
+                        DoNotCloseMainWindow = true;
                         _prologue.Close();
                         Show();
                         frame_left.Content = null;
@@ -80,9 +86,9 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
-                        NextBtn.Text = "다음";
+                        NextBtn.Text = Properties.Resources.UI_Button_Next;
                         PrevBtn.Visibility = Visibility.Visible;
-                        PrevBtn.Text = "이전";
+                        PrevBtn.Text = Properties.Resources.UI_Button_Previous;
                         break;
                     case 5: //select Version
                         frame_left.Content = null;
@@ -93,9 +99,9 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
-                        NextBtn.Text = "설치";
+                        NextBtn.Text = Properties.Resources.UI_Button_Install;
                         PrevBtn.Visibility = Visibility.Visible;
-                        PrevBtn.Text = "이전";
+                        PrevBtn.Text = Properties.Resources.UI_Button_Previous;
                         break;
                     case 6: //installing?
                         frame_left.Content = null;
@@ -107,7 +113,7 @@ namespace SCTool_Redesigned.Windows
                         UninstallBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Visible;
-                        PrevBtn.Text = "취소";
+                        PrevBtn.Text = Properties.Resources.UI_Button_Cancel;
                         break;
                     case 7: //installComplete
                         frame_left.Content = null;
@@ -118,7 +124,7 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
-                        NextBtn.Text = "종료";
+                        NextBtn.Text = Properties.Resources.UI_Button_Quit;
 
                         PrevBtn.Visibility = Visibility.Hidden;
                         break;
@@ -146,5 +152,15 @@ namespace SCTool_Redesigned.Windows
         {
             Phase--;
         }
+
+        internal void Quit()
+        {
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                Close();
+            }));
+        }
+
+        internal bool DoNotCloseMainWindow = false;
     }
 }
