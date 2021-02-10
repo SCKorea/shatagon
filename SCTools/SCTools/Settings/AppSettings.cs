@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using NLog;
-using NSW.StarCitizen.Tools.Global;
+using NSW.StarCitizen.Tools.Lib.Global;
 
 namespace NSW.StarCitizen.Tools.Settings
 {
@@ -43,7 +43,7 @@ namespace NSW.StarCitizen.Tools.Settings
         [JsonProperty]
         public LocalizationSettings LocalizationPtu { get; } = new LocalizationSettings();
         [JsonProperty]
-        public string? AuthToken { get; set; }
+        public string? AuthToken { get; private set; }
 
         public LocalizationSettings GetGameModeSettings(GameMode gameMode) =>
             gameMode switch

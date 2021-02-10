@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using NSW.StarCitizen.Tools.Global;
-using NSW.StarCitizen.Tools.Update;
+using NSW.StarCitizen.Tools.Lib.Global;
+using NSW.StarCitizen.Tools.Lib.Update;
 
 namespace NSW.StarCitizen.Tools.Settings
 {
@@ -13,9 +13,6 @@ namespace NSW.StarCitizen.Tools.Settings
         public List<LocalizationInstallation> Installations { get; } = new List<LocalizationInstallation>();
         [JsonProperty]
         public int MonitorRefreshTime { get; set; } = 5;
-
-        [JsonProperty]
-        public List<LocalizationAuthToken> AuthTokens { get; set; } = new List<LocalizationAuthToken>();
     }
 
     public class LocalizationInstallation
@@ -85,31 +82,6 @@ namespace NSW.StarCitizen.Tools.Settings
             DefaultPolish,
             DefaultChinese,
             DefaultBaseModding
-        };
-    }
-
-    public class LocalizationAuthToken
-    {
-        [JsonProperty]
-        public string Url { get; }
-        [JsonProperty]
-        public string VersionUrl { get; }
-        [JsonProperty]
-        public string VersionToken { get; }
-        [JsonProperty]
-        public string DownloadToken { get; set; }
-
-        [JsonConstructor]
-        public LocalizationAuthToken(string url, string versionurl, string downloadtoken)
-        {
-            Url = url;
-            VersionUrl = versionurl;
-            DownloadToken = downloadtoken;
-        }
-
-        public static LocalizationAuthToken DefaultKoreanAuth { get; } = new LocalizationAuthToken("xhatagon/sc_ko", "https://sc.galaxyhub.kr/api/v1/releases/check", "");
-        public static IReadOnlyList<LocalizationAuthToken> DefaultList { get; } = new List<LocalizationAuthToken>() {
-            DefaultKoreanAuth
         };
     }
 }

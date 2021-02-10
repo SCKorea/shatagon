@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCTools", "SCTools\SCTools.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCTool_Redesigned", "SCTool_Redesigned\SCTool_Redesigned.csproj", "{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCToolsLib", "SCToolsLib\SCToolsLib.csproj", "{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9550F0B-1DA4-4DDB-8CE0-C4A83C27618D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
