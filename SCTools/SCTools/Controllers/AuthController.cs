@@ -27,7 +27,7 @@ namespace NSW.StarCitizen.Tools.Controllers
             };
             var payload = new System.Net.Http.FormUrlEncodedContent(values);
 
-            var response = await NSW.StarCitizen.Tools.Update.HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v1/password/check", payload);
+            var response = await NSW.StarCitizen.Tools.Update.HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v2/password/check", payload);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {

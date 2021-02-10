@@ -101,7 +101,7 @@ namespace NSW.StarCitizen.Tools.Settings
             DownloadToken = downloadtoken;
         }
 
-        public static LocalizationAuthToken DefaultKoreanAuth { get; } = new LocalizationAuthToken("xhatagon/sc_ko", "https://sc.galaxyhub.kr/api/v1/releases/check", "");
+        public static LocalizationAuthToken DefaultKoreanAuth { get; } = new LocalizationAuthToken("xhatagon/sc_ko", "https://sc.galaxyhub.kr/api/v2/releases/check", "");
         public static IReadOnlyList<LocalizationAuthToken> DefaultList { get; } = new List<LocalizationAuthToken>() {
             DefaultKoreanAuth
         };
