@@ -22,6 +22,17 @@ namespace SCTool_Redesigned.Windows
         public PrefaceWindow()
         {
             InitializeComponent();
+
+            Closed += PrefaceWindow_Closed;
         }
+
+        private void PrefaceWindow_Closed(object sender, EventArgs e)
+        {
+            if (!MainWindow.UI.DoNotCloseMainWindow)
+            {
+                MainWindow.UI.Quit();
+            }
+        }
+
     }
 }

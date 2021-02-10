@@ -101,11 +101,6 @@
     <Compile Include="Pages\updateProgress.xaml.cs">
       <DependentUpon>updateProgress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Resource1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource1.resx</DependentUpon>
-    </Compile>
     <Compile Include="Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
@@ -184,17 +179,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resource1.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\fonts\GmarketSansBold.otf" />
+    <Resource Include="Resources\fonts\GmarketSansMedium.otf" />
+    <Resource Include="Resources\fonts\SCDream3.otf" />
+    <Resource Include="Resources\fonts\SCDream5.otf" />
+    <Resource Include="Resources\fonts\SCDream9.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

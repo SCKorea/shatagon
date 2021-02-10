@@ -3,10 +3,11 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using NSW.StarCitizen.Tools.Controllers;
-using NSW.StarCitizen.Tools.Global;
-using NSW.StarCitizen.Tools.Localization;
+using NSW.StarCitizen.Tools.Helpers;
+using NSW.StarCitizen.Tools.Lib.Global;
+using NSW.StarCitizen.Tools.Lib.Localization;
+using NSW.StarCitizen.Tools.Lib.Update;
 using NSW.StarCitizen.Tools.Properties;
-using NSW.StarCitizen.Tools.Update;
 
 namespace NSW.StarCitizen.Tools.Forms
 {
@@ -76,7 +77,7 @@ namespace NSW.StarCitizen.Tools.Forms
         }
 
         private async void btnInstall_Click(object sender, EventArgs e)
-        {   
+        {
             if (cbVersions.SelectedItem is UpdateInfo selectedUpdateInfo)
             {
                 await _controller.InstallVersionAsync(this, selectedUpdateInfo);

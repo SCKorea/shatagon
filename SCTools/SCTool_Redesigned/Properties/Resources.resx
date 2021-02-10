@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,103 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GmarketSansBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\GmarketSansBold.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SCDream5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream5.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="UI_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="UI_Button_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="UI_Button_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="UI_Button_InstallLocalization" xml:space="preserve">
+    <value>Install Localization</value>
+  </data>
+  <data name="UI_Button_Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="UI_Button_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="UI_Button_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="UI_Button_Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="UI_Button_Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="UI_Button_RemoveLocalization" xml:space="preserve">
+    <value>Remove Localization</value>
+  </data>
+  <data name="UI_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="UI_Button_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="UI_Button_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
+    <value>Find and select the "StarCitizen" folder.</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
+    <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
+  </data>
+  <data name="UI_Desc_InstallationComplete" xml:space="preserve">
+    <value>Installation is complete.</value>
+  </data>
+  <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
+    <value>Instralling...</value>
+  </data>
+  <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
+    <value>Select Localization Version.</value>
+  </data>
+  <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
+    <value>Updating SCTools</value>
+  </data>
+  <data name="UI_Tab_Main_Qna" xml:space="preserve">
+    <value>Q&amp;A</value>
+  </data>
+  <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
+    <value>Releases</value>
+  </data>
+  <data name="UI_Title_ChooseLocalization" xml:space="preserve">
+    <value>Choose Localization</value>
+  </data>
+  <data name="UI_Title_ProgramTitle" xml:space="preserve">
+    <value>SCTools</value>
+  </data>
+  <data name="UI_Title_Step_01" xml:space="preserve">
+    <value>01</value>
+  </data>
+  <data name="UI_Title_Step_02" xml:space="preserve">
+    <value>02</value>
+  </data>
+  <data name="UI_Title_Step_03" xml:space="preserve">
+    <value>03</value>
+  </data>
 </root>

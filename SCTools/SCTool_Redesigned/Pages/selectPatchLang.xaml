@@ -4,15 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="480"
       Title="selectPatchLang">
 
     <Grid>
-        <Label Content="패치 언어 선택" FontSize="24" Foreground="{StaticResource TextBrush}" HorizontalContentAlignment="Center"
+        <Label Content="{x:Static lang:Resources.UI_Title_ChooseLocalization}" FontSize="24" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" HorizontalContentAlignment="Center"
                HorizontalAlignment="Center" Height="48" Margin="0,123,0,0" VerticalAlignment="Top" Width="480"/>
         <ComboBox HorizontalAlignment="Center" Height="30" Margin="0,220,0,0" VerticalAlignment="Top" Width="240"/>
-        <Button x:Name="applyBtn" Content="선택" FontSize="20" HorizontalAlignment="center" Height="40" Margin="0,280,0,0" VerticalAlignment="Top" Width="100" Click="applyBtn_Click"/>
+        <Button x:Name="applyBtn" Content="{x:Static lang:Resources.UI_Button_Save}" FontSize="20" HorizontalAlignment="center" Height="40" Margin="0,280,0,0" VerticalAlignment="Top" Width="100" Click="applyBtn_Click"/>
 
     </Grid>
 </Page>

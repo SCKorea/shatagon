@@ -7,19 +7,18 @@ using System.Windows.Forms;
 using NLog;
 using NSW.StarCitizen.Tools.Adapters;
 using NSW.StarCitizen.Tools.Forms;
-using NSW.StarCitizen.Tools.Global;
-using NSW.StarCitizen.Tools.Localization;
+using NSW.StarCitizen.Tools.Lib.Global;
+using NSW.StarCitizen.Tools.Lib.Localization;
+using NSW.StarCitizen.Tools.Lib.Update;
 using NSW.StarCitizen.Tools.Properties;
+using NSW.StarCitizen.Tools.Repository;
 using NSW.StarCitizen.Tools.Settings;
-using NSW.StarCitizen.Tools.Update;
 
 namespace NSW.StarCitizen.Tools.Controllers
 {
     public sealed class LocalizationController
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
-        private readonly AuthController _author;
-
         public readonly GameInfo CurrentGame;
         public readonly GameSettings GameSettings;
         public RepositoryManager RepositoryManager { get; }
@@ -36,7 +35,6 @@ namespace NSW.StarCitizen.Tools.Controllers
             Repositories = RepositoryManager.GetRepositoriesList();
             CurrentRepository = RepositoryManager.GetCurrentRepository(Repositories);
             CurrentInstallation = RepositoryManager.CreateRepositoryInstallation(CurrentRepository);
-            _author = new AuthController();
         }
 
         public void Load()
@@ -72,7 +70,6 @@ namespace NSW.StarCitizen.Tools.Controllers
         {
             _logger.Info($"Refresh localization versions: {CurrentRepository.RepositoryUrl}");
             bool status = false;
-
             using var progressDlg = new ProgressForm(10000);
             try
             {
@@ -82,7 +79,6 @@ namespace NSW.StarCitizen.Tools.Controllers
                 progressDlg.UserCancelText = Resources.Localization_Stop_Text;
                 progressDlg.Show(window);
                 await CurrentRepository.RefreshUpdatesAsync(progressDlg.CancelToken);
-
                 progressDlg.CurrentTaskProgress = 1.0f;
                 status = true;
             }
@@ -133,17 +129,6 @@ namespace NSW.StarCitizen.Tools.Controllers
                 Program.Settings.AcceptInstallWarning = true;
                 Program.SaveAppSettings();
             }
-            if (CurrentRepository.RepositoryUrl.EndsWith("xhatagon/sc_ko"))
-            {
-                using var authwin = new AuthForm(_author);
-                authwin.ShowDialog(window);
-                if ((Program.Settings.AuthToken = _author.get_authtoken()) == null) //auth failed!
-                {
-                    return false;
-                }   
-            }
-            //MessageBox.Show("Install Stage", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-            //return false;
             _logger.Info($"Install localization: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
             bool status = false;
             using var progressDlg = new ProgressForm();
