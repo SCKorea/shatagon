@@ -10,7 +10,7 @@
       Title="installComplete">
 
     <Grid>
-        <Label x:Name="PhaseNumber" Content="{x:Static lang:Resources.UI_Title_Step_03}" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource GmarketSansB}" FontSize="72"/>
-        <Label x:Name="Phasetext" Content="{x:Static lang:Resources.UI_Desc_InstallationComplete}" HorizontalAlignment="Left" Margin="50,130,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="24"/>
+        <Label x:Name="PhaseNumber" Content="{x:Static lang:Resources.UI_Title_Step_03}" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource GmarketSansB}" FontSize="36"/>
+        <Label x:Name="Phasetext" Content="{x:Static lang:Resources.UI_Desc_InstallationComplete}" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="18"/>
     </Grid>
 </Page>

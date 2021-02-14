@@ -27,20 +27,20 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas Name="logoCanvas" Grid.Column="0" HorizontalAlignment="center" Height="180" Margin="0,40" VerticalAlignment="Top" Width="180">
+        <Canvas Name="logoCanvas" Grid.Column="0" HorizontalAlignment="center" Height="120" Margin="0,60" VerticalAlignment="Top" Width="180">
             <Image Source="/Resources/logo.png" Width="{Binding Path=ActualWidth, ElementName=logoCanvas}" Height="{Binding Path=ActualHeight, ElementName=logoCanvas}" Stretch="Uniform"/>
          </Canvas>
-        <Label Name="logotitle"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,70,0,0"
+        <Label Name="logotitle"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"
                    Content="{x:Static lang:Resources.UI_Title_ProgramTitle}" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" HorizontalContentAlignment="Center"/>
 
         <Frame x:Name="frame_all" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2"/>
         <Frame x:Name="frame_left" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.RowSpan="2"/>
         <Frame x:Name="frame_right" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.RowSpan="2"/>
-        <TextBlock x:Name="PrevBtn" Height="30" Margin="15,2,0,13" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Width="150" HorizontalAlignment="Left" Cursor="Hand"
-                   Text="{x:Static lang:Resources.UI_Button_Previous}" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" PreviewMouseDown="PrevBtn_PreviewMouseDown" />
-        <TextBlock x:Name="NextBtn" Height="30" Margin="0,2,15,13" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="150" HorizontalAlignment="Right" Cursor="Hand"
-                   Text="{x:Static lang:Resources.UI_Button_Next}" FontWeight="Bold" Foreground="{StaticResource KeyPointBrush}" FontSize="24" TextAlignment="Right" PreviewMouseDown="NextBtn_PreviewMouseDown" />
-        <Button x:Name="InstallBtn"  Content="{x:Static lang:Resources.UI_Button_InstallLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,270,0,0" VerticalAlignment="Top" Width="200" Click="InstallBtn_Click"/>
-        <Button x:Name="UninstallBtn"  Content="{x:Static lang:Resources.UI_Button_RemoveLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,330,0,0" VerticalAlignment="Top" Width="200"/>
+        <TextBlock x:Name="PrevBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Left" Cursor="Hand"
+                   Text="{x:Static lang:Resources.UI_Button_Previous}" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="21" PreviewMouseDown="PrevBtn_PreviewMouseDown" />
+        <TextBlock x:Name="NextBtn" Height="30" Margin="10,0,10,10" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="60" HorizontalAlignment="Right" Cursor="Hand"
+                   Text="{x:Static lang:Resources.UI_Button_Next}" FontWeight="Bold" Foreground="{StaticResource KeyPointBrush}" FontSize="21" TextAlignment="Right" PreviewMouseDown="NextBtn_PreviewMouseDown" />
+        <Button x:Name="InstallBtn"  Content="{x:Static lang:Resources.UI_Button_InstallLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,260,0,0" VerticalAlignment="Top" Width="200" Click="InstallBtn_Click" FontSize="18"/>
+        <Button x:Name="UninstallBtn"  Content="{x:Static lang:Resources.UI_Button_RemoveLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Margin="0,320,0,0" VerticalAlignment="Top" Width="200" FontSize="18"/>
    </Grid>
 </Window>
