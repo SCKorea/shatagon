@@ -137,7 +137,7 @@
     <value>취소</value>
   </data>
   <data name="UI_Button_Edit" xml:space="preserve">
-    <value>편집</value>
+    <value>변경</value>
   </data>
   <data name="UI_Button_Install" xml:space="preserve">
     <value>설치</value>
@@ -146,7 +146,7 @@
     <value>패치 설치</value>
   </data>
   <data name="UI_Button_Load" xml:space="preserve">
-    <value>Load</value>
+    <value>버전 불러오기</value>
   </data>
   <data name="UI_Button_Next" xml:space="preserve">
     <value>다음</value>
@@ -169,14 +169,17 @@
   <data name="UI_Button_Select" xml:space="preserve">
     <value>선택</value>
   </data>
+  <data name="UI_Button_SelectLang" xml:space="preserve">
+    <value>언어 선택</value>
+  </data>
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>예</value>
   </data>
   <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
-    <value>Find and select the "StarCitizen" folder.</value>
+    <value>스타시티즌이 설치된 폴더를 선택해주세요</value>
   </data>
   <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
-    <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
+    <value>예) C:\Program Files\Roberts Space Industries\StarCitizen</value>
   </data>
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
     <value>설치 완료</value>
@@ -185,7 +188,7 @@
     <value>설치 중...</value>
   </data>
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
-    <value>Select Localization Version.</value>
+    <value>버전 불러오기 후 버전을 선택하고 설치합니다</value>
   </data>
   <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
     <value>런처 업데이트 중</value>
@@ -197,10 +200,10 @@
     <value>패치노트</value>
   </data>
   <data name="UI_Title_ChooseLocalization" xml:space="preserve">
-    <value>언어 선택</value>
+    <value>패치 언어 선택</value>
   </data>
   <data name="UI_Title_ProgramTitle" xml:space="preserve">
-    <value>SCTools</value>
+    <value>언어팩 패쳐 Mk.3</value>
   </data>
   <data name="UI_Title_Step_01" xml:space="preserve">
     <value>01</value>

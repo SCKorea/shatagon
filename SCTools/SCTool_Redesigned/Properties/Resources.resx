@@ -169,6 +169,9 @@
   <data name="UI_Button_Select" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="UI_Button_SelectLang" xml:space="preserve">
+    <value>Select Language</value>
+  </data>
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
