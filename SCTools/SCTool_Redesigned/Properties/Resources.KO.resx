@@ -134,43 +134,43 @@
     <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="UI_Button_Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>취소</value>
   </data>
   <data name="UI_Button_Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>편집</value>
   </data>
   <data name="UI_Button_Install" xml:space="preserve">
-    <value>Install</value>
+    <value>설치</value>
   </data>
   <data name="UI_Button_InstallLocalization" xml:space="preserve">
-    <value>Install Localization</value>
+    <value>패치 설치</value>
   </data>
   <data name="UI_Button_Load" xml:space="preserve">
     <value>Load</value>
   </data>
   <data name="UI_Button_Next" xml:space="preserve">
-    <value>Next</value>
+    <value>다음</value>
   </data>
   <data name="UI_Button_No" xml:space="preserve">
-    <value>No</value>
+    <value>아니오</value>
   </data>
   <data name="UI_Button_Previous" xml:space="preserve">
-    <value>Prev</value>
+    <value>이전</value>
   </data>
   <data name="UI_Button_Quit" xml:space="preserve">
-    <value>Quit</value>
+    <value>종료</value>
   </data>
   <data name="UI_Button_RemoveLocalization" xml:space="preserve">
-    <value>Remove Localization</value>
+    <value>패치 제거</value>
   </data>
   <data name="UI_Button_Save" xml:space="preserve">
-    <value>Save</value>
+    <value>저장</value>
   </data>
   <data name="UI_Button_Select" xml:space="preserve">
-    <value>Select</value>
+    <value>선택</value>
   </data>
   <data name="UI_Button_Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>예</value>
   </data>
   <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
     <value>Find and select the "StarCitizen" folder.</value>
@@ -179,25 +179,25 @@
     <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
   </data>
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
-    <value>Installation is complete.</value>
+    <value>설치 완료</value>
   </data>
   <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
-    <value>Instralling...</value>
+    <value>설치 중...</value>
   </data>
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
     <value>Select Localization Version.</value>
   </data>
   <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
-    <value>Updating SCTools</value>
+    <value>런처 업데이트 중</value>
   </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
     <value>Q&amp;A</value>
   </data>
   <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
-    <value>Releases</value>
+    <value>패치노트</value>
   </data>
   <data name="UI_Title_ChooseLocalization" xml:space="preserve">
-    <value>Choose Localization</value>
+    <value>언어 선택</value>
   </data>
   <data name="UI_Title_ProgramTitle" xml:space="preserve">
     <value>SCTools</value>
