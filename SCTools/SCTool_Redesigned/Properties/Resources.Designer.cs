@@ -219,6 +219,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Select Language과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_SelectLang {
+            get {
+                return ResourceManager.GetString("UI_Button_SelectLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Yes과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_Yes {
