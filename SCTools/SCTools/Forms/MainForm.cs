@@ -483,5 +483,15 @@ namespace NSW.StarCitizen.Tools.Forms
             combobox.ValueMember = "Key";
             combobox.SelectedValue = Program.Settings.Language;
         }
+
+        private void discordbtn_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://discord.gg/starcitizenkr");
+        }
+
+        private void landingbtn_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://sc.galaxyhub.kr/");
+        }
     }
 }

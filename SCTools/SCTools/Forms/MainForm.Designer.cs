@@ -66,6 +66,8 @@ namespace NSW.StarCitizen.Tools.Forms
             this.cbRefreshTime = new System.Windows.Forms.ComboBox();
             this.cbCheckNewVersions = new System.Windows.Forms.CheckBox();
             this.gbApplicationUpdate = new System.Windows.Forms.GroupBox();
+            this.discordbtn = new System.Windows.Forms.Button();
+            this.landingbtn = new System.Windows.Forms.Button();
             this.gbGameInfo.SuspendLayout();
             this.gbButtonMenu.SuspendLayout();
             this.cmTrayMenu.SuspendLayout();
@@ -424,11 +426,35 @@ namespace NSW.StarCitizen.Tools.Forms
             this.gbApplicationUpdate.TabIndex = 5;
             this.gbApplicationUpdate.TabStop = false;
             // 
+            // discordbtn
+            // 
+            this.discordbtn.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.discordbtn.Location = new System.Drawing.Point(14, 279);
+            this.discordbtn.Name = "discordbtn";
+            this.discordbtn.Size = new System.Drawing.Size(240, 20);
+            this.discordbtn.TabIndex = 10;
+            this.discordbtn.Text = "문의/피드백:디스코드";
+            this.discordbtn.UseVisualStyleBackColor = false;
+            this.discordbtn.Click += new System.EventHandler(this.discordbtn_Click);
+            // 
+            // landingbtn
+            // 
+            this.landingbtn.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.landingbtn.Location = new System.Drawing.Point(310, 279);
+            this.landingbtn.Name = "landingbtn";
+            this.landingbtn.Size = new System.Drawing.Size(240, 20);
+            this.landingbtn.TabIndex = 11;
+            this.landingbtn.Text = "안내 페이지";
+            this.landingbtn.UseVisualStyleBackColor = false;
+            this.landingbtn.Click += new System.EventHandler(this.landingbtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 275);
+            this.ClientSize = new System.Drawing.Size(565, 302);
+            this.Controls.Add(this.landingbtn);
+            this.Controls.Add(this.discordbtn);
             this.Controls.Add(this.gbApplicationUpdate);
             this.Controls.Add(this.lblLanguage);
             this.Controls.Add(this.cbGeneralRunMinimized);
@@ -494,5 +520,7 @@ namespace NSW.StarCitizen.Tools.Forms
         private System.Windows.Forms.ToolStripMenuItem miTools;
         private System.Windows.Forms.ToolStripMenuItem miMoveLiveToPtu;
         private System.Windows.Forms.ToolStripMenuItem miMovePtuToLive;
+        private System.Windows.Forms.Button discordbtn;
+        private System.Windows.Forms.Button landingbtn;
     }
 }
