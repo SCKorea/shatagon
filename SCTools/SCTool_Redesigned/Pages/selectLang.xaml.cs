@@ -34,7 +34,8 @@ namespace SCTool_Redesigned.Pages
         private static Dictionary<string, string> GetSupportedUiLanguages()
         {
             var languages = new Dictionary<string, string> {
-                { "en-US", "english" }
+                { "en-US", "english" },
+                { "ko-KR", "한국어" }
             };
             var neutralCultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures)
                 .Where(c => Directory.Exists(c.TwoLetterISOLanguageName));

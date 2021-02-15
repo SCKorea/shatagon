@@ -16,7 +16,7 @@ namespace SCTool_Redesigned
     {
         App()
         {
-            SCTool_Redesigned.Properties.Resources.Culture = new System.Globalization.CultureInfo("ko-KR");
+            SCTool_Redesigned.Properties.Resources.Culture = System.Globalization.CultureInfo.CurrentCulture;
             InitializeComponent();
         }
     }
