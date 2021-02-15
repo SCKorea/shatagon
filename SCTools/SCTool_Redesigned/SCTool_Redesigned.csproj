@@ -109,6 +109,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Settings\AppSettings.cs" />
+    <Compile Include="Settings\LocalizationSettings.cs" />
     <Compile Include="Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
@@ -229,6 +231,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SCToolsLib\SCToolsLib.csproj">
+      <Project>{AF032DA2-22CA-4D49-A7D4-82F16E98DE8E}</Project>
+      <Name>SCToolsLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SCTool_Redesigned.Settings;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -24,23 +25,27 @@ namespace SCTool_Redesigned.Pages
     public partial class selectLang : Page
     {
         Dictionary<string, string> UiLangList { get; set; }
+
         public selectLang()
         {
             UiLangList = GetSupportedUiLanguages();
+
             InitializeComponent();
+
             LangListBox.ItemsSource = UiLangList;
             LangListBox.SelectedValue = Properties.Resources.Culture.Name;
         }
+
         private static Dictionary<string, string> GetSupportedUiLanguages()
         {
-            //프로그램 기본 언어는 운영체제 언어에 따라 App.xaml.cs 에서 설정된다
-
             var languages = new Dictionary<string, string> {
                 { "en-US", "English" },
                 { "ko-KR", "한국어" }
             };
+
             var neutralCultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures)
                 .Where(c => Directory.Exists(c.TwoLetterISOLanguageName));
+
             foreach (var neutralCulture in neutralCultures)
             {
                 var culture = CultureInfo.CreateSpecificCulture(neutralCulture.Name);
@@ -49,11 +54,13 @@ namespace SCTool_Redesigned.Pages
                     languages.Add(culture.Name, neutralCulture.NativeName);
                 }
             }
+
             return languages;
         }
+
         private void applyBtn_Click(object sender, RoutedEventArgs e)
         {
-            ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+            ((Windows.MainWindow) Application.Current.MainWindow).Phase++;
         }
 
         private void LangListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,10 +68,14 @@ namespace SCTool_Redesigned.Pages
             if (LangListBox.SelectedValue is string language)
             {
                 Properties.Resources.Culture = new CultureInfo(language);
+
                 Thread.CurrentThread.CurrentCulture = Properties.Resources.Culture;
                 Thread.CurrentThread.CurrentUICulture = Properties.Resources.Culture;
+
                 applyBtn.Content = Properties.Resources.ResourceManager.GetString("UI_Button_Next", Properties.Resources.Culture);
 
+                App.Settings.Language = language;
+                App.SaveAppSettings();
             }
         }
     }

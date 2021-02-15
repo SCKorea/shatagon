@@ -29,8 +29,10 @@ namespace SCTool_Redesigned.Windows
             UI = this;
 
             InitializeComponent();
+
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
+
             Phase = 0;
         }
 
@@ -46,11 +48,18 @@ namespace SCTool_Redesigned.Windows
                         _prologue.Content = new Pages.updateProgress();
                         _prologue.Show();
                         break;
+
                     case 1:     //select laucher language
-                        Hide();
-                        _prologue.Content = new Pages.selectLang();
-                        _prologue.Show();
-                        break;
+                        if (App.Settings.Language == null)
+                        {
+                            Hide();
+                            _prologue.Content = new Pages.selectLang();
+                            _prologue.Show();
+                            break;
+                        }
+
+                        goto case 2;
+                        
                     case 2: //select patch Language
                         DoNotCloseMainWindow = true;
                         _prologue.Close();
@@ -66,6 +75,7 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
                         break;
+
                     case 3: //main Install
                         frame_left.Content = null;
                         frame_right.Content = new Pages.mainNotes();
@@ -77,6 +87,7 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
                         break;
+
                     case 4: //select Dir
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -90,6 +101,7 @@ namespace SCTool_Redesigned.Windows
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
                         break;
+
                     case 5: //select Version
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -103,6 +115,7 @@ namespace SCTool_Redesigned.Windows
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
                         break;
+
                     case 6: //installing?
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -115,6 +128,7 @@ namespace SCTool_Redesigned.Windows
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Cancel;
                         break;
+
                     case 7: //installComplete
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -128,9 +142,11 @@ namespace SCTool_Redesigned.Windows
 
                         PrevBtn.Visibility = Visibility.Hidden;
                         break;
+
                     case 8:
                         Application.Current.Shutdown();
                         break;
+
                     default: throw new Exception(value.ToString()+" Phase is not exist");
                 }
                 //MessageBox.Show("Convert to Phase " + value.ToString());
