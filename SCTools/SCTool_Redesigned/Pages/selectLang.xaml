@@ -10,12 +10,11 @@
       Title="selectLang">
 
     <Grid>
+        <ComboBox x:Name="LangListBox" HorizontalAlignment="Center" Height="24" Margin="0,-30,0,0" VerticalAlignment="Center" Width="196"
+            SelectedValuePath="Key" DisplayMemberPath="Value" SelectionChanged="LangListBox_SelectionChanged"
+        />
         <Button x:Name="applyBtn" Content="{x:Static lang:Resources.UI_Button_SelectLang}" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                 Height="27" Margin="0,50,0,0" Width="96" VerticalAlignment="Center"
                 FontSize="14" Click="applyBtn_Click"/>
-        <ComboBox x:Name="LangListBox" HorizontalAlignment="Center" Height="24" Margin="20,-30,0,0" VerticalAlignment="Center" Width="196"
-            SelectedValuePath="Key" DisplayMemberPath="Value" SelectionChanged="LangListBox_SelectionChanged"
-        />
-
     </Grid>
 </Page>

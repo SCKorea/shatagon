@@ -33,8 +33,10 @@ namespace SCTool_Redesigned.Pages
         }
         private static Dictionary<string, string> GetSupportedUiLanguages()
         {
+            //프로그램 기본 언어는 운영체제 언어에 따라 App.xaml.cs 에서 설정된다
+
             var languages = new Dictionary<string, string> {
-                { "en-US", "english" },
+                { "en-US", "English" },
                 { "ko-KR", "한국어" }
             };
             var neutralCultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures)
