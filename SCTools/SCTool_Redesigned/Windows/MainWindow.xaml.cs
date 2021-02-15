@@ -23,7 +23,8 @@ namespace SCTool_Redesigned.Windows
         internal static MainWindow UI;
 
         private int _PhaseNumber;
-        PrefaceWindow _prologue;
+        private PrefaceWindow _prologue;
+
         public MainWindow()
         {
             UI = this;
@@ -58,6 +59,7 @@ namespace SCTool_Redesigned.Windows
                             break;
                         }
 
+                        Phase = 2;
                         goto case 2;
                         
                     case 2: //select patch Language
@@ -96,7 +98,7 @@ namespace SCTool_Redesigned.Windows
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
-                        NextBtn.Visibility = Visibility.Visible;
+                        NextBtn.Visibility = (App.Settings.GameFolder == null) ? Visibility.Hidden : Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Next;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
@@ -169,6 +171,8 @@ namespace SCTool_Redesigned.Windows
             Phase--;
         }
 
+        internal bool DoNotCloseMainWindow = false;
+
         internal void Quit()
         {
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
@@ -177,6 +181,5 @@ namespace SCTool_Redesigned.Windows
             }));
         }
 
-        internal bool DoNotCloseMainWindow = false;
     }
 }

@@ -13,6 +13,7 @@
         <Label x:Name="PhaseNumber" Content="{x:Static lang:Resources.UI_Title_Step_01}" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource GmarketSansB}" FontSize="36"/>
         <Label x:Name="Phasetext" Content="{x:Static lang:Resources.UI_Desc_ChooseStarCItizenFolder}" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="18"/>
         <Label x:Name="PhaseDesc" Content="{x:Static lang:Resources.UI_Desc_ChooseStarCitizenFolerExample}" HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top" Foreground="{StaticResource MediumGreyBrush}" FontFamily="{StaticResource SCDream5}" FontSize="18"/>
-        <Button x:Name="PhaseBtn" Content="{x:Static lang:Resources.UI_Button_Edit}" HorizontalAlignment="Right" Height="35" Margin="0,0,50,30" VerticalAlignment="Bottom" Width="80" Style="{StaticResource subBtnStyle}" FontSize="18"/>
+        <Button x:Name="PhaseBtn" Content="{x:Static lang:Resources.UI_Button_Edit}" HorizontalAlignment="Right" Height="35" Margin="0,0,50,30" VerticalAlignment="Bottom" Width="80" Style="{StaticResource subBtnStyle}" FontSize="18" Click="dialogBtn_Click"/>
+        <Label x:Name="PhasePath" Content=""  Margin="50,0,155,30" VerticalAlignment="Bottom" HorizontalAlignment="left" Foreground="{StaticResource MediumGreyBrush}" FontFamily="{StaticResource SCDream5}" FontSize="18" Width="595"/>
     </Grid>
 </Page>

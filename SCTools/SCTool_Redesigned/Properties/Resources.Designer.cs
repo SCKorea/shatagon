@@ -81,6 +81,33 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   The location you specified is not the location where Star Citizen is installed. Find and select the &quot;StarCitizen&quot; folder.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Decs_NotGameFolder {
+            get {
+                return ResourceManager.GetString("MSG_Decs_NotGameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select the Star Citizen game folder.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_NotGameFolder {
+            get {
+                return ResourceManager.GetString("MSG_Title_NotGameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Find and select the same folder as &quot;StarCitizen&quot;.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_SelectStarCitizenDirectory {
+            get {
+                return ResourceManager.GetString("MSG_Title_SelectStarCitizenDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
         public static byte[] SCDream3 {

@@ -124,6 +124,15 @@
   <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="MSG_Decs_NotGameFolder" xml:space="preserve">
+    <value>The location you specified is not the location where Star Citizen is installed. Find and select the "StarCitizen" folder.</value>
+  </data>
+  <data name="MSG_Title_NotGameFolder" xml:space="preserve">
+    <value>Select the Star Citizen game folder.</value>
+  </data>
+  <data name="MSG_Title_SelectStarCitizenDirectory" xml:space="preserve">
+    <value>Find and select the same folder as "StarCitizen".</value>
+  </data>
   <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

@@ -15,23 +15,20 @@ namespace SCTool_Redesigned.Settings
         public string GameFolder { get; set; }
 
         [JsonProperty]
-        public string Language
-        {
-            get; set;
-        }
+        public string Language { get; set; }
 
         [JsonProperty]
-        public LocalizationSettings LiveLocalization { get; } = new LocalizationSettings();
+        public LocalizationSettings LIVE_Localization { get; } = new LocalizationSettings();
 
         [JsonProperty]
-        public LocalizationSettings PtuLocalization { get; } = new LocalizationSettings();
+        public LocalizationSettings PTU_Localization { get; } = new LocalizationSettings();
 
         public LocalizationSettings GetGameModeSettings(GameMode gameMode)
         {
             switch (gameMode)
             {
-                case GameMode.LIVE: return LiveLocalization;
-                case GameMode.PTU: return PtuLocalization;
+                case GameMode.LIVE: return LIVE_Localization;
+                case GameMode.PTU: return PTU_Localization;
                 default: throw new NotSupportedException("Not supported game mode: " + gameMode);
             }
         }
