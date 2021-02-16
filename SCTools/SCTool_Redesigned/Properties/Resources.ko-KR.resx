@@ -202,8 +202,14 @@
   <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
     <value>설치 중...</value>
   </data>
+  <data name="UI_Desc_NotFoundMarkdown" xml:space="preserve">
+    <value>**문서가 존재하지 않습니다.**</value>
+  </data>
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
     <value>버전 불러오기 후 버전을 선택하고 설치합니다</value>
+  </data>
+  <data name="UI_Desc_UnableMarkdown" xml:space="preserve">
+    <value>**문서를 불러올 수 없습니다.**</value>
   </data>
   <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
     <value>런처 업데이트 중</value>

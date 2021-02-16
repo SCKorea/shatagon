@@ -5,10 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
       xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
+      xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="480"
       Title="mainNotes">
 
+    <FrameworkElement.CommandBindings>
+        <CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="OpenHyperlink" />
+    </FrameworkElement.CommandBindings>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -32,16 +37,8 @@
         <TextBlock x:Name="Menu_credit" Grid.Row="1" Grid.Column="2"
             Text="뭐넣지?" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_credit_PreviewMouseLeftButtonDown"
                    />
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="4"
-                      HorizontalScrollBarVisibility="Disabled"
-                      CanContentScroll="True"
-                      VerticalScrollBarVisibility="Auto" Margin="0,0,0,0" Padding="0,0,30,0" UseLayoutRounding="False"
-                      >
-        <TextBlock  x:Name="NoteBlock" Background="Transparent"
-            FontSize="18" FontWeight="Light" Foreground="{StaticResource MediumGreyBrush}" FontFamily="{StaticResource SCDream3}"
-            Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" ScrollViewer.CanContentScroll="True" TextWrapping="WrapWithOverflow" LineHeight="18"
-                   />
-        </ScrollViewer>
+
+        <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0,0,30,0" Grid.ColumnSpan="4"/>
     </Grid>
 
 </Page>

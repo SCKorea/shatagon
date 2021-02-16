@@ -59,6 +59,11 @@ namespace SCTool_Redesigned.Settings
                         break;
                     }
                 }
+
+                if (_localizationSource == null)
+                {
+                    _localizationSource = LocalizationSource.DefaultBaseModding;
+                }
             }
 
             return _localizationSource;

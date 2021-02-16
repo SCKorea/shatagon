@@ -202,8 +202,14 @@
   <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
     <value>Instralling...</value>
   </data>
+  <data name="UI_Desc_NotFoundMarkdown" xml:space="preserve">
+    <value>**Can not found document.**</value>
+  </data>
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
     <value>Select Localization Version.</value>
+  </data>
+  <data name="UI_Desc_UnableMarkdown" xml:space="preserve">
+    <value>**The document cannot be loaded.**</value>
   </data>
   <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
     <value>Updating SCTools</value>
