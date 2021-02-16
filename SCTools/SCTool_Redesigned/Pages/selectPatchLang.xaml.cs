@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Windows;
 
 namespace SCTool_Redesigned.Pages
@@ -21,14 +22,49 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class selectPatchLang : Page
     {
+        private List<string> UiLocalizationList { get; set; }
+        private List<LocalizationSource> LocalizationList;
+
         public selectPatchLang()
         {
             InitializeComponent();
+
+            UiLocalizationList = GetLocalizationList();
+            LocalizationListBox.ItemsSource = UiLocalizationList;
         }
 
         private void applyBtn_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).Phase++;
+            if (App.Settings.GameLanguage == null)
+            {
+                MessageBox.Show(Properties.Resources.MSG_Decs_SelectLocalization, Properties.Resources.MSG_Title_SelectLocalization);
+                return;
+            }
+
+            MainWindow.UI.Phase++;
+        }
+
+        private List<string> GetLocalizationList()
+        {
+            LocalizationList = App.Settings.GetGameLanguages();
+
+            var list = new List<string>();
+
+            foreach (LocalizationSource localization in LocalizationList)
+            {
+                list.Add(localization.Name);
+            }
+
+            return list;
+        }
+
+        private void LocalizationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LocalizationListBox.SelectedValue is string language)
+            {
+                App.Settings.GameLanguage = language;
+                App.SaveAppSettings();
+            }
         }
     }
 }

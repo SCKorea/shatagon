@@ -74,13 +74,13 @@ namespace SCTool_Redesigned.Settings
         }
 
         public static LocalizationSource DefaultBaseModding { get; } = new LocalizationSource("Base Modding Package", "defterai/starcitizenmodding", UpdateRepositoryType.GitHub);
-        public static LocalizationSource DefaultRussian { get; } = new LocalizationSource("Russian Community", "n1ghter/sc_ru", UpdateRepositoryType.GitHub);
-        public static LocalizationSource DefaultUkrainian { get; } = new LocalizationSource("Ukrainian Community", "slyf0x-ua/sc_uk", UpdateRepositoryType.GitHub);
-        public static LocalizationSource DefaultKorean { get; } = new LocalizationSource("Korean Community", "xhatagon/sc_ko", UpdateRepositoryType.GitHub);
-        public static LocalizationSource DefaultPolish { get; } = new LocalizationSource("Polish Community", "frosty-el-banana/sc_pl", UpdateRepositoryType.GitHub);
-        public static LocalizationSource DefaultChinese { get; } = new LocalizationSource("Chinese Community", "terrencetodd/sc_cn_zh", UpdateRepositoryType.GitHub);
+        public static LocalizationSource DefaultRussian { get; } = new LocalizationSource("русский", "n1ghter/sc_ru", UpdateRepositoryType.GitHub);
+        public static LocalizationSource DefaultUkrainian { get; } = new LocalizationSource("Український", "slyf0x-ua/sc_uk", UpdateRepositoryType.GitHub);
+        public static LocalizationSource DefaultKorean { get; } = new LocalizationSource("한국어", "xhatagon/sc_ko", UpdateRepositoryType.GitHub);
+        public static LocalizationSource DefaultPolish { get; } = new LocalizationSource("Polskie", "frosty-el-banana/sc_pl", UpdateRepositoryType.GitHub);
+        public static LocalizationSource DefaultChinese { get; } = new LocalizationSource("简体中文", "terrencetodd/sc_cn_zh", UpdateRepositoryType.GitHub);
 
-        public static IReadOnlyList<LocalizationSource> DefaultList { get; } = new List<LocalizationSource>() {
+        public static List<LocalizationSource> DefaultList { get; } = new List<LocalizationSource>() {
             DefaultRussian,
             DefaultUkrainian,
             DefaultKorean,
@@ -88,7 +88,7 @@ namespace SCTool_Redesigned.Settings
             DefaultChinese,
         };
 
-        public static IReadOnlyList<LocalizationSource> StandardList { get; } = new List<LocalizationSource>() {
+        public static List<LocalizationSource> StandardList { get; } = new List<LocalizationSource>() {
             DefaultRussian,
             DefaultUkrainian,
             DefaultKorean,

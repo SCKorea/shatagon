@@ -90,11 +90,29 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Please select the localization to apply to the game.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Decs_SelectLocalization {
+            get {
+                return ResourceManager.GetString("MSG_Decs_SelectLocalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Select the Star Citizen game folder.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Title_NotGameFolder {
             get {
                 return ResourceManager.GetString("MSG_Title_NotGameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select localization과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_SelectLocalization {
+            get {
+                return ResourceManager.GetString("MSG_Title_SelectLocalization", resourceCulture);
             }
         }
         

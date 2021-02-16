@@ -22,7 +22,7 @@ namespace SCTool_Redesigned
     {
         App()
         {
-            SCTool_Redesigned.Properties.Resources.Culture = CultureInfo.GetCultureInfo(Settings.Language ?? CultureInfo.CurrentCulture.Name);
+            SCTool_Redesigned.Properties.Resources.Culture = CultureInfo.GetCultureInfo(Settings.ToolLanguage ?? CultureInfo.CurrentCulture.Name);
             InitializeComponent();
         }
 

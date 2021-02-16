@@ -38,11 +38,7 @@ namespace SCTool_Redesigned.Pages
 
         private static Dictionary<string, string> GetSupportedUiLanguages()
         {
-            var languages = new Dictionary<string, string> {
-                { "en-US", "English" },
-                { "ko-KR", "한국어" }
-            };
-
+            var languages = App.Settings.GetToolLanguages();
             var neutralCultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures)
                 .Where(c => Directory.Exists(c.TwoLetterISOLanguageName));
 
@@ -74,7 +70,7 @@ namespace SCTool_Redesigned.Pages
 
                 applyBtn.Content = Properties.Resources.ResourceManager.GetString("UI_Button_Next", Properties.Resources.Culture);
 
-                App.Settings.Language = language;
+                App.Settings.ToolLanguage = language;
                 App.SaveAppSettings();
             }
         }

@@ -51,7 +51,7 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 1:     //select laucher language
-                        if (App.Settings.Language == null)
+                        if (App.Settings.ToolLanguage == null)
                         {
                             Hide();
                             _prologue.Content = new Pages.selectLang();
@@ -66,6 +66,13 @@ namespace SCTool_Redesigned.Windows
                         DoNotCloseMainWindow = true;
                         _prologue.Close();
                         Show();
+
+                        if (App.Settings.GameLanguage != null)
+                        {
+                            Phase = 3;
+                            goto case 3;
+                        }
+
                         frame_left.Content = null;
                         frame_right.Content = new Pages.selectPatchLang();
                         frame_all.Content = null;
