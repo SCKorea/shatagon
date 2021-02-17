@@ -282,6 +282,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   **Loding...**과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_BringingMarkdown {
+            get {
+                return ResourceManager.GetString("UI_Desc_BringingMarkdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Find and select the &quot;StarCitizen&quot; folder.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_ChooseStarCItizenFolder {

@@ -190,6 +190,9 @@
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>예</value>
   </data>
+  <data name="UI_Desc_BringingMarkdown" xml:space="preserve">
+    <value>**불러오는 중...**</value>
+  </data>
   <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
     <value>스타시티즌이 설치된 폴더를 선택해주세요</value>
   </data>

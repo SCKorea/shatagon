@@ -51,16 +51,17 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 1:     //select laucher language
-                        if (App.Settings.ToolLanguage == null)
+                        if (App.Settings.ToolLanguage != null)
                         {
-                            Hide();
-                            _prologue.Content = new Pages.selectLang();
-                            _prologue.Show();
+                            Phase = 2;
+                            Console.WriteLine(Phase);
                             break;
                         }
 
-                        Phase = 2;
-                        goto case 2;
+                        Hide();
+                        _prologue.Content = new Pages.selectLang();
+                        _prologue.Show();
+                        break;
                         
                     case 2: //select patch Language
                         DoNotCloseMainWindow = true;
@@ -70,7 +71,8 @@ namespace SCTool_Redesigned.Windows
                         if (App.Settings.GameLanguage != null)
                         {
                             Phase = 3;
-                            goto case 3;
+                            Console.WriteLine(Phase);
+                            break;
                         }
 
                         frame_left.Content = null;
@@ -79,7 +81,6 @@ namespace SCTool_Redesigned.Windows
                         logoCanvas.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Visible;
                         InstallBtn.Visibility = Visibility.Visible;
-                        InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
@@ -165,7 +166,7 @@ namespace SCTool_Redesigned.Windows
 
         private void InstallBtn_Click(object sender, RoutedEventArgs e)
         {
-            Phase++;
+            Phase = 4;
         }
 
         private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -185,6 +186,14 @@ namespace SCTool_Redesigned.Windows
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
                 Close();
+            }));
+        }
+
+        private void LazePageLoad(Frame frame, Page page)
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                frame.Content = page;
             }));
         }
 

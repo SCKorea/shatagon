@@ -42,27 +42,27 @@ namespace SCTool_Redesigned.Pages
 
         private void set_note(int idx)
         {
-            
+
             switch (idx)
             {
                 case 0: //patchnote
-                    Menu_patchnote.Foreground = (SolidColorBrush) App.Current.Resources["KeyPointBrush"];
-                    Menu_credit.Foreground = (SolidColorBrush) App.Current.Resources["TextBrush"];
-                    Menu_qna.Foreground = (SolidColorBrush) App.Current.Resources["TextBrush"];
-                    GetMarkdownDocument("README.md");
+                    Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+                    Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                    Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                    ShowLatestReleaseDocument();
                     break;
 
                 case 1: //qna
-                    Menu_patchnote.Foreground = (SolidColorBrush) App.Current.Resources["TextBrush"];
-                    Menu_credit.Foreground = (SolidColorBrush) App.Current.Resources["TextBrush"];
-                    Menu_qna.Foreground = (SolidColorBrush) App.Current.Resources["KeyPointBrush"];
-                    GetMarkdownDocument("QNA.md");
+                    Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                    Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                    Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+                    ShowMarkdownDocument("QNA.md");
                     break;
                 case 2: //credit
-                    Menu_patchnote.Foreground = (SolidColorBrush) App.Current.Resources["TextBrush"];
-                    Menu_credit.Foreground = (SolidColorBrush) App.Current.Resources["KeyPointBrush"];
-                    Menu_qna.Foreground = (SolidColorBrush) App.Current.Resources["TextBrush"];
-                    GetMarkdownDocument("CREDIT.md");
+                    Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                    Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+                    Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                    ShowMarkdownDocument("CREDIT.md");
                     break;
                 default:
                     throw new ArgumentException("invalid note index " + idx.ToString());
@@ -86,19 +86,28 @@ namespace SCTool_Redesigned.Pages
             Process.Start(e.Parameter.ToString());
         }
 
+        private void ShowLatestReleaseDocument()
+        {
+
+        }
+
         private Dictionary<string, FlowDocument> _cache = new Dictionary<string, FlowDocument>();
 
-        private void GetMarkdownDocument(string filename)
+        private void ShowMarkdownDocument(string filename)
         {
+            string markdown;
+
             if (_cache.ContainsKey(filename))
             {
-                UI.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
                 {
                     NoteBlock.Document = _cache[filename];
                 }));
-                    
+
                 return;
             }
+
+            ShowFlowDocument(filename, Properties.Resources.UI_Desc_BringingMarkdown);
 
             Task.Run(() =>
             {
@@ -107,11 +116,6 @@ namespace SCTool_Redesigned.Pages
 
                 if (localization.Type.Equals(UpdateRepositoryType.GitHub))
                 {
-                    gitUri = "https://raw.githubusercontent.com/";
-                }
-                else
-                {
-                    //soon™
                     gitUri = "https://raw.githubusercontent.com/";
                 }
 
@@ -124,10 +128,6 @@ namespace SCTool_Redesigned.Pages
                     // The sc_ko repository is private and uses its own api server.
                     markdownUri = "https://sc.galaxyhub.kr/api/v1/translate/document/?name=" + filename;
                 }
-
-                Console.WriteLine(markdownUri.ToString());
-
-                string markdown;
 
                 using (var web = new WebClient())
                 {
@@ -149,25 +149,36 @@ namespace SCTool_Redesigned.Pages
                     }
                 }
 
-                UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
-                {
-                    var xaml = Markdig.Wpf.Markdown.ToXaml(markdown, new MarkdownPipelineBuilder().UseSupportedExtensions().Build());
-
-                    using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
-                    {
-                        using (var reader = new XamlXmlReader(stream, new MyXamlSchemaContext()))
-                        {
-                            if (System.Windows.Markup.XamlReader.Load(reader) is FlowDocument document)
-                            {
-                                _cache.Add(filename, document);
-                                UI.NoteBlock.Document = document;
-                            }
-                        }
-                    }
-                }));
+                ShowFlowDocument(filename, markdown);
+                
             });
         }
 
+        private void ShowFlowDocument(string filename, string markdown)
+        {
+            UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                var xaml = Markdig.Wpf.Markdown.ToXaml(markdown, new MarkdownPipelineBuilder().UseSupportedExtensions().Build());
+
+                using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(xaml)))
+                {
+                    using (var reader = new XamlXmlReader(stream, new MyXamlSchemaContext()))
+                    {
+                        if (System.Windows.Markup.XamlReader.Load(reader) is FlowDocument document)
+                        {
+                            if (_cache.ContainsKey(filename))
+                            {
+                                _cache.Remove(filename);
+                            }
+
+                            _cache.Add(filename, document);
+
+                            UI.NoteBlock.Document = document;
+                        }
+                    }
+                }
+            }));
+        }
     }
 
     class MyXamlSchemaContext : XamlSchemaContext

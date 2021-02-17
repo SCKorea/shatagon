@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using NSW.StarCitizen.Tools.Lib.Global;
 using SCTool_Redesigned.Windows;
 
 namespace SCTool_Redesigned.Pages
@@ -36,7 +37,9 @@ namespace SCTool_Redesigned.Pages
 
         private void dialogBtn_Click(object sender, RoutedEventArgs e)
         {
-            while (true)
+            var flag = true;
+
+            while (flag)
             {
                 CommonOpenFileDialog dialog = OpenDialog();
 
@@ -44,28 +47,35 @@ namespace SCTool_Redesigned.Pages
 
                 if (result == CommonFileDialogResult.Ok)
                 {
-                    string directoryPath = dialog.FileName;
-                    DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+                    var directoryPath = dialog.FileName;
+                    var gamePath = GameFolders.SearchGameFolder(directoryPath);
 
-                    if (directoryInfo.Name.Equals("StarCitizen"))
+                    if (gamePath != null)
                     {
-                        if (directoryInfo.GetDirectories().Any(dir => dir.Name.Equals("LIVE") || dir.Name.Equals("PTU")))
+                        var gameModes = GameFolders.GetGameModes(gamePath);
+
+                        foreach (var gameMode in gameModes)
                         {
-                            App.Settings.GameFolder = directoryPath;
+                            App.Settings.GameFolder = gamePath;
                             App.SaveAppSettings();
 
-                            PhasePath.Content = directoryPath;
+                            PhasePath.Content = gamePath;
 
                             MainWindow.UI.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
                             {
                                 MainWindow.UI.NextBtn.Visibility = Visibility.Visible;
                             }));
 
+                            flag = false;
                             break;
                         }
                     }
 
-                    MessageBox.Show(Properties.Resources.MSG_Decs_NotGameFolder, Properties.Resources.MSG_Title_NotGameFolder);
+                    if (flag)
+                    {
+                        MessageBox.Show(Properties.Resources.MSG_Decs_NotGameFolder, Properties.Resources.MSG_Title_NotGameFolder);
+                    }
+                    
                 }
                 else
                 {

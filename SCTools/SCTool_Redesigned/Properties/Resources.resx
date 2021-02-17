@@ -190,6 +190,9 @@
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="UI_Desc_BringingMarkdown" xml:space="preserve">
+    <value>**Loding...**</value>
+  </data>
   <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
     <value>Find and select the "StarCitizen" folder.</value>
   </data>
