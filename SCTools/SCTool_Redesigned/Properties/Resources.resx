@@ -191,22 +191,25 @@
     <value>Yes</value>
   </data>
   <data name="UI_Desc_BringingMarkdown" xml:space="preserve">
-    <value>**Loding...**</value>
+    <value>**Loading...**</value>
   </data>
   <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
     <value>Find and select the "StarCitizen" folder.</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCItizenFolderBtn" xml:space="preserve">
+    <value>Select folder directory by 'Edit' button</value>
   </data>
   <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
     <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
   </data>
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
-    <value>Installation is complete.</value>
+    <value>Installation complete.</value>
   </data>
   <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
-    <value>Instralling...</value>
+    <value>Installing...</value>
   </data>
   <data name="UI_Desc_NotFoundMarkdown" xml:space="preserve">
-    <value>**Can not found document.**</value>
+    <value>**Cannot found document.**</value>
   </data>
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
     <value>Select Localization Version.</value>
@@ -218,7 +221,7 @@
     <value>Updating SCTools</value>
   </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
-    <value>Q&amp;A</value>
+    <value>FAQ</value>
   </data>
   <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
     <value>Releases</value>

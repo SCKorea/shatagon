@@ -282,7 +282,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   **Loding...**과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   **Loading...**과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_BringingMarkdown {
             get {
@@ -300,6 +300,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Select folder directory by &apos;Edit&apos; button과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_ChooseStarCItizenFolderBtn {
+            get {
+                return ResourceManager.GetString("UI_Desc_ChooseStarCItizenFolderBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ex) C:\Programe Files\Roberts Space Industries\StarCitizen과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_ChooseStarCitizenFolerExample {
@@ -309,7 +318,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   Installation is complete.과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   Installation complete.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_InstallationComplete {
             get {
@@ -318,7 +327,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   Instralling...과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   Installing...과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_LocailzationInstaling {
             get {
@@ -327,7 +336,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   **Can not found document.**과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   **Cannot found document.**과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_NotFoundMarkdown {
             get {
@@ -363,7 +372,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   Q&amp;A과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   FAQ과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Tab_Main_Qna {
             get {
