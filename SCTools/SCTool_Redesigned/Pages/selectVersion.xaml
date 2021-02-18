@@ -6,11 +6,12 @@
       xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
       xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
       mc:Ignorable="d" 
-      d:DesignHeight="440" d:DesignWidth="800"
+      d:DesignHeight="440" d:DesignWidth="960"
       Title="selectVersion">
     <Grid>
         <Label x:Name="PhaseNumber" Content="{x:Static lang:Resources.UI_Title_Step_02}" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource GmarketSansB}" FontSize="36"/>
         <Label x:Name="Phasetext" Content="{x:Static lang:Resources.UI_Desc_SelectLocalizationVersion}" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="18"/>
-        <Button x:Name="PhaseBtn" Content="{x:Static lang:Resources.UI_Button_Load}" HorizontalAlignment="Right" Height="35" Margin="0,0,50,30" VerticalAlignment="Bottom" Width="240" Style="{StaticResource subBtnStyle}" FontSize="18"/>
+        <Button x:Name="PhaseBtn" Content="{x:Static lang:Resources.UI_Button_Refresh}" HorizontalAlignment="Right" Height="35" Margin="0,0,50,30" VerticalAlignment="Bottom" Width="120" Style="{StaticResource subBtnStyle}" FontSize="18" Click="PhaseBtn_Click"/>
+        <ComboBox x:Name="VersionSelectBox" HorizontalAlignment="Left" Height="25" Margin="50,0,50,34.5" VerticalAlignment="Bottom" Width="600" FontFamily="{StaticResource SCDream5}" FontSize="18"/>
     </Grid>
 </Page>
