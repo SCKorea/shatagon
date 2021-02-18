@@ -160,9 +160,6 @@
   <data name="UI_Button_InstallLocalization" xml:space="preserve">
     <value>패치 설치</value>
   </data>
-  <data name="UI_Button_Load" xml:space="preserve">
-    <value>버전 불러오기</value>
-  </data>
   <data name="UI_Button_Next" xml:space="preserve">
     <value>다음</value>
   </data>
@@ -174,6 +171,9 @@
   </data>
   <data name="UI_Button_Quit" xml:space="preserve">
     <value>종료</value>
+  </data>
+  <data name="UI_Button_Refresh" xml:space="preserve">
+    <value>버전 갱신</value>
   </data>
   <data name="UI_Button_RemoveLocalization" xml:space="preserve">
     <value>패치 제거</value>

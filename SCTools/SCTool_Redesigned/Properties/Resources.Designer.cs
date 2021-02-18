@@ -192,15 +192,6 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   Load과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        public static string UI_Button_Load {
-            get {
-                return ResourceManager.GetString("UI_Button_Load", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Next과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_Next {
@@ -233,6 +224,15 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Button_Quit {
             get {
                 return ResourceManager.GetString("UI_Button_Quit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Refresh과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Refresh {
+            get {
+                return ResourceManager.GetString("UI_Button_Refresh", resourceCulture);
             }
         }
         
