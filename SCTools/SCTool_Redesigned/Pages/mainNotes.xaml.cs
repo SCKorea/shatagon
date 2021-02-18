@@ -123,7 +123,7 @@ namespace SCTool_Redesigned.Pages
 
                 string markdownUri = gitUri + localization.Repository + "/master/" + filename;
 
-                if (localization.Name.Equals("한국어"))
+                if (localization.Repository.Contains("sc_ko"))
                 {
                     // The sc_ko repository is private and uses its own api server.
                     markdownUri = "https://sc.galaxyhub.kr/api/v1/translate/document/?name=" + filename;
