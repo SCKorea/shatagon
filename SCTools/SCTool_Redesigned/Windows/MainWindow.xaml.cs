@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.groceries;
 
 namespace SCTool_Redesigned.Windows
@@ -29,12 +30,15 @@ namespace SCTool_Redesigned.Windows
         private AuthWindow _author;
 
         internal RepositoryManager _repomanager;
+        private ApplicationUpdater _updater;
 
         public MainWindow()
         {
             UI = this;
-
             InitializeComponent();
+            _updater = new ApplicationUpdater(new GitHubUpdateRepository(HttpNetClient.Client,
+                0,GitHubUpdateInfo.Factory.NewWithVersionByTagName(),
+                App.Name,"marona42/StarCitizen"), App.ExecutableDir, "[PH]");
             _repomanager = new RepositoryManager();
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
@@ -77,6 +81,7 @@ namespace SCTool_Redesigned.Windows
                         {
                             Phase = 3;
                             Console.WriteLine(Phase);
+                            _repomanager.Set_installTarget();
                             break;
                         }
 
