@@ -108,6 +108,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="groceries\HttpNetClient.cs" />
+    <Compile Include="groceries\RepositoryManager.cs" />
     <Compile Include="Pages\installComplete.xaml.cs">
       <DependentUpon>installComplete.xaml</DependentUpon>
     </Compile>
@@ -266,8 +268,6 @@
       <Name>SCToolsLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
