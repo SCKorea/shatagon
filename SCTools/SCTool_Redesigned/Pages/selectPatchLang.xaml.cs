@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Windows;
-
+using SCTool_Redesigned.groceries;
 namespace SCTool_Redesigned.Pages
 {
     /// <summary>
@@ -25,12 +25,10 @@ namespace SCTool_Redesigned.Pages
         private List<string> UiLocalizationList { get; set; }
         private List<LocalizationSource> LocalizationList;
 
-        public selectPatchLang()
+        public selectPatchLang(RepositoryManager repomanager)
         {
             InitializeComponent();
-
-            UiLocalizationList = GetLocalizationList();
-            LocalizationListBox.ItemsSource = UiLocalizationList;
+            LocalizationListBox.ItemsSource = repomanager.GetLocalizationList();
         }
 
         private void applyBtn_Click(object sender, RoutedEventArgs e)
@@ -43,20 +41,7 @@ namespace SCTool_Redesigned.Pages
 
             MainWindow.UI.Phase++;
         }
-
-        private List<string> GetLocalizationList()
-        {
-            LocalizationList = App.Settings.GetGameLanguages();
-
-            var list = new List<string>();
-
-            foreach (LocalizationSource localization in LocalizationList)
-            {
-                list.Add(localization.Name);
-            }
-
-            return list;
-        }
+        
 
         private void LocalizationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

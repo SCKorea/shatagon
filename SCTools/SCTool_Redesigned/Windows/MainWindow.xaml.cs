@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+using SCTool_Redesigned.groceries;
+
 namespace SCTool_Redesigned.Windows
 {
     /// <summary>
@@ -24,13 +26,16 @@ namespace SCTool_Redesigned.Windows
 
         private int _PhaseNumber;
         private PrefaceWindow _prologue;
+        private AuthWindow _author;
+
+        internal RepositoryManager _repomanager;
 
         public MainWindow()
         {
             UI = this;
 
             InitializeComponent();
-
+            _repomanager = new RepositoryManager();
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
 
@@ -76,7 +81,7 @@ namespace SCTool_Redesigned.Windows
                         }
 
                         frame_left.Content = null;
-                        frame_right.Content = new Pages.selectPatchLang();
+                        frame_right.Content = new Pages.selectPatchLang(_repomanager);
                         frame_all.Content = null;
                         logoCanvas.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Visible;
