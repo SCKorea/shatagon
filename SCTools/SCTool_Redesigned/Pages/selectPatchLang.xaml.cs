@@ -23,7 +23,6 @@ namespace SCTool_Redesigned.Pages
     public partial class selectPatchLang : Page
     {
         private List<string> UiLocalizationList { get; set; }
-        private List<LocalizationSource> LocalizationList;
 
         public selectPatchLang(RepositoryManager repomanager)
         {
