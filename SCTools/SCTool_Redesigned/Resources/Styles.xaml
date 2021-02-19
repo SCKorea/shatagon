@@ -85,13 +85,13 @@
             <Border
                   x:Name="Border" 
                   Grid.ColumnSpan="2"
-                  CornerRadius="4"
+                  CornerRadius="2"
                   Background="{StaticResource HeavyGreyBrush}"
                   BorderBrush="{StaticResource HeavyGreyBrush}"
                   BorderThickness="3" />
             <Border 
                   Grid.Column="0"
-                  CornerRadius="4" 
+                  CornerRadius="2" 
                   Margin="1" 
                   Background="{StaticResource HeavyGreyBrush}" 
                   BorderBrush="{StaticResource HeavyGreyBrush}"
@@ -108,7 +108,7 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
-        <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}"/>
     </ControlTemplate>
 
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
@@ -135,7 +135,7 @@
                         <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                            Margin="13,3,23,3"
+                            Margin="8,3,23,3"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left" />
                         <TextBox x:Name="PART_EditableTextBox"
@@ -143,7 +143,7 @@
                             Template="{StaticResource ComboBoxTextBox}" 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left"
-                            Margin="13,3,23,3"
+                            Margin="8,3,23,3"
                             Focusable="True" 
                             Background="{StaticResource HeavyGreyBrush}"
                             Foreground="{StaticResource TextBrush}"
@@ -184,7 +184,7 @@
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
                         </Trigger>
                         <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
-                            <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                            <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="3"/>
                             <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
                         </Trigger>
                         <Trigger Property="IsEditable"  Value="true">
