@@ -8,6 +8,7 @@ namespace SCTool_Redesigned.groceries
     {
         private List<LocalizationSource> _repolist;
         private LocalizationSource _currentlyinstalled;
+        private LocalizationSource _installtarget;
 
         public RepositoryManager()
         {
@@ -23,6 +24,17 @@ namespace SCTool_Redesigned.groceries
                 list.Add(localization.Name);
             }
             return list;
+        }
+        public void Set_installTarget() //FIXME: name and its mechanism
+        {
+            foreach (LocalizationSource localization in _repolist)
+            {
+                if (localization.Name.Equals(App.Settings.GameLanguage))
+                {
+                    _installtarget = localization;
+                    break;
+                }
+            }
         }
     }
 }
