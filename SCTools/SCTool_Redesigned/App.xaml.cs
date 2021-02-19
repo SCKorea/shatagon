@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Reflection;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using NSW.StarCitizen.Tools.Lib.Helpers;
+using NSW.StarCitizen.Tools.Lib.Global;
 using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Windows;
 
@@ -49,5 +51,22 @@ namespace SCTool_Redesigned
             return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
         }
 
+        //from Program.Global
+        public static GameInfo? CurrentGame { get; set; }
+
+        public static string Name { get; } = Assembly.GetExecutingAssembly().GetName().Name;
+
+        public static Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
+
+        public static string ExecutableDir { get; } = GetExecutableDir();
+
+        private static string GetExecutableDir()
+        {
+            var location = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var dirInfo = new FileInfo(location.LocalPath).Directory;
+            if (dirInfo == null)
+                throw new NullReferenceException("No assembly executable directory");
+            return dirInfo.FullName;
+        }
     }
 }
