@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-using NSW.StarCitizen.Tools.Lib.Update;
+
 using SCTool_Redesigned.groceries;
 
 namespace SCTool_Redesigned.Windows
@@ -29,18 +29,13 @@ namespace SCTool_Redesigned.Windows
         private PrefaceWindow _prologue;
         private AuthWindow _author;
 
-        private ApplicationUpdater _updater;
-
+        
         public MainWindow()
         {
             UI = this;
             InitializeComponent();
-            _updater = new ApplicationUpdater(new GitHubUpdateRepository(HttpNetClient.Client,
-                0,GitHubUpdateInfo.Factory.NewWithVersionByTagName(),
-                App.Name,"marona42/StarCitizen"), App.ExecutableDir, "[PH]");
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
-
             Phase = 0;
         }
 
@@ -53,7 +48,7 @@ namespace SCTool_Redesigned.Windows
                 {
                     case 0:     //launcher update
                         Hide();
-                        _prologue.Content = new Pages.updateProgress();
+                        _prologue.Content = new Pages.updatePatcher();
                         _prologue.Show();
                         break;
 
@@ -204,6 +199,6 @@ namespace SCTool_Redesigned.Windows
                 frame.Content = page;
             }));
         }
-
+        
     }
 }
