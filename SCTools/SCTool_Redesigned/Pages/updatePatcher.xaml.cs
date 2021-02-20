@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Net.Http;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,12 +26,13 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class updatePatcher : Page
     {
-        private static ApplicationUpdater _updater = new ApplicationUpdater(GetUpdateRepository(), App.ExecutableDir, "[PH]");
-
+        private static ApplicationUpdater _updater = new ApplicationUpdater(GetUpdateRepository(), App.ExecutableDir, Properties.Resources.UpdateScript);
+        private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
         public updatePatcher()
         {
             InitializeComponent();
-            Progressbar_demo();
+            //Progressbar_demo();
+            TryUpdate();
         }
         private DispatcherTimer timer1;
         private void Progressbar_demo()
@@ -50,19 +53,54 @@ namespace SCTool_Redesigned.Pages
                 ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
             }
         }
-        private bool TryUpdate()
+
+        private async void TryUpdate()
         {
-            var scheduledUpdateInfo = _updater.GetScheduledUpdateInfo();
-            if (scheduledUpdateInfo != null)
+            //var scheduledUpdateInfo = _updater.GetScheduledUpdateInfo();
+            //if (scheduledUpdateInfo != null)
+            //{
+            //    if (_updater.IsAlreadyInstalledVersion(scheduledUpdateInfo))
+            //    {
+            //        _updater.CancelScheduleInstallUpdate();
+            //        return false;
+            //    }
+            //    return InstallScheduledUpdate();
+            //}
+            //return false;
+            try
             {
-                if (_updater.IsAlreadyInstalledVersion(scheduledUpdateInfo))
+                var availableUpdate = await _updater.CheckForUpdateVersionAsync(_cancellationToken.Token);
+                ProgBar.Value = ProgBar.Minimum;
+                if (availableUpdate == null)
                 {
-                    _updater.CancelScheduleInstallUpdate();
-                    return false;
+                    MessageBox.Show("업데이트 없음", "업데이트 확인");
+                    ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+                    ProgBar.Value = ProgBar.Maximum;
+                    return;
                 }
-                return InstallScheduledUpdate();
+                //MessageBox.Show("업데이트 있음", "업데이트 확인");
+                //FIXME:
+                var downloadDialogAdapter = new DownloadProgressDialogAdapter(null, this);
+                var filePath = await _updater.DownloadVersionAsync(availableUpdate, _cancellationToken.Token, downloadDialogAdapter);
+                _updater.ScheduleInstallUpdate(availableUpdate, filePath);
+                //if (InstallScheduledUpdate())
+                //{
+                //    ((Windows.MainWindow)Application.Current.MainWindow).Quit();
+                //}
+                
             }
-            return false;
+            catch (Exception exception) //TODO: write log and label text, but not on MessageBox
+            {
+                if (exception is HttpRequestException)
+                    MessageBox.Show("다운로드 에러:" + '\n' + exception.Message, "업데이트 에러");
+                else
+                    MessageBox.Show("다운로드 에러:", "업데이트 에러");
+                MessageBox.Show("어쨌든 에러:", "업데이트 에러");
+            }
+            finally
+            {
+                ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+            }
         }
 
         private static bool InstallScheduledUpdate()
@@ -84,6 +122,48 @@ namespace SCTool_Redesigned.Pages
                 GitHubDownloadType.Assets, updateInfoFactory, App.Name, "marona42/StarCitizen");
             updateRepository.SetCurrentVersion(App.Version.ToString(3));
             return updateRepository;
+        }
+    }
+
+    public class DownloadProgressDialogAdapter : IDownloadProgress
+    {
+        private readonly string? _localizationVersion;
+        private long _totalContentSize;
+        private long _downloadedSize;
+        private updatePatcher _dialog;
+
+        public DownloadProgressDialogAdapter(string? localizationVersion, updatePatcher dialog)
+        {
+            _localizationVersion = localizationVersion;
+            _dialog = dialog;
+        }
+
+        public void ReportContentSize(long value)
+        {
+            _totalContentSize = value;
+            UpdateDialogTaskInfo();
+        }
+
+        public void ReportDownloadedSize(long value)
+        {
+            _downloadedSize = value;
+            UpdateDialogTaskInfo();
+        }
+
+        private void UpdateDialogTaskInfo()
+        {
+
+            float downloadSizeMBytes = (float)_downloadedSize / (1024 * 1024);
+            if (_totalContentSize > 0)
+            {
+                _dialog.ProgBar.Value = _downloadedSize * _dialog.ProgBar.Maximum / _totalContentSize;
+                float contentSizeMBytes = (float)_totalContentSize / (1024 * 1024);
+                _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB/{contentSizeMBytes:0.00} MB";
+            }
+            else
+            {
+                _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB";
+            }
         }
     }
 }
