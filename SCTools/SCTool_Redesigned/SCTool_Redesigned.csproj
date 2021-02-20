@@ -225,12 +225,14 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Resources\update.bat" />
     <Resource Include="Resources\fonts\GmarketSansBold.otf" />
     <Resource Include="Resources\fonts\GmarketSansMedium.otf" />
     <Resource Include="Resources\fonts\SCDream3.otf" />
