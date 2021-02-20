@@ -131,8 +131,8 @@
     <Compile Include="Pages\selectVersion.xaml.cs">
       <DependentUpon>selectVersion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\updateProgress.xaml.cs">
-      <DependentUpon>updateProgress.xaml</DependentUpon>
+    <Compile Include="Pages\updatePatcher.xaml.cs">
+      <DependentUpon>updatePatcher.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.ko-KR.Designer.cs">
       <DependentUpon>Resources.ko-KR.resx</DependentUpon>
@@ -175,7 +175,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\updateProgress.xaml">
+    <Page Include="Pages\updatePatcher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
