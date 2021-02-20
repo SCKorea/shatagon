@@ -22,12 +22,11 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class selectPatchLang : Page
     {
-        private List<string> UiLocalizationList { get; set; }
 
-        public selectPatchLang(RepositoryManager repomanager)
+        public selectPatchLang()
         {
             InitializeComponent();
-            LocalizationListBox.ItemsSource = repomanager.GetLocalizationList();
+            LocalizationListBox.ItemsSource = RepositoryManager.GetLocalizationList();
         }
 
         private void applyBtn_Click(object sender, RoutedEventArgs e)

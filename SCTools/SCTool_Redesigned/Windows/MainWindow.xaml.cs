@@ -29,7 +29,6 @@ namespace SCTool_Redesigned.Windows
         private PrefaceWindow _prologue;
         private AuthWindow _author;
 
-        internal RepositoryManager _repomanager;
         private ApplicationUpdater _updater;
 
         public MainWindow()
@@ -39,7 +38,6 @@ namespace SCTool_Redesigned.Windows
             _updater = new ApplicationUpdater(new GitHubUpdateRepository(HttpNetClient.Client,
                 0,GitHubUpdateInfo.Factory.NewWithVersionByTagName(),
                 App.Name,"marona42/StarCitizen"), App.ExecutableDir, "[PH]");
-            _repomanager = new RepositoryManager();
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
 
@@ -81,12 +79,12 @@ namespace SCTool_Redesigned.Windows
                         {
                             Phase = 3;
                             Console.WriteLine(Phase);
-                            _repomanager.Set_installTarget();
+                            RepositoryManager.installTarget();
                             break;
                         }
 
                         frame_left.Content = null;
-                        frame_right.Content = new Pages.selectPatchLang(_repomanager);
+                        frame_right.Content = new Pages.selectPatchLang();
                         frame_all.Content = null;
                         logoCanvas.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Visible;

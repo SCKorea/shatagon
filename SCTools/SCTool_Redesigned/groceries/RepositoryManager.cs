@@ -4,18 +4,18 @@ using SCTool_Redesigned.Settings;
 
 namespace SCTool_Redesigned.groceries
 {
-    public class RepositoryManager
+    public static class RepositoryManager
     {
-        private List<LocalizationSource> _repolist;
-        private LocalizationSource _currentlyinstalled;
-        private LocalizationSource _installtarget;
+        private static List<LocalizationSource> _repolist;
+        private static LocalizationSource _currentlyinstalled;
+        private static LocalizationSource _installtarget;
 
-        public RepositoryManager()
+        static RepositoryManager()
         {
             _repolist = App.Settings.GetGameLanguages();
         }
 
-        public List<string> GetLocalizationList()
+        public static List<string> GetLocalizationList()
         {
             var list = new List<string>();
 
@@ -25,7 +25,7 @@ namespace SCTool_Redesigned.groceries
             }
             return list;
         }
-        public void Set_installTarget() //FIXME: name and its mechanism
+        public static void installTarget() //FIXME: name and its mechanism
         {
             foreach (LocalizationSource localization in _repolist)
             {
@@ -35,6 +35,11 @@ namespace SCTool_Redesigned.groceries
                     break;
                 }
             }
+        }
+
+        //public static get_TargetRepository()
+        {
+
         }
     }
 }
