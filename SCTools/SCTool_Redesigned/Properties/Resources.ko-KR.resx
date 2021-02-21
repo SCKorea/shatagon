@@ -151,6 +151,9 @@
   <data name="UI_Button_Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
+  <data name="UI_Button_DisableLocalization" xml:space="preserve">
+    <value>패치 비활성화</value>
+  </data>
   <data name="UI_Button_Edit" xml:space="preserve">
     <value>변경</value>
   </data>

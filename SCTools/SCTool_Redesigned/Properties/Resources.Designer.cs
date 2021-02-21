@@ -165,6 +165,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Disable Localization과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_DisableLocalization {
+            get {
+                return ResourceManager.GetString("UI_Button_DisableLocalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Edit과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_Edit {

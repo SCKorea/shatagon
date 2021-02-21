@@ -151,6 +151,9 @@
   <data name="UI_Button_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="UI_Button_DisableLocalization" xml:space="preserve">
+    <value>Disable Localization</value>
+  </data>
   <data name="UI_Button_Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
