@@ -153,7 +153,8 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Visibility = Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Quit;
 
-                        PrevBtn.Visibility = Visibility.Hidden;
+                        PrevBtn.Visibility = Visibility.Visible;
+                        PrevBtn.Text = Properties.Resources.UI_Button_Return;
                         break;
 
                     case 8:
@@ -179,7 +180,10 @@ namespace SCTool_Redesigned.Windows
 
         private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Phase--;
+            if (Phase != 7)
+                Phase--;
+            else
+                Phase = 3;
         }
 
         internal bool DoNotCloseMainWindow = false;

@@ -181,6 +181,9 @@
   <data name="UI_Button_RemoveLocalization" xml:space="preserve">
     <value>패치 제거</value>
   </data>
+  <data name="UI_Button_Return" xml:space="preserve">
+    <value>처음</value>
+  </data>
   <data name="UI_Button_Save" xml:space="preserve">
     <value>저장</value>
   </data>

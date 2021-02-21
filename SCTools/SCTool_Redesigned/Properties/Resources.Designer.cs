@@ -255,6 +255,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Return과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Return {
+            get {
+                return ResourceManager.GetString("UI_Button_Return", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Save과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_Save {
