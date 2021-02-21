@@ -12,7 +12,7 @@
     <Grid>
         <Label x:Name="MainText" FontWeight="SemiBold" Content="{x:Static lang:Resources.UI_Title_ProgramTitle}" HorizontalContentAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Center" Width="359" Foreground="{DynamicResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="24"/>
         <Label x:Name="SubText" Content="{x:Static lang:Resources.UI_Desc_UpdatingProgram}" HorizontalContentAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Center" Width="360" Foreground="{DynamicResource TextBrush}" FontFamily="{DynamicResource SCDream5}" FontSize="16"/>
-        <Label x:Name="DescText" Content="PLACEHOLDER" HorizontalContentAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="360" Foreground="{DynamicResource MediumGreyBrush}" FontFamily="{DynamicResource SCDream5}" FontSize="12"/>
+        <Label x:Name="DescText" Content="{x:Static lang:Resources.UI_Desc_CheckingUpdate}" HorizontalContentAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="360" Foreground="{DynamicResource MediumGreyBrush}" FontFamily="{DynamicResource SCDream5}" FontSize="12"/>
         <ProgressBar x:Name="ProgBar" HorizontalAlignment="Center" Height="10" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="360" Background="{DynamicResource HeavyGreyBrush}" Foreground="{DynamicResource KeyPointBrush}" BorderBrush="Transparent"/>
     </Grid>
 </Page>

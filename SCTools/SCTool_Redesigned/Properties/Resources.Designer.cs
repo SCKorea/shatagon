@@ -291,6 +291,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Checking Updates...과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_CheckingUpdate {
+            get {
+                return ResourceManager.GetString("UI_Desc_CheckingUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Find and select the &quot;StarCitizen&quot; folder.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_ChooseStarCItizenFolder {
@@ -451,13 +460,12 @@ namespace SCTool_Redesigned.Properties {
         ///for /d %%p in (&quot;%latestpath%*.*&quot;) do rmdir /s /q &quot;%%p&quot;
         ///rmdir /s /q &quot;%latestpath%&quot;
         ///
-        ///start &quot;&quot; &quot;%workpath%SCTools.exe&quot; update_status 0
+        ///start &quot;&quot; &quot;%workpath%SCTool_Redesigned.exe&quot; update_status 0
         ///exit
         ///
         ///:update_error
         ///
-        ///start &quot;&quot; &quot;%workpath%SCTools.exe&quot; update_status 1&quot;
-        ///exit과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///start &quot;&quot; &quot;%workpath%SCTool_Redesigned.exe&quot; updat[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UpdateScript {
             get {
