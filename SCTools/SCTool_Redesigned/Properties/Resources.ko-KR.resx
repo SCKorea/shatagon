@@ -211,11 +211,17 @@
   <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
     <value>예) C:\Program Files\Roberts Space Industries\StarCitizen</value>
   </data>
+  <data name="UI_Desc_GithubAPILimitExceeded" xml:space="preserve">
+    <value>깃허브 API 사용량이 초과되었습니다. 나중에 다시시도해 주십시오.</value>
+  </data>
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
     <value>설치 완료</value>
   </data>
   <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
     <value>설치 중...</value>
+  </data>
+  <data name="UI_Desc_NoContent" xml:space="preserve">
+    <value>내용이 없습니다.</value>
   </data>
   <data name="UI_Desc_NotFoundMarkdown" xml:space="preserve">
     <value>**문서가 존재하지 않습니다.**</value>

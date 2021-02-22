@@ -211,11 +211,17 @@
   <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
     <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
   </data>
+  <data name="UI_Desc_GithubAPILimitExceeded" xml:space="preserve">
+    <value>API usage has been exceeded. Please try again later.</value>
+  </data>
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
     <value>Installation complete.</value>
   </data>
   <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
     <value>Installing...</value>
+  </data>
+  <data name="UI_Desc_NoContent" xml:space="preserve">
+    <value>No content here.</value>
   </data>
   <data name="UI_Desc_NotFoundMarkdown" xml:space="preserve">
     <value>**Cannot found document.**</value>

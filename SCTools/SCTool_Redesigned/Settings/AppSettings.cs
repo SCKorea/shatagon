@@ -46,28 +46,5 @@ namespace SCTool_Redesigned.Settings
 
         public List<LocalizationSource> GetGameLanguages() => LocalizationSource.DefaultList;
 
-        private LocalizationSource _localizationSource;
-        public LocalizationSource GetLocalizationSource(string launguageName)
-        {
-            if (_localizationSource == null)
-            {
-                foreach (var gameLanguage in GetGameLanguages())
-                {
-                    if (gameLanguage.Name.Equals(launguageName))
-                    {
-                        _localizationSource = gameLanguage;
-                        break;
-                    }
-                }
-
-                if (_localizationSource == null)
-                {
-                    _localizationSource = LocalizationSource.DefaultBaseModding;
-                }
-            }
-
-            return _localizationSource;
-        }
-
     }
 }

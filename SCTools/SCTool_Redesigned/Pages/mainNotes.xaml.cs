@@ -21,6 +21,7 @@ using System.Xaml;
 using Markdig;
 using Markdig.Wpf;
 using NSW.StarCitizen.Tools.Lib.Update;
+using SCTool_Redesigned.groceries;
 using SCTool_Redesigned.Settings;
 
 namespace SCTool_Redesigned.Pages
@@ -49,7 +50,7 @@ namespace SCTool_Redesigned.Pages
                     Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
                     Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
                     Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
-                    ShowLatestReleaseDocument();
+                    ShowReleasesNote();
                     break;
 
                 case 1: //qna
@@ -86,9 +87,9 @@ namespace SCTool_Redesigned.Pages
             Process.Start(e.Parameter.ToString());
         }
 
-        private void ShowLatestReleaseDocument()
+        private void ShowReleasesNote()
         {
-
+            ShowFlowDocument("releases", RepositoryManager.GetLatestReleaseNote());
         }
 
         private Dictionary<string, FlowDocument> _cache = new Dictionary<string, FlowDocument>();
@@ -111,7 +112,7 @@ namespace SCTool_Redesigned.Pages
 
             Task.Run(() =>
             {
-                LocalizationSource localization = App.Settings.GetLocalizationSource(App.Settings.GameLanguage);
+                LocalizationSource localization = RepositoryManager.GetLocalizationSource();
                 string gitUri = "";
 
                 if (localization.Type.Equals(UpdateRepositoryType.GitHub))
@@ -119,9 +120,7 @@ namespace SCTool_Redesigned.Pages
                     gitUri = "https://raw.githubusercontent.com/";
                 }
 
-                Console.WriteLine(localization.Repository);
-
-                string markdownUri = gitUri + localization.Repository + "/master/" + filename;
+                string markdownUri = $"{gitUri}{localization.Repository}/master/{filename}";
 
                 if (localization.Repository.Contains("sc_ko"))
                 {
@@ -154,7 +153,7 @@ namespace SCTool_Redesigned.Pages
             });
         }
 
-        private void ShowFlowDocument(string filename, string markdown)
+        private void ShowFlowDocument(string name, string markdown)
         {
             UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
@@ -166,12 +165,12 @@ namespace SCTool_Redesigned.Pages
                     {
                         if (System.Windows.Markup.XamlReader.Load(reader) is FlowDocument document)
                         {
-                            if (_cache.ContainsKey(filename))
+                            if (_cache.ContainsKey(name))
                             {
-                                _cache.Remove(filename);
+                                _cache.Remove(name);
                             }
 
-                            _cache.Add(filename, document);
+                            _cache.Add(name, document);
 
                             UI.NoteBlock.Document = document;
                         }

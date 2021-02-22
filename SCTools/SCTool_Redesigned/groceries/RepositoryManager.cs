@@ -1,5 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using Octokit;
 using SCTool_Redesigned.Settings;
 
 namespace SCTool_Redesigned.groceries
@@ -65,6 +72,78 @@ namespace SCTool_Redesigned.groceries
 
             return _localizationSource;
         }
+
+        private static List<Release> _githubReleases;
+
+        public static List<Release> GetGithubReleases(bool cache, bool isCredential, string token)
+        {
+            if (!cache || _githubReleases == null)
+            {
+                Task.Run(() =>
+                {
+                    var client = new GitHubClient(new ProductHeaderValue("SCTools"));
+
+                    if (isCredential)
+                    {
+                        client.Credentials = new Credentials(token);
+                    }
+
+                    string[] repo = GetLocalizationSource().Repository.Split('/');
+                    
+                    try
+                    {
+                        var releases = client.Repository.Release.GetAll(repo[0], repo[1]);
+                        releases.Wait();
+
+                        if (client.GetLastApiInfo().RateLimit.Remaining >= 0)
+                        {
+                            _githubReleases = releases.Result.ToList();
+                        }
+
+                    }
+                    catch(AggregateException)
+                    {
+                        
+                    }
+                    
+
+                }).Wait();
+            }
+
+            return _githubReleases;
+        }
+
+
+        public static string GetLatestReleaseNote(bool cache = true, bool isCredential = false, string token = "")
+        {
+            var releases = GetGithubReleases(cache, isCredential, token);
+            var sb = new StringBuilder();
+
+            if (releases == null)
+            {
+                return sb.Append(Properties.Resources.UI_Desc_UnableMarkdown).ToString();
+            }
+
+            var i = 10;
+
+            foreach(var release in releases)
+            {
+                if (--i <= 0) break;
+
+                sb.Append($"### {release.Name}\n");
+
+                var body = release.Body;
+                if (body.Length <= 0)
+                {
+                    body = Properties.Resources.UI_Desc_NoContent;
+                }
+
+                sb.Append($"{body}\n");
+            }
+
+            return sb.ToString();
+        }
+
 
 
 

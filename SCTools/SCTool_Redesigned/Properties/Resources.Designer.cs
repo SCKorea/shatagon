@@ -345,6 +345,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   API usage has been exceeded. Please try again later.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_GithubAPILimitExceeded {
+            get {
+                return ResourceManager.GetString("UI_Desc_GithubAPILimitExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Installation complete.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_InstallationComplete {
@@ -359,6 +368,15 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Desc_LocailzationInstaling {
             get {
                 return ResourceManager.GetString("UI_Desc_LocailzationInstaling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No content here.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_NoContent {
+            get {
+                return ResourceManager.GetString("UI_Desc_NoContent", resourceCulture);
             }
         }
         
