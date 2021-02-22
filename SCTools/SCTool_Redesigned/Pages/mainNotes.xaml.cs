@@ -21,7 +21,7 @@ using System.Xaml;
 using Markdig;
 using Markdig.Wpf;
 using NSW.StarCitizen.Tools.Lib.Update;
-using SCTool_Redesigned.groceries;
+using SCTool_Redesigned.Utils;
 using SCTool_Redesigned.Settings;
 
 namespace SCTool_Redesigned.Pages

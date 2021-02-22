@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using Octokit;
 using SCTool_Redesigned.Settings;
 
-namespace SCTool_Redesigned.groceries
+namespace SCTool_Redesigned.Utils
 {
     public static class RepositoryManager
     {

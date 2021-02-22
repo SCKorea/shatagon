@@ -12,9 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-
-
-using SCTool_Redesigned.groceries;
+using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Windows
 {

@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Windows.Forms;
 using NSW.StarCitizen.Tools.Lib.Update;
-using SCTool_Redesigned.groceries;
+using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Pages
 {

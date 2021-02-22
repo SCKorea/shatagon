@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Windows;
-using SCTool_Redesigned.groceries;
+using SCTool_Redesigned.Utils;
 namespace SCTool_Redesigned.Pages
 {
     /// <summary>

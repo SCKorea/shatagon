@@ -111,8 +111,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="groceries\HttpNetClient.cs" />
-    <Compile Include="groceries\RepositoryManager.cs" />
+    <Compile Include="Utils\HttpNetClient.cs" />
+    <Compile Include="Utils\RepositoryManager.cs" />
     <Compile Include="Pages\installComplete.xaml.cs">
       <DependentUpon>installComplete.xaml</DependentUpon>
     </Compile>
