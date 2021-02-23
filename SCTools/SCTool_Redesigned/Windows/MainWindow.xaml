@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned"
         xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
-        mc:Ignorable="d" Height="480" Width="960" Icon="/SCTool_Redesigned;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="SCTools Redesigned" Background="{DynamicResource BackgroundBrush}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d" Height="480" Width="960" Icon="/SCTool_Redesigned;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="SCTools Redesigned" Background="{DynamicResource BackgroundBrush}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" Closed="Quit">
     <Window.Resources>
 
     </Window.Resources>

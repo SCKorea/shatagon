@@ -227,6 +227,10 @@ namespace SCTool_Redesigned.Windows
                 frame.Content = page;
             }));
         }
-        
+
+        private void Quit(object sender, EventArgs e)
+        {
+            Quit();
+        }
     }
 }
