@@ -235,6 +235,9 @@
   <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
     <value>Updating SCTools</value>
   </data>
+  <data name="UI_Desc_Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
     <value>FAQ</value>
   </data>

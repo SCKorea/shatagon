@@ -417,6 +417,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Welcome과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_Welcome {
+            get {
+                return ResourceManager.GetString("UI_Desc_Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   FAQ과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Tab_Main_Qna {

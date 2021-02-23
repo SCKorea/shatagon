@@ -125,7 +125,7 @@ namespace SCTool_Redesigned.Pages
                 if (localization.Repository.Contains("sc_ko"))
                 {
                     // The sc_ko repository is private and uses its own api server.
-                    markdownUri = "https://sc.galaxyhub.kr/api/v1/translate/document/?name=" + filename;
+                    markdownUri = "https://sc.galaxyhub.kr/api/v1/translate/document/?page=" + filename;
                 }
 
                 using (var web = new WebClient())

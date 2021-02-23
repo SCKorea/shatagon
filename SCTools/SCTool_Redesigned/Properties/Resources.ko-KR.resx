@@ -235,6 +235,9 @@
   <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
     <value>런처 업데이트 중</value>
   </data>
+  <data name="UI_Desc_Welcome" xml:space="preserve">
+    <value>환영합니다.</value>
+  </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
     <value>Q&amp;A</value>
   </data>
