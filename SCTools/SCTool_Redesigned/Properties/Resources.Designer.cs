@@ -156,6 +156,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Apply과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_AuthApply {
+            get {
+                return ResourceManager.GetString("UI_Button_AuthApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cancel과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_Cancel {
@@ -300,6 +309,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Wrong Code, please check your code.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_AuthError {
+            get {
+                return ResourceManager.GetString("UI_Desc_AuthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   **Loading...**과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_BringingMarkdown {
@@ -440,6 +458,15 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Tab_Main_ReleaseNote {
             get {
                 return ResourceManager.GetString("UI_Tab_Main_ReleaseNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Input your code과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Title_Auth {
+            get {
+                return ResourceManager.GetString("UI_Title_Auth", resourceCulture);
             }
         }
         

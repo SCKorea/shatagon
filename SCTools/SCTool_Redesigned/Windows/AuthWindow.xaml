@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned.Windows"
+        xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
         mc:Ignorable="d"
         Title="인증코드 입력" Height="400" Width="300" Background="{DynamicResource BackgroundBrush}" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterOwner" Closing="Window_Closing">
     <Grid>
@@ -14,11 +15,11 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="AuthDescLabel" Text="인증코드를&#x0a;입력해주세요" TextWrapping="Wrap" FontSize="20" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource TextBrush}" FontWeight="SemiBold"
+        <TextBlock x:Name="AuthDescLabel" Text="{x:Static lang:Resources.UI_Title_Auth}" TextWrapping="Wrap" FontSize="20" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource TextBrush}" FontWeight="SemiBold"
                HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center"/>
-        <Label x:Name="ErrorLabel" Content="코드를 확인해주세요" FontSize="14" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource KeyPointBrush}" FontWeight="SemiBold"
+        <Label x:Name="ErrorLabel" Content="{x:Static lang:Resources.UI_Desc_AuthError}" FontSize="14" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource KeyPointBrush}" FontWeight="SemiBold"
                HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Button x:Name="Applybtn" Content="코드 입력" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="100" Height="30" Click="Applybtn_Click" />
+        <Button x:Name="Applybtn" Content="{x:Static lang:Resources.UI_Button_AuthApply}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="100" Height="30" Click="Applybtn_Click" />
         <PasswordBox x:Name="CodeInputBox" HorizontalAlignment="Center" Height="40" Grid.Row="3" VerticalAlignment="Center" Width="200" AllowDrop="False" IsTabStop="False" MaxLength="8"  Background="{DynamicResource HeavyGreyBrush}" BorderBrush="Transparent"
                      Foreground="{DynamicResource TextBrush}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18">
         </PasswordBox>

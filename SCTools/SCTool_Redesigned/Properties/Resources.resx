@@ -148,6 +148,9 @@
   <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="UI_Button_AuthApply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
   <data name="UI_Button_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -196,6 +199,9 @@
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="UI_Desc_AuthError" xml:space="preserve">
+    <value>Wrong Code, please check your code.</value>
+  </data>
   <data name="UI_Desc_BringingMarkdown" xml:space="preserve">
     <value>**Loading...**</value>
   </data>
@@ -243,6 +249,9 @@
   </data>
   <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
     <value>Releases</value>
+  </data>
+  <data name="UI_Title_Auth" xml:space="preserve">
+    <value>Input your code</value>
   </data>
   <data name="UI_Title_ChooseLocalization" xml:space="preserve">
     <value>Choose Localization</value>

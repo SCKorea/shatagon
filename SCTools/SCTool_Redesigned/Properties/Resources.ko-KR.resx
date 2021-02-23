@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -148,6 +148,9 @@
   <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="UI_Button_AuthApply" xml:space="preserve">
+    <value>코드 입력</value>
+  </data>
   <data name="UI_Button_Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
@@ -196,6 +199,9 @@
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>예</value>
   </data>
+  <data name="UI_Desc_AuthError" xml:space="preserve">
+    <value>코드를 확인해주세요</value>
+  </data>
   <data name="UI_Desc_BringingMarkdown" xml:space="preserve">
     <value>**불러오는 중...**</value>
   </data>
@@ -243,6 +249,9 @@
   </data>
   <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
     <value>패치노트</value>
+  </data>
+  <data name="UI_Title_Auth" xml:space="preserve">
+    <value>인증코드를&#x0a;입력해주세요</value>
   </data>
   <data name="UI_Title_ChooseLocalization" xml:space="preserve">
     <value>패치 언어 선택</value>
