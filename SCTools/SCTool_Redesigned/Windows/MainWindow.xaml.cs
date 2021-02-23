@@ -102,18 +102,12 @@ namespace SCTool_Redesigned.Windows
                     case 4: //select Dir
                         if(RepositoryManager.GetLocalizationSource().IsPrivate) //Try auth for private repo
                         {
-                            this.IsEnabled = false;
-                            _author.Show();
-                            if(_author.TryAuth(RepositoryManager.GetLocalizationSource()))
+                            _author.Owner = this;
+                            if(_author.GetAuthToken() == null)
+                                _author.ShowDialog();
+                            if((RepositoryManager.GetLocalizationSource().AuthToken = _author.GetAuthToken()) == null) //Failed to auth
                             {
-                                _author.Close();
-                                this.IsEnabled = true;
-                            }
-                            else    //Failed to auth
-                            {
-                                _author.Close();
-                                this.IsEnabled = true;
-                                break;
+                                return; //cancel Phase progressing
                             }
                         }
                       
@@ -182,7 +176,6 @@ namespace SCTool_Redesigned.Windows
 
                     default: throw new Exception(value.ToString()+" Phase is not exist");
                 }
-                //MessageBox.Show("Convert to Phase " + value.ToString());
                 _PhaseNumber = value;
             }
         }
