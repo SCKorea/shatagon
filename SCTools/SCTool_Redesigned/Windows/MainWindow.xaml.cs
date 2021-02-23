@@ -34,6 +34,7 @@ namespace SCTool_Redesigned.Windows
             InitializeComponent();
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
+            _author = new AuthWindow();
             Phase = 0;
         }
 
@@ -70,7 +71,6 @@ namespace SCTool_Redesigned.Windows
                         if (App.Settings.GameLanguage != null)
                         {
                             Phase = 3;
-                            RepositoryManager.installTarget();
                             break;
                         }
 
@@ -100,6 +100,23 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 4: //select Dir
+                        if(RepositoryManager.GetLocalizationSource().IsPrivate) //Try auth for private repo
+                        {
+                            this.IsEnabled = false;
+                            _author.Show();
+                            if(_author.TryAuth(RepositoryManager.GetLocalizationSource()))
+                            {
+                                _author.Close();
+                                this.IsEnabled = true;
+                            }
+                            else    //Failed to auth
+                            {
+                                _author.Close();
+                                this.IsEnabled = true;
+                                break;
+                            }
+                        }
+                      
                         frame_left.Content = null;
                         frame_right.Content = null;
                         frame_all.Content = new Pages.selectDir();
