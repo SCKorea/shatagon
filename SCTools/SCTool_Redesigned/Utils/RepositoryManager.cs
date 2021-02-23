@@ -14,12 +14,14 @@ namespace SCTool_Redesigned.Utils
     public static class RepositoryManager
     {
         private static List<LocalizationSource> _repolist;
-        private static LocalizationSource _currentlyinstalled;
-        private static LocalizationSource _installtarget;
+        private static LocalizationSource? _currentlyinstalled;
+        private static LocalizationSource? _localizationSource;
 
         static RepositoryManager()
         {
             _repolist = App.Settings.GetGameLanguages();
+            _currentlyinstalled = null;
+            _localizationSource = null;
         }
 
         public static List<string> GetLocalizationList()
@@ -33,21 +35,7 @@ namespace SCTool_Redesigned.Utils
             return list;
         }
 
-        public static void installTarget() //FIXME: name and its mechanism
-        {
-            //Maro, Please check below name of GetLocalizationSource method! I think that method is a little safer.  - Laeng - 
-            foreach (LocalizationSource localization in _repolist)
-            {
-                if (localization.Name.Equals(App.Settings.GameLanguage))
-                {
-                    _installtarget = localization;
-                    break;
-                }
-            }
-        }
-
-        //I already wrote this at AppSettings.cs... I brought this here to avoid confusion. - Laeng -
-        private static LocalizationSource _localizationSource;
+        //I didn't notice that... going to utilize it.
         public static LocalizationSource GetLocalizationSource()
         {
             if (_localizationSource == null)
