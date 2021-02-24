@@ -43,6 +43,36 @@ namespace SCTool_Redesigned.Windows
             get { return _PhaseNumber; }
             set
             {
+                switch (_PhaseNumber)   //required some works before Phase progression
+                {
+                    case 1:     //select laucher language
+                        //refresh with new UI language
+                        logotitle.Content = Properties.Resources.UI_Title_ProgramTitle;
+                        PrevBtn.Text = Properties.Resources.UI_Button_Previous;
+                        NextBtn.Text = Properties.Resources.UI_Button_Next;
+                        InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
+                        UninstallBtn.Content = Properties.Resources.UI_Button_RemoveLocalization;
+                        DisableBtn.Content = Properties.Resources.UI_Button_DisableLocalization;
+                        WelcomeText.Content = Properties.Resources.UI_Desc_Welcome;
+                        _author.AuthDescLabel.Text = Properties.Resources.UI_Title_Auth;
+                        _author.ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
+                        _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
+                        break;
+                    case 3: //main Install
+                        if (RepositoryManager.GetLocalizationSource().IsPrivate) //Try auth for private repo
+                        {
+                            _author.Owner = this;
+                            if (_author.GetAuthToken() == null)
+                                _author.ShowDialog();
+                            if ((RepositoryManager.GetLocalizationSource().AuthToken = _author.GetAuthToken()) == null) //Failed to auth
+                            {
+                                return; //cancel Phase progressing
+                            }
+                        }
+                        break;
+                    case 5:  //select Version
+                        break;
+                }
                 switch (value)
                 {
                     case 0:     //launcher update
@@ -75,17 +105,6 @@ namespace SCTool_Redesigned.Windows
                             Phase = 3;
                             break;
                         }
-                        //refresh with new UI language
-                        logotitle.Content = Properties.Resources.UI_Title_ProgramTitle;
-                        PrevBtn.Text = Properties.Resources.UI_Button_Previous;
-                        NextBtn.Text = Properties.Resources.UI_Button_Next;
-                        InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
-                        UninstallBtn.Content = Properties.Resources.UI_Button_RemoveLocalization;
-                        DisableBtn.Content = Properties.Resources.UI_Button_DisableLocalization;
-                        WelcomeText.Content = Properties.Resources.UI_Desc_Welcome;
-                        _author.AuthDescLabel.Text = Properties.Resources.UI_Title_Auth;
-                        _author.ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
-                        _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
 
                         frame_left.Content = null;
                         frame_right.Content = new Pages.selectPatchLang();
@@ -113,17 +132,6 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 4: //select Dir
-                        if(RepositoryManager.GetLocalizationSource().IsPrivate) //Try auth for private repo
-                        {
-                            _author.Owner = this;
-                            if(_author.GetAuthToken() == null)
-                                _author.ShowDialog();
-                            if((RepositoryManager.GetLocalizationSource().AuthToken = _author.GetAuthToken()) == null) //Failed to auth
-                            {
-                                return; //cancel Phase progressing
-                            }
-                        }
-                      
                         frame_left.Content = null;
                         frame_right.Content = null;
                         frame_all.Content = new Pages.selectDir();
@@ -189,6 +197,7 @@ namespace SCTool_Redesigned.Windows
 
                     default: throw new Exception(value.ToString()+" Phase is not exist");
                 }
+                
                 _PhaseNumber = value;
             }
         }
