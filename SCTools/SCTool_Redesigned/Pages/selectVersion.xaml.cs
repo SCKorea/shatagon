@@ -25,6 +25,7 @@ namespace SCTool_Redesigned.Pages
         {
             InitializeComponent();
             VersionSelectListBox.ItemsSource = RepositoryManager.GetReleaseVersions();
+            VersionSelectListBox.SelectedIndex = 0;
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
