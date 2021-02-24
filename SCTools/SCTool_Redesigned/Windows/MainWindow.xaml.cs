@@ -215,8 +215,8 @@ namespace SCTool_Redesigned.Windows
         {
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                Close();
-                //Application.Current.Shutdown();
+                //Close();
+                Application.Current.Shutdown();
             }));
         }
 

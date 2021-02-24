@@ -15,14 +15,16 @@ namespace SCTool_Redesigned.Localization
 {
     class CustomGitHubRepository : GitHubUpdateRepository
     {
+        private static Dictionary<GitHubDownloadType, GitRelease[]> _cache = new Dictionary<GitHubDownloadType, GitRelease[]>();
+
         private const string GitHubApiUrl = "https://api.github.com/repos";
         private readonly HttpClient _httpClient;
-        private readonly string _repoReleasesUrl;
         private readonly CustomUpdateInfo.Factory _gitHubUpdateInfoFactory;
-        private GitRelease[] _cache;
 
-        public GitHubDownloadType DownloadType { get; }
-        public string AuthToken { get; set; }
+        private string _repoReleasesUrl;
+
+        public new GitHubDownloadType DownloadType { get; }
+        public new string AuthToken { get; set; }
 
         public CustomGitHubRepository(HttpClient httpClient, GitHubDownloadType downloadType, CustomUpdateInfo.Factory gitHubUpdateInfoFactory, string name, string repository) :
             base(httpClient, downloadType, gitHubUpdateInfoFactory.GetBaseGitHubUpdateInfo(), name, repository)
@@ -33,17 +35,33 @@ namespace SCTool_Redesigned.Localization
             _gitHubUpdateInfoFactory = gitHubUpdateInfoFactory;
         }
 
+        public void ChangeReleasesUrl(string newReleasesUrl)
+        {
+            _repoReleasesUrl = newReleasesUrl;
+        }
+
         public async Task<bool> UpdateAsync(CancellationToken cancellationToken)
         {
             using var requestMessage = buildRequestMessage(_repoReleasesUrl);
             using var response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
 
-            var rateRemain = response.Headers.GetValues("X-RateLimit-Remaining");
+            int rateRemain = 60;
 
-            if (rateRemain != null && int.Parse(rateRemain.First()) > 0)
+            if (response.Headers.Contains("X-RateLimit-Remaining"))
+            {
+                rateRemain = int.Parse(response.Headers.GetValues("X-RateLimit-Remaining").First());
+            }
+
+            if (rateRemain >= 0)
             {
                 var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                _cache = JsonHelper.Read<GitRelease[]>(content);
+
+                if (_cache.ContainsKey(DownloadType))
+                {
+                    _cache.Remove(DownloadType);
+                }
+                
+                _cache.Add(DownloadType, JsonHelper.Read<GitRelease[]>(content));
 
                 return true;
             }
@@ -53,12 +71,12 @@ namespace SCTool_Redesigned.Localization
 
         public async Task<GitRelease[]> GetReleasesAsync(bool cache, CancellationToken cancellationToken)
         {
-            if (_cache == null || cache)
+            if (_cache.Count <= 0 || !_cache.ContainsKey(DownloadType) || cache)
             {
                 await UpdateAsync(cancellationToken);    
             }
 
-            return _cache;
+            return _cache[DownloadType];
         }
         
         public override async Task<bool> CheckAsync(CancellationToken cancellationToken)

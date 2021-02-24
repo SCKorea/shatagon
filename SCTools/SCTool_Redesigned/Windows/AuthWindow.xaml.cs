@@ -24,7 +24,7 @@ namespace SCTool_Redesigned.Windows
     /// </summary>
     public partial class AuthWindow : Window
     {
-        private string? _authtoken;
+        private string _authtoken;
         private bool _authed;
         private DispatcherTimer _labellifespantimer, _labelblinker;
         public AuthWindow()

@@ -3,19 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Octokit;
+using SCTool_Redesigned.Localization;
 using SCTool_Redesigned.Settings;
+using SCTool_Redesigned.Update;
 
 namespace SCTool_Redesigned.Utils
 {
     public static class RepositoryManager
     {
         private static List<LocalizationSource> _repolist;
-        private static LocalizationSource? _currentlyinstalled;
-        private static LocalizationSource? _localizationSource;
+        private static LocalizationSource _currentlyinstalled;
+        private static LocalizationSource _localizationSource;
 
         static RepositoryManager()
         {
@@ -35,14 +39,13 @@ namespace SCTool_Redesigned.Utils
             return list;
         }
 
-        //I didn't notice that... going to utilize it.
         public static LocalizationSource GetLocalizationSource()
         {
             if (_localizationSource == null)
             {
-                var launguageName = App.Settings.GameLanguage;
+                string launguageName = App.Settings.GameLanguage;
 
-                foreach (var gameLanguage in App.Settings.GetGameLanguages())
+                foreach (LocalizationSource gameLanguage in App.Settings.GetGameLanguages())
                 {
                     if (gameLanguage.Name.Equals(launguageName))
                     {
@@ -61,83 +64,74 @@ namespace SCTool_Redesigned.Utils
             return _localizationSource;
         }
 
-        private static List<Release> _githubReleases;
+        private static CustomGitHubRepository.GitRelease[] _githubReleases;
 
-        public static List<Release> GetGithubReleases(bool cache, bool isCredential, string token)
+        private static CustomGitHubRepository.GitRelease[] GetReleases(bool cache)
         {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = tokenSource.Token;
+
             if (!cache || _githubReleases == null)
             {
                 Task.Run(() =>
                 {
-                    var client = new GitHubClient(new ProductHeaderValue("SCTools"));
+                    var customGithubRepo = new CustomGitHubRepository(
+                        HttpNetClient.Client, NSW.StarCitizen.Tools.Lib.Update.GitHubDownloadType.Assets, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
 
-                    if (isCredential)
+                    if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
                     {
-                        client.Credentials = new Credentials(token);
+                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v2/releases/check");
                     }
 
-                    string[] repo = GetLocalizationSource().Repository.Split('/');
-                    
-                    try
-                    {
-                        var releases = client.Repository.Release.GetAll(repo[0], repo[1]);
-                        releases.Wait();
+                    customGithubRepo.UpdateAsync(cancellationToken).Wait();
 
-                        if (client.GetLastApiInfo().RateLimit.Remaining >= 0)
-                        {
-                            _githubReleases = releases.Result.ToList();
-                        }
+                    var getReleases = customGithubRepo.GetReleasesAsync(true, cancellationToken);
+                    getReleases.Wait();
 
-                    }
-                    catch(AggregateException)
-                    {
-                        
-                    }
-                    
-
+                    _githubReleases = getReleases.Result;
                 }).Wait();
             }
 
-            return _githubReleases;
+
+            return _githubReleases;           
         }
 
 
-        public static string GetReleaseNote(bool cache = true, bool isCredential = false, string token = "")
+        public static string GetReleaseNote(bool cache)
         {
-            var releases = GetGithubReleases(cache, isCredential, token);
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
-            if (releases == null)
+            var releases = GetReleases(cache);
+
+            if (releases != null)
             {
-                return sb.Append(Properties.Resources.UI_Desc_UnableMarkdown).ToString();
+                int i = 10;
+
+                foreach (CustomGitHubRepository.GitRelease release in releases)
+                {
+                    if (--i <= 0)
+                        break;
+
+                    sb.Append($"### {release.Name}\n");
+
+                    var body = release.Body;
+                    if (body.Length <= 0)
+                    {
+                        body = Properties.Resources.UI_Desc_NoContent;
+                    }
+
+                    sb.Append($"{body}\n");
+                }
             }
 
-            var i = 10;
-
-            foreach(var release in releases)
+            if (sb.Length <= 0)
             {
-                if (--i <= 0) break;
-
-                sb.Append($"### {release.Name}\n");
-
-                var body = release.Body;
-                if (body.Length <= 0)
-                {
-                    body = Properties.Resources.UI_Desc_NoContent;
-                }
-
-                sb.Append($"{body}\n");
+                sb.Append(Properties.Resources.UI_Desc_UnableMarkdown);
             }
 
             return sb.ToString();
         }
 
 
-
-
-        //public static get_TargetRepository()
-        //{
-
-        //}
     }
 }

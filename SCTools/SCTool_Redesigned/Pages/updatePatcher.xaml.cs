@@ -127,12 +127,12 @@ namespace SCTool_Redesigned.Pages
 
     public class DownloadProgressDialogAdapter : IDownloadProgress
     {
-        private readonly string? _localizationVersion;
+        private readonly string _localizationVersion;
         private long _totalContentSize;
         private long _downloadedSize;
         private updatePatcher _dialog;
 
-        public DownloadProgressDialogAdapter(string? localizationVersion, updatePatcher dialog)
+        public DownloadProgressDialogAdapter(string localizationVersion, updatePatcher dialog)
         {
             _localizationVersion = localizationVersion;
             _dialog = dialog;

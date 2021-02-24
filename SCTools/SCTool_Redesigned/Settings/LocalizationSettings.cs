@@ -67,7 +67,7 @@ namespace SCTool_Redesigned.Settings
         [JsonProperty]
         public bool IsPrivate { get; }
         [JsonIgnore]
-        public string? AuthToken {get; set;}
+        public string AuthToken {get; set;}
 
         [JsonConstructor]
         public LocalizationSource(string name, string repository, UpdateRepositoryType type)

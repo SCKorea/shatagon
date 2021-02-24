@@ -28,7 +28,7 @@ namespace SCTool_Redesigned.Update
             _namedVersion = namedVersion;
         }
 
-        public new class Factory
+        public class Factory
         {
             private readonly bool _namedVersion;
 
@@ -40,7 +40,7 @@ namespace SCTool_Redesigned.Update
                 _namedVersion = namedVersion;
             }
 
-            public UpdateInfo? CreateWithDownloadSourceCode(CustomGitHubRepository.GitRelease release)
+            public UpdateInfo CreateWithDownloadSourceCode(CustomGitHubRepository.GitRelease release)
             {
                 if (string.IsNullOrEmpty(release.Name) || string.IsNullOrEmpty(release.TagName) ||
                     string.IsNullOrEmpty(release.ZipUrl))
@@ -54,7 +54,7 @@ namespace SCTool_Redesigned.Update
                 };
             }
 
-            public UpdateInfo? CreateWithDownloadAsset(CustomGitHubRepository.GitRelease release)
+            public UpdateInfo CreateWithDownloadAsset(CustomGitHubRepository.GitRelease release)
             {
                 var downloadUrl = release.Assets.FirstOrDefault()?.ZipUrl;
                 if (string.IsNullOrEmpty(release.Name) || string.IsNullOrEmpty(release.TagName) ||

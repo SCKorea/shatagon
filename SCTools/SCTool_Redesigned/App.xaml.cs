@@ -52,7 +52,7 @@ namespace SCTool_Redesigned
         }
 
         //from Program.Global
-        public static GameInfo? CurrentGame { get; set; }
+        public static GameInfo CurrentGame { get; set; }
 
         public static string Name { get; } = Assembly.GetExecutingAssembly().GetName().Name;
 
