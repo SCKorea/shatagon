@@ -96,7 +96,7 @@ namespace SCTool_Redesigned.Utils
         }
 
 
-        public static string GetReleaseNote(bool cache)
+        public static string GetReleaseNote(bool cache = true)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -104,13 +104,9 @@ namespace SCTool_Redesigned.Utils
 
             if (releases != null)
             {
-                int i = 10;
-
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
-                    if (--i <= 0)
-                        break;
-
+                    
                     sb.Append($"### {release.Name}\n");
 
                     var body = release.Body;
@@ -129,6 +125,23 @@ namespace SCTool_Redesigned.Utils
             }
 
             return sb.ToString();
+        }
+
+        public static List<string> GetReleaseVersions(bool cache = true)
+        {
+            var releases = GetReleases(cache);
+            var list = new List<string>();
+
+            if (releases != null)
+            {
+                foreach (CustomGitHubRepository.GitRelease release in releases)
+                {
+                    list.Add(release.Name);
+                    
+                }
+            }
+
+            return list;
         }
 
     }

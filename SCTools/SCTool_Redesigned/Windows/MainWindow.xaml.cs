@@ -52,6 +52,8 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 1:     //select laucher language
+                        Console.WriteLine(App.Settings.ToolLanguage != null + " dddddd");
+
                         if (App.Settings.ToolLanguage != null)
                         {
                             Phase = 2;
@@ -215,7 +217,7 @@ namespace SCTool_Redesigned.Windows
         {
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                //Close();
+                Close();
                 Application.Current.Shutdown();
             }));
         }
