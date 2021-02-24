@@ -111,6 +111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Localization\CustomGitHubRepository.cs" />
     <Compile Include="Utils\HttpNetClient.cs" />
     <Compile Include="Utils\RepositoryManager.cs" />
     <Compile Include="Pages\installComplete.xaml.cs">

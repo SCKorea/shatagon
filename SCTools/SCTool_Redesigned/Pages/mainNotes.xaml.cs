@@ -89,7 +89,7 @@ namespace SCTool_Redesigned.Pages
 
         private void ShowReleasesNote()
         {
-            ShowFlowDocument("releases", RepositoryManager.GetLatestReleaseNote());
+            ShowFlowDocument("releases", RepositoryManager.GetReleaseNote());
         }
 
         private Dictionary<string, FlowDocument> _cache = new Dictionary<string, FlowDocument>();

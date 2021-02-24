@@ -102,7 +102,7 @@ namespace SCTool_Redesigned.Utils
         }
 
 
-        public static string GetLatestReleaseNote(bool cache = true, bool isCredential = false, string token = "")
+        public static string GetReleaseNote(bool cache = true, bool isCredential = false, string token = "")
         {
             var releases = GetGithubReleases(cache, isCredential, token);
             var sb = new StringBuilder();
