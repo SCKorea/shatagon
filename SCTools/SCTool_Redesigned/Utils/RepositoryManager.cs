@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using Octokit;
 using SCTool_Redesigned.Localization;
 using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Update;
@@ -131,7 +130,6 @@ namespace SCTool_Redesigned.Utils
 
             return sb.ToString();
         }
-
 
     }
 }
