@@ -34,7 +34,7 @@ namespace SCTool_Redesigned.Pages
         }
 
 
-        private void LocalizationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void VersionSelectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (VersionSelectListBox.SelectedValue is string version)
             {
