@@ -74,16 +74,16 @@ namespace SCTool_Redesigned.Windows
                             break;
                         }
                         //refresh with new UI language
-                        logotitle.Content = Properties.Resources.ResourceManager.GetString("UI_Title_ProgramTitle", Properties.Resources.Culture);
-                        PrevBtn.Text = Properties.Resources.ResourceManager.GetString("UI_Button_Previous", Properties.Resources.Culture);
-                        NextBtn.Text = Properties.Resources.ResourceManager.GetString("UI_Button_Next", Properties.Resources.Culture);
-                        InstallBtn.Content = Properties.Resources.ResourceManager.GetString("UI_Button_InstallLocalization", Properties.Resources.Culture);
-                        UninstallBtn.Content = Properties.Resources.ResourceManager.GetString("UI_Button_RemoveLocalization", Properties.Resources.Culture);
-                        DisableBtn.Content = Properties.Resources.ResourceManager.GetString("UI_Button_DisableLocalization", Properties.Resources.Culture);
-                        WelcomeText.Content = Properties.Resources.ResourceManager.GetString("UI_Desc_Welcome", Properties.Resources.Culture);
-                        _author.AuthDescLabel.Text = Properties.Resources.ResourceManager.GetString("UI_Title_Auth", Properties.Resources.Culture);
-                        _author.ErrorLabel.Content = Properties.Resources.ResourceManager.GetString("UI_Desc_AuthError", Properties.Resources.Culture);
-                        _author.Applybtn.Content = Properties.Resources.ResourceManager.GetString("UI_Button_AuthApply", Properties.Resources.Culture);
+                        logotitle.Content = Properties.Resources.UI_Title_ProgramTitle;
+                        PrevBtn.Text = Properties.Resources.UI_Button_Previous;
+                        NextBtn.Text = Properties.Resources.UI_Button_Next;
+                        InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
+                        UninstallBtn.Content = Properties.Resources.UI_Button_RemoveLocalization;
+                        DisableBtn.Content = Properties.Resources.UI_Button_DisableLocalization;
+                        WelcomeText.Content = Properties.Resources.UI_Desc_Welcome;
+                        _author.AuthDescLabel.Text = Properties.Resources.UI_Title_Auth;
+                        _author.ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
+                        _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
 
                         frame_left.Content = null;
                         frame_right.Content = new Pages.selectPatchLang();

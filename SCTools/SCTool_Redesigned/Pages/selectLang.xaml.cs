@@ -68,7 +68,7 @@ namespace SCTool_Redesigned.Pages
                 Thread.CurrentThread.CurrentCulture = Properties.Resources.Culture;
                 Thread.CurrentThread.CurrentUICulture = Properties.Resources.Culture;
 
-                applyBtn.Content = Properties.Resources.ResourceManager.GetString("UI_Button_Next", Properties.Resources.Culture);
+                applyBtn.Content = Properties.Resources.UI_Button_Next;
 
                 App.Settings.ToolLanguage = language;
                 App.SaveAppSettings();
