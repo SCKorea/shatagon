@@ -25,13 +25,11 @@ namespace SCTool_Redesigned.Windows
     public partial class AuthWindow : Window
     {
         private string _authtoken;
-        private bool _authed;
         private DispatcherTimer _labellifespantimer, _labelblinker;
         public AuthWindow()
         {
             InitializeComponent();
             _authtoken = null;
-            _authed = false;
             _labellifespantimer = new DispatcherTimer();
             _labellifespantimer.Tick += new EventHandler(labellifespan);
             _labellifespantimer.Interval = TimeSpan.FromSeconds(3);
@@ -71,7 +69,7 @@ namespace SCTool_Redesigned.Windows
                 if (jresult["status"].ToString() == "200")
                 {
                     _authtoken = jresult["value"].ToString();
-                    return _authed = true;
+                    return true;
                 }
                 else
                     return false;
