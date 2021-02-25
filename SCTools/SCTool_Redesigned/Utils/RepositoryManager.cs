@@ -17,13 +17,14 @@ namespace SCTool_Redesigned.Utils
     public static class RepositoryManager
     {
         private static List<LocalizationSource> _repolist;
-        private static LocalizationSource _currentlyinstalled;
+        private static LocalizationInstallation _currentInstalled, _installTarget;
         private static LocalizationSource _localizationSource;
 
         static RepositoryManager()
         {
             _repolist = App.Settings.GetGameLanguages();
-            _currentlyinstalled = null;
+            _currentInstalled = null;
+            _installTarget = null;
             _localizationSource = null;
         }
 
@@ -75,7 +76,7 @@ namespace SCTool_Redesigned.Utils
                 Task.Run(() =>
                 {
                     var customGithubRepo = new CustomGitHubRepository(
-                        HttpNetClient.Client, NSW.StarCitizen.Tools.Lib.Update.GitHubDownloadType.Assets, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
+                        HttpNetClient.Client, NSW.StarCitizen.Tools.Lib.Update.GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
 
                     if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
                     {
@@ -94,7 +95,6 @@ namespace SCTool_Redesigned.Utils
 
             return _githubReleases;           
         }
-
 
         public static string GetReleaseNote(bool cache = true)
         {
