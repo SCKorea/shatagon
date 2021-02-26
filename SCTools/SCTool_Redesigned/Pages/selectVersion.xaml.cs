@@ -38,7 +38,7 @@ namespace SCTool_Redesigned.Pages
         {
             if (VersionSelectListBox.SelectedValue is string version)
             {
-                RepositoryManager.SetInstallationTarget(version,VersionSelectListBox.Items[0].ToString());
+                RepositoryManager.SetInstallationTarget(version, version);
             }
         }
     }

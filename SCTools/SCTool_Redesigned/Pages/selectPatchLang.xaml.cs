@@ -46,7 +46,10 @@ namespace SCTool_Redesigned.Pages
             if (LocalizationListBox.SelectedValue is string language)
             {
                 App.Settings.GameLanguage = language;
-                App.SaveAppSettings();
+                if(!RepositoryManager.SetTargetRepository())
+                    MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess, Properties.Resources.MSG_Title_GeneralError,MessageBoxButton.OK,MessageBoxImage.Error);
+                else
+                    App.SaveAppSettings();
             }
         }
     }

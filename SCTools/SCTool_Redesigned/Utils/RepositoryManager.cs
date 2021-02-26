@@ -20,24 +20,36 @@ namespace SCTool_Redesigned.Utils
     public static class RepositoryManager
     {
         private static List<LocalizationSource> _repolist;
-        private static LocalizationInstallation _currentInstalled, _installTarget;
+        private static LocalizationInstallation _currentInstalled;
         private static LocalizationSource _localizationSource;
+        public static ILocalizationRepository TargetRepository { get; private set; }
+        public static LocalizationInstallation TargetInstallation { get; private set; }
+        public static UpdateInfo TargetInfo { get; private set; }   //FIXME:
 
         static RepositoryManager()
         {
             _repolist = App.Settings.GetGameLanguages();
             _currentInstalled = null;
-            _installTarget = null;
+            TargetInstallation = null;
             _localizationSource = null;
+        }
+        public static void SetInstalledRepository() //does it make sense? I don't get it...
+        {
+            _currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
+            _currentInstalled.LastVersion = TargetInstallation.LastVersion;
         }
         public static void SetInstallationTarget(string select, string last)
         {   //TODO: make selection between LIVE and PTU
-            if(_installTarget == null)
-                _installTarget = new LocalizationInstallation(GameMode.LIVE,_localizationSource.Repository, UpdateRepositoryType.GitHub);
-            _installTarget.LastVersion = last;
-            _installTarget.InstalledVersion = select;
-            _installTarget.AllowPreRelease = false; //TODO: options?
+            if(TargetInstallation == null)
+                TargetInstallation = new LocalizationInstallation(GameMode.LIVE,_localizationSource.Repository, UpdateRepositoryType.GitHub);
+            TargetInstallation.LastVersion = last;
+            TargetInstallation.InstalledVersion = select;
+            TargetInstallation.AllowPreRelease = false; //TODO: options?
             App.SaveAppSettings();
+        }
+        public static LocalizationInstallation GetInstallationTarget()
+        {
+            return TargetInstallation;
         }
         public static List<string> GetLocalizationList()
         {
@@ -52,12 +64,25 @@ namespace SCTool_Redesigned.Utils
 
         public static bool IsAvailable()
         {
-            if (_localizationSource != null && _installTarget.InstalledVersion != null)
+            if (_localizationSource != null && TargetInstallation.InstalledVersion != null)
                 return true;
             else
                 return false;
         }
 
+        public static bool SetTargetRepository()
+        {
+            foreach (LocalizationSource localization in _repolist)
+            {
+                if (localization.Name.Equals(App.Settings.GameLanguage))
+                {
+                    TargetRepository = new GitHubLocalizationRepository(HttpNetClient.Client, GameMode.LIVE, localization.Name, localization.Repository);
+                    //TODO: UpdateInfo
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public static LocalizationSource GetLocalizationSource()
         {
