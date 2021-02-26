@@ -81,6 +81,114 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Unfortunately, it was an error during download. Please try again.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Download_ErrorText {
+            get {
+                return ResourceManager.GetString("Localization_Download_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Download Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Download_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Localization_Download_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unfortunately, it was an file error during install. Please ensure install folder and files is not open in other applicaitions.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_File_ErrorText {
+            get {
+                return ResourceManager.GetString("Localization_File_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   File Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_File_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Localization_File_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unfortunately, it was an error during installation. Please try again.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Install_ErrorText {
+            get {
+                return ResourceManager.GetString("Localization_Install_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Install Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Install_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Localization_Install_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Package is corrupted or not valid. Please try another or contact with package owner.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Package_ErrorText {
+            get {
+                return ResourceManager.GetString("Localization_Package_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Package Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Package_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Localization_Package_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unable to uninstall localization. Please ensure install folder and files is not open in other applicaitions.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Uninstall_ErrorText {
+            get {
+                return ResourceManager.GetString("Localization_Uninstall_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Uninstall error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Uninstall_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Localization_Uninstall_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Package security verification is not passed. Please try another or contact with package owner.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Verify_ErrorText {
+            get {
+                return ResourceManager.GetString("Localization_Verify_ErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Verification Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Verify_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Localization_Verify_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The location you specified is not the location where Star Citizen is installed. Find and select the &quot;StarCitizen&quot; folder.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Decs_NotGameFolder {

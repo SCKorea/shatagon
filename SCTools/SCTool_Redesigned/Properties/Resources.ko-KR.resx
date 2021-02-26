@@ -124,6 +124,36 @@
   <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Localization_Download_ErrorText" xml:space="preserve">
+    <value>다운로드 중 오류가 발생하였습니다. 잠시 후 다시 시도하여 주십시오.</value>
+  </data>
+  <data name="Localization_Download_ErrorTitle" xml:space="preserve">
+    <value>다운로드 오류</value>
+  </data>
+  <data name="Localization_File_ErrorText" xml:space="preserve">
+    <value>설치 중 파일 오류가 발생하였습니다. 다른 프로그램에서 폴더 또는 파일을 사용하고 있지 않는지 확인하십시오.</value>
+  </data>
+  <data name="Localization_File_ErrorTitle" xml:space="preserve">
+    <value>파일 오류</value>
+  </data>
+  <data name="Localization_Install_ErrorText" xml:space="preserve">
+    <value>설치 중 오류가 발생하였습니다. 잠시 후 다시 시도하여 주십시오.</value>
+  </data>
+  <data name="Localization_Install_ErrorTitle" xml:space="preserve">
+    <value>설치 오류</value>
+  </data>
+  <data name="Localization_Uninstall_ErrorText" xml:space="preserve">
+    <value>언어팩을 제거 할 수 없습니다. 다른 프로그램에서 폴더 또는 파일을 사용하고 있지 않는지 확인하십시오.</value>
+  </data>
+  <data name="Localization_Uninstall_ErrorTitle" xml:space="preserve">
+    <value>언어팩 제거 오류</value>
+  </data>
+  <data name="Localization_Verify_ErrorText" xml:space="preserve">
+    <value>패키지 보안 확인에 실패하였습니다. 다른 것을 시도하거나 패키지 관리자에게 문의하십시오.</value>
+  </data>
+  <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
+    <value>확인 실패</value>
+  </data>
   <data name="MSG_Decs_NotGameFolder" xml:space="preserve">
     <value>지정한 위치는 스타 시티즌이 설치되어 있지 않습니다. "StarCitizen" 폴더를 선택해 주십시오.</value>
   </data>
