@@ -70,16 +70,7 @@ namespace SCTool_Redesigned.Settings
         public string AuthToken {get; set;}
 
         [JsonConstructor]
-        public LocalizationSource(string name, string repository, UpdateRepositoryType type)
-        {
-            Name = name;
-            Repository = repository;
-            Type = type;
-            AuthToken = null;
-            IsPrivate = false;
-        }
-        [JsonConstructor]
-        public LocalizationSource(string name, string repository, UpdateRepositoryType type, bool isprivate)
+        public LocalizationSource(string name, string repository, UpdateRepositoryType type, bool isprivate=false)
         {
             Name = name;
             Repository = repository;
