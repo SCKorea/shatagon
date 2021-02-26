@@ -9,7 +9,8 @@
       Title="installProgress">
 
     <Grid>
-        <ProgressBar x:Name="installPbr" HorizontalAlignment="Center" Height="15" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="600"/>
+        <Label x:Name="DescText" Content="준비 중" HorizontalAlignment="Center" Margin="0,0,0,40" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontSize="14"/>
+        <ProgressBar x:Name="ProgBar" HorizontalAlignment="Center" Height="15" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="600"/>
         <Label x:Name="Phasetext" Content="설치 중..." HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontSize="18"/>
     </Grid>
 </Page>
