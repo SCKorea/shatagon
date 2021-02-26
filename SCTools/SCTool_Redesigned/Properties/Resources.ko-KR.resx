@@ -130,6 +130,26 @@
   <data name="MSG_Decs_SelectLocalization" xml:space="preserve">
     <value>게임에 적용할 언어팩을 선택하십시오.</value>
   </data>
+  <data name="MSG_Desc_InstallWarning" xml:space="preserve">
+    <value>여러분,
+본 프로젝트에 관심을 가져주셔서 감사합니다!
+
+설치 전 아래 사항을 반드시 읽어주세요.
+1. 다른 플레이어 또는 개발사가 제공한 방법보다 기술적 이점을 제공하거나 제공할 수 있는 게임 수정은 EULA를 위반하는 것이며 강력한 제제를 받습니다.
+2. 본 프로그램이 제공하는 기본 매개변수만 사용하는 한 타 플레이어보다 유리하거나 개발사가 제공하는 방법 또는 다른 종류의 이점을 제공하지 않으므로 안심하셔도 좋습니다.
+3. 위 2개와 별개로 이 프로그램을 사용하는 것과 패치를 사용하는 것에 대한 책임은 여전히 여러분께 있습니다.
+
+경고를 읽고 이해했으며 설치할 준비가 되었다면 "예"를 눌러 설치를 진행할 수 있습니다.</value>
+  </data>
+  <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
+    <value>잘못된 접근입니다.</value>
+  </data>
+  <data name="MSG_Title_GeneralError" xml:space="preserve">
+    <value>에러</value>
+  </data>
+  <data name="MSG_Title_GeneralWarning" xml:space="preserve">
+    <value>경고</value>
+  </data>
   <data name="MSG_Title_NotGameFolder" xml:space="preserve">
     <value>스타 시티즌 폴더를 선택하십시오.</value>
   </data>

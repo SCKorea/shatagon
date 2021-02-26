@@ -99,6 +99,47 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Dear friend,
+        ///We are happy to see the interest to our project.
+        ///
+        ///But before installation we want to be sure you will read following reminder:
+        ///1. Any modification of the game which may give or give any technical advantage over other players or methods provided by developers violate EULA and will be punished with full strength.
+        ///2. Changes provided by this modification won&apos;t give you advantage over other players or advantages in methods provided by developers in game or any other kind of advantage. Therefor[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Desc_InstallWarning {
+            get {
+                return ResourceManager.GetString("MSG_Desc_InstallWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Invalid Access과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Desc_InvalidAccess {
+            get {
+                return ResourceManager.GetString("MSG_Desc_InvalidAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_GeneralError {
+            get {
+                return ResourceManager.GetString("MSG_Title_GeneralError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Warning과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_GeneralWarning {
+            get {
+                return ResourceManager.GetString("MSG_Title_GeneralWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Select the Star Citizen game folder.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Title_NotGameFolder {

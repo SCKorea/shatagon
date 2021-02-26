@@ -21,6 +21,9 @@ namespace SCTool_Redesigned.Settings
         public string GameLanguage { get; set; }
 
         [JsonProperty]
+        public bool AcceptInstallWarning { get; set; }
+
+        [JsonProperty]
         public LocalizationSettings LIVE_Localization { get; } = new LocalizationSettings();
 
         [JsonProperty]
