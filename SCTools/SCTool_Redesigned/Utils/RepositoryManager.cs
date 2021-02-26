@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using NSW.StarCitizen.Tools.Lib.Global;
+using NSW.StarCitizen.Tools.Lib.Localization;
+using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.Localization;
 using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Update;
@@ -27,7 +30,15 @@ namespace SCTool_Redesigned.Utils
             _installTarget = null;
             _localizationSource = null;
         }
-
+        public static void SetInstallationTarget(string select, string last)
+        {   //TODO: make selection between LIVE and PTU
+            if(_installTarget == null)
+                _installTarget = new LocalizationInstallation(GameMode.LIVE,_localizationSource.Repository, UpdateRepositoryType.GitHub);
+            _installTarget.LastVersion = last;
+            _installTarget.InstalledVersion = select;
+            _installTarget.AllowPreRelease = false; //TODO: options?
+            App.SaveAppSettings();
+        }
         public static List<string> GetLocalizationList()
         {
             var list = new List<string>();
@@ -38,6 +49,15 @@ namespace SCTool_Redesigned.Utils
             }
             return list;
         }
+
+        public static bool IsAvailable()
+        {
+            if (_localizationSource != null && _installTarget.InstalledVersion != null)
+                return true;
+            else
+                return false;
+        }
+
 
         public static LocalizationSource GetLocalizationSource()
         {
