@@ -39,8 +39,8 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Shatagon.zip
-          asset_name: Shatagon
+          asset_name: Shatagon.zip
           tag: master
           overwrite: true
-          body: $GITHUB_SHA
+          body: ${{ GITHUB_SHA }}
       
