@@ -74,6 +74,7 @@ namespace SCTool_Redesigned.Windows
                     case 5:  //select Version
                         break;
                 }
+                _PhaseNumber = value;
                 switch (value)
                 {
                     case 0:     //launcher update
@@ -198,8 +199,6 @@ namespace SCTool_Redesigned.Windows
 
                     default: throw new Exception(value.ToString()+" Phase is not exist");
                 }
-                
-                _PhaseNumber = value;
                 Console.WriteLine($"Change Phase to {_PhaseNumber}");
             }
         }
@@ -228,9 +227,9 @@ namespace SCTool_Redesigned.Windows
         {
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                Process.GetCurrentProcess().Kill();
-
-                //Application.Current.Shutdown(); //Nullreferenceexception occurs when the authentication window is open
+                //Process.GetCurrentProcess().Kill();
+                _author.Close();
+                Application.Current.Shutdown();
             }));
         }
 
