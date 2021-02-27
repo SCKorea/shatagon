@@ -34,13 +34,13 @@ jobs:
           files: SCTools\SCTool_Redesigned\bin\Release
           dest: release.zip
       
-      - name: Upload app
+      - name: Create release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release.zip
-          asset_name: release.zip
-          tag: master
+          file: latest.zip
+          asset_name: latest.zip
+          tag: latest
           overwrite: true
           body: This is the latest version.
       
