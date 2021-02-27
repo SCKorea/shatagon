@@ -22,7 +22,7 @@ namespace SCTool_Redesigned.Utils
         private static List<LocalizationSource> _repolist;
         private static LocalizationInstallation _currentInstalled;
         private static LocalizationSource _localizationSource;
-        public static ILocalizationRepository TargetRepository { get; private set; }
+        public static GitHubLocalizationRepository TargetRepository { get; private set; }
         public static LocalizationInstallation TargetInstallation { get; private set; }
         public static UpdateInfo TargetInfo { get; private set; }   //FIXME:
 
@@ -77,7 +77,9 @@ namespace SCTool_Redesigned.Utils
                 if (localization.Name.Equals(App.Settings.GameLanguage))
                 {
                     TargetRepository = new GitHubLocalizationRepository(HttpNetClient.Client, GameMode.LIVE, localization.Name, localization.Repository);
-                    //TODO: UpdateInfo
+                    if (localization.IsPrivate)
+                        TargetRepository.AuthToken = localization.AuthToken;
+                    //FIXME: Update TargetInfo to get info
                     return true;
                 }
             }
