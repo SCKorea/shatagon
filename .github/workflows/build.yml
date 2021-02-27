@@ -26,7 +26,9 @@ jobs:
       #  run: nuget restore SCTools\SCTools.sln -PackagesDirectory SCTool_Redesigned
           
       - name: Build app
-        run: msbuild SCTools\SCTools.sln /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
+        run: |
+          msbuild -t:restore
+          msbuild SCTools\SCTools.sln /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
       
       - name: Compress component
         uses: papeloto/action-zip@v1
