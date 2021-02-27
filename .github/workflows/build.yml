@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup nuget
+        uses: nuget/setup-nuget@v1
+        
+      - name: Restore nuget packages
+        run: nuget restore SCTools\SCTools.sln -PackagesDirectory SCTool_Redesigned
+          
+      - name: Build app
+        run: msbuild SCTools\SCTools.sln /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="x64"
+      
+      - name: Compress component
+        uses: papeloto/action-zip@v1
+        with:
+          files: SCTools\SCTool_Redesigned\bin\Release
+          dest: Shatagon.zip
+      
+      - name: Upload app
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: Shatagon.zip
+          asset_name: Shatagon
+          tag: master
+          overwrite: true
+          body: ${{ GITHUB_SHA }}
+      
