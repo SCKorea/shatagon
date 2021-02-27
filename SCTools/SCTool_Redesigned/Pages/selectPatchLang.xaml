@@ -1,0 +1,19 @@
+<Page x:Class="SCTool_Redesigned.Pages.selectPatchLang"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="480"
+      Title="selectPatchLang">
+
+    <Grid>
+        <Label Content="{x:Static lang:Resources.UI_Title_ChooseLocalization}" FontSize="24" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" HorizontalContentAlignment="Center"
+               HorizontalAlignment="Center" Height="48" Margin="0,-110,0,0" VerticalAlignment="Center" Width="480"/>
+        <ComboBox x:Name="LocalizationListBox" HorizontalAlignment="Center" Height="26" Margin="0,0,0,0" VerticalAlignment="Center" Width="210" FontSize="15" SelectionChanged="LocalizationListBox_SelectionChanged"/>
+        <Button x:Name="applyBtn" Content="{x:Static lang:Resources.UI_Button_Select}" FontSize="18" HorizontalAlignment="center" Height="35" Margin="0,90,0,0" VerticalAlignment="Center" Width="100" Click="applyBtn_Click"/>
+
+    </Grid>
+</Page>

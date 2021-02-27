@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GmarketSansBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\GmarketSansBold.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Localization_Download_ErrorText" xml:space="preserve">
+    <value>Unfortunately, it was an error during download. Please try again.</value>
+  </data>
+  <data name="Localization_Download_ErrorTitle" xml:space="preserve">
+    <value>Download Error</value>
+  </data>
+  <data name="Localization_File_ErrorText" xml:space="preserve">
+    <value>Unfortunately, it was an file error during install. Please ensure install folder and files is not open in other applicaitions.</value>
+  </data>
+  <data name="Localization_File_ErrorTitle" xml:space="preserve">
+    <value>File Error</value>
+  </data>
+  <data name="Localization_Install_ErrorText" xml:space="preserve">
+    <value>Unfortunately, it was an error during installation. Please try again.</value>
+  </data>
+  <data name="Localization_Install_ErrorTitle" xml:space="preserve">
+    <value>Install Error</value>
+  </data>
+  <data name="Localization_Package_ErrorText" xml:space="preserve">
+    <value>Package is corrupted or not valid. Please try another or contact with package owner.</value>
+  </data>
+  <data name="Localization_Package_ErrorTitle" xml:space="preserve">
+    <value>Package Error</value>
+  </data>
+  <data name="Localization_Uninstall_ErrorText" xml:space="preserve">
+    <value>Unable to uninstall localization. Please ensure install folder and files is not open in other applicaitions.</value>
+  </data>
+  <data name="Localization_Uninstall_ErrorTitle" xml:space="preserve">
+    <value>Uninstall error</value>
+  </data>
+  <data name="Localization_Verify_ErrorText" xml:space="preserve">
+    <value>Package security verification is not passed. Please try another or contact with package owner.</value>
+  </data>
+  <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
+    <value>Verification Error</value>
+  </data>
+  <data name="MSG_Decs_NotGameFolder" xml:space="preserve">
+    <value>The location you specified is not the location where Star Citizen is installed. Find and select the "StarCitizen" folder.</value>
+  </data>
+  <data name="MSG_Decs_SelectLocalization" xml:space="preserve">
+    <value>Please select the localization to apply to the game.</value>
+  </data>
+  <data name="MSG_Desc_InstallWarning" xml:space="preserve">
+    <value>Dear friend,
+We are happy to see the interest to our project.
+
+But before installation we want to be sure you will read following reminder:
+1. Any modification of the game which may give or give any technical advantage over other players or methods provided by developers violate EULA and will be punished with full strength.
+2. Changes provided by this modification won't give you advantage over other players or advantages in methods provided by developers in game or any other kind of advantage. Therefore, as long as the modification is used exclusively in the parameters provided by us, you can not be afraid of any sanctions from the developers.
+3. But still, only you are solely responsible for the use of this software, as well as for any installed modifications.
+
+By clicking "Yes", you confirm that you have read and understood the warning and ready to proceed with the installation.</value>
+  </data>
+  <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
+    <value>Invalid Access</value>
+  </data>
+  <data name="MSG_Title_GeneralError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MSG_Title_GeneralWarning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MSG_Title_NotGameFolder" xml:space="preserve">
+    <value>Select the Star Citizen game folder.</value>
+  </data>
+  <data name="MSG_Title_SelectLocalization" xml:space="preserve">
+    <value>Select localization</value>
+  </data>
+  <data name="MSG_Title_SelectStarCitizenDirectory" xml:space="preserve">
+    <value>Find and select the same folder as "StarCitizen".</value>
+  </data>
+  <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SCDream5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream5.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="UI_Button_AuthApply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="UI_Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="UI_Button_DisableLocalization" xml:space="preserve">
+    <value>Disable Localization</value>
+  </data>
+  <data name="UI_Button_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="UI_Button_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="UI_Button_InstallLocalization" xml:space="preserve">
+    <value>Install Localization</value>
+  </data>
+  <data name="UI_Button_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="UI_Button_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="UI_Button_Previous" xml:space="preserve">
+    <value>Prev</value>
+  </data>
+  <data name="UI_Button_Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="UI_Button_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="UI_Button_RemoveLocalization" xml:space="preserve">
+    <value>Remove Localization</value>
+  </data>
+  <data name="UI_Button_Return" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="UI_Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="UI_Button_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="UI_Button_SelectLang" xml:space="preserve">
+    <value>Select Language</value>
+  </data>
+  <data name="UI_Button_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="UI_Desc_AuthError" xml:space="preserve">
+    <value>Wrong Code, please check your code.</value>
+  </data>
+  <data name="UI_Desc_BringingMarkdown" xml:space="preserve">
+    <value>**Loading...**</value>
+  </data>
+  <data name="UI_Desc_CheckingUpdate" xml:space="preserve">
+    <value>Checking Updates...</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
+    <value>Find and select the "StarCitizen" folder.</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCItizenFolderBtn" xml:space="preserve">
+    <value>Select folder directory by 'Edit' button</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
+    <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
+  </data>
+  <data name="UI_Desc_GithubAPILimitExceeded" xml:space="preserve">
+    <value>API usage has been exceeded. Please try again later.</value>
+  </data>
+  <data name="UI_Desc_InstallationComplete" xml:space="preserve">
+    <value>Installation complete.</value>
+  </data>
+  <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
+    <value>Installing...</value>
+  </data>
+  <data name="UI_Desc_NoContent" xml:space="preserve">
+    <value>No content here.</value>
+  </data>
+  <data name="UI_Desc_NotFoundMarkdown" xml:space="preserve">
+    <value>**Cannot found document.**</value>
+  </data>
+  <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
+    <value>Select Localization Version.</value>
+  </data>
+  <data name="UI_Desc_UnableMarkdown" xml:space="preserve">
+    <value>**The document cannot be loaded.**</value>
+  </data>
+  <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
+    <value>Updating SCTools</value>
+  </data>
+  <data name="UI_Desc_Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="UI_Tab_Main_Qna" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
+    <value>Releases</value>
+  </data>
+  <data name="UI_Title_Auth" xml:space="preserve">
+    <value>Input your code</value>
+  </data>
+  <data name="UI_Title_ChooseLocalization" xml:space="preserve">
+    <value>Choose Localization</value>
+  </data>
+  <data name="UI_Title_ProgramTitle" xml:space="preserve">
+    <value>SCTools</value>
+  </data>
+  <data name="UI_Title_Step_01" xml:space="preserve">
+    <value>01</value>
+  </data>
+  <data name="UI_Title_Step_02" xml:space="preserve">
+    <value>02</value>
+  </data>
+  <data name="UI_Title_Step_03" xml:space="preserve">
+    <value>03</value>
+  </data>
+  <data name="UpdateScript" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update.bat;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+</root>

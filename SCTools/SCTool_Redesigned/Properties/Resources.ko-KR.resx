@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GmarketSansBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\GmarketSansBold.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Localization_Download_ErrorText" xml:space="preserve">
+    <value>다운로드 중 오류가 발생하였습니다. 잠시 후 다시 시도하여 주십시오.</value>
+  </data>
+  <data name="Localization_Download_ErrorTitle" xml:space="preserve">
+    <value>다운로드 오류</value>
+  </data>
+  <data name="Localization_File_ErrorText" xml:space="preserve">
+    <value>설치 중 파일 오류가 발생하였습니다. 다른 프로그램에서 폴더 또는 파일을 사용하고 있지 않는지 확인하십시오.</value>
+  </data>
+  <data name="Localization_File_ErrorTitle" xml:space="preserve">
+    <value>파일 오류</value>
+  </data>
+  <data name="Localization_Install_ErrorText" xml:space="preserve">
+    <value>설치 중 오류가 발생하였습니다. 잠시 후 다시 시도하여 주십시오.</value>
+  </data>
+  <data name="Localization_Install_ErrorTitle" xml:space="preserve">
+    <value>설치 오류</value>
+  </data>
+  <data name="Localization_Uninstall_ErrorText" xml:space="preserve">
+    <value>언어팩을 제거 할 수 없습니다. 다른 프로그램에서 폴더 또는 파일을 사용하고 있지 않는지 확인하십시오.</value>
+  </data>
+  <data name="Localization_Uninstall_ErrorTitle" xml:space="preserve">
+    <value>언어팩 제거 오류</value>
+  </data>
+  <data name="Localization_Verify_ErrorText" xml:space="preserve">
+    <value>패키지 보안 확인에 실패하였습니다. 다른 것을 시도하거나 패키지 관리자에게 문의하십시오.</value>
+  </data>
+  <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
+    <value>확인 실패</value>
+  </data>
+  <data name="MSG_Decs_NotGameFolder" xml:space="preserve">
+    <value>지정한 위치는 스타 시티즌이 설치되어 있지 않습니다. "StarCitizen" 폴더를 선택해 주십시오.</value>
+  </data>
+  <data name="MSG_Decs_SelectLocalization" xml:space="preserve">
+    <value>게임에 적용할 언어팩을 선택하십시오.</value>
+  </data>
+  <data name="MSG_Desc_InstallWarning" xml:space="preserve">
+    <value>여러분,
+본 프로젝트에 관심을 가져주셔서 감사합니다!
+
+설치 전 아래 사항을 반드시 읽어주세요.
+1. 다른 플레이어 또는 개발사가 제공한 방법보다 기술적 이점을 제공하거나 제공할 수 있는 게임 수정은 EULA를 위반하는 것이며 강력한 제제를 받습니다.
+2. 본 프로그램이 제공하는 기본 매개변수만 사용하는 한 타 플레이어보다 유리하거나 개발사가 제공하는 방법 또는 다른 종류의 이점을 제공하지 않으므로 안심하셔도 좋습니다.
+3. 위 2개와 별개로 이 프로그램을 사용하는 것과 패치를 사용하는 것에 대한 책임은 여전히 여러분께 있습니다.
+
+경고를 읽고 이해했으며 설치할 준비가 되었다면 "예"를 눌러 설치를 진행할 수 있습니다.</value>
+  </data>
+  <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
+    <value>잘못된 접근입니다.</value>
+  </data>
+  <data name="MSG_Title_GeneralError" xml:space="preserve">
+    <value>에러</value>
+  </data>
+  <data name="MSG_Title_GeneralWarning" xml:space="preserve">
+    <value>경고</value>
+  </data>
+  <data name="MSG_Title_NotGameFolder" xml:space="preserve">
+    <value>스타 시티즌 폴더를 선택하십시오.</value>
+  </data>
+  <data name="MSG_Title_SelectLocalization" xml:space="preserve">
+    <value>언어팩 선택</value>
+  </data>
+  <data name="MSG_Title_SelectStarCitizenDirectory" xml:space="preserve">
+    <value>"StarCitizen" 폴더를 찾아 선택하십시오.</value>
+  </data>
+  <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SCDream5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream5.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="UI_Button_AuthApply" xml:space="preserve">
+    <value>코드 입력</value>
+  </data>
+  <data name="UI_Button_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="UI_Button_DisableLocalization" xml:space="preserve">
+    <value>패치 비활성화</value>
+  </data>
+  <data name="UI_Button_Edit" xml:space="preserve">
+    <value>변경</value>
+  </data>
+  <data name="UI_Button_Install" xml:space="preserve">
+    <value>설치</value>
+  </data>
+  <data name="UI_Button_InstallLocalization" xml:space="preserve">
+    <value>패치 설치</value>
+  </data>
+  <data name="UI_Button_Next" xml:space="preserve">
+    <value>다음</value>
+  </data>
+  <data name="UI_Button_No" xml:space="preserve">
+    <value>아니오</value>
+  </data>
+  <data name="UI_Button_Previous" xml:space="preserve">
+    <value>이전</value>
+  </data>
+  <data name="UI_Button_Quit" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="UI_Button_Refresh" xml:space="preserve">
+    <value>버전 갱신</value>
+  </data>
+  <data name="UI_Button_RemoveLocalization" xml:space="preserve">
+    <value>패치 제거</value>
+  </data>
+  <data name="UI_Button_Return" xml:space="preserve">
+    <value>처음</value>
+  </data>
+  <data name="UI_Button_Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="UI_Button_Select" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="UI_Button_SelectLang" xml:space="preserve">
+    <value>언어 선택</value>
+  </data>
+  <data name="UI_Button_Yes" xml:space="preserve">
+    <value>예</value>
+  </data>
+  <data name="UI_Desc_AuthError" xml:space="preserve">
+    <value>코드를 확인해주세요</value>
+  </data>
+  <data name="UI_Desc_BringingMarkdown" xml:space="preserve">
+    <value>**불러오는 중...**</value>
+  </data>
+  <data name="UI_Desc_CheckingUpdate" xml:space="preserve">
+    <value>업데이트 확인 중</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCItizenFolder" xml:space="preserve">
+    <value>스타시티즌이 설치된 폴더를 선택해주세요</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCItizenFolderBtn" xml:space="preserve">
+    <value>변경 버튼을 눌러 경로를 선택해주세요.</value>
+  </data>
+  <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
+    <value>예) C:\Program Files\Roberts Space Industries\StarCitizen</value>
+  </data>
+  <data name="UI_Desc_GithubAPILimitExceeded" xml:space="preserve">
+    <value>깃허브 API 사용량이 초과되었습니다. 나중에 다시 시도해 주세요.</value>
+  </data>
+  <data name="UI_Desc_InstallationComplete" xml:space="preserve">
+    <value>설치 완료</value>
+  </data>
+  <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
+    <value>설치 중...</value>
+  </data>
+  <data name="UI_Desc_NoContent" xml:space="preserve">
+    <value>내용이 없습니다.</value>
+  </data>
+  <data name="UI_Desc_NotFoundMarkdown" xml:space="preserve">
+    <value>**문서가 존재하지 않습니다.**</value>
+  </data>
+  <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
+    <value>설치할 패치 버전을 선택해주세요</value>
+  </data>
+  <data name="UI_Desc_UnableMarkdown" xml:space="preserve">
+    <value>**문서를 불러올 수 없습니다.**</value>
+  </data>
+  <data name="UI_Desc_UpdatingProgram" xml:space="preserve">
+    <value>런처 업데이트 중</value>
+  </data>
+  <data name="UI_Desc_Welcome" xml:space="preserve">
+    <value>환영합니다.</value>
+  </data>
+  <data name="UI_Tab_Main_Qna" xml:space="preserve">
+    <value>Q&amp;A</value>
+  </data>
+  <data name="UI_Tab_Main_ReleaseNote" xml:space="preserve">
+    <value>패치노트</value>
+  </data>
+  <data name="UI_Title_Auth" xml:space="preserve">
+    <value>인증코드를
+입력해주세요</value>
+  </data>
+  <data name="UI_Title_ChooseLocalization" xml:space="preserve">
+    <value>패치 언어 선택</value>
+  </data>
+  <data name="UI_Title_ProgramTitle" xml:space="preserve">
+    <value>언어팩 패쳐 Mk.3</value>
+  </data>
+  <data name="UI_Title_Step_01" xml:space="preserve">
+    <value>01</value>
+  </data>
+  <data name="UI_Title_Step_02" xml:space="preserve">
+    <value>02</value>
+  </data>
+  <data name="UI_Title_Step_03" xml:space="preserve">
+    <value>03</value>
+  </data>
+</root>

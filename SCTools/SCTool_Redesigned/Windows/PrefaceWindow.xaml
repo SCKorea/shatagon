@@ -1,0 +1,19 @@
+<Window x:Class="SCTool_Redesigned.Windows.PrefaceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SCTool_Redesigned.Windows"
+        mc:Ignorable="d"
+        Title="preface" Height="180" Width="360" Margin="2,0" Background="{DynamicResource BackgroundBrush}" Icon="/SCTool_Redesigned;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen">
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
+    <Grid Background="{DynamicResource BackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+    </Grid>
+
+</Window>

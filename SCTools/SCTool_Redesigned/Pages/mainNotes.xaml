@@ -1,0 +1,44 @@
+<Page x:Class="SCTool_Redesigned.Pages.mainNotes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
+      xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="480"
+      Title="mainNotes">
+
+    <FrameworkElement.CommandBindings>
+        <CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="OpenHyperlink" />
+    </FrameworkElement.CommandBindings>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="Menu_patchnote" Grid.Row="1" Grid.Column="0"
+            Text="{x:Static lang:Resources.UI_Tab_Main_ReleaseNote}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}"  VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_patchnote_PreviewMouseLeftButtonDown"
+                   />
+        <TextBlock x:Name="Menu_qna" Grid.Row="1" Grid.Column="1"
+            Text="{x:Static lang:Resources.UI_Tab_Main_Qna}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_qna_PreviewMouseLeftButtonDown"
+                   />
+        <TextBlock x:Name="Menu_credit" Grid.Row="1" Grid.Column="2"
+            Text="뭐넣지?" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_credit_PreviewMouseLeftButtonDown"
+                   />
+
+        <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="-14,0,-14,0" Grid.ColumnSpan="4"/>
+    </Grid>
+
+</Page>
