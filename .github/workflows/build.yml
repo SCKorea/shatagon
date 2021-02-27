@@ -42,5 +42,5 @@ jobs:
           asset_name: Shatagon.zip
           tag: master
           overwrite: true
-          body: ${{ GITHUB_SHA }}
+          body: ${{ $GITHUB_SHA }}
       
