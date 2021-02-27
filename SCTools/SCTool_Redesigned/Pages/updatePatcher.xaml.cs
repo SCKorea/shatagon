@@ -119,7 +119,7 @@ namespace SCTool_Redesigned.Pages
         {
             var updateInfoFactory = GitHubUpdateInfo.Factory.NewWithVersionByTagName();
             var updateRepository = new GitHubUpdateRepository(HttpNetClient.Client,
-                GitHubDownloadType.Assets, updateInfoFactory, App.Name, "marona42/StarCitizen");
+                GitHubDownloadType.Assets, updateInfoFactory, App.Name, "SCKorea/Shatagon");
             updateRepository.SetCurrentVersion(App.Version.ToString(3));
             return updateRepository;
         }
