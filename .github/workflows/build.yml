@@ -32,15 +32,15 @@ jobs:
         uses: papeloto/action-zip@v1
         with:
           files: SCTools\SCTool_Redesigned\bin\Release
-          dest: Shatagon.zip
+          dest: release.zip
       
       - name: Upload app
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: Shatagon.zip
-          asset_name: Shatagon.zip
+          file: release.zip
+          asset_name: release.zip
           tag: master
           overwrite: true
-          body: ${{ $GITHUB_SHA }}
+          body: This is the latest version.
       
