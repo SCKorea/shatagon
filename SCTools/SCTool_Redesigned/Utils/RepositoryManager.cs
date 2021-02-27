@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -22,7 +23,7 @@ namespace SCTool_Redesigned.Utils
         private static List<LocalizationSource> _repolist;
         private static LocalizationInstallation _currentInstalled;
         private static LocalizationSource _localizationSource;
-        public static GitHubLocalizationRepository TargetRepository { get; private set; }
+        public static ILocalizationRepository TargetRepository { get; private set; }
         public static LocalizationInstallation TargetInstallation { get; private set; }
         public static UpdateInfo TargetInfo { get; private set; }   //FIXME:
 
@@ -40,8 +41,8 @@ namespace SCTool_Redesigned.Utils
         }
         public static void SetInstallationTarget(string select, string last)
         {   //TODO: make selection between LIVE and PTU
-            if(TargetInstallation == null)
-                TargetInstallation = new LocalizationInstallation(GameMode.LIVE,_localizationSource.Repository, UpdateRepositoryType.GitHub);
+            if (TargetInstallation == null)
+                TargetInstallation = new LocalizationInstallation(GameMode.LIVE, _localizationSource.Repository, UpdateRepositoryType.GitHub);
             TargetInstallation.LastVersion = last;
             TargetInstallation.InstalledVersion = select;
             TargetInstallation.AllowPreRelease = false; //TODO: options?
@@ -77,9 +78,7 @@ namespace SCTool_Redesigned.Utils
                 if (localization.Name.Equals(App.Settings.GameLanguage))
                 {
                     TargetRepository = new GitHubLocalizationRepository(HttpNetClient.Client, GameMode.LIVE, localization.Name, localization.Repository);
-                    if (localization.IsPrivate)
-                        TargetRepository.AuthToken = localization.AuthToken;
-                    //FIXME: Update TargetInfo to get info
+                    //TODO: UpdateInfo
                     return true;
                 }
             }
@@ -123,7 +122,7 @@ namespace SCTool_Redesigned.Utils
                 Task.Run(() =>
                 {
                     var customGithubRepo = new CustomGitHubRepository(
-                        HttpNetClient.Client, NSW.StarCitizen.Tools.Lib.Update.GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
+                        HttpNetClient.Client, GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
 
                     if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
                     {
@@ -140,7 +139,7 @@ namespace SCTool_Redesigned.Utils
             }
 
 
-            return _githubReleases;           
+            return _githubReleases;
         }
 
         public static string GetReleaseNote(bool cache = true)
@@ -153,7 +152,7 @@ namespace SCTool_Redesigned.Utils
             {
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
-                    
+
                     sb.Append($"### {release.Name}\n");
 
                     var body = release.Body;
@@ -184,12 +183,70 @@ namespace SCTool_Redesigned.Utils
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
                     list.Add(release.Name);
-                    
+
                 }
             }
 
             return list;
         }
 
+        public static string GetMarkdownDocument(string documentName)
+        {
+            string markdown = string.Empty;
+
+            Task.Run(() =>
+            {
+                LocalizationSource localization = GetLocalizationSource();
+                string gitUrl = "";
+
+                if (localization.Type.Equals(UpdateRepositoryType.GitHub))
+                {
+                    gitUrl = "https://raw.githubusercontent.com/";
+                }
+
+                string markdownUrl = $"{gitUrl}{localization.Repository}/master/{documentName}";
+
+                if (localization.Repository.Contains("sc_ko"))
+                {
+                    // The sc_ko repository is private and uses its own api server.
+                    markdownUrl = $"https://sc.galaxyhub.kr/api/v1/translate/document/?page={documentName}";
+                }
+
+                HttpClient client = HttpNetClient.Client;
+
+                var connectTask = client.GetAsync(markdownUrl);
+                connectTask.Wait();
+
+                HttpResponseMessage httpResponse = connectTask.Result;
+
+                switch (httpResponse.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                        using (var httpContent = httpResponse.Content)
+                        {
+                            var content = httpContent.ReadAsStringAsync();
+                            content.Wait();
+
+                            markdown = content.Result;
+                        }
+                        break;
+
+                    case System.Net.HttpStatusCode.NotFound:
+                        markdown = Properties.Resources.UI_Desc_NotFoundMarkdown;
+                        break;
+
+                    default:
+                        markdown = Properties.Resources.UI_Desc_UnableMarkdown;
+                        break;
+                }
+
+                HttpNetClient.Dispose();
+
+                // client.Dispose(); //DO NOT DISPOSE! - If you do this you can see System.ObjectDisposedException.
+
+            }).Wait();
+
+            return markdown;
+        }
     }
 }

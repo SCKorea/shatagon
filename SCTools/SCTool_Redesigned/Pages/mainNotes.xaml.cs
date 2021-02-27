@@ -110,47 +110,7 @@ namespace SCTool_Redesigned.Pages
 
             ShowFlowDocument(filename, Properties.Resources.UI_Desc_BringingMarkdown);
 
-            Task.Run(() =>
-            {
-                LocalizationSource localization = RepositoryManager.GetLocalizationSource();
-                string gitUri = "";
-
-                if (localization.Type.Equals(UpdateRepositoryType.GitHub))
-                {
-                    gitUri = "https://raw.githubusercontent.com/";
-                }
-
-                string markdownUri = $"{gitUri}{localization.Repository}/master/{filename}";
-
-                if (localization.Repository.Contains("sc_ko"))
-                {
-                    // The sc_ko repository is private and uses its own api server.
-                    markdownUri = "https://sc.galaxyhub.kr/api/v1/translate/document/?page=" + filename;
-                }
-
-                using (var web = new WebClient())
-                {
-                    try
-                    {
-                        web.Encoding = Encoding.UTF8;
-                        markdown = web.DownloadString(markdownUri);
-                    }
-                    catch (WebException webe)
-                    {
-                        if (((HttpWebResponse)webe.Response).StatusCode == HttpStatusCode.NotFound)
-                        {
-                            markdown = Properties.Resources.UI_Desc_NotFoundMarkdown;
-                        }
-                        else
-                        {
-                            markdown = Properties.Resources.UI_Desc_UnableMarkdown;
-                        }
-                    }
-                }
-
-                ShowFlowDocument(filename, markdown);
-                
-            });
+            Task.Run(() => ShowFlowDocument(filename, RepositoryManager.GetMarkdownDocument(filename)));
         }
 
         private void ShowFlowDocument(string name, string markdown)
