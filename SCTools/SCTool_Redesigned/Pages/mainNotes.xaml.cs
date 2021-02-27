@@ -96,8 +96,6 @@ namespace SCTool_Redesigned.Pages
 
         private void ShowMarkdownDocument(string filename)
         {
-            string markdown;
-
             if (_cache.ContainsKey(filename))
             {
                 UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
