@@ -1,18 +1,18 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+
+using SCTool_Redesigned.Utils;
+using NSW.StarCitizen.Tools.Lib.Global;
+using NSW.StarCitizen.Tools.Lib.Update;
+using NSW.StarCitizen.Tools.Lib.Localization;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -21,15 +21,24 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class installProgress : Page
     {
-        public installProgress()
+        private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
+        public readonly GameInfo CurrentGame;
+        public readonly GameSettings GameSettings;
+        public installProgress(int mode)
         {
             InitializeComponent();
-            Progressbar_demo();
+            switch (mode)
+            {
+                case 0:
+                    InstallVersionAsync();
+                break;
+            }
+
         }
         private DispatcherTimer timer1;
         private void Progressbar_demo()
         {
-            installPbr.Value = 0;
+            ProgBar.Value = 0;
             timer1 = new DispatcherTimer();
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = TimeSpan.FromMilliseconds(30);
@@ -38,11 +47,142 @@ namespace SCTool_Redesigned.Pages
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            installPbr.Value += 5;
-            if (installPbr.Value == installPbr.Maximum)
+            ProgBar.Value += 5;
+            if (ProgBar.Value == ProgBar.Maximum)
             {
                 timer1.Stop();
                 ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+            }
+        }
+
+        //public async Task<bool> InstallVersionAsync(UpdateInfo selectedUpdateInfo)
+        public async void InstallVersionAsync()
+        {
+            if (!RepositoryManager.IsAvailable())
+            {
+                //_logger.Error($"Install localization mode path unavailable: {CurrentGame.RootFolderPath}");
+                MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess,
+                    Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
+                ((Windows.MainWindow)Application.Current.MainWindow).Phase -= 1;
+                return;
+            }
+            if (!App.Settings.AcceptInstallWarning)
+            {
+                var dialogResult = MessageBox.Show(Properties.Resources.MSG_Desc_InstallWarning,
+                    Properties.Resources.MSG_Title_GeneralWarning, MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning,MessageBoxResult.Yes);
+                if (dialogResult != MessageBoxResult.Yes)
+                {
+                    ((Windows.MainWindow)Application.Current.MainWindow).Phase -= 1;
+                    return;
+                }
+                App.Settings.AcceptInstallWarning = true;
+                App.SaveAppSettings();
+            }
+            //_logger.Info($"Install localization: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
+            bool status = false;
+            try
+            {
+                Cursor = Cursors.Wait;
+                var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.GetInstallationTarget().InstalledVersion,this);
+                var filePath = await RepositoryManager.TargetRepository.DownloadAsync(RepositoryManager.TargetInfo, Path.GetTempPath(),
+                    _cancellationToken.Token, downloadDialogAdapter);
+                var result = RepositoryManager.TargetRepository.Installer.Install(filePath, CurrentGame.RootFolderPath);
+                switch (result)
+                {
+                    case InstallStatus.Success:
+                        GameSettings.Load();
+                        ProgBar.Value = ProgBar.Maximum;
+                        //RepositoryManager.SetInstalledRepository(RepositoryManager.TargetRepository, RepositoryManager.TargetInfo.GetVersion());
+                        RepositoryManager.SetInstalledRepository();
+                        status = true;
+                        break;
+                    case InstallStatus.PackageError:
+                        //_logger.Error($"Failed install localization due to package error: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
+                        MessageBox.Show(Properties.Resources.Localization_Package_ErrorText,
+                            Properties.Resources.Localization_Package_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    case InstallStatus.VerifyError:
+                        //_logger.Error($"Failed install localization due to core verify error: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
+                        MessageBox.Show(Properties.Resources.Localization_Verify_ErrorText,
+                            Properties.Resources.Localization_Verify_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    case InstallStatus.FileError:
+                        //_logger.Error($"Failed install localization due to file error: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
+                        MessageBox.Show(Properties.Resources.Localization_File_ErrorText,
+                            Properties.Resources.Localization_File_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                    default:
+                        //_logger.Error($"Failed install localization: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
+                        MessageBox.Show(Properties.Resources.Localization_Install_ErrorText,
+                            Properties.Resources.Localization_Install_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+
+                //_logger.Error(e, $"Error during install localization: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
+                if (e is HttpRequestException)
+                {
+                    MessageBox.Show(Properties.Resources.Localization_Download_ErrorText + '\n' + e.Message,
+                        Properties.Resources.Localization_Download_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(Properties.Resources.Localization_Download_ErrorText,
+                        Properties.Resources.Localization_Download_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            finally
+            {
+                Cursor = null;  //Cursor to default
+            }
+            if(status)
+                ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+            else
+                ((Windows.MainWindow)Application.Current.MainWindow).Phase -= 1;
+            return;
+        }
+    }
+    public class InstallDownloadProgressDialogAdapter : IDownloadProgress
+    {
+        private readonly string _localizationVersion;
+        private long _totalContentSize;
+        private long _downloadedSize;
+        private installProgress _dialog;
+
+        public InstallDownloadProgressDialogAdapter(string localizationVersion, installProgress dialog)
+        {
+            _localizationVersion = localizationVersion;
+            _dialog = dialog;
+        }
+
+        public void ReportContentSize(long value)
+        {
+            _totalContentSize = value;
+            UpdateDialogTaskInfo();
+        }
+
+        public void ReportDownloadedSize(long value)
+        {
+            _downloadedSize = value;
+            UpdateDialogTaskInfo();
+        }
+
+        private void UpdateDialogTaskInfo()
+        {
+
+            float downloadSizeMBytes = (float)_downloadedSize / (1024 * 1024);
+            if (_totalContentSize > 0)
+            {
+                _dialog.ProgBar.Value = _downloadedSize * _dialog.ProgBar.Maximum / _totalContentSize;
+                float contentSizeMBytes = (float)_totalContentSize / (1024 * 1024);
+                _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB/{contentSizeMBytes:0.00} MB";
+            }
+            else
+            {
+                _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB";
             }
         }
     }

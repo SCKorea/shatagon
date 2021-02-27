@@ -164,7 +164,7 @@ namespace SCTool_Redesigned.Windows
                     case 6: //installing?
                         frame_left.Content = null;
                         frame_right.Content = null;
-                        frame_all.Content = new Pages.installProgress();
+                        frame_all.Content = new Pages.installProgress(0);
                         logoCanvas.Visibility = Visibility.Hidden;
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
@@ -199,6 +199,7 @@ namespace SCTool_Redesigned.Windows
                 }
                 
                 _PhaseNumber = value;
+                Console.WriteLine($"Change Phase to {_PhaseNumber}");
             }
         }
 
