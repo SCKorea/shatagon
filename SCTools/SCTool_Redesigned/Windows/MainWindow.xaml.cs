@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -226,8 +227,9 @@ namespace SCTool_Redesigned.Windows
         {
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-                Close();
-                Application.Current.Shutdown();
+                Process.GetCurrentProcess().Kill();
+
+                //Application.Current.Shutdown(); //Nullreferenceexception occurs when the authentication window is open
             }));
         }
 

@@ -318,7 +318,7 @@
     </Style>
     <Style TargetType="{x:Type List}">
         <Setter Property="Margin" Value="10,0,0,0" />
-        <Setter Property="Padding" Value="0,0,0,0" />
+        <Setter Property="Padding" Value="16,0,0,0" />
     </Style>
     <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.CodeBlockStyleKey}">
         <Setter Property="Background" Value="#22FFFFFF" />
