@@ -32,7 +32,7 @@ jobs:
         uses: papeloto/action-zip@v1
         with:
           files: SCTools\SCTool_Redesigned\bin\Release
-          dest: release.zip
+          dest: latest.zip
       
       - name: Create release
         uses: svenstaro/upload-release-action@v2
