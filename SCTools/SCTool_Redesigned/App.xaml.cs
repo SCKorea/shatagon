@@ -61,7 +61,7 @@ namespace SCTool_Redesigned
         }
 
         public static bool SaveAppSettings() => SaveAppSettings(Settings);
-        private static bool SaveAppSettings(AppSettings settings)
+        public static bool SaveAppSettings(AppSettings settings)
         {
             var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
             return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);

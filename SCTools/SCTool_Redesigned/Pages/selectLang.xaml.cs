@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SCTool_Redesigned.Settings;
+using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -34,6 +35,8 @@ namespace SCTool_Redesigned.Pages
 
             LangListBox.ItemsSource = UiLangList;
             LangListBox.SelectedValue = Properties.Resources.Culture.Name;
+
+            GoogleAnalytics.Hit(App.Settings.UUID, "/program/install", "Install Program");
         }
 
         private static Dictionary<string, string> GetSupportedUiLanguages()

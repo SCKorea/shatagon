@@ -26,6 +26,8 @@ namespace SCTool_Redesigned.Pages
             InitializeComponent();
             VersionSelectListBox.ItemsSource = RepositoryManager.GetReleaseVersions();
             VersionSelectListBox.SelectedIndex = 0;
+
+            GoogleAnalytics.Hit(App.Settings.UUID, "/localization/version/select", "Select Localization Version");
         }
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)

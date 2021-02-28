@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -23,6 +24,8 @@ namespace SCTool_Redesigned.Pages
         public installComplete()
         {
             InitializeComponent();
+
+            GoogleAnalytics.Event(App.Settings.UUID, "Localization", "install");
         }
     }
 }
