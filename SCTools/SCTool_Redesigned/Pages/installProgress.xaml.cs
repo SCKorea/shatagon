@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
+using SCTool_Redesigned.Windows;
 using SCTool_Redesigned.Utils;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Update;
@@ -22,11 +23,21 @@ namespace SCTool_Redesigned.Pages
     public partial class installProgress : Page
     {
         private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
-        public readonly GameInfo CurrentGame;
         public readonly GameSettings GameSettings;
         public installProgress(int mode)
         {
             InitializeComponent();
+
+            //TODO: CHOOSE PTU LIVE 
+            foreach (GameInfo gameInfo in GameFolders.GetGameModes(App.Settings.GameFolder))
+            {
+                if( gameInfo.Mode == GameMode.LIVE)
+                {
+                    App.CurrentGame = gameInfo;
+                    break;
+                }
+            }
+            GameSettings = new GameSettings(App.CurrentGame);
             switch (mode)
             {
                 case 0:
@@ -63,7 +74,7 @@ namespace SCTool_Redesigned.Pages
                 //_logger.Error($"Install localization mode path unavailable: {CurrentGame.RootFolderPath}");
                 MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess,
                     Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
-                ((Windows.MainWindow)Application.Current.MainWindow).Phase -= 1;
+                MainWindow.UI.Phase--;
                 return;
             }
             if (!App.Settings.AcceptInstallWarning)
@@ -73,7 +84,7 @@ namespace SCTool_Redesigned.Pages
                     MessageBoxImage.Warning,MessageBoxResult.Yes);
                 if (dialogResult != MessageBoxResult.Yes)
                 {
-                    ((Windows.MainWindow)Application.Current.MainWindow).Phase -= 1;
+                    MainWindow.UI.Phase--;
                     return;
                 }
                 App.Settings.AcceptInstallWarning = true;
@@ -87,7 +98,7 @@ namespace SCTool_Redesigned.Pages
                 var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.GetInstallationTarget().InstalledVersion,this);
                 var filePath = await RepositoryManager.TargetRepository.DownloadAsync(RepositoryManager.TargetInfo, Path.GetTempPath(),
                     _cancellationToken.Token, downloadDialogAdapter);
-                var result = RepositoryManager.TargetRepository.Installer.Install(filePath, CurrentGame.RootFolderPath);
+                var result = RepositoryManager.TargetRepository.Installer.Install(filePath, App.CurrentGame.RootFolderPath);
                 switch (result)
                 {
                     case InstallStatus.Success:
@@ -139,9 +150,9 @@ namespace SCTool_Redesigned.Pages
                 Cursor = null;  //Cursor to default
             }
             if(status)
-                ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+                MainWindow.UI.Phase++;
             else
-                ((Windows.MainWindow)Application.Current.MainWindow).Phase -= 1;
+                MainWindow.UI.Phase--;
             return;
         }
     }
