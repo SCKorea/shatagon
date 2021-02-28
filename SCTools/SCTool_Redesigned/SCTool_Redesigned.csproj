@@ -110,6 +110,7 @@
     </ApplicationDefinition>
     <Compile Include="Localization\CustomGitHubRepository.cs" />
     <Compile Include="Update\CustomUpdateInfo.cs" />
+    <Compile Include="Utils\BStats.cs" />
     <Compile Include="Utils\HttpNetClient.cs" />
     <Compile Include="Utils\RepositoryManager.cs" />
     <Compile Include="Pages\installComplete.xaml.cs">

@@ -194,57 +194,54 @@ namespace SCTool_Redesigned.Utils
         {
             string markdown = string.Empty;
 
-            Task.Run(() =>
+            LocalizationSource localization = GetLocalizationSource();
+            string gitUrl = "";
+
+            if (localization.Type.Equals(UpdateRepositoryType.GitHub))
             {
-                LocalizationSource localization = GetLocalizationSource();
-                string gitUrl = "";
+                gitUrl = "https://raw.githubusercontent.com/";
+            }
 
-                if (localization.Type.Equals(UpdateRepositoryType.GitHub))
-                {
-                    gitUrl = "https://raw.githubusercontent.com/";
-                }
+            string markdownUrl = $"{gitUrl}{localization.Repository}/master/{documentName}";
 
-                string markdownUrl = $"{gitUrl}{localization.Repository}/master/{documentName}";
+            if (localization.Repository.Contains("sc_ko"))
+            {
+                // The sc_ko repository is private and uses its own api server.
+                markdownUrl = $"https://sc.galaxyhub.kr/api/v1/translate/document/?page={documentName}";
+            }
 
-                if (localization.Repository.Contains("sc_ko"))
-                {
-                    // The sc_ko repository is private and uses its own api server.
-                    markdownUrl = $"https://sc.galaxyhub.kr/api/v1/translate/document/?page={documentName}";
-                }
+            HttpClient client = HttpNetClient.Client;
 
-                HttpClient client = HttpNetClient.Client;
+            var connectTask = client.GetAsync(markdownUrl);
+            connectTask.Wait();
 
-                var connectTask = client.GetAsync(markdownUrl);
-                connectTask.Wait();
+            HttpResponseMessage httpResponse = connectTask.Result;
 
-                HttpResponseMessage httpResponse = connectTask.Result;
+            switch (httpResponse.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    using (var httpContent = httpResponse.Content)
+                    {
+                        var content = httpContent.ReadAsStringAsync();
+                        content.Wait();
 
-                switch (httpResponse.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.OK:
-                        using (var httpContent = httpResponse.Content)
-                        {
-                            var content = httpContent.ReadAsStringAsync();
-                            content.Wait();
+                        markdown = content.Result;
+                    }
+                    break;
 
-                            markdown = content.Result;
-                        }
-                        break;
+                case System.Net.HttpStatusCode.NotFound:
+                    markdown = Properties.Resources.UI_Desc_NotFoundMarkdown;
+                    break;
 
-                    case System.Net.HttpStatusCode.NotFound:
-                        markdown = Properties.Resources.UI_Desc_NotFoundMarkdown;
-                        break;
+                default:
+                    markdown = Properties.Resources.UI_Desc_UnableMarkdown;
+                    break;
+            }
 
-                    default:
-                        markdown = Properties.Resources.UI_Desc_UnableMarkdown;
-                        break;
-                }
+            //HttpNetClient.Dispose();
 
-                HttpNetClient.Dispose();
+            // client.Dispose(); //DO NOT DISPOSE! - If you do this you can see System.ObjectDisposedException.
 
-                // client.Dispose(); //DO NOT DISPOSE! - If you do this you can see System.ObjectDisposedException.
-
-            }).Wait();
 
             return markdown;
         }
