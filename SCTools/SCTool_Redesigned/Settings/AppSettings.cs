@@ -29,6 +29,9 @@ namespace SCTool_Redesigned.Settings
         [JsonProperty]
         public LocalizationSettings PTU_Localization { get; } = new LocalizationSettings();
 
+        [JsonProperty]
+        public string UUID { get; set; }
+
         public LocalizationSettings GetGameModeSettings(GameMode gameMode)
         {
             switch (gameMode)
@@ -48,6 +51,5 @@ namespace SCTool_Redesigned.Settings
         };
 
         public List<LocalizationSource> GetGameLanguages() => LocalizationSource.DefaultList;
-
     }
 }

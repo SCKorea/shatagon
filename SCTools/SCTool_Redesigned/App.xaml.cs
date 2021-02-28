@@ -14,6 +14,7 @@ using NSW.StarCitizen.Tools.Lib.Helpers;
 using NSW.StarCitizen.Tools.Lib.Global;
 using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Windows;
+using System.Windows.Controls;
 
 namespace SCTool_Redesigned
 {
@@ -25,6 +26,13 @@ namespace SCTool_Redesigned
         App()
         {
             SCTool_Redesigned.Properties.Resources.Culture = CultureInfo.GetCultureInfo(Settings.ToolLanguage ?? CultureInfo.CurrentCulture.Name);
+
+            if(Settings.UUID == null)
+            {
+                Settings.UUID = Guid.NewGuid().ToString();
+                SaveAppSettings();
+            }
+
             InitializeComponent();
         }
 

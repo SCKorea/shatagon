@@ -90,6 +90,7 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -110,7 +111,7 @@
     </ApplicationDefinition>
     <Compile Include="Localization\CustomGitHubRepository.cs" />
     <Compile Include="Update\CustomUpdateInfo.cs" />
-    <Compile Include="Utils\BStats.cs" />
+    <Compile Include="Utils\GoogleAnalytics.cs" />
     <Compile Include="Utils\HttpNetClient.cs" />
     <Compile Include="Utils\RepositoryManager.cs" />
     <Compile Include="Pages\installComplete.xaml.cs">
