@@ -15,6 +15,7 @@ using NSW.StarCitizen.Tools.Lib.Global;
 using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Windows;
 using System.Windows.Controls;
+using System.Net.NetworkInformation;
 
 namespace SCTool_Redesigned
 {
@@ -27,7 +28,14 @@ namespace SCTool_Redesigned
         {
             SCTool_Redesigned.Properties.Resources.Culture = CultureInfo.GetCultureInfo(Settings.ToolLanguage ?? CultureInfo.CurrentCulture.Name);
 
-            if(Settings.UUID == null)
+            if (!IsOnline())
+            {
+                MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInternet, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInternet);
+                Current.Shutdown();
+                return;
+            }
+
+            if (Settings.UUID == null)
             {
                 Settings.UUID = Guid.NewGuid().ToString();
                 SaveAppSettings();
@@ -75,6 +83,12 @@ namespace SCTool_Redesigned
             if (dirInfo == null)
                 throw new NullReferenceException("No assembly executable directory");
             return dirInfo.FullName;
+        }
+
+        private static bool IsOnline()
+        {
+            var p = new Ping();
+            return p.Send("1.1.1.1", 1000).Status.Equals(IPStatus.Success);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace SCTool_Redesigned.Utils
             var postData = new Dictionary<string, string>
                            {
                                { "v", "1" },
-                               { "tid", "UA-130656671-2" },
+                               { "tid", "UA-190778304-1" },
                                { "cid",  uuid },
                                { "t", type.ToString() }
                            };

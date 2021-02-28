@@ -160,6 +160,9 @@
   <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
     <value>Verification Error</value>
   </data>
+  <data name="MSG_Decs_NoInternet" xml:space="preserve">
+    <value>Can't connect to the internet. Check the internet.</value>
+  </data>
   <data name="MSG_Decs_NotGameFolder" xml:space="preserve">
     <value>The location you specified is not the location where Star Citizen is installed. Find and select the "StarCitizen" folder.</value>
   </data>
@@ -185,6 +188,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="MSG_Title_GeneralWarning" xml:space="preserve">
     <value>Warning</value>
+  </data>
+  <data name="MSG_Title_NoInternet" xml:space="preserve">
+    <value>No internet</value>
   </data>
   <data name="MSG_Title_NotGameFolder" xml:space="preserve">
     <value>Select the Star Citizen game folder.</value>

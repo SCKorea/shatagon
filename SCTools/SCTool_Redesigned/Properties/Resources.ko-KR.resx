@@ -154,6 +154,9 @@
   <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
     <value>확인 실패</value>
   </data>
+  <data name="MSG_Decs_NoInternet" xml:space="preserve">
+    <value>인터넷이 연결되어 있지 않습니다. 인터넷 연결을 확인하십시오.</value>
+  </data>
   <data name="MSG_Decs_NotGameFolder" xml:space="preserve">
     <value>지정한 위치는 스타 시티즌이 설치되어 있지 않습니다. "StarCitizen" 폴더를 선택해 주십시오.</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="MSG_Title_GeneralWarning" xml:space="preserve">
     <value>경고</value>
+  </data>
+  <data name="MSG_Title_NoInternet" xml:space="preserve">
+    <value>인터넷 안됨</value>
   </data>
   <data name="MSG_Title_NotGameFolder" xml:space="preserve">
     <value>스타 시티즌 폴더를 선택하십시오.</value>

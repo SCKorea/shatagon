@@ -189,6 +189,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Can&apos;t connect to the internet. Check the internet.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Decs_NoInternet {
+            get {
+                return ResourceManager.GetString("MSG_Decs_NoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The location you specified is not the location where Star Citizen is installed. Find and select the &quot;StarCitizen&quot; folder.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Decs_NotGameFolder {
@@ -244,6 +253,15 @@ namespace SCTool_Redesigned.Properties {
         public static string MSG_Title_GeneralWarning {
             get {
                 return ResourceManager.GetString("MSG_Title_GeneralWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No internet과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_NoInternet {
+            get {
+                return ResourceManager.GetString("MSG_Title_NoInternet", resourceCulture);
             }
         }
         
