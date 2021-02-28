@@ -21,7 +21,7 @@ namespace SCTool_Redesigned.Localization
         private readonly HttpClient _httpClient;
         private readonly CustomUpdateInfo.Factory _gitHubUpdateInfoFactory;
 
-        private string _repoReleasesUrl;
+        //private string _repoReleasesUrl;
 
         public new GitHubDownloadType DownloadType { get; }
         public new string AuthToken { get; set; }
@@ -101,7 +101,7 @@ namespace SCTool_Redesigned.Localization
         public override async Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken)
         {
             var releases = await GetReleasesAsync(false, cancellationToken);
-
+            
             if (releases != null && releases.Any())
             {
                 return DownloadType switch
