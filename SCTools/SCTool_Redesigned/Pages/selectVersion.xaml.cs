@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SCTool_Redesigned.Utils;
+using NSW.StarCitizen.Tools.Lib.Update;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -24,7 +25,8 @@ namespace SCTool_Redesigned.Pages
         public selectVersion()
         {
             InitializeComponent();
-            VersionSelectListBox.ItemsSource = RepositoryManager.GetReleaseVersions();
+            //VersionSelectListBox.ItemsSource = RepositoryManager.GetReleaseVersions();
+            VersionSelectListBox.ItemsSource = RepositoryManager.GetInfos(false);
             VersionSelectListBox.SelectedIndex = 0;
 
             GoogleAnalytics.Hit(App.Settings.UUID, "/localization/install/version", "Select Localization Version");
@@ -32,7 +34,7 @@ namespace SCTool_Redesigned.Pages
 
         private void RefreshBtn_Click(object sender, RoutedEventArgs e)
         {
-            VersionSelectListBox.ItemsSource = RepositoryManager.GetReleaseVersions(false);
+            VersionSelectListBox.ItemsSource = RepositoryManager.GetInfos(false);
         }
 
 
@@ -40,7 +42,7 @@ namespace SCTool_Redesigned.Pages
         {
             if (VersionSelectListBox.SelectedValue is string version)
             {
-                RepositoryManager.SetInstallationTarget(version, version);
+                RepositoryManager.SetInstallationTarget(version, version,(UpdateInfo) VersionSelectListBox.SelectedItem);
             }
         }
     }

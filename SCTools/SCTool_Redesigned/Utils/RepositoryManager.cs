@@ -25,7 +25,7 @@ namespace SCTool_Redesigned.Utils
         private static LocalizationSource _localizationSource;
         public static GitHubLocalizationRepository TargetRepository { get; private set; }
         public static LocalizationInstallation TargetInstallation { get; private set; }
-        public static UpdateInfo TargetInfo { get; private set; }   //FIXME:
+        public static UpdateInfo TargetInfo { get; private set; }
 
         static RepositoryManager()
         {
@@ -39,13 +39,14 @@ namespace SCTool_Redesigned.Utils
             _currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
             _currentInstalled.LastVersion = TargetInstallation.LastVersion;
         }
-        public static void SetInstallationTarget(string select, string last)
+        public static void SetInstallationTarget(string select, string last, UpdateInfo info)
         {   //TODO: make selection between LIVE and PTU
             if (TargetInstallation == null)
                 TargetInstallation = new LocalizationInstallation(GameMode.LIVE, _localizationSource.Repository, UpdateRepositoryType.GitHub);
             TargetInstallation.LastVersion = last;
             TargetInstallation.InstalledVersion = select;
             TargetInstallation.AllowPreRelease = false; //TODO: options?
+            TargetInfo = info;
             App.SaveAppSettings();
         }
         public static LocalizationInstallation GetInstallationTarget()
@@ -65,7 +66,7 @@ namespace SCTool_Redesigned.Utils
 
         public static bool IsAvailable()
         {
-            if (_localizationSource != null && TargetInstallation.InstalledVersion != null)
+            if (TargetInfo != null && TargetRepository != null)
                 return true;
             else
                 return false;
@@ -142,6 +143,43 @@ namespace SCTool_Redesigned.Utils
 
 
             return _githubReleases;
+        }
+
+
+        private static IEnumerable<UpdateInfo>? _githubReleasesInfo;
+
+        public static IEnumerable<UpdateInfo> GetInfos(bool cache = true)
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = tokenSource.Token;
+
+            if (!cache || _githubReleases == null)
+            {
+                Task.Run(() =>
+                {
+                    var customGithubRepo = new CustomGitHubRepository(
+                        HttpNetClient.Client, GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
+
+                    if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
+                    {
+                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v2/releases/check");
+                    }
+
+                    //customGithubRepo.UpdateAsync(cancellationToken).Wait();
+                    customGithubRepo.RefreshUpdatesAsync(cancellationToken).Wait();
+                    //var getReleases = customGithubRepo.GetReleasesAsync(true, cancellationToken);
+                    //getReleases.Wait();
+
+                    _githubReleasesInfo = customGithubRepo.UpdateReleases;
+                }).Wait();
+                foreach (UpdateInfo info in _githubReleasesInfo)
+                {
+                    Console.WriteLine(info.Name + ":" + info.TagName + "//");
+                }
+            }
+
+
+            return _githubReleasesInfo;
         }
 
         public static string GetReleaseNote(bool cache = true)
