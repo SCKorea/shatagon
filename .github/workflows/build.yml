@@ -21,9 +21,6 @@ jobs:
 
       - name: Setup nuget
         uses: nuget/setup-nuget@v1
-        
-      #- name: Restore nuget packages
-      #  run: nuget restore SCTools\SCTools.sln -PackagesDirectory SCTool_Redesigned
           
       - name: Build app
         run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
@@ -33,6 +30,14 @@ jobs:
         with:
           files: SCTools\SCTool_Redesigned\bin\Release
           dest: latest.zip
+      
+      - name: Delete tag and release
+        uses: dev-drprasad/delete-tag-and-release@v0.1.3
+        with:
+          delete_release: true
+          tag_name: latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Create release
         uses: svenstaro/upload-release-action@v2
