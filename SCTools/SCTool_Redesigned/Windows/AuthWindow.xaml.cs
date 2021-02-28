@@ -52,7 +52,7 @@ namespace SCTool_Redesigned.Windows
                 ErrorLabel.Visibility = Visibility.Visible;
         }
 
-        public async Task<bool> TryAuth(string passwd)
+        public async Task<int> TryAuth(string passwd)
         {
             var values = new Dictionary<string, string>
             {
@@ -60,33 +60,43 @@ namespace SCTool_Redesigned.Windows
             };
             var payload = new System.Net.Http.FormUrlEncodedContent(values);
 
-            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v2/password/check", payload);
+            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v1/repository/token", payload);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var resultstr = await response.Content.ReadAsStringAsync();
                 JObject jresult = JObject.Parse(resultstr);
-                if (jresult["status"].ToString() == "200")
+                var statcode = Int32.Parse(jresult["status"].ToString());
+                if (statcode == 200)
                 {
                     _authtoken = jresult["value"].ToString();
-                    return true;
                 }
-                else
-                    return false;
-
+                return statcode;
             }
             else
             {
                 MessageBox.Show("인증서버 통신 오류");
-                return false;
+                return -1;
             }
         }
 
         private async void Applybtn_Click(object sender, RoutedEventArgs e)
         {
             var result = await TryAuth(CodeInputBox.Password);
-            if (result)
+            if (result!=200)
             {
+                switch (result) //TODO: localization
+                {
+                    case 403:
+                        ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
+                        break;
+                    case 423:
+                        ErrorLabel.Content = "패치 배포가 일시 중단되었습니다.";
+                        break;
+                    default:
+                        ErrorLabel.Content = $"인증서버 응답오류 : {result}";
+                        break;
+                }
                 _labelblinker.Stop();
                 _labellifespantimer.Stop();
                 this.Hide();
