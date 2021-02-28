@@ -26,6 +26,7 @@ namespace SCTool_Redesigned.Windows
     {
         private string _authtoken;
         private DispatcherTimer _labellifespantimer, _labelblinker;
+        private int _status;
         public AuthWindow()
         {
             InitializeComponent();
@@ -36,8 +37,26 @@ namespace SCTool_Redesigned.Windows
             _labelblinker = new DispatcherTimer();
             _labelblinker.Tick += new EventHandler(labelblink);
             _labelblinker.Interval = TimeSpan.FromMilliseconds(500);
+            _status = -1;
+            CheckTGS();
         }
-
+        private async void CheckTGS()
+        {
+            var response = await HttpNetClient.Client.GetAsync("https://sc.galaxyhub.kr/api/v1/distribution/check");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var resultstr = await response.Content.ReadAsStringAsync();
+                JObject jresult = JObject.Parse(resultstr);
+                _status = Int32.Parse(jresult["value"].ToString());
+                if (_status == 0)
+                    _authtoken = "";    //no need to enter code.
+            }
+            else
+            {
+                //server is dead
+                _status = -1;
+            }
+        }
         private void labellifespan(object sender, EventArgs e)
         {
             _labellifespantimer.Stop();
@@ -83,20 +102,8 @@ namespace SCTool_Redesigned.Windows
         private async void Applybtn_Click(object sender, RoutedEventArgs e)
         {
             var result = await TryAuth(CodeInputBox.Password);
-            if (result!=200)
+            if (result==200)
             {
-                switch (result) //TODO: localization
-                {
-                    case 403:
-                        ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
-                        break;
-                    case 423:
-                        ErrorLabel.Content = "패치 배포가 일시 중단되었습니다.";
-                        break;
-                    default:
-                        ErrorLabel.Content = $"인증서버 응답오류 : {result}";
-                        break;
-                }
                 _labelblinker.Stop();
                 _labellifespantimer.Stop();
                 this.Hide();
@@ -104,8 +111,23 @@ namespace SCTool_Redesigned.Windows
             else
             {
                 ErrorLabel.Visibility = Visibility.Visible;
-                _labelblinker.Start();
-                _labellifespantimer.Start();
+                switch (result) //TODO: localization
+                {
+                    case 403:
+                        ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
+                        _labelblinker.Start();
+                        _labellifespantimer.Start();
+                        break;
+                    case 423:
+                        ErrorLabel.Content = "패치 배포가 일시 중단되었습니다.";
+                        break;
+                    case -1:
+                        ErrorLabel.Content = "인증서버 통신 오류";
+                        break;
+                    default:
+                        ErrorLabel.Content = $"인증서버 응답오류 : {result}";
+                        break;
+                }
             }
         }
 
