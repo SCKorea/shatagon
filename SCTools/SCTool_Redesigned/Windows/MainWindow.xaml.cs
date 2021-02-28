@@ -33,6 +33,7 @@ namespace SCTool_Redesigned.Windows
         {
             UI = this;
             InitializeComponent();
+            Title += " - " + App.Version.ToString();
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
             _author = new AuthWindow();
@@ -60,8 +61,9 @@ namespace SCTool_Redesigned.Windows
                         _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
                         break;
                     case 3: //main Install
-                        if (RepositoryManager.GetLocalizationSource().IsPrivate) //Try auth for private repo
+                        if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate) //Try auth for private repo
                         {
+                            Console.WriteLine($"Try auth at  {_PhaseNumber} to {value}");
                             _author.Owner = this;
                             if (_author.GetAuthToken() == null)
                                 _author.ShowDialog();
@@ -74,6 +76,7 @@ namespace SCTool_Redesigned.Windows
                     case 5:  //select Version
                         break;
                 }
+                Console.WriteLine($"Change Phase {_PhaseNumber} to {value}");
                 _PhaseNumber = value;
                 switch (value)
                 {
@@ -197,7 +200,7 @@ namespace SCTool_Redesigned.Windows
 
                     default: throw new Exception(value.ToString()+" Phase is not exist");
                 }
-                Console.WriteLine($"Change Phase to {_PhaseNumber}");
+                Console.WriteLine($"Change Phase {value} ended");
             }
         }
 

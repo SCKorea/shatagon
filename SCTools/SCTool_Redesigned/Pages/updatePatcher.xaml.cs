@@ -73,8 +73,7 @@ namespace SCTool_Redesigned.Pages
                 ProgBar.Value = ProgBar.Minimum;
                 if (availableUpdate == null)
                 {
-                    MessageBox.Show("업데이트 없음", "업데이트 확인");
-                    ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+                    //MessageBox.Show("업데이트 없음", "업데이트 확인");
                     ProgBar.Value = ProgBar.Maximum;
                     return;
                 }
@@ -119,7 +118,7 @@ namespace SCTool_Redesigned.Pages
         {
             var updateInfoFactory = GitHubUpdateInfo.Factory.NewWithVersionByTagName();
             var updateRepository = new GitHubUpdateRepository(HttpNetClient.Client,
-                GitHubDownloadType.Assets, updateInfoFactory, App.Name, "marona42/StarCitizen");
+                GitHubDownloadType.Assets, updateInfoFactory, App.Name, "SCKorea/Shatagon");
             updateRepository.SetCurrentVersion(App.Version.ToString(3));
             return updateRepository;
         }
