@@ -70,7 +70,7 @@ namespace SCTool_Redesigned.Windows
                             _author.Owner = this;
                             if (_author.GetAuthToken() == null)
                                 _author.ShowDialog();
-                            if ((RepositoryManager.GetLocalizationSource().AuthToken = _author.GetAuthToken()) == null) //Failed to auth
+                            if ((RepositoryManager.TargetRepository.AuthToken = RepositoryManager.GetLocalizationSource().AuthToken = _author.GetAuthToken()) == null) //Failed to auth
                             {
                                 return; //cancel Phase progressing
                             }
@@ -174,7 +174,6 @@ namespace SCTool_Redesigned.Windows
                     case 6: //installing?
                         frame_left.Content = null;
                         frame_right.Content = null;
-                        frame_all.Content = new Pages.installProgress(0);
                         logoCanvas.Visibility = Visibility.Hidden;
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
@@ -183,6 +182,7 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Cancel;
+                        frame_all.Content = new Pages.installProgress(0);
                         break;
 
                     case 7: //installComplete
