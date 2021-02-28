@@ -108,6 +108,10 @@ namespace SCTool_Redesigned.Windows
 
                         if (App.Settings.GameLanguage != null)
                         {
+                            if (!RepositoryManager.SetTargetRepository())
+                                MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess, Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
+                            else
+                                App.SaveAppSettings();
                             Phase = 3;
                             break;
                         }
