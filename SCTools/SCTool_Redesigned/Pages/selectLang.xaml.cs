@@ -36,7 +36,7 @@ namespace SCTool_Redesigned.Pages
             LangListBox.ItemsSource = UiLangList;
             LangListBox.SelectedValue = Properties.Resources.Culture.Name;
 
-            GoogleAnalytics.Hit(App.Settings.UUID, "/program/install", "Install Program");
+            GoogleAnalytics.Hit(App.Settings.UUID, "/install", "Program Install");
         }
 
         private static Dictionary<string, string> GetSupportedUiLanguages()

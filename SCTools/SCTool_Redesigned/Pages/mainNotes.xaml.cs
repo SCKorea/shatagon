@@ -40,7 +40,7 @@ namespace SCTool_Redesigned.Pages
             InitializeComponent();
             set_note(0);
 
-            GoogleAnalytics.Hit(App.Settings.UUID, "/program/main", "Program Main");
+            GoogleAnalytics.Hit(App.Settings.UUID, "/main", "Program Main");
         }
 
         private void set_note(int idx)

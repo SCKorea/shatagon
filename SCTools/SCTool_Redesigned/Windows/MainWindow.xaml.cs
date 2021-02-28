@@ -34,7 +34,7 @@ namespace SCTool_Redesigned.Windows
             UI = this;
             InitializeComponent();
 
-            GoogleAnalytics.Sesstion(App.Settings.UUID, "start");
+            GoogleAnalytics.Sesstion(App.Settings.UUID, "start", true);
 
             Title += " - " + App.Version.ToString();
             _PhaseNumber = 0;
@@ -229,7 +229,7 @@ namespace SCTool_Redesigned.Windows
 
         internal void Quit()
         {
-            GoogleAnalytics.Sesstion(App.Settings.UUID, "end");
+            GoogleAnalytics.Sesstion(App.Settings.UUID, "end", true);
 
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {

@@ -18,9 +18,9 @@ namespace SCTool_Redesigned.Utils
         private static readonly string UA = $"SCTools Redesigned ({Environment.OSVersion.VersionString})";
         private static readonly string UL = CultureInfo.CurrentCulture.Name;
 
-        public static void Sesstion(string uuid, string command) => Track(uuid, "event", new Dictionary<string, string> {
+        public static void Sesstion(string uuid, string command, bool wait) => Track(uuid, "event", new Dictionary<string, string> {
             { "sc", command }
-        });
+        }, wait);
 
         public static void Hit(string uuid, string page, string title) => Track(uuid, "pageview", new Dictionary<string, string> {
             { "dh", "https://app.sc.galaxyhub.kr" },
@@ -33,9 +33,9 @@ namespace SCTool_Redesigned.Utils
             { "ea", action },
         });
 
-        public static void Track(string uuid, string type, Dictionary<string, string> data)
+        public static void Track(string uuid, string type, Dictionary<string, string> data, bool wait = false)
         {
-            Task.Run(() => {
+            var task = Task.Run(() => {
                 var request = (HttpWebRequest) WebRequest.Create("https://www.google-analytics.com/collect");
                 request.Method = "POST";
 
@@ -82,6 +82,11 @@ namespace SCTool_Redesigned.Utils
                 {
                 }
             });
+
+            if (wait)
+            {
+                task.Wait();
+            }
         }
 
         public enum HitType

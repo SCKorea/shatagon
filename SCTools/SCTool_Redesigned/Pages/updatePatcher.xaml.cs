@@ -87,7 +87,7 @@ namespace SCTool_Redesigned.Pages
                 //    ((Windows.MainWindow)Application.Current.MainWindow).Quit();
                 //}
 
-                GoogleAnalytics.Event(App.Settings.UUID, "Program", "Update");
+                GoogleAnalytics.Hit(App.Settings.UUID, "/update", "Program Update");
             }
             catch (Exception exception) //TODO: write log and label text, but not on MessageBox
             {
