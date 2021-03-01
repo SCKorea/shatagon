@@ -14,10 +14,10 @@ del /q "%latestpath%*"
 for /d %%p in ("%latestpath%*.*") do rmdir /s /q "%%p"
 rmdir /s /q "%latestpath%"
 
-start "" "%workpath%SCTool_Redesigned.exe" update_status 0
+start "" "%workpath%Shatagon.exe" update_status 0
 exit
 
 :update_error
 
-start "" "%workpath%SCTool_Redesigned.exe" update_status 1"
+start "" "%workpath%Shatagon.exe" update_status 1"
 exit
