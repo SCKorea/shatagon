@@ -173,10 +173,6 @@ namespace SCTool_Redesigned.Utils
 
                     _githubReleasesInfo = customGithubRepo.UpdateReleases;
                 }).Wait();
-                foreach (UpdateInfo info in _githubReleasesInfo)
-                {
-                    Console.WriteLine(info.Name + ":" + info.TagName + "//");
-                }
             }
 
 
