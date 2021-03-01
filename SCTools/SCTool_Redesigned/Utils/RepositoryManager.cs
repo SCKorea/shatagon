@@ -41,13 +41,33 @@ namespace SCTool_Redesigned.Utils
             _currentInstalled.LastVersion = TargetInstallation.LastVersion;
         }
         public static void SetInstallationTarget(string select, string last, UpdateInfo info)
-        {   //TODO: make selection between LIVE and PTU
+        {
+            string lowerSelect = select.ToLower();
+            GameMode mode = GameMode.LIVE;
+
+            if (lowerSelect.Contains("ptu"))
+            {
+                mode = GameMode.PTU;
+            }
+
+            if (TargetInstallation == null || !TargetInstallation.Mode.Equals(mode))
+            {
+                TargetInstallation = new LocalizationInstallation(mode, _localizationSource.Repository, UpdateRepositoryType.GitHub);
+            }
+
+            /*
+            //TODO: make selection between LIVE and PTU
             if (TargetInstallation == null)
+            {
                 TargetInstallation = new LocalizationInstallation(GameMode.LIVE, _localizationSource.Repository, UpdateRepositoryType.GitHub);
+            }
+            */
+
             TargetInstallation.LastVersion = last;
             TargetInstallation.InstalledVersion = select;
             TargetInstallation.AllowPreRelease = false; //TODO: options?
             TargetInfo = info;
+
             App.SaveAppSettings();
         }
         public static LocalizationInstallation GetInstallationTarget()

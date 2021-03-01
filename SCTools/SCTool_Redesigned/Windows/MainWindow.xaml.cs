@@ -240,7 +240,7 @@ namespace SCTool_Redesigned.Windows
 
                 //Process.GetCurrentProcess().Kill();
                 _author.Close();
-                Application.Current.Shutdown();
+                Application.Current.Shutdown(); //FIXME!!!! 
             }));
         }
 
