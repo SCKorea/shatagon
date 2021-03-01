@@ -24,7 +24,9 @@ namespace SCTool_Redesigned.Windows
     {
         internal static MainWindow UI;
 
+        public enum InstallerMode { install,uninstall,disable,enable };
         private int _PhaseNumber;
+        private InstallerMode _installmode;
         private PrefaceWindow _prologue;
         private AuthWindow _author;
 
@@ -135,10 +137,15 @@ namespace SCTool_Redesigned.Windows
                         logoCanvas.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Visible;
                         InstallBtn.Visibility = Visibility.Visible;
-                        UninstallBtn.Visibility = Visibility.Visible;
                         WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
+                        if (App.Settings.LIVE_Localization.Installations.Count > 0 || App.Settings.PTU_Localization.Installations.Count > 0)
+                        {
+                            UninstallBtn.Visibility = Visibility.Visible;
+                            DisableBtn.Visibility = Visibility.Visible;
+                        }
+
                         break;
 
                     case 4: //select Dir
@@ -149,6 +156,7 @@ namespace SCTool_Redesigned.Windows
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
+                        DisableBtn.Visibility = Visibility.Hidden;
                         WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = (App.Settings.GameFolder == null) ? Visibility.Hidden : Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Next;
@@ -164,6 +172,7 @@ namespace SCTool_Redesigned.Windows
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
+                        DisableBtn.Visibility = Visibility.Hidden;
                         WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Install;
@@ -174,15 +183,16 @@ namespace SCTool_Redesigned.Windows
                     case 6: //installing?
                         frame_left.Content = null;
                         frame_right.Content = null;
+                        frame_all.Content = new Pages.installProgress(_installmode);
                         logoCanvas.Visibility = Visibility.Hidden;
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
+                        DisableBtn.Visibility = Visibility.Hidden;
                         WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Cancel;
-                        frame_all.Content = new Pages.installProgress(0);
                         break;
 
                     case 7: //installComplete
@@ -193,6 +203,7 @@ namespace SCTool_Redesigned.Windows
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
+                        DisableBtn.Visibility = Visibility.Hidden;
                         WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Quit;
@@ -213,6 +224,7 @@ namespace SCTool_Redesigned.Windows
 
         private void InstallBtn_Click(object sender, RoutedEventArgs e)
         {
+            _installmode = 0;
             Phase = 4;
         }
 
@@ -255,6 +267,22 @@ namespace SCTool_Redesigned.Windows
         private void Quit(object sender, EventArgs e)
         {
             Quit();
+        }
+
+        private void UninstallBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _installmode = InstallerMode.uninstall;
+            Phase = 6;
+            MessageBox.Show("패치 제거 완료");    //왜인진 몰라도 이거 빼면 frame_all content가 안 비워짐....
+            Phase = 3;
+        }
+
+        private void DisableBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _installmode = InstallerMode.disable;
+            Phase = 6;
+            MessageBox.Show("패치 비활성화 완료");
+            Phase = 3;
         }
     }
 }
