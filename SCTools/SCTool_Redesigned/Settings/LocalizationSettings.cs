@@ -16,9 +16,6 @@ namespace SCTool_Redesigned.Settings
 
         [JsonProperty]
         public List<LocalizationInstallation> Installations { get; } = new List<LocalizationInstallation>();
-
-        [JsonProperty]
-        public int MonitorRefreshTime { get; set; } = 5;
     }
 
     public class LocalizationInstallation
@@ -39,10 +36,7 @@ namespace SCTool_Redesigned.Settings
         public string LastVersion { get; set; }
 
         [JsonProperty]
-        public int MonitorRefreshTime { get; set; }
-
-        [JsonProperty]
-        public bool MonitorForUpdates { get; set; }
+        public bool IsEnabled { get; set; }
 
         [JsonProperty]
         public bool AllowPreRelease { get; set; }
@@ -53,6 +47,7 @@ namespace SCTool_Redesigned.Settings
             Mode = mode;
             Repository = repository;
             Type = type;
+            IsEnabled = false;
         }
     }
 
