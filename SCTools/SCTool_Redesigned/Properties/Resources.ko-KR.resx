@@ -148,6 +148,12 @@
   <data name="Localization_Uninstall_ErrorTitle" xml:space="preserve">
     <value>언어팩 제거 오류</value>
   </data>
+  <data name="Localization_Uninstall_WarningText" xml:space="preserve">
+    <value>일부 파일을 삭제할 수 없어 언어팩이 완전히 제거되지 않았습니다. </value>
+  </data>
+  <data name="Localization_Uninstall_WarningTitle" xml:space="preserve">
+    <value>제거 경고</value>
+  </data>
   <data name="Localization_Verify_ErrorText" xml:space="preserve">
     <value>패키지 보안 확인에 실패하였습니다. 다른 것을 시도하거나 패키지 관리자에게 문의하십시오.</value>
   </data>

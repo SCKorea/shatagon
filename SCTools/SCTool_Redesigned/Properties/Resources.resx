@@ -154,6 +154,12 @@
   <data name="Localization_Uninstall_ErrorTitle" xml:space="preserve">
     <value>Uninstall error</value>
   </data>
+  <data name="Localization_Uninstall_WarningText" xml:space="preserve">
+    <value>Localization removed not fully. Some files can't be removed.</value>
+  </data>
+  <data name="Localization_Uninstall_WarningTitle" xml:space="preserve">
+    <value>Uninstall warning</value>
+  </data>
   <data name="Localization_Verify_ErrorText" xml:space="preserve">
     <value>Package security verification is not passed. Please try another or contact with package owner.</value>
   </data>

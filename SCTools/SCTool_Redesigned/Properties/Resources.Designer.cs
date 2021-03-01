@@ -171,6 +171,24 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Localization removed not fully. Some files can&apos;t be removed.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Uninstall_WarningText {
+            get {
+                return ResourceManager.GetString("Localization_Uninstall_WarningText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Uninstall warning과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Uninstall_WarningTitle {
+            get {
+                return ResourceManager.GetString("Localization_Uninstall_WarningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Package security verification is not passed. Please try another or contact with package owner.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Localization_Verify_ErrorText {
