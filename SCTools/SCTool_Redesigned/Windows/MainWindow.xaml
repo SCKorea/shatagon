@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned"
         xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
-        mc:Ignorable="d" Height="480" Width="960" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="SCTools Redesigned" Background="{DynamicResource BackgroundBrush}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" Closed="Quit">
+        mc:Ignorable="d" Height="480" Width="960" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="{x:Static lang:Resources.UI_Title_ProgramTitle}" Background="{DynamicResource BackgroundBrush}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" Closed="Quit">
     <Window.Resources>
 
     </Window.Resources>
@@ -31,7 +31,7 @@
             <Image Source="/Resources/logo.png" Width="{Binding Path=ActualWidth, ElementName=logoCanvas}" Height="{Binding Path=ActualHeight, ElementName=logoCanvas}" Stretch="Uniform"/>
         </Canvas>
         <Label Name="logotitle"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"
-                   Content="{x:Static lang:Resources.UI_Title_ProgramTitle}" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="24" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+                   Content="{x:Static lang:Resources.UI_Title_ProgramTitle}"  Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="28" HorizontalContentAlignment="Center" Visibility="Hidden"/>
 
         <Frame x:Name="frame_all" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2"/>
         <Frame x:Name="frame_left" NavigationUIVisibility="Hidden" Grid.Column="0" Grid.RowSpan="2"/>

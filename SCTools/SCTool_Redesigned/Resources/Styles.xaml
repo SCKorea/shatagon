@@ -315,6 +315,7 @@
     </Style>
     <Style TargetType="{x:Type Paragraph}">
         <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="FontSize" Value="16" />
     </Style>
     <Style TargetType="{x:Type List}">
         <Setter Property="Margin" Value="10,0,0,0" />
@@ -332,37 +333,38 @@
         <Setter Property="FontFamily" Value="{StaticResource SCDream3}" />
     </Style>
     <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading1StyleKey}">
-        <Setter Property="FontSize" Value="42" />
+        <Setter Property="FontSize" Value="32" />
         <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="FontFamily" Value="{StaticResource SCDream9}" />
         <Setter Property="Margin" Value="0,20,0,5" />
     </Style>
     <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading2StyleKey}">
-        <Setter Property="FontSize" Value="36" />
+        <Setter Property="FontSize" Value="24" />
         <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="FontFamily" Value="{StaticResource SCDream9}" />
         <Setter Property="Margin" Value="0,20,0,5" />
     </Style>
     <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading3StyleKey}">
-        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="FontFamily" Value="{StaticResource SCDream5}" />
         <Setter Property="Margin" Value="0,20,0,5" />
     </Style>
     <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading4StyleKey}">
-        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontSize" Value="16" />
         <Setter Property="Foreground" Value="#ff000000" />
         <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="FontFamily" Value="{StaticResource SCDream5}" />
         <Setter Property="Margin" Value="0,20,0,5" />
     </Style>
     <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading5StyleKey}">
-        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="FontFamily" Value="{StaticResource SCDream5}" />
         <Setter Property="Margin" Value="0,20,0,5" />
     </Style>
     <Style TargetType="{x:Type Paragraph}" x:Key="{x:Static markdig:Styles.Heading6StyleKey}">
+        <Setter Property="FontSize" Value="13.5" />
         <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="FontFamily" Value="{StaticResource SCDream3}" />
         <Setter Property="Margin" Value="0,20,0,5" />

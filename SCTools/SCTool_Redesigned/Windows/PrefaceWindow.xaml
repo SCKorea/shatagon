@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned.Windows"
+        xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
         mc:Ignorable="d"
-        Title="Updating" Height="180" Width="360" Margin="2,0" Background="{DynamicResource BackgroundBrush}" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="{x:Static lang:Resources.UI_Title_ProgramTitle}" Height="180" Width="360" Margin="2,0" Background="{DynamicResource BackgroundBrush}" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Topmost="True" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>

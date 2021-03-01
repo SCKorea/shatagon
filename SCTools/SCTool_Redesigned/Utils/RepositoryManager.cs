@@ -212,7 +212,7 @@ namespace SCTool_Redesigned.Utils
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
                     //Humanize
-                    sb.Append($"### {release.Name}\n");
+                    sb.Append($"# {release.Name}\n");
                     sb.Append($"{XmlConvert.ToString(release.Published.ToLocalTime(), Properties.Resources.UI_Desc_DateTimeFormat)}  \n");
                     sb.Append($"<br/>    \n");
 
