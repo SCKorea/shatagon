@@ -49,7 +49,9 @@ namespace SCTool_Redesigned.Windows
                 JObject jresult = JObject.Parse(resultstr);
                 _status = Int32.Parse(jresult["value"].ToString());
                 if (_status == 0)
-                    _authtoken = "";    //no need to enter code.
+                {
+                    await TryAuth("");//no need to enter code.
+                }
             }
             else
             {
