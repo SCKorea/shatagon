@@ -83,6 +83,7 @@ namespace SCTool_Redesigned.Utils
             {
                 TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath);
                 TargetInstallation.IsEnabled = !TargetInstallation.IsEnabled;
+                App.SaveAppSettings();
             }
             catch (Exception e)
             {
@@ -251,23 +252,6 @@ namespace SCTool_Redesigned.Utils
             }
 
             return sb.ToString();
-        }
-
-        public static List<string> GetReleaseVersions(bool cache = true)
-        {
-            var releases = GetReleases(cache);
-            var list = new List<string>();
-
-            if (releases != null)
-            {
-                foreach (CustomGitHubRepository.GitRelease release in releases)
-                {
-                    list.Add(release.Name);
-
-                }
-            }
-
-            return list;
         }
 
         public static string GetMarkdownDocument(string documentName)
