@@ -67,7 +67,7 @@ namespace SCTool_Redesigned.Windows
         }
         private void labelblink(object sender, EventArgs e)
         {
-            if(ErrorLabel.Visibility == Visibility.Visible)
+            if (ErrorLabel.Visibility == Visibility.Visible)
                 ErrorLabel.Visibility = Visibility.Hidden;
             else
                 ErrorLabel.Visibility = Visibility.Visible;
@@ -104,7 +104,7 @@ namespace SCTool_Redesigned.Windows
         private async void Applybtn_Click(object sender, RoutedEventArgs e)
         {
             var result = await TryAuth(CodeInputBox.Password);
-            if (result==200)
+            if (result == 200)
             {
                 _labelblinker.Stop();
                 _labellifespantimer.Stop();
@@ -143,5 +143,6 @@ namespace SCTool_Redesigned.Windows
         {
             return _authtoken;
         }
+
     }
 }

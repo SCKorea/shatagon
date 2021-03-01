@@ -248,13 +248,7 @@ namespace SCTool_Redesigned.Windows
         {
             GoogleAnalytics.Sesstion(App.Settings.UUID, "end", true);
 
-            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-            {
-
-                //Process.GetCurrentProcess().Kill();
-                _author.Close();
-                Application.Current.Shutdown(); //FIXME!!!! 
-            }));
+            Application.Current.Shutdown();
         }
 
         private void LazePageLoad(Frame frame, Page page)
