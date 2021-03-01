@@ -99,7 +99,7 @@ namespace SCTool_Redesigned.Pages
             try
             {
                 Cursor = Cursors.Wait;
-                var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.GetInstallationTarget().InstalledVersion,this);
+                var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.TargetInstallation.InstalledVersion,this);
                 var filePath = await RepositoryManager.TargetRepository.DownloadAsync(RepositoryManager.TargetInfo, Path.GetTempPath(),
                     _cancellationToken.Token, downloadDialogAdapter);
                 var result = RepositoryManager.TargetRepository.Installer.Install(filePath, App.CurrentGame.RootFolderPath);

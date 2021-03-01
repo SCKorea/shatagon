@@ -52,10 +52,6 @@ namespace SCTool_Redesigned.Utils
             TargetInfo = info;
             App.SaveAppSettings();
         }
-        public static LocalizationInstallation GetInstallationTarget()
-        {
-            return TargetInstallation;
-        }
         public static List<string> GetLocalizationList()
         {
             var list = new List<string>();
