@@ -24,13 +24,13 @@ namespace SCTool_Redesigned.Windows
     {
         internal static MainWindow UI;
 
-        public enum InstallerMode { install,uninstall,disable };
+        public enum InstallerMode { install, uninstall, disable };
         private int _PhaseNumber;
         private InstallerMode _installmode;
         private PrefaceWindow _prologue;
         private AuthWindow _author;
 
-        
+
         public MainWindow()
         {
             UI = this;
@@ -102,7 +102,7 @@ namespace SCTool_Redesigned.Windows
                         _prologue.Content = new Pages.selectLang();
                         _prologue.Show();
                         break;
-                        
+
                     case 2: //select patch Language
                         DoNotCloseMainWindow = true;
                         _prologue.Close();
@@ -217,7 +217,8 @@ namespace SCTool_Redesigned.Windows
                         Application.Current.Shutdown();
                         break;
 
-                    default: throw new Exception(value.ToString()+" Phase is not exist");
+                    default:
+                        throw new Exception(value.ToString() + " Phase is not exist");
                 }
                 Console.WriteLine($"Change Phase {value} ended");
             }
@@ -276,7 +277,7 @@ namespace SCTool_Redesigned.Windows
         {
             _installmode = InstallerMode.disable;
             Phase = 6;
-            if(RepositoryManager.TargetInstallation.IsEnabled)
+            if (RepositoryManager.TargetInstallation.IsEnabled)
                 MessageBox.Show("패치 활성화 완료");
             else
                 MessageBox.Show("패치 비활성화 완료");
