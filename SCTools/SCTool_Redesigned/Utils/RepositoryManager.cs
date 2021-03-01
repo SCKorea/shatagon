@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Xml;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Localization;
 using NSW.StarCitizen.Tools.Lib.Update;
@@ -192,8 +193,10 @@ namespace SCTool_Redesigned.Utils
             {
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
-
+                    //Humanize
                     sb.Append($"### {release.Name}\n");
+                    sb.Append($"{XmlConvert.ToString(release.Published.ToLocalTime(), Properties.Resources.UI_Desc_DateTimeFormat)}  \n");
+                    sb.Append($"<br/>    \n");
 
                     var body = release.Body;
                     if (body.Length <= 0)
@@ -202,6 +205,9 @@ namespace SCTool_Redesigned.Utils
                     }
 
                     sb.Append($"{body}\n");
+                    sb.Append($"<br/>    \n");
+                    sb.Append($"<br/>    \n");
+                    sb.Append($"<br/>    \n");
                 }
             }
 

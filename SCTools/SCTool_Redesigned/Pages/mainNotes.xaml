@@ -35,7 +35,7 @@
             Text="{x:Static lang:Resources.UI_Tab_Main_Qna}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_qna_PreviewMouseLeftButtonDown"
                    />
         <TextBlock x:Name="Menu_credit" Grid.Row="1" Grid.Column="2"
-            Text="뭐넣지?" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_credit_PreviewMouseLeftButtonDown"
+            Text="{x:Static lang:Resources.UI_Tab_Main_Credit}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_credit_PreviewMouseLeftButtonDown"
                    />
 
         <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="-14,0,-14,0" Grid.ColumnSpan="4"/>

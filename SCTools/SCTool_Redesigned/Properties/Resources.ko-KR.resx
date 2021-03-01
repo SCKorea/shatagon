@@ -154,6 +154,9 @@
   <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
     <value>확인 실패</value>
   </data>
+  <data name="MSG_Decs_CannotOpenLink" xml:space="preserve">
+    <value>하이퍼링크를 열 수 없습니다. 하이퍼링크 등록이 잘못 된 것일 수 있습니다. </value>
+  </data>
   <data name="MSG_Decs_NoInternet" xml:space="preserve">
     <value>인터넷이 연결되어 있지 않습니다. 인터넷 연결을 확인하십시오.</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
     <value>잘못된 접근입니다.</value>
+  </data>
+  <data name="MSG_Title_CannotOpenLink" xml:space="preserve">
+    <value>하이퍼링크를 열 수 없음</value>
   </data>
   <data name="MSG_Title_GeneralError" xml:space="preserve">
     <value>에러</value>
@@ -273,6 +279,9 @@
   <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
     <value>예) C:\Program Files\Roberts Space Industries\StarCitizen</value>
   </data>
+  <data name="UI_Desc_DateTimeFormat" xml:space="preserve">
+    <value>yyyy년 MM월 dd일 HH시 mm분</value>
+  </data>
   <data name="UI_Desc_GithubAPILimitExceeded" xml:space="preserve">
     <value>깃허브 API 사용량이 초과되었습니다. 나중에 다시 시도해 주세요.</value>
   </data>
@@ -299,6 +308,9 @@
   </data>
   <data name="UI_Desc_Welcome" xml:space="preserve">
     <value>환영합니다.</value>
+  </data>
+  <data name="UI_Tab_Main_Credit" xml:space="preserve">
+    <value>Credit</value>
   </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
     <value>Q&amp;A</value>

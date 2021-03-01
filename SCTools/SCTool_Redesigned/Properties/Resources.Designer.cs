@@ -189,6 +189,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Could&apos;t open hyperlink. It could be an invalid hyperlink.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Decs_CannotOpenLink {
+            get {
+                return ResourceManager.GetString("MSG_Decs_CannotOpenLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Can&apos;t connect to the internet. Check the internet.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Decs_NoInternet {
@@ -235,6 +244,15 @@ namespace SCTool_Redesigned.Properties {
         public static string MSG_Desc_InvalidAccess {
             get {
                 return ResourceManager.GetString("MSG_Desc_InvalidAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Could&apos;t open hyperlink과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_CannotOpenLink {
+            get {
+                return ResourceManager.GetString("MSG_Title_CannotOpenLink", resourceCulture);
             }
         }
         
@@ -319,6 +337,15 @@ namespace SCTool_Redesigned.Properties {
             get {
                 object obj = ResourceManager.GetObject("SCDream9", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         
@@ -530,6 +557,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   yyyy-MM-dd HH:mm과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_DateTimeFormat {
+            get {
+                return ResourceManager.GetString("UI_Desc_DateTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   API usage has been exceeded. Please try again later.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Desc_GithubAPILimitExceeded {
@@ -607,6 +643,15 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Desc_Welcome {
             get {
                 return ResourceManager.GetString("UI_Desc_Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Credit과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Tab_Main_Credit {
+            get {
+                return ResourceManager.GetString("UI_Tab_Main_Credit", resourceCulture);
             }
         }
         
