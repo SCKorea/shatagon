@@ -40,8 +40,13 @@ namespace SCTool_Redesigned.Pages
 
         private void VersionSelectListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var version = VersionSelectListBox.SelectedValue.ToString();
-            RepositoryManager.SetInstallationTarget(version, version,(UpdateInfo) VersionSelectListBox.SelectedItem);
+            var version = VersionSelectListBox.SelectedValue;
+
+            if (version != null)
+            {
+                var verString = VersionSelectListBox.SelectedValue.ToString();
+                RepositoryManager.SetInstallationTarget(verString, verString, (UpdateInfo)VersionSelectListBox.SelectedItem);
+            }
         }
     }
 }
