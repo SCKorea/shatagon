@@ -237,6 +237,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="UI_Button_Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="UI_Button_EnableLocalization" xml:space="preserve">
+    <value>Enable Localization</value>
+  </data>
   <data name="UI_Button_Install" xml:space="preserve">
     <value>Install</value>
   </data>

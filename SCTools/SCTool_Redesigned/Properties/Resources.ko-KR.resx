@@ -228,6 +228,9 @@
   <data name="UI_Button_Edit" xml:space="preserve">
     <value>변경</value>
   </data>
+  <data name="UI_Button_EnableLocalization" xml:space="preserve">
+    <value>패치 활성화</value>
+  </data>
   <data name="UI_Button_Install" xml:space="preserve">
     <value>설치</value>
   </data>
