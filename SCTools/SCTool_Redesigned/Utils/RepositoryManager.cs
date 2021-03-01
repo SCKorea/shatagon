@@ -30,16 +30,21 @@ namespace SCTool_Redesigned.Utils
         static RepositoryManager()
         {
             _repolist = App.Settings.GetGameLanguages();
-            TargetInstallation = null;
+            TargetInstallation = App.Settings.LIVE_Localization.Installations.FirstOrDefault();
             _localizationSource = null;
         }
         public static void SetInstalledRepository() //does it make sense? I don't get it...
         {
             //App.Settings.LIVE_Localization += TargetInstallation;
-            
+            App.Settings.LIVE_Localization.Installations.Add(TargetInstallation);
             App.SaveAppSettings();
             //_currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
             //_currentInstalled.LastVersion = TargetInstallation.LastVersion;
+        }
+        public static void RemoveInstalledRepository()
+        {
+            App.Settings.LIVE_Localization.Installations.Clear();
+            App.SaveAppSettings();
         }
         public static void SetInstallationTarget(string select, string last, UpdateInfo info)
         {   //TODO: make selection between LIVE and PTU
