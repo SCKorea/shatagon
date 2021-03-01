@@ -30,16 +30,21 @@ namespace SCTool_Redesigned.Utils
         static RepositoryManager()
         {
             _repolist = App.Settings.GetGameLanguages();
-            TargetInstallation = null;
+            TargetInstallation = App.Settings.LIVE_Localization.Installations.FirstOrDefault();
             _localizationSource = null;
         }
         public static void SetInstalledRepository() //does it make sense? I don't get it...
         {
             //App.Settings.LIVE_Localization += TargetInstallation;
-            
+            App.Settings.LIVE_Localization.Installations.Add(TargetInstallation);
             App.SaveAppSettings();
             //_currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
             //_currentInstalled.LastVersion = TargetInstallation.LastVersion;
+        }
+        public static void RemoveInstalledRepository()
+        {
+            App.Settings.LIVE_Localization.Installations.Clear();
+            App.SaveAppSettings();
         }
         public static void SetInstallationTarget(string select, string last, UpdateInfo info)
         {
@@ -71,10 +76,21 @@ namespace SCTool_Redesigned.Utils
 
             App.SaveAppSettings();
         }
-        public static LocalizationInstallation GetInstallationTarget()
+
+        public static void ToggleLocalization()
         {
-            return TargetInstallation;
+            try
+            {
+                TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath);
+                TargetInstallation.IsEnabled = !TargetInstallation.IsEnabled;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error during toggle localization: {App.CurrentGame.Mode}");
+                //_logger.Error(e, $"Error during toggle localization: {CurrentGame.Mode}");
+            }
         }
+
         public static List<string> GetLocalizationList()
         {
             var list = new List<string>();

@@ -154,6 +154,12 @@
   <data name="Localization_Uninstall_ErrorTitle" xml:space="preserve">
     <value>Uninstall error</value>
   </data>
+  <data name="Localization_Uninstall_WarningText" xml:space="preserve">
+    <value>Localization removed not fully. Some files can't be removed.</value>
+  </data>
+  <data name="Localization_Uninstall_WarningTitle" xml:space="preserve">
+    <value>Uninstall warning</value>
+  </data>
   <data name="Localization_Verify_ErrorText" xml:space="preserve">
     <value>Package security verification is not passed. Please try another or contact with package owner.</value>
   </data>
@@ -230,6 +236,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="UI_Button_Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="UI_Button_EnableLocalization" xml:space="preserve">
+    <value>Enable Localization</value>
   </data>
   <data name="UI_Button_Install" xml:space="preserve">
     <value>Install</value>
