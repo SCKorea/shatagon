@@ -42,7 +42,13 @@ namespace SCTool_Redesigned.Pages
             {
                 case 0:
                     InstallVersionAsync();
-                break;
+                    break;
+                case 1:
+                    Uninstall();
+                    break;
+                case 2:
+                    DisableInstallation();
+                    break;
             }
 
         }
@@ -55,7 +61,6 @@ namespace SCTool_Redesigned.Pages
             timer1.Interval = TimeSpan.FromMilliseconds(30);
             timer1.Start();
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             ProgBar.Value += 5;
@@ -66,7 +71,6 @@ namespace SCTool_Redesigned.Pages
             }
         }
 
-        //public async Task<bool> InstallVersionAsync(UpdateInfo selectedUpdateInfo)
         public async void InstallVersionAsync()
         {
             if (!RepositoryManager.IsAvailable())
@@ -154,6 +158,16 @@ namespace SCTool_Redesigned.Pages
             else
                 MainWindow.UI.Phase--;
             return;
+        }
+
+        public void Uninstall()
+        {
+
+        }
+
+        public void DisableInstallation()
+        {
+
         }
     }
     public class InstallDownloadProgressDialogAdapter : IDownloadProgress

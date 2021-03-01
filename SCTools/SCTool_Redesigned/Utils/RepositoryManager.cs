@@ -21,7 +21,6 @@ namespace SCTool_Redesigned.Utils
     public static class RepositoryManager
     {
         private static List<LocalizationSource> _repolist;
-        private static LocalizationInstallation _currentInstalled;
         private static LocalizationSource _localizationSource;
         public static GitHubLocalizationRepository TargetRepository { get; private set; }
         public static LocalizationInstallation TargetInstallation { get; private set; }
@@ -30,17 +29,20 @@ namespace SCTool_Redesigned.Utils
         static RepositoryManager()
         {
             _repolist = App.Settings.GetGameLanguages();
-            _currentInstalled = null;
             TargetInstallation = null;
             _localizationSource = null;
         }
         public static void SetInstalledRepository() //does it make sense? I don't get it...
         {
-            _currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
-            _currentInstalled.LastVersion = TargetInstallation.LastVersion;
+            //App.Settings.LIVE_Localization += TargetInstallation;
+            
+            App.SaveAppSettings();
+            //_currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
+            //_currentInstalled.LastVersion = TargetInstallation.LastVersion;
         }
         public static void SetInstallationTarget(string select, string last, UpdateInfo info)
         {   //TODO: make selection between LIVE and PTU
+            //FIXME
             if (TargetInstallation == null)
                 TargetInstallation = new LocalizationInstallation(GameMode.LIVE, _localizationSource.Repository, UpdateRepositoryType.GitHub);
             TargetInstallation.LastVersion = last;
@@ -66,6 +68,8 @@ namespace SCTool_Redesigned.Utils
 
         public static bool IsAvailable()
         {
+            //Console.WriteLine("TargetInfo: " + (TargetInfo != null ? "OK" : "NO"));
+            //Console.WriteLine("TargetRepository: " + (TargetRepository != null ? "OK" : "NO"));
             if (TargetInfo != null && TargetRepository != null)
                 return true;
             else
@@ -81,7 +85,6 @@ namespace SCTool_Redesigned.Utils
                     TargetRepository = new GitHubLocalizationRepository(HttpNetClient.Client, GameMode.LIVE, localization.Name, localization.Repository);
                     if (localization.IsPrivate)
                         TargetRepository.AuthToken = localization.AuthToken;
-                    //TODO: UpdateInfo
                     return true;
                 }
             }
