@@ -57,6 +57,21 @@ namespace SCTool_Redesigned.Utils
             TargetInfo = info;
             App.SaveAppSettings();
         }
+
+        public static void ToggleLocalization()
+        {
+            try
+            {
+                TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath);
+                TargetInstallation.IsEnabled = !TargetInstallation.IsEnabled;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error during toggle localization: {App.CurrentGame.Mode}");
+                //_logger.Error(e, $"Error during toggle localization: {CurrentGame.Mode}");
+            }
+        }
+
         public static List<string> GetLocalizationList()
         {
             var list = new List<string>();

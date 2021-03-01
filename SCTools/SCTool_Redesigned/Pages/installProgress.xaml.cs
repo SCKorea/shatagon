@@ -23,8 +23,8 @@ namespace SCTool_Redesigned.Pages
     public partial class installProgress : Page
     {
         private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
-        public readonly GameSettings GameSettings;
-        public installProgress(int mode)
+        private GameSettings GameSettings;
+        public installProgress(MainWindow.InstallerMode mode)
         {
             InitializeComponent();
 
@@ -40,14 +40,15 @@ namespace SCTool_Redesigned.Pages
             GameSettings = new GameSettings(App.CurrentGame);
             switch (mode)
             {
-                case 0:
+                case MainWindow.InstallerMode.install:
                     InstallVersionAsync();
+                    RepositoryManager.ToggleLocalization();
                     break;
-                case 1:
+                case MainWindow.InstallerMode.uninstall:
                     Uninstall();
                     break;
-                case 2:
-                    DisableInstallation();
+                case MainWindow.InstallerMode.disable:
+                    RepositoryManager.ToggleLocalization();
                     break;
             }
 
@@ -157,17 +158,60 @@ namespace SCTool_Redesigned.Pages
                 MainWindow.UI.Phase++;
             else
                 MainWindow.UI.Phase--;
-            return;
         }
 
         public void Uninstall()
         {
+            if (RepositoryManager.TargetInstallation.InstalledVersion != null)
+            {
+                if (!App.CurrentGame.IsAvailable())
+                {
+                    //_logger.Error($"Uninstall localization mode path unavailable: {CurrentGame.RootFolderPath}");
+                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText,
+                        Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
+                //_logger.Info($"Uninstall localization: {CurrentGame.Mode}, {CurrentInstallation.Repository} {CurrentInstallation.InstalledVersion}");
+                try
+                {
+                    switch (RepositoryManager.TargetRepository.Installer.Uninstall(App.CurrentGame.RootFolderPath))
+                    {
+                        case UninstallStatus.Success:
+                            GameSettings.RemoveCurrentLanguage();
+                            GameSettings.Load();
+                            ProgBar.Value = ProgBar.Maximum;
+                            RepositoryManager.RemoveInstalledRepository();
+                            break;
+                        case UninstallStatus.Partial:
+                            GameSettings.RemoveCurrentLanguage();
+                            GameSettings.Load();
+                            ProgBar.Value = ProgBar.Maximum;
+                            RepositoryManager.RemoveInstalledRepository();
+                            //_logger.Warn($"Localization uninstalled partially: {CurrentGame.Mode}");
+                            MessageBox.Show(Properties.Resources.Localization_Uninstall_WarningText,
+                                    Properties.Resources.Localization_Uninstall_WarningTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                            break;
+                        default:
+                            //_logger.Error($"Failed uninstall localization: {CurrentGame.Mode}");
+                            MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText,
+                                Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    //_logger.Error(e, $"Error during uninstall localization: {CurrentGame.Mode}");
+                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText,
+                        Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         public void DisableInstallation()
         {
-
+            //MessageBox.Show("대충 비활성화하는 동작");
+            ProgBar.Value = ProgBar.Maximum;
         }
     }
     public class InstallDownloadProgressDialogAdapter : IDownloadProgress
@@ -207,6 +251,7 @@ namespace SCTool_Redesigned.Pages
             }
             else
             {
+                _dialog.ProgBar.IsIndeterminate = true;
                 _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB";
             }
         }

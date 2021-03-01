@@ -24,7 +24,7 @@ namespace SCTool_Redesigned.Windows
     {
         internal static MainWindow UI;
 
-        public enum InstallerMode { install,uninstall,disable,enable };
+        public enum InstallerMode { install,uninstall,disable };
         private int _PhaseNumber;
         private InstallerMode _installmode;
         private PrefaceWindow _prologue;
@@ -144,6 +144,7 @@ namespace SCTool_Redesigned.Windows
                         {
                             UninstallBtn.Visibility = Visibility.Visible;
                             DisableBtn.Visibility = Visibility.Visible;
+                            DisableBtn.Content = RepositoryManager.TargetInstallation.IsEnabled ? Properties.Resources.UI_Button_EnableLocalization : Properties.Resources.UI_Button_DisableLocalization;
                         }
 
                         break;
@@ -281,7 +282,10 @@ namespace SCTool_Redesigned.Windows
         {
             _installmode = InstallerMode.disable;
             Phase = 6;
-            MessageBox.Show("패치 비활성화 완료");
+            if(RepositoryManager.TargetInstallation.IsEnabled)
+                MessageBox.Show("패치 활성화 완료");
+            else
+                MessageBox.Show("패치 비활성화 완료");
             Phase = 3;
         }
     }
