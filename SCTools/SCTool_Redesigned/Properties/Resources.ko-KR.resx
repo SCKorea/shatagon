@@ -297,8 +297,17 @@
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
     <value>설치 완료</value>
   </data>
-  <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
+  <data name="UI_Desc_LocailzationInstall" xml:space="preserve">
     <value>설치 중...</value>
+  </data>
+  <data name="UI_Desc_LocailzationInstalling" xml:space="preserve">
+    <value>설치 중...</value>
+  </data>
+  <data name="UI_Desc_LocailzationPH" xml:space="preserve">
+    <value>구성 중</value>
+  </data>
+  <data name="UI_Desc_LocailzationUninstall" xml:space="preserve">
+    <value>제거 중...</value>
   </data>
   <data name="UI_Desc_NoContent" xml:space="preserve">
     <value>내용이 없습니다.</value>
@@ -335,7 +344,7 @@
     <value>패치 언어 선택</value>
   </data>
   <data name="UI_Title_ProgramTitle" xml:space="preserve">
-    <value>Shatagon</value>
+    <value>Shatagon Patcher</value>
   </data>
   <data name="UI_Title_Step_01" xml:space="preserve">
     <value>01</value>

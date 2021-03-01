@@ -359,15 +359,6 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Apply과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_AuthApply {
@@ -611,11 +602,38 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Installing Patch...과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_LocailzationInstall {
+            get {
+                return ResourceManager.GetString("UI_Desc_LocailzationInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Installing...과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        public static string UI_Desc_LocailzationInstaling {
+        public static string UI_Desc_LocailzationInstalling {
             get {
-                return ResourceManager.GetString("UI_Desc_LocailzationInstaling", resourceCulture);
+                return ResourceManager.GetString("UI_Desc_LocailzationInstalling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Configuring Patch...과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_LocailzationPH {
+            get {
+                return ResourceManager.GetString("UI_Desc_LocailzationPH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Removing Patch...과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Desc_LocailzationUninstall {
+            get {
+                return ResourceManager.GetString("UI_Desc_LocailzationUninstall", resourceCulture);
             }
         }
         

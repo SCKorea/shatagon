@@ -222,9 +222,6 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="UI_Button_AuthApply" xml:space="preserve">
     <value>Apply</value>
   </data>
@@ -306,8 +303,17 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="UI_Desc_InstallationComplete" xml:space="preserve">
     <value>Installation complete.</value>
   </data>
-  <data name="UI_Desc_LocailzationInstaling" xml:space="preserve">
+  <data name="UI_Desc_LocailzationInstall" xml:space="preserve">
+    <value>Installing Patch...</value>
+  </data>
+  <data name="UI_Desc_LocailzationInstalling" xml:space="preserve">
     <value>Installing...</value>
+  </data>
+  <data name="UI_Desc_LocailzationPH" xml:space="preserve">
+    <value>Configuring Patch...</value>
+  </data>
+  <data name="UI_Desc_LocailzationUninstall" xml:space="preserve">
+    <value>Removing Patch...</value>
   </data>
   <data name="UI_Desc_NoContent" xml:space="preserve">
     <value>No content here.</value>

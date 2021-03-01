@@ -4,13 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SCTool_Redesigned.Pages"
+      xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="installProgress">
 
     <Grid>
-        <Label x:Name="DescText" Content="준비 중" HorizontalAlignment="Center" Margin="0,0,0,40" VerticalAlignment="Bottom" FontFamily="{StaticResource SCDream3}" Foreground="{StaticResource MediumGreyBrush}" FontSize="14"/>
-        <ProgressBar x:Name="ProgBar" HorizontalAlignment="Center" Height="15" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="600"/>
-        <Label x:Name="Phasetext" Content="설치 중..." HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource TextBrush}" FontSize="18"/>
+        <Label x:Name="DescText" HorizontalAlignment="Center" Margin="0,0,0,40" VerticalAlignment="Bottom" FontFamily="{StaticResource SCDream3}" Foreground="{StaticResource MediumGreyBrush}" FontSize="14"/>
+        <ProgressBar x:Name="ProgBar" HorizontalAlignment="Center" Height="15" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="600" Foreground="{DynamicResource KeyPointBrush}" Background="{DynamicResource MediumGreyBrush}" BorderBrush="Transparent"/>
+        <Label x:Name="Phasetext" Content="{x:Static lang:Resources.UI_Desc_LocailzationPH}" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource TextBrush}" FontSize="18"/>
     </Grid>
 </Page>

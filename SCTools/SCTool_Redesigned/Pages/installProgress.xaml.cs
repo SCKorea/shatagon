@@ -41,13 +41,16 @@ namespace SCTool_Redesigned.Pages
             switch (mode)
             {
                 case MainWindow.InstallerMode.install:
+                    Phasetext.Content = Properties.Resources.UI_Desc_LocailzationInstall;
                     InstallVersionAsync();
                     RepositoryManager.ToggleLocalization();
                     break;
                 case MainWindow.InstallerMode.uninstall:
+                    Phasetext.Content = Properties.Resources.UI_Desc_LocailzationUninstall;
                     Uninstall();
                     break;
                 case MainWindow.InstallerMode.disable:
+                    Phasetext.Content = Properties.Resources.UI_Desc_LocailzationPH;
                     RepositoryManager.ToggleLocalization();
                     break;
             }
