@@ -160,6 +160,9 @@
   <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
     <value>Verification Error</value>
   </data>
+  <data name="MSG_Decs_CannotOpenLink" xml:space="preserve">
+    <value>Could't open hyperlink. It could be an invalid hyperlink.</value>
+  </data>
   <data name="MSG_Decs_NoInternet" xml:space="preserve">
     <value>Can't connect to the internet. Check the internet.</value>
   </data>
@@ -182,6 +185,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
     <value>Invalid Access</value>
+  </data>
+  <data name="MSG_Title_CannotOpenLink" xml:space="preserve">
+    <value>Could't open hyperlink</value>
   </data>
   <data name="MSG_Title_GeneralError" xml:space="preserve">
     <value>Error</value>
@@ -209,6 +215,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="SCDream9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream9.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="UI_Button_AuthApply" xml:space="preserve">
     <value>Apply</value>
@@ -279,6 +288,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="UI_Desc_ChooseStarCitizenFolerExample" xml:space="preserve">
     <value>ex) C:\Programe Files\Roberts Space Industries\StarCitizen</value>
   </data>
+  <data name="UI_Desc_DateTimeFormat" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm</value>
+  </data>
   <data name="UI_Desc_GithubAPILimitExceeded" xml:space="preserve">
     <value>API usage has been exceeded. Please try again later.</value>
   </data>
@@ -305,6 +317,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="UI_Desc_Welcome" xml:space="preserve">
     <value>Welcome</value>
+  </data>
+  <data name="UI_Tab_Main_Credit" xml:space="preserve">
+    <value>Credit</value>
   </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
     <value>FAQ</value>

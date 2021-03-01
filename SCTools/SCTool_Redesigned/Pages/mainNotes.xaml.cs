@@ -23,6 +23,7 @@ using Markdig.Wpf;
 using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.Utils;
 using SCTool_Redesigned.Settings;
+using System.Text.RegularExpressions;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -86,7 +87,16 @@ namespace SCTool_Redesigned.Pages
 
         private void OpenHyperlink(object sender, ExecutedRoutedEventArgs e)
         {
-            Process.Start(e.Parameter.ToString());
+            Console.WriteLine(e.Parameter.ToString());
+
+            try
+            {
+                Process.Start(e.Parameter.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Properties.Resources.MSG_Decs_CannotOpenLink, Properties.Resources.MSG_Title_CannotOpenLink);
+            }
         }
 
         private void ShowReleasesNote()
