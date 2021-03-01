@@ -56,24 +56,13 @@ namespace SCTool_Redesigned.Pages
 
         private async void TryUpdate()
         {
-            //var scheduledUpdateInfo = _updater.GetScheduledUpdateInfo();
-            //if (scheduledUpdateInfo != null)
-            //{
-            //    if (_updater.IsAlreadyInstalledVersion(scheduledUpdateInfo))
-            //    {
-            //        _updater.CancelScheduleInstallUpdate();
-            //        return false;
-            //    }
-            //    return InstallScheduledUpdate();
-            //}
-            //return false;
             try
             {
                 var availableUpdate = await _updater.CheckForUpdateVersionAsync(_cancellationToken.Token);
                 ProgBar.Value = ProgBar.Minimum;
                 if (availableUpdate == null)
                 {
-                    //MessageBox.Show("업데이트 없음", "업데이트 확인");
+                //    MessageBox.Show("업데이트 없음", "업데이트 확인");
                     ProgBar.Value = ProgBar.Maximum;
                     return;
                 }
@@ -82,10 +71,10 @@ namespace SCTool_Redesigned.Pages
                 var downloadDialogAdapter = new DownloadProgressDialogAdapter(null, this);
                 var filePath = await _updater.DownloadVersionAsync(availableUpdate, _cancellationToken.Token, downloadDialogAdapter);
                 _updater.ScheduleInstallUpdate(availableUpdate, filePath);
-                //if (InstallScheduledUpdate())
-                //{
-                //    ((Windows.MainWindow)Application.Current.MainWindow).Quit();
-                //}
+                if (InstallScheduledUpdate())
+                {
+                    ((Windows.MainWindow)Application.Current.MainWindow).Quit();
+                }
 
                 GoogleAnalytics.Hit(App.Settings.UUID, "/update", "Program Update");
             }
