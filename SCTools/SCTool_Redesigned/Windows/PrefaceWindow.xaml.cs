@@ -19,8 +19,6 @@ namespace SCTool_Redesigned.Windows
     /// </summary>
     public partial class PrefaceWindow : Window
     {
-        public static bool IsClosed = false;
-
         public PrefaceWindow()
         {
             InitializeComponent();

@@ -31,30 +31,19 @@ namespace SCTool_Redesigned.Pages
         public updatePatcher()
         {
             InitializeComponent();
-            //Progressbar_demo();
+#if (!DEBUG)
             if (!ChkUpdated())
-                TryUpdate();
-            else
-                CleanUpdate();
-        }
-        private DispatcherTimer timer1;
-        private void Progressbar_demo()
-        {
-            ProgBar.Value = 0;
-            timer1 = new DispatcherTimer();
-            timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = TimeSpan.FromMilliseconds(30);
-            timer1.Start();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            ProgBar.Value += 5;
-            if (ProgBar.Value == ProgBar.Maximum)
+#else
+            if (false)
+#endif
             {
-                timer1.Stop();
-                ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+                TryUpdateAsync();
             }
+            else
+            {
+                CleanUpdate();
+            }
+            
         }
 
         private bool ChkUpdated() => _updater.ChkUpdateScript(); //checks if this program launched by updater
@@ -62,9 +51,14 @@ namespace SCTool_Redesigned.Pages
         private void CleanUpdate()
         {
             _updater.RemoveUpdateScript();
-            Windows.MainWindow.UI.Phase++;
+
+            Windows.MainWindow.UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                Windows.MainWindow.UI.Phase++;
+            }));
+
         }
-        private async void TryUpdate()
+        private async void TryUpdateAsync()
         {
             try
             {

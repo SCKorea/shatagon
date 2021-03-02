@@ -89,6 +89,7 @@ namespace SCTool_Redesigned.Windows
                         Hide();
                         _prologue.Content = new Pages.updatePatcher();
                         _prologue.Show();
+                        
                         break;
 
                     case 1:     //select laucher language
