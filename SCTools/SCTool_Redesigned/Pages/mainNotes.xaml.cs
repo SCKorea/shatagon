@@ -101,11 +101,16 @@ namespace SCTool_Redesigned.Pages
 
         private void OpenHyperlink(object sender, ExecutedRoutedEventArgs e)
         {
-            Console.WriteLine(e.Parameter.ToString());
+            var link = e.Parameter.ToString();
+            if(!link.StartsWith("http://") && !link.StartsWith("https://"))
+            {
+                link = "https://" + link;
+            }
+            Console.WriteLine(link);
 
             try
             {
-                Process.Start(e.Parameter.ToString());
+                Process.Start(link);
             }
             catch (Exception ex)
             {
