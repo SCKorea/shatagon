@@ -43,7 +43,6 @@ namespace SCTool_Redesigned.Pages
                 case MainWindow.InstallerMode.install:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationInstall;
                     InstallVersionAsync();
-                    RepositoryManager.ToggleLocalization();
                     break;
                 case MainWindow.InstallerMode.uninstall:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationUninstall;
