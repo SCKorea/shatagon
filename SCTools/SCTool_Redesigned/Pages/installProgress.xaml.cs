@@ -43,7 +43,6 @@ namespace SCTool_Redesigned.Pages
                 case MainWindow.InstallerMode.install:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationInstall;
                     InstallVersionAsync();
-                    RepositoryManager.ToggleLocalization();
                     break;
                 case MainWindow.InstallerMode.uninstall:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationUninstall;
@@ -91,7 +90,6 @@ namespace SCTool_Redesigned.Pages
                     case InstallStatus.Success:
                         GameSettings.Load();
                         ProgBar.Value = ProgBar.Maximum;
-                        //RepositoryManager.SetInstalledRepository(RepositoryManager.TargetRepository, RepositoryManager.TargetInfo.GetVersion());
                         RepositoryManager.SetInstalledRepository();
                         status = true;
                         break;
@@ -136,8 +134,11 @@ namespace SCTool_Redesigned.Pages
             {
                 Cursor = null;  //Cursor to default
             }
-            if(status)
+            if (status)
+            {
+                RepositoryManager.ToggleLocalization();
                 MainWindow.UI.Phase++;
+            }
             else
                 MainWindow.UI.Phase--;
         }
