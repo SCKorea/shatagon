@@ -25,14 +25,43 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class selectDir : Page
     {
+        private const string Defaultdir = "C:\\Program Files\\Roberts Space Industries\\StarCitizen";
         public selectDir()
         {
             InitializeComponent();
+            if (verify_Path(Defaultdir))
+                App.Settings.GameFolder = Defaultdir;
 
             if (App.Settings.GameFolder != null)
             {
                 PhasePath.Content = App.Settings.GameFolder;
             }
+        }
+
+        private bool verify_Path(string directoryPath)
+        {
+            var gamePath = GameFolders.SearchGameFolder(directoryPath);
+
+            if (gamePath != null)
+            {
+                var gameModes = GameFolders.GetGameModes(gamePath);
+
+                foreach (var gameMode in gameModes)
+                {
+                    App.Settings.GameFolder = gamePath;
+                    App.SaveAppSettings();
+
+                    PhasePath.Content = gamePath;
+
+                    MainWindow.UI.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                    {
+                        MainWindow.UI.NextBtn.Visibility = Visibility.Visible;
+                    }));
+
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void dialogBtn_Click(object sender, RoutedEventArgs e)
@@ -48,34 +77,11 @@ namespace SCTool_Redesigned.Pages
                 if (result == CommonFileDialogResult.Ok)
                 {
                     var directoryPath = dialog.FileName;
-                    var gamePath = GameFolders.SearchGameFolder(directoryPath);
 
-                    if (gamePath != null)
-                    {
-                        var gameModes = GameFolders.GetGameModes(gamePath);
-
-                        foreach (var gameMode in gameModes)
-                        {
-                            App.Settings.GameFolder = gamePath;
-                            App.SaveAppSettings();
-
-                            PhasePath.Content = gamePath;
-
-                            MainWindow.UI.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
-                            {
-                                MainWindow.UI.NextBtn.Visibility = Visibility.Visible;
-                            }));
-
-                            flag = false;
-                            break;
-                        }
-                    }
-
-                    if (flag)
+                    if (flag = !verify_Path(directoryPath))
                     {
                         MessageBox.Show(Properties.Resources.MSG_Decs_NotGameFolder, Properties.Resources.MSG_Title_NotGameFolder);
                     }
-                    
                 }
                 else
                 {
