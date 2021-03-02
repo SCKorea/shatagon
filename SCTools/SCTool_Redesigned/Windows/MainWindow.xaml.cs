@@ -38,7 +38,7 @@ namespace SCTool_Redesigned.Windows
 
             GoogleAnalytics.Sesstion(App.Settings.UUID, "start", true);
 
-            Title += " - " + App.Version.ToString();
+            Title += " - " + App.Version.ToString(3);
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
             _author = new AuthWindow();
