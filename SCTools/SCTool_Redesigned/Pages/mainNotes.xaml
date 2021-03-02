@@ -47,7 +47,7 @@
                PreviewMouseLeftButtonUp="Open_Community_2"
         />
 
-        <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="-14,0,-14,0" Grid.ColumnSpan="6"/>
+        <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="-14,0,-14,0" Grid.ColumnSpan="6" TextOptions.TextFormattingMode="Display"/>
     </Grid>
 
 </Page>
