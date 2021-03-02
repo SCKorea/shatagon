@@ -79,6 +79,25 @@ namespace SCTool_Redesigned.Windows
                         }
                         break;
                     case 5:  //select Version
+                        if (!RepositoryManager.IsAvailable())
+                        {
+                            //_logger.Error($"Install localization mode path unavailable: {CurrentGame.RootFolderPath}");
+                            MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess,
+                                Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        if (!App.Settings.AcceptInstallWarning)
+                        {
+                            var dialogResult = MessageBox.Show(Properties.Resources.MSG_Desc_InstallWarning,
+                                Properties.Resources.MSG_Title_GeneralWarning, MessageBoxButton.YesNo,
+                                MessageBoxImage.Warning, MessageBoxResult.Yes);
+                            if (dialogResult != MessageBoxResult.Yes)
+                            {
+                                return;
+                            }
+                            App.Settings.AcceptInstallWarning = true;
+                            App.SaveAppSettings();
+                        }
                         break;
                 }
                 Console.WriteLine($"Change Phase {_PhaseNumber} to {value}");
