@@ -81,8 +81,18 @@ namespace SCTool_Redesigned.Utils
         {
             try
             {
-                TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath);
-                TargetInstallation.IsEnabled = !TargetInstallation.IsEnabled;
+                if( TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath) is LocalizationInstallationType toggleresult)
+                {
+                    if (toggleresult == LocalizationInstallationType.Disabled)
+                        TargetInstallation.IsEnabled = false;
+                    else if (toggleresult == LocalizationInstallationType.Enabled)
+                        TargetInstallation.IsEnabled = true;
+                    else //status: None
+                    {
+                        App.Settings.LIVE_Localization.Installations.Clear();
+                        App.SaveAppSettings();
+                    }
+                }
                 App.SaveAppSettings();
             }
             catch (Exception e)
