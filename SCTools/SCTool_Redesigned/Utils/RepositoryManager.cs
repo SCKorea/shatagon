@@ -87,10 +87,9 @@ namespace SCTool_Redesigned.Utils
                         TargetInstallation.IsEnabled = false;
                     else if (toggleresult == LocalizationInstallationType.Enabled)
                         TargetInstallation.IsEnabled = true;
-                    else //status: None
+                    else //status: None = no installation is not exist in directory.
                     {
-                        App.Settings.LIVE_Localization.Installations.Clear();
-                        App.SaveAppSettings();
+                        RemoveInstalledRepository();
                     }
                 }
                 App.SaveAppSettings();
