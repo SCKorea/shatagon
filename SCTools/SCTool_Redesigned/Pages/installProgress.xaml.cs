@@ -137,6 +137,8 @@ namespace SCTool_Redesigned.Pages
             if (status)
             {
                 RepositoryManager.ToggleLocalization();
+                if(!RepositoryManager.TargetInstallation.IsEnabled)
+                    RepositoryManager.ToggleLocalization(); //to ensure enabled
                 MainWindow.UI.Phase++;
             }
             else
