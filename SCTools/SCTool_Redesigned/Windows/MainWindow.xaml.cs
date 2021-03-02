@@ -145,7 +145,7 @@ namespace SCTool_Redesigned.Windows
                         {
                             UninstallBtn.Visibility = Visibility.Visible;
                             DisableBtn.Visibility = Visibility.Visible;
-                            DisableBtn.Content = RepositoryManager.TargetInstallation.IsEnabled ? Properties.Resources.UI_Button_EnableLocalization : Properties.Resources.UI_Button_DisableLocalization;
+                            Update_ToggleBtn();
                         }
 
                         break;
@@ -224,6 +224,9 @@ namespace SCTool_Redesigned.Windows
                 Console.WriteLine($"Change Phase {value} ended");
             }
         }
+
+        private void Update_ToggleBtn() =>
+            DisableBtn.Content = RepositoryManager.TargetInstallation.IsEnabled ? Properties.Resources.UI_Button_DisableLocalization : Properties.Resources.UI_Button_EnableLocalization;
 
         private void InstallBtn_Click(object sender, RoutedEventArgs e)
         {
