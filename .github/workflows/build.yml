@@ -35,7 +35,7 @@ jobs:
         uses: dev-drprasad/delete-tag-and-release@v0.1.3
         with:
           delete_release: true
-          tag_name: latest
+          tag_name: dev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
@@ -45,7 +45,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: latest.zip
           asset_name: latest.zip
-          tag: latest
+          tag: dev
           overwrite: true
           body: This is the latest version.
       
