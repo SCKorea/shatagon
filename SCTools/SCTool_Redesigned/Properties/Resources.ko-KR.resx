@@ -154,6 +154,9 @@
   <data name="Localization_Uninstall_WarningTitle" xml:space="preserve">
     <value>제거 경고</value>
   </data>
+  <data name="Localization_Update_ErrorTitle" xml:space="preserve">
+    <value>업데이트 에러</value>
+  </data>
   <data name="Localization_Verify_ErrorText" xml:space="preserve">
     <value>패키지 보안 확인에 실패하였습니다. 다른 것을 시도하거나 패키지 관리자에게 문의하십시오.</value>
   </data>

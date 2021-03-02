@@ -91,10 +91,10 @@ namespace SCTool_Redesigned.Pages
             catch (Exception exception) //TODO: write log and label text, but not on MessageBox
             {
                 if (exception is HttpRequestException)
-                    MessageBox.Show("다운로드 에러:" + '\n' + exception.Message, "업데이트 에러");
+                    MessageBox.Show($"{Properties.Resources.Localization_Download_ErrorTitle}" + '\n' + exception.Message, $"{Properties.Resources.Localization_Update_ErrorTitle}");
                 else
-                    MessageBox.Show("다운로드 에러:", "업데이트 에러");
-                MessageBox.Show("어쨌든 에러:", "업데이트 에러");
+                    MessageBox.Show($"{Properties.Resources.Localization_Download_ErrorTitle}", $"{Properties.Resources.Localization_Update_ErrorTitle}");
+                MessageBox.Show($"{Properties.Resources.MSG_Title_GeneralError}:{exception.Message}", $"{Properties.Resources.Localization_Update_ErrorTitle}");
             }
             finally
             {
@@ -108,7 +108,7 @@ namespace SCTool_Redesigned.Pages
             if (result != InstallUpdateStatus.Success)
             {
                 //_logger.Error($"Failed launch install update: {result}");
-                MessageBox.Show("업데이트 실패" + @" - " + result.ToString("d"), App.Name); //FOR DEBUG
+                MessageBox.Show($"{Properties.Resources.Localization_Update_ErrorTitle}" + @" - " + result.ToString("d"), App.Name); //FOR DEBUG
                 return false;
             }
             return true;

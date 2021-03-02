@@ -160,6 +160,9 @@
   <data name="Localization_Uninstall_WarningTitle" xml:space="preserve">
     <value>Uninstall warning</value>
   </data>
+  <data name="Localization_Update_ErrorTitle" xml:space="preserve">
+    <value>Update Error</value>
+  </data>
   <data name="Localization_Verify_ErrorText" xml:space="preserve">
     <value>Package security verification is not passed. Please try another or contact with package owner.</value>
   </data>

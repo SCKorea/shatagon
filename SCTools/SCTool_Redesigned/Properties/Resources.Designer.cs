@@ -189,6 +189,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Update Error과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Localization_Update_ErrorTitle {
+            get {
+                return ResourceManager.GetString("Localization_Update_ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Package security verification is not passed. Please try another or contact with package owner.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Localization_Verify_ErrorText {
@@ -789,12 +798,13 @@ namespace SCTool_Redesigned.Properties {
         ///for /d %%p in (&quot;%latestpath%*.*&quot;) do rmdir /s /q &quot;%%p&quot;
         ///rmdir /s /q &quot;%latestpath%&quot;
         ///
-        ///start &quot;&quot; &quot;%workpath%SCTool_Redesigned.exe&quot; update_status 0
+        ///start &quot;&quot; &quot;%workpath%Shatagon.exe&quot; update_status 0
         ///exit
         ///
         ///:update_error
         ///
-        ///start &quot;&quot; &quot;%workpath%SCTool_Redesigned.exe&quot; updat[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///start &quot;&quot; &quot;%workpath%Shatagon.exe&quot; update_status 1&quot;
+        ///exit과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UpdateScript {
             get {
