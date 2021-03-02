@@ -31,11 +31,8 @@ namespace SCTool_Redesigned.Pages
         public updatePatcher()
         {
             InitializeComponent();
-#if (!DEBUG)
+
             if (!ChkUpdated())
-#else
-            if (false)
-#endif
             {
                 TryUpdateAsync();
             }
@@ -52,35 +49,40 @@ namespace SCTool_Redesigned.Pages
         {
             _updater.RemoveUpdateScript();
 
-            Windows.MainWindow.UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                Windows.MainWindow.UI.Phase++;
-            }));
+            NextPhase();
 
         }
         private async void TryUpdateAsync()
         {
             try
             {
+#if (!DEBUG)
                 var availableUpdate = await _updater.CheckForUpdateVersionAsync(_cancellationToken.Token);
+
                 ProgBar.Value = ProgBar.Minimum;
-                if (availableUpdate == null)
+
+                if (availableUpdate != null)
                 {
-                //    MessageBox.Show("업데이트 없음", "업데이트 확인");
-                    ProgBar.Value = ProgBar.Maximum;
-                    return;
-                }
-                //MessageBox.Show("업데이트 있음", "업데이트 확인");
-                //FIXME:
-                var downloadDialogAdapter = new DownloadProgressDialogAdapter(null, this);
-                var filePath = await _updater.DownloadVersionAsync(availableUpdate, _cancellationToken.Token, downloadDialogAdapter);
-                _updater.ScheduleInstallUpdate(availableUpdate, filePath);
-                if (InstallScheduledUpdate())
-                {
-                    Windows.MainWindow.UI.Quit();
+                    //MessageBox.Show("업데이트 있음", "업데이트 확인");
+                    //FIXME:
+                    var downloadDialogAdapter = new DownloadProgressDialogAdapter(null, this);
+                    var filePath = await _updater.DownloadVersionAsync(availableUpdate, _cancellationToken.Token, downloadDialogAdapter);
+
+                    _updater.ScheduleInstallUpdate(availableUpdate, filePath);
+
+                    if (InstallScheduledUpdate())
+                    {
+                        GoogleAnalytics.Hit(App.Settings.UUID, "/update", "Program Update");
+                        Windows.MainWindow.UI.Quit();
+
+                        return;
+                    }
                 }
 
-                GoogleAnalytics.Hit(App.Settings.UUID, "/update", "Program Update");
+                // MessageBox.Show("업데이트 없음", "업데이트 확인");
+                ProgBar.Value = ProgBar.Maximum;
+#endif
+                
             }
             catch (Exception exception) //TODO: write log and label text, but not on MessageBox
             {
@@ -92,7 +94,7 @@ namespace SCTool_Redesigned.Pages
             }
             finally
             {
-                Windows.MainWindow.UI.Phase++;
+                NextPhase();
             }
         }
 
@@ -115,6 +117,14 @@ namespace SCTool_Redesigned.Pages
                 GitHubDownloadType.Assets, updateInfoFactory, App.Name, "SCKorea/Shatagon");
             updateRepository.SetCurrentVersion(App.Version.ToString(3));
             return updateRepository;
+        }
+
+        private static void NextPhase()
+        {
+            Windows.MainWindow.UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                Windows.MainWindow.UI.Phase++;
+            }));
         }
     }
 
