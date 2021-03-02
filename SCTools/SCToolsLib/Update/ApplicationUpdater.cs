@@ -167,6 +167,8 @@ namespace NSW.StarCitizen.Tools.Lib.Update
                 FileUtils.DeleteFileNoThrow(_schedInstallArchivePath);
         }
 
+        public bool ChkUpdateScript() => File.Exists(_updateScriptPath);
+
         public void RemoveUpdateScript()
         {
             if (File.Exists(_updateScriptPath))
@@ -203,7 +205,7 @@ namespace NSW.StarCitizen.Tools.Lib.Update
                 using var archive = ZipFile.OpenRead(_schedInstallArchivePath);
                 extractTempDir.Create();
                 archive.ExtractToDirectory(extractTempDir.FullName);
-                if (!File.Exists(Path.Combine(extractTempDir.FullName, "SCTools.exe")))
+                if (!File.Exists(Path.Combine(extractTempDir.FullName, "Shatagon.exe")))
                     throw new NotSupportedException("Not supported upgrade package");
                 Directory.Move(extractTempDir.FullName, _installUnpackedDir);
             }

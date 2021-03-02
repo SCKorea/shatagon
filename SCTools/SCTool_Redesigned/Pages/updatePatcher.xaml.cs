@@ -32,7 +32,8 @@ namespace SCTool_Redesigned.Pages
         {
             InitializeComponent();
             //Progressbar_demo();
-            TryUpdate();
+            if(!ChkUpdated())
+                TryUpdate();
         }
         private DispatcherTimer timer1;
         private void Progressbar_demo()
@@ -54,6 +55,16 @@ namespace SCTool_Redesigned.Pages
             }
         }
 
+        private bool ChkUpdated() //checks if this program launched by updater
+        {
+            if (_updater.ChkUpdateScript())
+            {
+                _updater.RemoveUpdateScript();
+                return true;
+            }
+            else
+                return false;
+        }
         private async void TryUpdate()
         {
             try
@@ -73,7 +84,7 @@ namespace SCTool_Redesigned.Pages
                 _updater.ScheduleInstallUpdate(availableUpdate, filePath);
                 if (InstallScheduledUpdate())
                 {
-                    ((Windows.MainWindow)Application.Current.MainWindow).Quit();
+                    Windows.MainWindow.UI.Quit();
                 }
 
                 GoogleAnalytics.Hit(App.Settings.UUID, "/update", "Program Update");
