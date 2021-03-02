@@ -49,8 +49,8 @@ namespace SCTool_Redesigned.Pages
             switch (language)
             {
                 case "한국어":
-                    Community_link1.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Discord-Logo.png"));
-                    Community_link2.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Ncafe-Logo.png"));
+                    Community_link1.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Discord-Logo2.png"));
+                    Community_link2.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Ncafe-Logo2.png"));
                     break;
                 default:
                     Community_link1.IsEnabled = false;
