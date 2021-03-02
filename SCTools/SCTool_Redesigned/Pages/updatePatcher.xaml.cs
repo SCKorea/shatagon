@@ -32,8 +32,10 @@ namespace SCTool_Redesigned.Pages
         {
             InitializeComponent();
             //Progressbar_demo();
-            if(!ChkUpdated())
+            if (!ChkUpdated())
                 TryUpdate();
+            else
+                CleanUpdate();
         }
         private DispatcherTimer timer1;
         private void Progressbar_demo()
@@ -55,15 +57,12 @@ namespace SCTool_Redesigned.Pages
             }
         }
 
-        private bool ChkUpdated() //checks if this program launched by updater
+        private bool ChkUpdated() => _updater.ChkUpdateScript(); //checks if this program launched by updater
+
+        private void CleanUpdate()
         {
-            if (_updater.ChkUpdateScript())
-            {
-                _updater.RemoveUpdateScript();
-                return true;
-            }
-            else
-                return false;
+            _updater.RemoveUpdateScript();
+            Windows.MainWindow.UI.Phase++;
         }
         private async void TryUpdate()
         {
@@ -99,7 +98,7 @@ namespace SCTool_Redesigned.Pages
             }
             finally
             {
-                ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
+                Windows.MainWindow.UI.Phase++;
             }
         }
 
