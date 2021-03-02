@@ -29,8 +29,7 @@ namespace SCTool_Redesigned.Pages
         public selectDir()
         {
             InitializeComponent();
-            if (verify_Path(Defaultdir))
-                App.Settings.GameFolder = Defaultdir;
+            verify_Path(Defaultdir);
 
             if (App.Settings.GameFolder != null)
             {
@@ -57,7 +56,6 @@ namespace SCTool_Redesigned.Pages
                     {
                         MainWindow.UI.NextBtn.Visibility = Visibility.Visible;
                     }));
-
                     return true;
                 }
             }
