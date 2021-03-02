@@ -81,6 +81,24 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   https://www.reddit.com/r/starcitizen/과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Link_Community_1 {
+            get {
+                return ResourceManager.GetString("Link_Community_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   https://robertsspaceindustries.com/과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Link_Community_2 {
+            get {
+                return ResourceManager.GetString("Link_Community_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Unfortunately, it was an error during download. Please try again.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Localization_Download_ErrorText {

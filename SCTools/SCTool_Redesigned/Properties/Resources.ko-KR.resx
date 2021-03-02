@@ -124,6 +124,12 @@
   <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Link_Community_1" xml:space="preserve">
+    <value>https://discord.gg/starcitizenkr</value>
+  </data>
+  <data name="Link_Community_2" xml:space="preserve">
+    <value>https://cafe.naver.com/starcitizenkorea</value>
+  </data>
   <data name="Localization_Download_ErrorText" xml:space="preserve">
     <value>다운로드 중 오류가 발생하였습니다. 잠시 후 다시 시도하여 주십시오.</value>
   </data>
@@ -331,7 +337,7 @@
     <value>환영합니다.</value>
   </data>
   <data name="UI_Tab_Main_Credit" xml:space="preserve">
-    <value>Credit</value>
+    <value>공지사항</value>
   </data>
   <data name="UI_Tab_Main_Qna" xml:space="preserve">
     <value>Q&amp;A</value>

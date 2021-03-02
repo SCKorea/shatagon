@@ -40,10 +40,24 @@ namespace SCTool_Redesigned.Pages
 
             InitializeComponent();
             set_note(0);
-
+            set_link(App.Settings.GameLanguage);
             GoogleAnalytics.Hit(App.Settings.UUID, "/main", "Program Main");
         }
 
+        private void set_link(string language)
+        {
+            switch (language)
+            {
+                case "한국어":
+                    Community_link1.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Discord-Logo.png"));
+                    Community_link2.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Ncafe-Logo.png"));
+                    break;
+                default:
+                    Community_link1.IsEnabled = false;
+                    Community_link2.IsEnabled = false;
+                    break;
+            }
+        }
         private void set_note(int idx)
         {
 
@@ -148,6 +162,10 @@ namespace SCTool_Redesigned.Pages
                 }
             }));
         }
+
+        private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.Link_Community_1);
+
+        private void Open_Community_2(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.Link_Community_2);
     }
 
     class MyXamlSchemaContext : XamlSchemaContext
