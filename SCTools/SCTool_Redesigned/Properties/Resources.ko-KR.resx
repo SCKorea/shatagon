@@ -124,12 +124,6 @@
   <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Link_Community_1" xml:space="preserve">
-    <value>https://discord.gg/starcitizenkr</value>
-  </data>
-  <data name="Link_Community_2" xml:space="preserve">
-    <value>https://cafe.naver.com/starcitizenkorea</value>
-  </data>
   <data name="Localization_Download_ErrorText" xml:space="preserve">
     <value>다운로드 중 오류가 발생하였습니다. 잠시 후 다시 시도하여 주십시오.</value>
   </data>
@@ -240,11 +234,23 @@
   <data name="UI_Button_EnableLocalization" xml:space="preserve">
     <value>패치 활성화</value>
   </data>
+  <data name="UI_Button_Image_Community_1" xml:space="preserve">
+    <value>iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE7klEQVR42u3bbWhWZRzH8d/lHnI+5MTWlm5Yq7YyjRxzsJJCbJW+SsqIsDAKgvJFEFhCGVnWK8OesAeyIuhNRdALzSAsaDPtwehBtuYqxhRzteHm2nTb/e3FrtHNmPfOzv0wz9n/A3t1zvnvXNf/vs65znX+RzLGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhhjzCQAhcAq4HlgP3ACaAEeBeamEbcW+AgYBo4CTwNXWY+fu8MqgBeADv73JXAb4MbZvwhYBFQDK4B64HqgBrgSKAUKxjnuamA3MAAkgEbgAaDYsjDSQQuAHUC/T8Iw8ClQ77fn+068B9gJ7PO/8F5SGwa6gJ+Aj4GngDVAiY9bCbzlEwPQA7wJ1E7nZKwFjvsO6QPeAK4ByoANwIdAO5l1FjgIbAfq/Mh8ETidtM/XwHogbzol4xHf+H/8/eJy4F7gC+AMudMKbAWW+UtmT9K2/cDs6ZCMu5Ia/T7wMnCKqTXob/o3A0eSzy/X/eNynIxFkpolzYnQb6jOOfdtrv7ZjBw37pmIJUOStsRyhPjR8YekgoglJCGpyjnXFrcRsimCyRjto02xGiFAkaRjkuZHdC7SI2mhc64vLiPkzggnQ5IulLQ+Tpes+2MwY89JG7J+yQLKJf0pKepPvglJlznn2qM+Qm6PQTJG+2pdHC5Z6xQfd0T6kuWXtU9IuiAmCRnys63OqI6QG9NMRrekA5IOSTqdRpx2SY2SDks6k0acfEmrIvtzAl4NudjXDWz0zy+jseYCW/xCYFBHgdXAjKQ4l/h3MGHtjnJCvgvR4H5geYqYa4GhAHF+By5OEefxkAk5EtVkFId8t7EtQOydAeKsydIPZggoi+I9ZKmkwsnmUdK7AfZ7e4Ltf0n6PECc90K0K0/StVFMyLIQx/ztHyIn0iKpN8X2ZufccIA4v+awbVOekDAFA0zB03cYNVFMSHWIY0okVQTYr0pSqjqt6oBFCktDtu2KSCXE11JVhnxQ3RBgv40TbC+T1JCBOOeyeLx6sfN5hnVRwKnpeHqB6hSx6305z0RagHkp4jyWZlHE/Cgl5Lo0q0COAQ1jYs4A7vYPjUH9OLZk1Fc9bs1ApUpVZNaygFsk7ctAqB8k/eynmrWSwtTjDkpqktQqqVjSSn9JS9cNzrmmTPddfpYGSaYqS2oyMKMpkHST/8ukrFyysjXLGlT8zYpSQk4G3O+sRgrnzgcDkl7RyAu1IGZGKSG/SPo3wH6FGlkav08jS+xToVvSDv9s0SzpnYDHtUZqPPu63aDa/MysDtgFnMxyLW8COAQ8DMzznzw0TuL4g5G7wPpS/65JNHIAeNavEhcBDcBrvvh5OANJ6AO+AjYDS/w5zgGeS/pOJIjjQGW2+i3br3BXStozwTLHWJ2SXpK0yznX5eOUS1ohablf7rhU0kKN1EvNTGpHQlK/vwx1SGrzU+fDkr53zvUkndutkl73sYLqkLTaOfdbZKciwJKQ7x1OpXrvADj/FrEUKPd/JcCsCc6nHPggxPkcACoUB0Ae8JB/Ag/qySydy2Lgm0mcR49/dRy/L6qA2cCDAUZMUzY7wN+jPglwr9gOlGo68J+RbQY+S5pVJYC9wIIc/H8HPOG//O30k4c9wDb/aXahjDHGGGOMMcYYY4wxxhhjjDHGGGOMMcYYY4wxxhgzjv8AaW0i3eaOV0oAAAAASUVORK5CYII=</value>
+  </data>
+  <data name="UI_Button_Image_Community_2" xml:space="preserve">
+    <value>iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFhUlEQVR42u2ca4hVVRiGn0+P45SGmtZMaQUaShctJywdia5EhVrpD0FIsR8h2AWLUjCzMISCQKII+pGUgQU54QUruhgiYlGmUKTNmEyOOJq3GC8zOp63H3sTMuy57Jmzz9n7+D0gI+fsvc5a+9nft85ae60DjuM4juM4juM4juM4juM4juM4juM4juNEYeXaMEkjgOuBamAoUAnkAIWH9Ac2mVlTmuqdKyMBFcD9wOPAPcAYYEA3p+WBD1xIYUVUA88C84CRMU8/l7b25DIsYgiwGHgOGFQuKTuXURn3AmuAUeXW9/XLoIzngW8KJEMupG8ylgOrChjZbS6k9zIWAK8VuNjTLqR3MiYC7yRQ9FEXEl9Gf2B1D8YUvek/mlxIfOYDtyVQ7hHgoAuJHx1LEip+h5ldcCHxeIhgCiQJNvs4JD5zEir3gguJn65ywIMJFb81bbO8WYiQCQRT50mwKq2NzqUsKq4CaoBaYG5CH7PBzDa4kM7T0l3ANOAB4PYExhsdqZN0uZmdwflfRJWk5ZLqVRqOSXpP0i2Xuoihkt6U1KJ00C5pjaRRl6KMSZIalU5OSHo6DdfJiiRjFrA2Rv/QEv69ogDjDcXoKz8BGoGbgGHh+YeAbcBXZvZ3OUTGVEnnurlD2yRtkbRE0t2SBkuq68MdfzZMRRMkjZQ0W9JaSSf7UGarpNWSrsmyjApJDV00slnSUkkjI879OuYFy0v6SdKicOFDZ33YAkl/9kFMs6TJWRUyo4uGrQoXKnR2bk+EHJK0XtJCSWNi1GuApGck/dtLKWckTcniOOTmiNfywHwz+7ibcw8AvwHtwFngJHAY2Bv+2wPUm1l77I7T7DzwrqQtwFbgyphFXAaslzTRzA5mKUJeibi73khZHR+LqGO9pBpJtZKWhZEYRcFH/EnPZUWt6hiasvsm6pnIETPbaWbbzWwFMB74NuK46ZLGZ0lIVDpZKOnDcN6qlJExUNJS4PPuhgNmdhR4AmiIOHZ2llLW4m4GY69LurbIdRokaZ6kvV3UbXsn5z4ZcewP5SLk4jHDRklzJV2XUD2qJc2S9JGkf3pQp+1dlJPvcOy+spntDakMZ3unAXlJDeG3q93AHwQrQ5qB40CLmeU7uViVYf90NcE2hHHApDD/jy1QW08TLNAeeNFrFVkSEndqpl948cYCMzu81wqcktQS/v88wR6PHMFi6yHh3yT7xeoOMi6e5smEkFyBI6kSGFHCaJ4Z8Vp9lr5lnadMCPu3lyLe+i5LQspFxjjge2B4h7fagM+yJCSfcRH9Jb0M7ARujDjkfTM7nKU+pC2jLtokjSbYFFTbyTENwLI0d7pRnMqokFuBnwkeUkXRBDxiZgVvX9IpqzmjQkZ0IWMrUGtmDUl8cNJC9lE+nAOWAveZ2YG0DNzidoq5MLyrMi7jV+ApM9uV9AclGiHhw6MfMyyiFXgVuLMYMoo1DtmUURm7gMlmtqI3TyVTmbLCtDU8TFuVGYqKFcBbxRRRtAgxs2PAFxmR0QJMNbOVpZBRrJQF8HZGhKw0s52lrEDRfutDUh3BY9C0cgAYZ2ZnS1mJYk4uvhjm57SyqNQyiirEzPaHA6s0ss7M1qWhIkX/eSJJXwIPp0hGI1BjZscvVSHDgB0Ej2lLzenwW9XutNwdRX9AZWYnCHbXNpa47W3ArDTJKCmSbujjKvS+cErSo24hIn1J2lxkGU2Savzqdy3mhSLtO6yTVOVXvGdSxkhal5CIPZKm+1XunZg7JH0aborpK9skzZE0ICvttxSLqQKmAzOAKfRsgdxJ4BeCrQMbzez3rN2QlpGoqQBGE/xUUzUwmGBHbzvBDG0zsB/4y8xaPc84juM4juM4juM4juM4juM4juM4juM4TvnxH+rcQlfyqkZuAAAAAElFTkSuQmCC</value>
+  </data>
   <data name="UI_Button_Install" xml:space="preserve">
     <value>설치</value>
   </data>
   <data name="UI_Button_InstallLocalization" xml:space="preserve">
     <value>패치 설치</value>
+  </data>
+  <data name="UI_Button_Link_Community_1" xml:space="preserve">
+    <value>https://www.reddit.com/r/starcitizen</value>
+  </data>
+  <data name="UI_Button_Link_Community_2" xml:space="preserve">
+    <value>https://cafe.naver.com/starcitizenkorea</value>
   </data>
   <data name="UI_Button_Next" xml:space="preserve">
     <value>다음</value>
@@ -275,6 +281,12 @@
   </data>
   <data name="UI_Button_SelectLang" xml:space="preserve">
     <value>언어 선택</value>
+  </data>
+  <data name="UI_Button_Tooltip_Community_1" xml:space="preserve">
+    <value>유저 한국어 프로젝트 디스코드</value>
+  </data>
+  <data name="UI_Button_Tooltip_Community_2" xml:space="preserve">
+    <value>스타 시티즌 한국 커뮤니티</value>
   </data>
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>예</value>

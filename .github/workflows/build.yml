@@ -46,7 +46,7 @@ jobs:
           file: Release.zip
           asset_name: Release.zip
           tag: dev
-          prerelease: true
+          prerelease: false
           overwrite: true
-          body: This is the latest version.
+          body: Warning: This is the development version. You may encounter 30K errors!
       

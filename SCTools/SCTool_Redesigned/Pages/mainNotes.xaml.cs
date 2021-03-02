@@ -39,24 +39,22 @@ namespace SCTool_Redesigned.Pages
             UI = this;
 
             InitializeComponent();
+
             set_note(0);
             set_link(App.Settings.GameLanguage);
+
             GoogleAnalytics.Hit(App.Settings.UUID, "/main", "Program Main");
         }
 
         private void set_link(string language)
         {
-            switch (language)
+            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
-                case "한국어":
-                    Community_link1.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Discord-Logo2.png"));
-                    Community_link2.Source = new BitmapImage(new Uri("pack://application:,,,/Shatagon;component/Resources/Ncafe-Logo2.png"));
-                    break;
-                default:
-                    Community_link1.IsEnabled = false;
-                    Community_link2.IsEnabled = false;
-                    break;
-            }
+                Community_link1.Source = Base64ToImage(Properties.Resources.UI_Button_Image_Community_1).Source;
+                Community_link1.ToolTip = Properties.Resources.UI_Button_Tooltip_Community_1;
+                Community_link2.Source = Base64ToImage(Properties.Resources.UI_Button_Image_Community_2).Source;
+                Community_link2.ToolTip = Properties.Resources.UI_Button_Tooltip_Community_2;
+            }));
         }
         private void set_note(int idx)
         {
@@ -168,9 +166,34 @@ namespace SCTool_Redesigned.Pages
             }));
         }
 
-        private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.Link_Community_1);
+        private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_1);
 
-        private void Open_Community_2(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.Link_Community_2);
+        private void Open_Community_2(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_2);
+
+        private Image Base64ToImage(string image)
+        {
+            Image img = new Image();
+            byte[] binaryData = Convert.FromBase64String(image);
+
+            Console.WriteLine(binaryData.Length);
+
+            BitmapImage bi = new BitmapImage();
+
+            
+
+            bi.BeginInit();
+            using (bi.StreamSource = new MemoryStream(binaryData))
+            {
+                bi.CacheOption = BitmapCacheOption.OnLoad;
+                bi.EndInit();
+                
+                img.Source = bi;
+            }
+
+            Console.WriteLine(img.Width);
+
+            return img;
+        }
     }
 
     class MyXamlSchemaContext : XamlSchemaContext

@@ -124,12 +124,6 @@
   <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Link_Community_1" xml:space="preserve">
-    <value>https://www.reddit.com/r/starcitizen/</value>
-  </data>
-  <data name="Link_Community_2" xml:space="preserve">
-    <value>https://robertsspaceindustries.com/</value>
-  </data>
   <data name="Localization_Download_ErrorText" xml:space="preserve">
     <value>Unfortunately, it was an error during download. Please try again.</value>
   </data>
@@ -246,11 +240,23 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="UI_Button_EnableLocalization" xml:space="preserve">
     <value>Enable Localization</value>
   </data>
+  <data name="UI_Button_Image_Community_1" xml:space="preserve">
+    <value>iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACc0lEQVRo3u2Y34tMYRjHv2fMjnaxlLYtlN1ESpKSC2xyseNKETtl5X8wxTYRt37UStReSrniBqsopVUuWNEqLhgibazbVXZn7Mx83DzldczsNMYxp+391NR53/c5z/N83/M878wZyePxeDwej8fjqUMQlWMgIWmPpCOSypJuSBoLgqDs2JyWtN2GBUnngyB4HpvdAdqBY8Akv5gEskCHY3eX3zkcJxHLgHNAgT8pAheAzhpCBuMiYi1wK5RcAZgNzY0Ca2InBFgEbAOeAiUnsbfAIfu8ceZLZvsoVqUF7AM+hJJ6DfQ5Nn025zIXiycCpIATwLSTzA/gDtBt/ZIDjtt1t60Vqc5gK0SsAoaBGSeR78BFoAtYB1y1/pgFrgHrbW3YbGlpaVmj3gbKThIVYAjoADYAL0L9UgImgI1mM2T3uFwHuv6HgASwFciHEngHZIAksD/0/RHmM3DQbDN2r8srYFOUIhYDR4H3ocBPgF1AJ3AKmKI+X4EzwHJgp/lwyQMHgFQUQk4C30IBx4FeS+hSqNTqUQGuACuAHvPlMg3kohDy0gkyA4wAK4HNwEP+njFgi/kaCR0eE1EI2Qt8sp3K2unTbzVebkJI2co1bT6zFiMP7IiqT9LAgF33VGn6ZsgDveY7A6QbyS3Z0G/+IHjgDFOSlvzDfVoqqc3i3Gz05mSEp3VB0hdJJRu3SVptG1D1gTcTLEoho5Jykoo2bpd0VtJAFMGiFPIsCIKPoR4bn0dIU2+riRi9drNQhGihCGlZaVXs35FaVFubm8e+WMdfZM0+JemypN011u9Xmbsnqb+G/WM7rj0ej8fj8Xg8nmj4CTPa1WPuHcJRAAAAAElFTkSuQmCC</value>
+  </data>
+  <data name="UI_Button_Image_Community_2" xml:space="preserve">
+    <value>iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACD0lEQVRo3u2YT0tUURiHnzPZiKUuXOhMmWSWlRFBEH2OXNaiRREUlbSyXW36FC1aR1+kRUFIBCIyEFYotkgapdSeNgcSmhHjzr13Js4DZ3E5533P+Z1/73suJBKJRCKRSHQdIU/naj9wCRBYCCH86MlZUm+p32K53asiptRl/9BQp/Pqr5KjlhvAxJ7vceBmr63GsLri36yqIz2xIuoh4C5wvEX1KPAwtun61ZhU39ueRfVML5yRa8CFfeqngdlOd9qXcfarwDGgBtSBGeD+AUwfqYeBD8Aq8AVYCSH8LCQgqjXgKnA5zuwUMAIMAkPAkX/sfxP4HstXoAEsAm+A1yGEtTz2fkV9oe6aP7vqc7WSxxkZiOlGpYA7owJcAY7mIWQTeAU0CxDSBF7GLZfL1TqgzhewtebVgSJixZy6kYOADXWuyKDXr95T1zsoYj367C86glfV62qzAyKa0Ve1zJRkNuPKrKuznbjmsrIEbGWw34o+ShcyDgxnsB9qkymXImQwo5AT3SDkdEY/FWCyG4Sc74CPs6Wm8ZGZfep2gHfAr5gxt+vvYtmvwaq63eJK3VEX1AdqXa2pd9S3bdpvlx1DTrUY1Jr6VB1v0X5Ufax+amE3WaaQsfi/SvWz+kytH8BuVH2yR9CyOpZlLKEDYs4BJ4GPwFIIYfuAdn3xlTkBNEIIiyQSiUQikUj8X/wG2seO88BgV14AAAAASUVORK5CYII=</value>
+  </data>
   <data name="UI_Button_Install" xml:space="preserve">
     <value>Install</value>
   </data>
   <data name="UI_Button_InstallLocalization" xml:space="preserve">
     <value>Install Localization</value>
+  </data>
+  <data name="UI_Button_Link_Community_1" xml:space="preserve">
+    <value>https://robertsspaceindustries.com</value>
+  </data>
+  <data name="UI_Button_Link_Community_2" xml:space="preserve">
+    <value>https://www.reddit.com/r/starcitizen</value>
   </data>
   <data name="UI_Button_Next" xml:space="preserve">
     <value>Next</value>
@@ -281,6 +287,12 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="UI_Button_SelectLang" xml:space="preserve">
     <value>Select Language</value>
+  </data>
+  <data name="UI_Button_Tooltip_Community_1" xml:space="preserve">
+    <value>Roberts Space Industries</value>
+  </data>
+  <data name="UI_Button_Tooltip_Community_2" xml:space="preserve">
+    <value>/r/starcitizen</value>
   </data>
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>Yes</value>

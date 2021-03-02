@@ -39,13 +39,8 @@
         <TextBlock x:Name="Menu_credit" Grid.Row="1" Grid.Column="2"
             Text="{x:Static lang:Resources.UI_Tab_Main_Credit}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_credit_PreviewMouseLeftButtonDown"
                    />
-        <Image x:Name="Community_link1" Grid.Row="1" Grid.Column="4"
-               PreviewMouseLeftButtonUp="Open_Community_1"
-        />
-        <!--Source="/Resources/Discord-Logo.png" Source="/Resources/Ncafe-Logo.png"-->
-        <Image x:Name="Community_link2" Grid.Row="1" Grid.Column="5"
-               PreviewMouseLeftButtonUp="Open_Community_2"
-        />
+        <Image x:Name="Community_link1" Grid.Row="1" Grid.Column="4" PreviewMouseLeftButtonUp="Open_Community_1" />
+        <Image x:Name="Community_link2" Grid.Row="1" Grid.Column="5" PreviewMouseLeftButtonUp="Open_Community_2" />
 
         <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="-14,0,-14,0" Grid.ColumnSpan="6" TextOptions.TextFormattingMode="Display"/>
     </Grid>

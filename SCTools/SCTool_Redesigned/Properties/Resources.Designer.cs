@@ -81,24 +81,6 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   https://www.reddit.com/r/starcitizen/과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        public static string Link_Community_1 {
-            get {
-                return ResourceManager.GetString("Link_Community_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   https://robertsspaceindustries.com/과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        public static string Link_Community_2 {
-            get {
-                return ResourceManager.GetString("Link_Community_2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Unfortunately, it was an error during download. Please try again.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Localization_Download_ErrorText {
@@ -431,6 +413,24 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACc0lEQVRo3u2Y34tMYRjHv2fMjnaxlLYtlN1ESpKSC2xyseNKETtl5X8wxTYRt37UStReSrniBqsopVUuWNEqLhgibazbVXZn7Mx83DzldczsNMYxp+391NR53/c5z/N83/M878wZyePxeDwej8fjqUMQlWMgIWmPpCOSypJuSBoLgqDs2JyWtN2GBUnngyB4HpvdAdqBY8Akv5gEskCHY3eX3zkcJxHLgHNAgT8pAheAzhpCBuMiYi1wK5RcAZgNzY0Ca2InBFgEbAOeAiUnsbfAIfu8ceZLZvsoVqUF7AM+hJJ6DfQ5Nn025zIXiycCpIATwLSTzA/gDtBt/ZIDjtt1t60Vqc5gK0SsAoaBGSeR78BFoAtYB1y1/pgFrgHrbW3YbGlpaVmj3gbKThIVYAjoADYAL0L9UgImgI1mM2T3uFwHuv6H[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Image_Community_1 {
+            get {
+                return ResourceManager.GetString("UI_Button_Image_Community_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACD0lEQVRo3u2YT0tUURiHnzPZiKUuXOhMmWSWlRFBEH2OXNaiRREUlbSyXW36FC1aR1+kRUFIBCIyEFYotkgapdSeNgcSmhHjzr13Js4DZ3E5533P+Z1/73suJBKJRCKRSHQdIU/naj9wCRBYCCH86MlZUm+p32K53asiptRl/9BQp/Pqr5KjlhvAxJ7vceBmr63GsLri36yqIz2xIuoh4C5wvEX1KPAwtun61ZhU39ueRfVML5yRa8CFfeqngdlOd9qXcfarwDGgBtSBGeD+AUwfqYeBD8Aq8AVYCSH8LCQgqjXgKnA5zuwUMAIMAkPAkX/sfxP4HstXoAEsAm+A1yGEtTz2fkV9oe6aP7vqc7WSxxkZiOlGpYA7owJcAY7mIWQTeAU0CxDSBF7GLZfL1TqgzhewtebVgSJixZy6kYOADXWuyKDX[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Image_Community_2 {
+            get {
+                return ResourceManager.GetString("UI_Button_Image_Community_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Install과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_Install {
@@ -445,6 +445,24 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Button_InstallLocalization {
             get {
                 return ResourceManager.GetString("UI_Button_InstallLocalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   https://robertsspaceindustries.com과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Link_Community_1 {
+            get {
+                return ResourceManager.GetString("UI_Button_Link_Community_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   https://www.reddit.com/r/starcitizen과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Link_Community_2 {
+            get {
+                return ResourceManager.GetString("UI_Button_Link_Community_2", resourceCulture);
             }
         }
         
@@ -535,6 +553,24 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Button_SelectLang {
             get {
                 return ResourceManager.GetString("UI_Button_SelectLang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Roberts Space Industries과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Tooltip_Community_1 {
+            get {
+                return ResourceManager.GetString("UI_Button_Tooltip_Community_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   /r/starcitizen과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_Tooltip_Community_2 {
+            get {
+                return ResourceManager.GetString("UI_Button_Tooltip_Community_2", resourceCulture);
             }
         }
         
