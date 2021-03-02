@@ -43,6 +43,7 @@ namespace SCTool_Redesigned.Pages
                 case MainWindow.InstallerMode.install:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationInstall;
                     InstallVersionAsync();
+                    RepositoryManager.ToggleLocalization();
                     break;
                 case MainWindow.InstallerMode.uninstall:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationUninstall;
@@ -76,27 +77,6 @@ namespace SCTool_Redesigned.Pages
 
         public async void InstallVersionAsync()
         {
-            if (!RepositoryManager.IsAvailable())
-            {
-                //_logger.Error($"Install localization mode path unavailable: {CurrentGame.RootFolderPath}");
-                MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess,
-                    Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
-                MainWindow.UI.Phase--;
-                return;
-            }
-            if (!App.Settings.AcceptInstallWarning)
-            {
-                var dialogResult = MessageBox.Show(Properties.Resources.MSG_Desc_InstallWarning,
-                    Properties.Resources.MSG_Title_GeneralWarning, MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning,MessageBoxResult.Yes);
-                if (dialogResult != MessageBoxResult.Yes)
-                {
-                    MainWindow.UI.Phase--;
-                    return;
-                }
-                App.Settings.AcceptInstallWarning = true;
-                App.SaveAppSettings();
-            }
             //_logger.Info($"Install localization: {CurrentGame.Mode}, {selectedUpdateInfo.Dump()}");
             bool status = false;
             try
