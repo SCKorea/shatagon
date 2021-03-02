@@ -17,7 +17,16 @@
     <Style TargetType="Image">
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
     </Style>
-    
+    <!--Text rendering-->
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+    </Style>
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+    </Style>
+
     <!-- font embed -->
     <FontFamily x:Key="GmarketSansB">/resources/fonts/GmarketSansBold.otf#G마켓 산스 Bold</FontFamily>
     <FontFamily x:Key="GmarketSansM">/resources/fonts/GmarketSansMedium.otf#G마켓 산스 Medium</FontFamily>
@@ -29,6 +38,7 @@
         <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="{StaticResource GmarketSansM}"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
@@ -57,6 +67,7 @@
         <Setter Property="Background" Value="{StaticResource HeavyGreyBrush}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="{StaticResource GmarketSansM}"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
@@ -212,6 +223,7 @@
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
 
         <Setter Property="Template">
             <Setter.Value>
