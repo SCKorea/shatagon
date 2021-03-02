@@ -66,7 +66,7 @@ namespace SCTool_Redesigned.Windows
                         _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
                         break;
                     case 3: //main Install
-                        if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate) //Try auth for private repo
+                        if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate && _installmode == 0) //Try auth for private repo
                         {
                             Console.WriteLine($"Try auth at  {_PhaseNumber} to {value}");
                             _author.Owner = this;
