@@ -205,7 +205,7 @@ namespace SCTool_Redesigned.Pages
                 catch (Exception e)
                 {
                     //_logger.Error(e, $"Error during uninstall localization: {CurrentGame.Mode}");
-                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText,
+                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText+"\n"+e.Message,
                         Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }

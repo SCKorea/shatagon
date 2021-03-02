@@ -80,6 +80,7 @@ namespace SCTool_Redesigned.Utils
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                 }
             });
 

@@ -95,7 +95,7 @@ namespace SCTool_Redesigned.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.MSG_Decs_CannotOpenLink, Properties.Resources.MSG_Title_CannotOpenLink);
+                MessageBox.Show(Properties.Resources.MSG_Decs_CannotOpenLink+"\n"+ex.Message, Properties.Resources.MSG_Title_CannotOpenLink);
             }
         }
 

@@ -87,7 +87,7 @@ namespace SCTool_Redesigned.Utils
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error during toggle localization: {App.CurrentGame.Mode}");
+                Console.WriteLine($"Error during toggle localization: {App.CurrentGame.Mode}\n+{e.Message}");
                 //_logger.Error(e, $"Error during toggle localization: {CurrentGame.Mode}");
             }
         }
@@ -186,7 +186,7 @@ namespace SCTool_Redesigned.Utils
         }
 
 
-        private static IEnumerable<UpdateInfo>? _githubReleasesInfo;
+        private static IEnumerable<UpdateInfo> _githubReleasesInfo = null;
 
         public static IEnumerable<UpdateInfo> GetInfos(bool cache = true)
         {
