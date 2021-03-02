@@ -13,6 +13,11 @@
     <SolidColorBrush x:Key="TextBrush">#ffffff</SolidColorBrush>
     <SolidColorBrush x:Key="KeyPointBrush">#b330b7</SolidColorBrush>
 
+    <!--Image rendering-->
+    <Style TargetType="Image">
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+    </Style>
+    
     <!-- font embed -->
     <FontFamily x:Key="GmarketSansB">/resources/fonts/GmarketSansBold.otf#G마켓 산스 Bold</FontFamily>
     <FontFamily x:Key="GmarketSansM">/resources/fonts/GmarketSansMedium.otf#G마켓 산스 Medium</FontFamily>
