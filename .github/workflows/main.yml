@@ -28,6 +28,6 @@ jobs:
       - name: Send data
         shell: pwsh
         env:
-          pw: ${{ env.PASSWORD }}
-          ip: ${{ env.ADDRESS_UPDATE_TAG }}
-        run: Invoke-WebRequest -Uri ${ip} -Method POST -Body @{password='${env.ADDRESS_UPDATE_TAG}';tag='1.0.3'}
+          PW: ${{ env.PASSWORD }}
+          IP: ${{ env.ADDRESS_UPDATE_TAG }}
+        run: Invoke-WebRequest -Uri ${IP} -Method POST -Body @{password='${PW}';tag='1.0.3'}
