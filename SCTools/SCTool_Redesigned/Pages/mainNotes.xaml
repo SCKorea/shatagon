@@ -42,7 +42,7 @@
         <Image x:Name="Community_link1" Grid.Row="1" Grid.Column="4" PreviewMouseLeftButtonUp="Open_Community_1" />
         <Image x:Name="Community_link2" Grid.Row="1" Grid.Column="5" PreviewMouseLeftButtonUp="Open_Community_2" />
 
-        <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="-14,0,-14,0" Grid.ColumnSpan="6" TextOptions.TextFormattingMode="Display"/>
+        <FlowDocumentScrollViewer x:Name="NoteBlock" Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="-14,0,-14,0" Grid.ColumnSpan="6" TextOptions.TextFormattingMode="Display" IsTabStop="False" Focusable="False"/>
     </Grid>
 
 </Page>
