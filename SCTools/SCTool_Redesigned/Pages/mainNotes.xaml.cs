@@ -174,12 +174,7 @@ namespace SCTool_Redesigned.Pages
         {
             Image img = new Image();
             byte[] binaryData = Convert.FromBase64String(image);
-
-            Console.WriteLine(binaryData.Length);
-
             BitmapImage bi = new BitmapImage();
-
-            
 
             bi.BeginInit();
             using (bi.StreamSource = new MemoryStream(binaryData))
@@ -189,8 +184,6 @@ namespace SCTool_Redesigned.Pages
                 
                 img.Source = bi;
             }
-
-            Console.WriteLine(img.Width);
 
             return img;
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,16 @@ namespace SCTool_Redesigned.Settings
         public string GameLanguage { get; set; }
 
         [JsonProperty]
-        public bool AcceptInstallWarning { get; set; }
-
-        [JsonProperty]
         public LocalizationSettings LIVE_Localization { get; } = new LocalizationSettings();
 
         [JsonProperty]
         public LocalizationSettings PTU_Localization { get; } = new LocalizationSettings();
+
+        [JsonProperty, DefaultValue(false)]
+        public bool Nightly { get; set; }
+
+        [JsonProperty]
+        public bool AcceptInstallWarning { get; set; }
 
         [JsonProperty]
         public string UUID { get; set; }

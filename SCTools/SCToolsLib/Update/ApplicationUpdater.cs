@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using NLog;
@@ -75,6 +76,7 @@ namespace NSW.StarCitizen.Tools.Lib.Update
             if (latestUpdateInfo != null && string.Compare(latestUpdateInfo.GetVersion(),
                 _currentVersion, StringComparison.OrdinalIgnoreCase) != 0)
             {
+                Console.WriteLine(latestUpdateInfo.GetVersion() + "ddddddd");
                 return latestUpdateInfo;
             }
             return null;

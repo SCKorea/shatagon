@@ -800,7 +800,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   SCTools과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   Shatagon Patcher과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Title_ProgramTitle {
             get {

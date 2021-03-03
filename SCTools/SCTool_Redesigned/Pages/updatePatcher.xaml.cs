@@ -18,6 +18,7 @@ using System.Windows.Threading;
 using System.Windows.Forms;
 using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.Utils;
+using SCTool_Redesigned.Update;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -32,7 +33,7 @@ namespace SCTool_Redesigned.Pages
         {
             InitializeComponent();
 
-            if (!ChkUpdated())
+            if (!CheckUpdated())
             {
                 TryUpdateAsync();
             }
@@ -43,7 +44,7 @@ namespace SCTool_Redesigned.Pages
             
         }
 
-        private bool ChkUpdated() => _updater.ChkUpdateScript(); //checks if this program launched by updater
+        private bool CheckUpdated() => _updater.ChkUpdateScript(); //checks if this program launched by updater
 
         private void CleanUpdate()
         {
@@ -52,6 +53,7 @@ namespace SCTool_Redesigned.Pages
             NextPhase();
 
         }
+
         private async void TryUpdateAsync()
         {
             try
@@ -73,6 +75,7 @@ namespace SCTool_Redesigned.Pages
                     if (InstallScheduledUpdate())
                     {
                         GoogleAnalytics.Hit(App.Settings.UUID, "/update", "Program Update");
+
                         Windows.MainWindow.UI.Quit();
 
                         return;
@@ -112,9 +115,20 @@ namespace SCTool_Redesigned.Pages
 
         private static IUpdateRepository GetUpdateRepository()
         {
+            var repository = "SCKorea/Shatagon";
             var updateInfoFactory = GitHubUpdateInfo.Factory.NewWithVersionByTagName();
-            var updateRepository = new GitHubUpdateRepository(HttpNetClient.Client,
-                GitHubDownloadType.Assets, updateInfoFactory, App.Name, "SCKorea/Shatagon");
+
+            GitHubUpdateRepository updateRepository;
+
+            if (App.Settings.Nightly)
+            {
+                updateRepository = new GitHubDevUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
+            }
+            else
+            {
+                updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
+            }
+
             updateRepository.SetCurrentVersion(App.Version.ToString(3));
             return updateRepository;
         }
