@@ -23,9 +23,7 @@ namespace SCTool_Redesigned.Update
 
         public async new Task<UpdateInfo> GetLatestAsync(CancellationToken cancellationToken)
         {
-            var boss = await base.GetLatestAsync(cancellationToken);
-
-            Console.WriteLine("----------sss" + boss.DownloadUrl);
+            Console.WriteLine("----------sss");
 
             var releases = await GetAllAsync(cancellationToken);
             if (releases.Any())
