@@ -26,4 +26,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Send data
-        run: Invoke-WebRequest -System.Uri ${{ env.ADDRESS_UPDATE_TAG }} -Method POST -Body @{password='${{ env.PASSWORD }}';tag='1.0.3'}
+        uses: satak/webrequest-action@master
+        with:
+          url: ${{ env.ADDRESS_UPDATE_TAG }}
+          method: POST
+          payload: '{"password": "${{ env.PASSWORD }}", "tag": "1.0.3"}'
