@@ -30,4 +30,4 @@ jobs:
         env:
           pw: ${{ env.PASSWORD }}
           ip: ${{ env.ADDRESS_UPDATE_TAG }}
-        run: "Invoke-WebRequest -Uri ${env.PASSWORD} -Method POST -Body @{password='${env.ADDRESS_UPDATE_TAG}';tag='1.0.3'}"
+        run: "Invoke-WebRequest -Uri ${ip} -Method POST -Body @{password='${env.ADDRESS_UPDATE_TAG}';tag='1.0.3'}"
