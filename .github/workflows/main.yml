@@ -26,6 +26,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Send data
-        uses: enflo/curl-action@master
+        uses: wei/curl@master
         with:
-          curl: "-d 'password=${{ env.PASSWORD }}&tag=1.0.3' \ -H 'Content-Type: application/x-www-form-urlencoded' \ -X POST ${{ env.ADDRESS_UPDATE_TAG }}"
+          args: "-d 'password=${{ env.PASSWORD }}&tag=1.0.3' \ -H 'Content-Type: application/x-www-form-urlencoded' \ -X POST ${{ env.ADDRESS_UPDATE_TAG }}"
