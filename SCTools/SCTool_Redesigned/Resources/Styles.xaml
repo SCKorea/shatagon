@@ -5,13 +5,13 @@
     <Color x:Key="HeavyGreyColor">#525b60</Color>
     <Color x:Key="MediumGreyColor">#848d91</Color>
     <Color x:Key="TextColor">#ffffff</Color>
-    <Color x:Key="KeyPointColor">#b330b7</Color>
+    <Color x:Key="KeyPointColor">#c351e3</Color>
 
     <SolidColorBrush x:Key="BackgroundBrush">#253139</SolidColorBrush>
     <SolidColorBrush x:Key="HeavyGreyBrush">#525b60</SolidColorBrush>
     <SolidColorBrush x:Key="MediumGreyBrush">#848d91</SolidColorBrush>
     <SolidColorBrush x:Key="TextBrush">#ffffff</SolidColorBrush>
-    <SolidColorBrush x:Key="KeyPointBrush">#b330b7</SolidColorBrush>
+    <SolidColorBrush x:Key="KeyPointBrush">#c351e3</SolidColorBrush>
 
     <!--Image rendering-->
     <Style TargetType="Image">
