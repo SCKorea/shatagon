@@ -1,28 +1,19 @@
-# Star Citizen Tools v0.5.5
+# Shatagon Pacher ![example workflow](https://github.com/sckorea/shatagon/actions/workflows/publish.yml/badge.svg)
+Star Citizen localization Installer
 
+![이미지 010](https://user-images.githubusercontent.com/11701767/110320126-32ed8580-8053-11eb-9930-0b99086ba76e.png)  
 
 ## Features
-
 ### Localization features
-
 - Download and install localization from GitHub repositories
-- Select localization release version, language from provided by localization
 - Disable localization without full uninstall
 - Full unininstall localization (with cleanup from all files)
-- Track and notify about available new versions of localization package
-- Manage localization repositories
-- Separate localization installation for PTU/LIVE
-- Hide localization pre-release versions by default
-- Specify GitHub auth token in settings json to access private repositories
 
 ### General features
-
-- Move LIVE to PTU or reverse
-- Download and install application updates
-- Supported UI languages: English, Russian, Ukrainian, Korean
-- Track and notify about available new version of application
-- Configurable application settings:
-    - Auto run on system start
-    - Launch minimized to system tray
-    - Stay on top of other applications
-    - Enable use system proxy
+- Information panel that works with the markdown of the repository
+- Localization can be added to the program
+- Community icon button that can be changed through localization
+- Uses the robust [Star Citizen Tools](https://github.com/h0useRus/StarCitizen) library
+- Easy and convenient game localization installation
+- Automatic program update
+- Google Analytics integration
