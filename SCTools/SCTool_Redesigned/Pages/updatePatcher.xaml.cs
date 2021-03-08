@@ -110,6 +110,7 @@ namespace SCTool_Redesigned.Pages
         private static bool InstallScheduledUpdate()
         {
             var result = _updater.InstallScheduledUpdate();
+
             if (result != InstallUpdateStatus.Success)
             {
                 //_logger.Error($"Failed launch install update: {result}");
@@ -123,12 +124,11 @@ namespace SCTool_Redesigned.Pages
         {
             var repository = "SCKorea/Shatagon";
             var updateInfoFactory = GitHubUpdateInfo.Factory.NewWithVersionByTagName();
+            var updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
 
-            GitHubUpdateRepository updateRepository;
-
-            updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
-
+            updateRepository.AllowPreReleases = App.Settings.Nightly;
             updateRepository.SetCurrentVersion(App.Version.ToString(3));
+
             return updateRepository;
         }
 

@@ -55,24 +55,6 @@ namespace SCTool_Redesigned.Pages
             }
 
         }
-        private DispatcherTimer timer1;
-        private void Progressbar_demo()
-        {
-            ProgBar.Value = 0;
-            timer1 = new DispatcherTimer();
-            timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = TimeSpan.FromMilliseconds(30);
-            timer1.Start();
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            ProgBar.Value += 5;
-            if (ProgBar.Value == ProgBar.Maximum)
-            {
-                timer1.Stop();
-                ((Windows.MainWindow)Application.Current.MainWindow).Phase++;
-            }
-        }
 
         public async void InstallVersionAsync()
         {
