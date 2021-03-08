@@ -21,8 +21,8 @@ namespace SCTool_Redesigned.Localization
         private readonly HttpClient _httpClient;
         private readonly CustomUpdateInfo.Factory _gitHubUpdateInfoFactory;
 
-        //private string _repoReleasesUrl;
-
+        private string _repoReleasesUrl;
+        
         public new GitHubDownloadType DownloadType { get; }
         public new string AuthToken { get; set; }
 

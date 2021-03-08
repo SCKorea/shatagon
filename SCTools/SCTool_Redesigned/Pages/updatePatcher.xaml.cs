@@ -19,6 +19,7 @@ using System.Windows.Forms;
 using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.Utils;
 using SCTool_Redesigned.Update;
+using System.IO;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -27,7 +28,7 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class updatePatcher : Page
     {
-        private static ApplicationUpdater _updater = new ApplicationUpdater(GetUpdateRepository(), App.ExecutableDir, Properties.Resources.UpdateScript);
+        private static ApplicationUpdater _updater = new ApplicationUpdater(GetUpdateRepository(), App.ExecutableDir, Properties.Resources.UpdateScript, new CustomPackageVerifier());
         private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
         public updatePatcher()
         {
@@ -44,7 +45,12 @@ namespace SCTool_Redesigned.Pages
             
         }
 
-        private bool CheckUpdated() => _updater.ChkUpdateScript(); //checks if this program launched by updater
+        private bool CheckUpdated()
+        {
+            var batchFile = System.IO.Path.Combine(App.ExecutableDir, "update.bat");
+
+            return File.Exists(batchFile);
+        }
 
         private void CleanUpdate()
         {
@@ -120,14 +126,7 @@ namespace SCTool_Redesigned.Pages
 
             GitHubUpdateRepository updateRepository;
 
-            if (App.Settings.Nightly)
-            {
-                updateRepository = new GitHubDevUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
-            }
-            else
-            {
-                updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
-            }
+            updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
 
             updateRepository.SetCurrentVersion(App.Version.ToString(3));
             return updateRepository;

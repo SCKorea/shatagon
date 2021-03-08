@@ -258,8 +258,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Localization\CustomGitHubRepository.cs" />
+    <Compile Include="Update\CustomPackageVerifier.cs" />
     <Compile Include="Update\CustomUpdateInfo.cs" />
-    <Compile Include="Update\GitHubDevUpdateRepository.cs" />
     <Compile Include="Utils\GoogleAnalytics.cs" />
     <Compile Include="Utils\HttpNetClient.cs" />
     <Compile Include="Utils\RepositoryManager.cs" />

@@ -19,7 +19,7 @@ namespace NSW.StarCitizen.Tools.Lib.Update
         private const string GitHubApiRateLimitUrl = "https://api.github.com/rate_limit";
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly HttpClient _httpClient;
-        protected string _repoReleasesUrl;
+        private readonly string _repoReleasesUrl;
         private readonly GitHubUpdateInfo.Factory _gitHubUpdateInfoFactory;
         public GitHubDownloadType DownloadType { get; }
         public string? AuthToken { get; set; }
