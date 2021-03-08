@@ -124,6 +124,12 @@
   <data name="GmarketSansMedium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansMedium.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Google_Analytics_Site" xml:space="preserve">
+    <value>https://app.sc.galaxyhub.kr</value>
+  </data>
+  <data name="Google_Analytics_TrackingID" xml:space="preserve">
+    <value>UA-190778304-1</value>
+  </data>
   <data name="Localization_Download_ErrorText" xml:space="preserve">
     <value>Unfortunately, it was an error during download. Please try again.</value>
   </data>

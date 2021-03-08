@@ -81,6 +81,24 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   https://app.sc.galaxyhub.kr과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Google_Analytics_Site {
+            get {
+                return ResourceManager.GetString("Google_Analytics_Site", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   UA-190778304-1과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Google_Analytics_TrackingID {
+            get {
+                return ResourceManager.GetString("Google_Analytics_TrackingID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Unfortunately, it was an error during download. Please try again.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Localization_Download_ErrorText {

@@ -23,7 +23,7 @@ namespace SCTool_Redesigned.Utils
         }, wait);
 
         public static void Hit(string uuid, string page, string title) => Track(uuid, "pageview", new Dictionary<string, string> {
-            { "dh", "https://app.sc.galaxyhub.kr" },
+            { "dh", Properties.Resources.Google_Analytics_Site },
             { "dp", page },
             { "dt", title },
         });
@@ -35,6 +35,10 @@ namespace SCTool_Redesigned.Utils
 
         public static void Track(string uuid, string type, Dictionary<string, string> data, bool wait = false)
         {
+            string trackingId = Properties.Resources.Google_Analytics_TrackingID;
+
+            if (string.IsNullOrEmpty(trackingId)) return;
+            
             var task = Task.Run(() => {
                 var request = (HttpWebRequest) WebRequest.Create("https://www.google-analytics.com/collect");
                 request.Method = "POST";
@@ -43,7 +47,7 @@ namespace SCTool_Redesigned.Utils
                 var postData = new Dictionary<string, string>
                 {
                     { "v", "1" },
-                    { "tid", "UA-190778304-1" },
+                    { "tid", Properties.Resources.Google_Analytics_TrackingID },
                     { "cid",  uuid },
                     { "t", type },
                     { "ds", "web" },
