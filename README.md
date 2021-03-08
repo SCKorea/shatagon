@@ -13,7 +13,7 @@ Star Citizen localization Installer
 - Information panel that works with the markdown of the repository
 - Localization can be added to the program
 - Community icon button that can be changed through localization
-- Uses the robust [Star Citizen Tools](https://github.com/h0useRus/StarCitizen) library
+- Uses the robust [Star Citizen Tools](https://github.com/h0useRus/StarCitizen) library (Thanks Defter!)
 - Easy and convenient game localization installation
 - Automatic program update
 - Google Analytics integration
