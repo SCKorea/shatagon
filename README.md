@@ -1,4 +1,4 @@
-# Shatagon Patcher ![example workflow](https://github.com/sckorea/shatagon/actions/workflows/publish.yml/badge.svg)
+# Shatagon Patcher ![workflow](https://github.com/SCKorea/Shatagon/actions/workflows/publish.yml/badge.svg)
 Star Citizen localization Installer
 
 ![이미지 010](https://user-images.githubusercontent.com/11701767/110320126-32ed8580-8053-11eb-9930-0b99086ba76e.png)  
