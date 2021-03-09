@@ -19,5 +19,5 @@ Star Citizen localization Installer
 - Google Analytics integration
 
 ## Maintenance
-[Laeng](https://github.com/laeng) and [Maro](https://github.com/marona42), who met at the Star Citizen Korean Localization Project, are doing maintenance and enhance.  
+[Laeng](https://github.com/laeng) and [Marona42](https://github.com/marona42), who met at the Star Citizen Korean Localization Project, are doing maintenance and enhance.  
 If you are interested in the Star Citizen Korean Localization Project, please visit [here](https://sc.galaxyhub.kr).
