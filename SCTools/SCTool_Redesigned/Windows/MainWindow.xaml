@@ -47,13 +47,13 @@
         <Image x:Name="Community_link1" Source="/Resources/Discord-Logo2.png" Width="40" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,40,10" VerticalAlignment="Bottom" PreviewMouseLeftButtonUp="Open_Community_1" Cursor="Hand" Visibility="Hidden"/>
         <Image x:Name="Community_link2" Source="/Resources/Ncafe-Logo2.png"   Width="40" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="40,0,0,10" VerticalAlignment="Bottom" PreviewMouseLeftButtonUp="Open_Community_2" Cursor="Hand" Visibility="Hidden"/>
 
-        <TextBlock x:Name="Menu_patchnote" Grid.Row="1" Grid.Column="0" Margin="0,0,200,0" Width="100"
+        <TextBlock x:Name="Menu_patchnote" Grid.Row="1" Grid.Column="0" Margin="0,0,200,0" Width="100" Visibility="Hidden"
             Text="{x:Static lang:Resources.UI_Tab_Main_ReleaseNote}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}"  VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_patchnote_PreviewMouseLeftButtonDown"
                    />
-        <TextBlock x:Name="Menu_qna" Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" Width="100"
+        <TextBlock x:Name="Menu_qna" Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" Width="100" Visibility="Hidden"
             Text="{x:Static lang:Resources.UI_Tab_Main_Qna}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_qna_PreviewMouseLeftButtonDown"
                    />
-        <TextBlock x:Name="Menu_credit" Grid.Row="1" Grid.Column="0" Margin="200,0,0,0" Width="100"
+        <TextBlock x:Name="Menu_credit" Grid.Row="1" Grid.Column="0" Margin="200,0,0,0" Width="100" Visibility="Hidden"
             Text="{x:Static lang:Resources.UI_Tab_Main_Credit}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_credit_PreviewMouseLeftButtonDown"
                    />
 
