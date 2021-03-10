@@ -138,6 +138,7 @@ namespace SCTool_Redesigned.Windows
                     case 2: //select patch Language
                         DoNotCloseMainWindow = true;
                         _prologue.Close();
+                        Background = _mainBG;
                         Show();
 
                         if (App.Settings.GameLanguage != null)
@@ -169,7 +170,6 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 3: //main Install
-                        Background = _mainBG;
                         frame_left.Content = null;
                         frame_right.Content = new Pages.mainNotes(2);
                         frame_all.Content = null;
