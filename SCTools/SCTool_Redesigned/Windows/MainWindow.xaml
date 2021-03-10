@@ -39,7 +39,7 @@
         <Label Name="logotitle"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"
                    Content="{x:Static lang:Resources.UI_Title_ProgramTitle}"  Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="28" HorizontalContentAlignment="Center" Grid.Row="1" Visibility="Visible"/>
         
-        <Frame x:Name="frame_all"   NavigationUIVisibility="Hidden" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Frame x:Name="frame_all"   NavigationUIVisibility="Hidden" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Frame x:Name="frame_left"  NavigationUIVisibility="Hidden" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"/>
         <Frame x:Name="frame_right" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
 

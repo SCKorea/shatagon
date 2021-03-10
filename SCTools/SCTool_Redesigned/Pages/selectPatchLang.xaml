@@ -8,23 +8,12 @@
       mc:Ignorable="d" 
       d:DesignHeight="480" d:DesignWidth="480"
       Title="selectPatchLang">
-    
+
     <Grid>
         <Label Content="{x:Static lang:Resources.UI_Title_ChooseLocalization}" FontSize="24" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" HorizontalContentAlignment="Center"
-               HorizontalAlignment="Center" Height="48" Margin="0,20,0,0" VerticalAlignment="Center" Width="480"/>
+               HorizontalAlignment="Center" Height="48" Margin="0,40,0,0" VerticalAlignment="Center" Width="480"/>
         <ComboBox x:Name="LocalizationListBox" HorizontalAlignment="Center" Height="26" Margin="0,100,0,0" VerticalAlignment="Center" Width="210" FontSize="15" SelectionChanged="LocalizationListBox_SelectionChanged"/>
         <Button x:Name="applyBtn" Content="{x:Static lang:Resources.UI_Button_Select}" FontSize="18" HorizontalAlignment="center" Height="35" Margin="0,180,0,0" VerticalAlignment="Center" Width="100" Click="applyBtn_Click"/>
 
     </Grid>
-    <!--<Grid>
-        <Label Content="{x:Static lang:Resources.UI_Title_ChooseLocalization}" FontSize="24" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" HorizontalContentAlignment="Center"
-               HorizontalAlignment="Center" Height="41" Margin="0,240,0,199" VerticalAlignment="Center" Width="480"/>
-        <ComboBox x:Name="LocalizationListBox" HorizontalAlignment="Center" Height="26" Margin="135,293,135,161" VerticalAlignment="Center" Width="210" FontSize="15" SelectionChanged="LocalizationListBox_SelectionChanged"/>
-        <Button x:Name="applyBtn" Content="{x:Static lang:Resources.UI_Button_Select}" FontSize="18" HorizontalAlignment="center" Height="36" Margin="190,329,190,115" VerticalAlignment="Center" Width="100" Click="applyBtn_Click"  Background="#99000000"/>
-        <Canvas Name="logoCanvas" Grid.Column="0" HorizontalAlignment="center" Height="120" Margin="150,35.44,150,0" VerticalAlignment="Top" Width="180" Grid.Row="1">
-            <Image Source="/Resources/logo.png" Width="{Binding Path=ActualWidth, ElementName=logoCanvas}" Height="{Binding Path=ActualHeight, ElementName=logoCanvas}" Stretch="Uniform"/>
-        </Canvas>
-        <Label x:Name="WelcomeText"    Content="{x:Static lang:Resources.UI_Desc_Welcome}" HorizontalAlignment="Center" Height="56" Margin="99,152,99,272" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="{StaticResource TextBrush}" Width="282" FontSize="28" Visibility="Visible"/>
-
-    </Grid>-->
 </Page>
