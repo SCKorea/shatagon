@@ -68,7 +68,6 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
                         UninstallBtn.Content = Properties.Resources.UI_Button_RemoveLocalization;
                         DisableBtn.Content = Properties.Resources.UI_Button_DisableLocalization;
-                        WelcomeText.Content = Properties.Resources.UI_Desc_Welcome;
                         Menu_patchnote.Text = Properties.Resources.UI_Tab_Main_ReleaseNote;
                         Menu_qna.Text = Properties.Resources.UI_Tab_Main_Qna;
                         Menu_credit.Text = Properties.Resources.UI_Tab_Main_Credit;
@@ -78,8 +77,8 @@ namespace SCTool_Redesigned.Windows
                         _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
                         break;
                     case 2:
-                        //logoCanvas
-                        //logotitle
+                        logoCanvas.SetValue(Grid.ColumnSpanProperty, 1);
+                        logotitle.SetValue(Grid.ColumnSpanProperty, 1);
                         break;
                     case 3: //main Install
                         if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate && _installmode == 0) //Try auth for private repo
@@ -159,8 +158,10 @@ namespace SCTool_Redesigned.Windows
                         frame_right.Content = null;
                         frame_all.Content = new Pages.selectPatchLang();
                         logoCanvas.Visibility = Visibility.Visible;
-                        WelcomeText.Visibility = Visibility.Visible;
-                        logotitle.Visibility = Visibility.Hidden;
+                        logotitle.Visibility = Visibility.Visible;
+                        logoCanvas.SetValue(Grid.ColumnSpanProperty, 2);
+                        logotitle.SetValue(Grid.ColumnSpanProperty, 2);
+                        logotitle.Content = Properties.Resources.UI_Desc_Welcome;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
@@ -180,8 +181,8 @@ namespace SCTool_Redesigned.Windows
                         frame_all.Content = null;
                         logoCanvas.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Visible;
+                        logotitle.Content = Properties.Resources.UI_Title_ProgramTitle;
                         InstallBtn.Visibility = Visibility.Visible;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
                         Community_link1.IsEnabled = true; Community_link1.Visibility = Visibility.Visible;
@@ -213,7 +214,6 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = (App.Settings.GameFolder == null) ? Visibility.Hidden : Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Next;
                         PrevBtn.Visibility = Visibility.Visible;
@@ -235,7 +235,6 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Install;
                         PrevBtn.Visibility = Visibility.Visible;
@@ -257,7 +256,6 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Cancel;
@@ -278,7 +276,6 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Quit;
                         PrevBtn.Visibility = Visibility.Visible;
