@@ -77,6 +77,10 @@ namespace SCTool_Redesigned.Windows
                         _author.ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
                         _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
                         break;
+                    case 2:
+                        //logoCanvas
+                        //logotitle
+                        break;
                     case 3: //main Install
                         if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate && _installmode == 0) //Try auth for private repo
                         {
@@ -152,14 +156,14 @@ namespace SCTool_Redesigned.Windows
                         }
 
                         frame_left.Content = null;
-                        frame_right.Content = new Pages.selectPatchLang();
-                        frame_all.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.selectPatchLang();
                         logoCanvas.Visibility = Visibility.Visible;
+                        WelcomeText.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Visible;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
                         Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
@@ -170,6 +174,7 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 3: //main Install
+                        Background = _mainBG;
                         frame_left.Content = null;
                         frame_right.Content = new Pages.mainNotes(2);
                         frame_all.Content = null;
@@ -417,6 +422,15 @@ namespace SCTool_Redesigned.Windows
             Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
 
             ((Pages.mainNotes)frame_right.Content).set_note(2);
+        }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Quit(object sender, RoutedEventArgs e)
+        {
+            Quit();
         }
     }
 }
