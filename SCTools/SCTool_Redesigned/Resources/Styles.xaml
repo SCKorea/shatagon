@@ -28,6 +28,46 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="CommunityStyle" TargetType="Image">
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        <Setter Property="Stretch" Value="Fill"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect ShadowDepth="0"
+                                          Color="{StaticResource KeyPointColor}"
+                                          BlurRadius="10"
+                                          RenderingBias="Quality"
+                                          />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+        <!--<Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard Duration="0:0:0.50">
+                                <DoubleAnimation Storyboard.TargetProperty="(Image.Width)" From="{x:Null}" To="40"/>
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard Duration="0:0:0.50">
+                                <DoubleAnimation Storyboard.TargetProperty="(Image.Width)" From="{x:Null}" To="25"/>
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
+    
     <!--Text rendering-->
     <Style TargetType="{x:Type TextBlock}">
         <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
