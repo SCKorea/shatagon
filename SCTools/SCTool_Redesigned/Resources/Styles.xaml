@@ -12,10 +12,21 @@
     <SolidColorBrush x:Key="MediumGreyBrush">#848d91</SolidColorBrush>
     <SolidColorBrush x:Key="TextBrush">#ffffff</SolidColorBrush>
     <SolidColorBrush x:Key="KeyPointBrush">#c351e3</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonBackgroundBrush">#99000000</SolidColorBrush>
 
     <!--Image rendering-->
     <Style TargetType="Image">
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="5"
+                                  Direction="270"
+                                  Color="Black"
+                                  RenderingBias="Quality"
+                                  ShadowDepth="2"
+                                  />
+            </Setter.Value>
+        </Setter>
     </Style>
     <!--Text rendering-->
     <Style TargetType="{x:Type TextBlock}">
@@ -23,8 +34,50 @@
         <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
     </Style>
+    <Style x:Key="menuTabStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="5"
+                                  Direction="270"
+                                  Color="Black"
+                                  RenderingBias="Quality"
+                                  ShadowDepth="2"
+                                  />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" From="{x:Null}" To="{StaticResource KeyPointColor}" Duration="0:0:0.10" AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" To="{x:Null}" Duration="0:0:0.1" AutoReverse="False" />
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <Style TargetType="{x:Type Label}">
         <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="5"
+                                  Direction="270"
+                                  Color="Black"
+                                  RenderingBias="Quality"
+                                  ShadowDepth="2"
+                                  />
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- font embed -->
@@ -36,6 +89,7 @@
 
     <Style x:Name="mainBtnStyle" TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="FontFamily" Value="{StaticResource GmarketSansM}"/>
         <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
@@ -47,11 +101,6 @@
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource KeyPointBrush}"/>
-
-                        </Trigger>
-
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource KeyPointBrush}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TextBrush}"/>
@@ -60,6 +109,26 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" From="{x:Null}" To="{StaticResource KeyPointColor}" Duration="0:0:0.10" AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" To="{x:Null}" Duration="0:0:0.1" AutoReverse="False" />
+                            </Storyboard>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="subBtnStyle" TargetType="{x:Type Button}">
@@ -84,6 +153,28 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{StaticResource MediumGreyBrush}"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource TextBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CloseBtnStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="Border" BorderBrush="Transparent" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

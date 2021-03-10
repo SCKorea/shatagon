@@ -19,7 +19,7 @@
                HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center"/>
         <Label x:Name="ErrorLabel" Content="{x:Static lang:Resources.UI_Desc_AuthError}" FontSize="14" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource KeyPointBrush}" FontWeight="SemiBold"
                HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Button x:Name="Applybtn" Content="{x:Static lang:Resources.UI_Button_AuthApply}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="100" Height="30" Click="Applybtn_Click" />
+        <Button x:Name="Applybtn" Content="{x:Static lang:Resources.UI_Button_AuthApply}" Background="Transparent" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="100" Height="30" Click="Applybtn_Click" />
         <PasswordBox x:Name="CodeInputBox" HorizontalAlignment="Center" Height="40" Grid.Row="3" VerticalAlignment="Center" Width="200" AllowDrop="False" IsTabStop="False" MaxLength="8"  Background="{DynamicResource HeavyGreyBrush}" BorderBrush="Transparent"
                      Foreground="{DynamicResource TextBrush}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18">
         </PasswordBox>
