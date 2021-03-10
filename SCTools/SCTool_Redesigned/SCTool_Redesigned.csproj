@@ -423,12 +423,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Discord-Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Ncafe-Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Discord-Logo2.png" />
     <Resource Include="Resources\Ncafe-Logo2.png" />
   </ItemGroup>
