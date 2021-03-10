@@ -5,13 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned"
         xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
-        mc:Ignorable="d" Height="480" Width="960" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="{x:Static lang:Resources.UI_Title_ProgramTitle}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" Closed="Quit">
+        mc:Ignorable="d" Height="480" Width="960" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="{x:Static lang:Resources.UI_Title_ProgramTitle}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" Closed="Quit" Background="{DynamicResource BackgroundBrush}">
     <Window.Resources>
 
     </Window.Resources>
-    <Window.Background>
-        <ImageBrush ImageSource="/Shatagon;component/Resources/BG1.png" Stretch="UniformToFill"/>
-    </Window.Background>
+
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
