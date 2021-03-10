@@ -34,73 +34,41 @@ namespace SCTool_Redesigned.Pages
     {
         internal static mainNotes UI;
 
-        public mainNotes()
+        public mainNotes(int idx)
         {
             UI = this;
 
             InitializeComponent();
-
-            set_note(0);
-            set_link(App.Settings.GameLanguage);
-
+            set_note(idx);
             GoogleAnalytics.Hit(App.Settings.UUID, "/main", "Program Main");
         }
 
-        private void set_link(string language)
-        {
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                Community_link1.Source = Base64ToImage(Properties.Resources.UI_Button_Image_Community_1).Source;
-                Community_link1.ToolTip = Properties.Resources.UI_Button_Tooltip_Community_1;
-                Community_link2.Source = Base64ToImage(Properties.Resources.UI_Button_Image_Community_2).Source;
-                Community_link2.ToolTip = Properties.Resources.UI_Button_Tooltip_Community_2;
-            }));
-        }
-        private void set_note(int idx)
+        public void set_note(int idx)
         {
 
             switch (idx)
             {
                 case 0: //patchnote
-                    Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
-                    Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
-                    Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
                     ShowReleasesNote();
                     break;
 
                 case 1: //qna
-                    Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
-                    Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
-                    Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+                    
                     ShowMarkdownDocument("QNA.md");
                     break;
                 case 2: //credit
-                    Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
-                    Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
-                    Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                    
                     ShowMarkdownDocument("CREDIT.md");
                     break;
                 default:
                     throw new ArgumentException("invalid note index " + idx.ToString());
             }
         }
-        private void Menu_patchnote_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            set_note(0);
-        }
-        private void Menu_qna_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            set_note(1);
-        }
-        private void Menu_credit_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            set_note(2);
-        }
 
         private void OpenHyperlink(object sender, ExecutedRoutedEventArgs e)
         {
             var link = e.Parameter.ToString();
-            if(!link.StartsWith("http://") && !link.StartsWith("https://"))
+            if (!link.StartsWith("http://") && !link.StartsWith("https://"))
             {
                 link = "https://" + link;
             }
@@ -112,7 +80,7 @@ namespace SCTool_Redesigned.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.MSG_Decs_CannotOpenLink+"\n"+ex.Message, Properties.Resources.MSG_Title_CannotOpenLink);
+                MessageBox.Show(Properties.Resources.MSG_Decs_CannotOpenLink + "\n" + ex.Message, Properties.Resources.MSG_Title_CannotOpenLink);
             }
         }
 
@@ -166,40 +134,20 @@ namespace SCTool_Redesigned.Pages
             }));
         }
 
-        private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_1);
 
-        private void Open_Community_2(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_2);
 
-        private Image Base64ToImage(string image)
+        class MyXamlSchemaContext : XamlSchemaContext
         {
-            Image img = new Image();
-            byte[] binaryData = Convert.FromBase64String(image);
-            BitmapImage bi = new BitmapImage();
-
-            bi.BeginInit();
-            using (bi.StreamSource = new MemoryStream(binaryData))
+            public override bool TryGetCompatibleXamlNamespace(string xamlNamespace, out string compatibleNamespace)
             {
-                bi.CacheOption = BitmapCacheOption.OnLoad;
-                bi.EndInit();
-                
-                img.Source = bi;
+                if (xamlNamespace.Equals("clr-namespace:Markdig.Wpf", StringComparison.Ordinal))
+                {
+                    //compatibleNamespace = $"clr-namespace:Markdig.Wpf;assembly={Assembly.GetAssembly(typeof(Markdig.Wpf.Styles)).FullName}";
+                    compatibleNamespace = "";
+                    return true;
+                }
+                return base.TryGetCompatibleXamlNamespace(xamlNamespace, out compatibleNamespace);
             }
-
-            return img;
-        }
-    }
-
-    class MyXamlSchemaContext : XamlSchemaContext
-    {
-        public override bool TryGetCompatibleXamlNamespace(string xamlNamespace, out string compatibleNamespace)
-        {
-            if (xamlNamespace.Equals("clr-namespace:Markdig.Wpf", StringComparison.Ordinal))
-            {
-                //compatibleNamespace = $"clr-namespace:Markdig.Wpf;assembly={Assembly.GetAssembly(typeof(Markdig.Wpf.Styles)).FullName}";
-                compatibleNamespace = "";
-                return true;
-            }
-            return base.TryGetCompatibleXamlNamespace(xamlNamespace, out compatibleNamespace);
         }
     }
 }

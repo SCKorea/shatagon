@@ -423,14 +423,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Discord-Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Ncafe-Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Discord-Logo2.png" />
     <Resource Include="Resources\Ncafe-Logo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BG0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BG1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />

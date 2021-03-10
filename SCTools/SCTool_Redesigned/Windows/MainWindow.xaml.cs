@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace SCTool_Redesigned.Windows
         private InstallerMode _installmode;
         private PrefaceWindow _prologue;
         private AuthWindow _author;
-
+        ImageBrush _mainBG, _subBG;
 
         public MainWindow()
         {
@@ -42,6 +43,13 @@ namespace SCTool_Redesigned.Windows
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
             _author = new AuthWindow();
+            set_link(App.Settings.GameLanguage);
+            _mainBG = new ImageBrush();            _subBG = new ImageBrush();
+            _mainBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG1.png"));
+            //_mainBG.ImageSource = new BitmapImage(new Uri(@"/Resources/BG1.png", UriKind.Relative));
+            _mainBG.Stretch = Stretch.UniformToFill;
+            _subBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG0.png"));
+            _subBG.Stretch = Stretch.UniformToFill;
             Phase = 0;
         }
 
@@ -60,10 +68,17 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
                         UninstallBtn.Content = Properties.Resources.UI_Button_RemoveLocalization;
                         DisableBtn.Content = Properties.Resources.UI_Button_DisableLocalization;
-                        WelcomeText.Content = Properties.Resources.UI_Desc_Welcome;
+                        Menu_patchnote.Text = Properties.Resources.UI_Tab_Main_ReleaseNote;
+                        Menu_qna.Text = Properties.Resources.UI_Tab_Main_Qna;
+                        Menu_credit.Text = Properties.Resources.UI_Tab_Main_Credit;
+
                         _author.AuthDescLabel.Text = Properties.Resources.UI_Title_Auth;
                         _author.ErrorLabel.Content = Properties.Resources.UI_Desc_AuthError;
                         _author.Applybtn.Content = Properties.Resources.UI_Button_AuthApply;
+                        break;
+                    case 2:
+                        logoCanvas.SetValue(Grid.ColumnSpanProperty, 1);
+                        logotitle.SetValue(Grid.ColumnSpanProperty, 1);
                         break;
                     case 3: //main Install
                         if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate && _installmode == 0) //Try auth for private repo
@@ -126,6 +141,7 @@ namespace SCTool_Redesigned.Windows
                     case 2: //select patch Language
                         DoNotCloseMainWindow = true;
                         _prologue.Close();
+                        Background = _mainBG;
                         Show();
 
                         if (App.Settings.GameLanguage != null)
@@ -139,27 +155,46 @@ namespace SCTool_Redesigned.Windows
                         }
 
                         frame_left.Content = null;
-                        frame_right.Content = new Pages.selectPatchLang();
-                        frame_all.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.selectPatchLang();
                         logoCanvas.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Visible;
+                        logoCanvas.SetValue(Grid.ColumnSpanProperty, 2);
+                        logotitle.SetValue(Grid.ColumnSpanProperty, 2);
+                        logotitle.Content = Properties.Resources.UI_Desc_Welcome;
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Visible;
+                        DisableBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
+                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 3: //main Install
+                        Background = _mainBG;
                         frame_left.Content = null;
-                        frame_right.Content = new Pages.mainNotes();
+                        frame_right.Content = new Pages.mainNotes(2);
                         frame_all.Content = null;
                         logoCanvas.Visibility = Visibility.Visible;
                         logotitle.Visibility = Visibility.Visible;
+                        logotitle.Content = Properties.Resources.UI_Title_ProgramTitle;
                         InstallBtn.Visibility = Visibility.Visible;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
+                        Community_link1.IsEnabled = true; Community_link1.Visibility = Visibility.Visible;
+                        Community_link2.IsEnabled = true; Community_link2.Visibility = Visibility.Visible;
+                        Menu_patchnote.IsEnabled = true;  Menu_patchnote.Visibility = Visibility.Visible;
+                        Menu_qna.IsEnabled = true;        Menu_qna.Visibility = Visibility.Visible;
+                        Menu_credit.IsEnabled = true;     Menu_credit.Visibility = Visibility.Visible;
+                        //Menu_credit_PreviewMouseLeftButtonDown(null,null);
+                        Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+                        Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+                        Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+
                         if (App.Settings.LIVE_Localization.Installations.Count > 0 || App.Settings.PTU_Localization.Installations.Count > 0)
                         {
                             UninstallBtn.Visibility = Visibility.Visible;
@@ -170,6 +205,7 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 4: //select Dir
+                        Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
                         frame_all.Content = new Pages.selectDir();
@@ -178,14 +214,19 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = (App.Settings.GameFolder == null) ? Visibility.Hidden : Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Next;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
+                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 5: //select Version
+                        Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
                         frame_all.Content = new Pages.selectVersion();
@@ -194,14 +235,19 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Install;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
+                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 6: //installing?
+                        Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
                         frame_all.Content = new Pages.installProgress(_installmode);
@@ -210,13 +256,18 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Cancel;
+                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 7: //installComplete
+                        Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
                         frame_all.Content = new Pages.installComplete();
@@ -225,12 +276,15 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Hidden;
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
-                        WelcomeText.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
                         NextBtn.Text = Properties.Resources.UI_Button_Quit;
-
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Return;
+                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 8:
@@ -242,6 +296,17 @@ namespace SCTool_Redesigned.Windows
                 }
                 Console.WriteLine($"Change Phase {value} ended");
             }
+        }
+
+        private void set_link(string language)
+        {
+            Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                Community_link1.Source = Base64ToImage(Properties.Resources.UI_Button_Image_Community_1).Source;
+                Community_link1.ToolTip = Properties.Resources.UI_Button_Tooltip_Community_1;
+                Community_link2.Source = Base64ToImage(Properties.Resources.UI_Button_Image_Community_2).Source;
+                Community_link2.ToolTip = Properties.Resources.UI_Button_Tooltip_Community_2;
+            }));
         }
 
         private void Update_ToggleBtn() =>
@@ -305,6 +370,64 @@ namespace SCTool_Redesigned.Windows
             else
                 MessageBox.Show("패치 비활성화 완료");
             Phase = 3;
+        }
+
+        private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_1);
+
+        private void Open_Community_2(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_2);
+
+        private Image Base64ToImage(string image)
+        {
+            Image img = new Image();
+            byte[] binaryData = Convert.FromBase64String(image);
+            BitmapImage bi = new BitmapImage();
+
+            bi.BeginInit();
+            using (bi.StreamSource = new MemoryStream(binaryData))
+            {
+                bi.CacheOption = BitmapCacheOption.OnLoad;
+                bi.EndInit();
+
+                img.Source = bi;
+            }
+
+            return img;
+        }
+
+        private void Menu_patchnote_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+            Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+            Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+
+            ((Pages.mainNotes)frame_right.Content).set_note(0);
+        }
+
+        private void Menu_qna_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+            Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+            Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+
+            ((Pages.mainNotes)frame_right.Content).set_note(1);
+        }
+
+        private void Menu_credit_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+            Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
+            Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
+
+            ((Pages.mainNotes)frame_right.Content).set_note(2);
+        }
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void Quit(object sender, RoutedEventArgs e)
+        {
+            Quit();
         }
     }
 }

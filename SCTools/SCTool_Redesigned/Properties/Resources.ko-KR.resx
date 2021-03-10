@@ -352,7 +352,7 @@
     <value>런처 업데이트 중</value>
   </data>
   <data name="UI_Desc_Welcome" xml:space="preserve">
-    <value>환영합니다.</value>
+    <value>환영합니다</value>
   </data>
   <data name="UI_Tab_Main_Credit" xml:space="preserve">
     <value>라이센스</value>
