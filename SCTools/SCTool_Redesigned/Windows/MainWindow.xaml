@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SCTool_Redesigned"
         xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
-        mc:Ignorable="d" Height="480" Width="960" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="{x:Static lang:Resources.UI_Title_ProgramTitle}" Background="{DynamicResource BackgroundBrush}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" Closed="Quit">
+        mc:Ignorable="d" Height="480" Width="960" Icon="/Shatagon;component/Resources/256ico_WtM_icon.ico" ResizeMode="NoResize" Title="{x:Static lang:Resources.UI_Title_ProgramTitle}" IsTabStop="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStartupLocation="CenterScreen" Closed="Quit">
     <Window.Resources>
 
     </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="/Shatagon;component/Resources/BG1.png" Stretch="UniformToFill"/>
+    </Window.Background>
     <Window.Effect>
         <DropShadowEffect/>
     </Window.Effect>
@@ -23,7 +26,6 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
@@ -40,9 +42,22 @@
                    Text="{x:Static lang:Resources.UI_Button_Previous}" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="21" PreviewMouseDown="PrevBtn_PreviewMouseDown" Visibility="Hidden" />
         <TextBlock x:Name="NextBtn" Height="30" Margin="0,0,15,10" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="80" HorizontalAlignment="Right" Cursor="Hand"
                    Text="{x:Static lang:Resources.UI_Button_Next}" FontWeight="Bold" Foreground="{StaticResource KeyPointBrush}" FontSize="21" TextAlignment="Right" PreviewMouseDown="NextBtn_PreviewMouseDown" Visibility="Hidden"/>
-        <Button x:Name="InstallBtn"  Content="{x:Static lang:Resources.UI_Button_InstallLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="35" Margin="0,260,0,0" VerticalAlignment="Top" Width="220" Click="InstallBtn_Click" FontSize="18" Visibility="Hidden"/>
-        <Button x:Name="UninstallBtn"  Content="{x:Static lang:Resources.UI_Button_RemoveLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="35" Margin="0,300,0,0" VerticalAlignment="Top" Width="220" FontSize="18" Visibility="Hidden" Click="UninstallBtn_Click" />
-        <Button x:Name="DisableBtn"  Content="{x:Static lang:Resources.UI_Button_DisableLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="35" Margin="0,340,0,0" VerticalAlignment="Top" Width="220" FontSize="18" Visibility="Hidden" Click="DisableBtn_Click"/>
-        <Label x:Name="WelcomeText"  Content="{x:Static lang:Resources.UI_Desc_Welcome}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="55" Margin="0,220,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="{StaticResource TextBrush}" Width="282" FontSize="28" Visibility="Hidden"/>
+        <Label x:Name="WelcomeText"    Content="{x:Static lang:Resources.UI_Desc_Welcome}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="55" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Foreground="{StaticResource TextBrush}" Width="282" FontSize="28" Visibility="Visible"/>
+        <Button x:Name="InstallBtn"    Content="{x:Static lang:Resources.UI_Button_InstallLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="45" Width="240" Margin="0,120,0,0" VerticalAlignment="Center" FontSize="22" Visibility="Visible" Click="InstallBtn_Click" Background="{StaticResource KeyPointBrush}" VerticalContentAlignment="Center"/>
+        <Button x:Name="UninstallBtn"  Content="{x:Static lang:Resources.UI_Button_RemoveLocalization}"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="30" Width="180" Margin="0,205,0,0" VerticalAlignment="Center" FontSize="14" Visibility="Visible" Click="UninstallBtn_Click" />
+        <Button x:Name="DisableBtn"    Content="{x:Static lang:Resources.UI_Button_DisableLocalization}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Height="30" Width="180" Margin="0,270,0,0" VerticalAlignment="Center" FontSize="14" Visibility="Visible" Click="DisableBtn_Click"/>
+        <Image x:Name="Community_link1" Source="/Resources/Discord-Logo2.png" Width="40" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,40,10" VerticalAlignment="Bottom" PreviewMouseLeftButtonUp="Open_Community_1" Cursor="Hand" />
+        <Image x:Name="Community_link2" Source="/Resources/Ncafe-Logo2.png"   Width="40" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Margin="40,0,0,10" VerticalAlignment="Bottom" PreviewMouseLeftButtonUp="Open_Community_2" Cursor="Hand" />
+
+        <TextBlock x:Name="Menu_patchnote" Grid.Row="1" Grid.Column="0" Margin="0,0,200,0" Width="100"
+            Text="{x:Static lang:Resources.UI_Tab_Main_ReleaseNote}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}"  VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_patchnote_PreviewMouseLeftButtonDown"
+                   />
+        <TextBlock x:Name="Menu_qna" Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" Width="100"
+            Text="{x:Static lang:Resources.UI_Tab_Main_Qna}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_qna_PreviewMouseLeftButtonDown"
+                   />
+        <TextBlock x:Name="Menu_credit" Grid.Row="1" Grid.Column="0" Margin="200,0,0,0" Width="100"
+            Text="{x:Static lang:Resources.UI_Tab_Main_Credit}" FontSize="16" FontWeight="DemiBold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" VerticalAlignment="Center" TextAlignment="Center" PreviewMouseLeftButtonDown="Menu_credit_PreviewMouseLeftButtonDown"
+                   />
+
     </Grid>
 </Window>
