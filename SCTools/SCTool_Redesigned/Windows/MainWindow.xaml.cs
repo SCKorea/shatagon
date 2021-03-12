@@ -101,7 +101,7 @@ namespace SCTool_Redesigned.Windows
                                 Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
-                        if (!App.Settings.AcceptInstallWarning)
+                        if (value == 6 && !App.Settings.AcceptInstallWarning)
                         {
                             var dialogResult = MessageBox.Show(Properties.Resources.MSG_Desc_InstallWarning,
                                 Properties.Resources.MSG_Title_GeneralWarning, MessageBoxButton.YesNo,
