@@ -187,6 +187,12 @@
   <data name="MSG_Decs_SelectLocalization" xml:space="preserve">
     <value>Please select the localization to apply to the game.</value>
   </data>
+  <data name="MSG_Desc_Disable" xml:space="preserve">
+    <value>Localization disabled.</value>
+  </data>
+  <data name="MSG_Desc_Enable" xml:space="preserve">
+    <value>Localization enabled.</value>
+  </data>
   <data name="MSG_Desc_InstallWarning" xml:space="preserve">
     <value>Dear friend,
 We are happy to see the interest to our project.
@@ -200,6 +206,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
     <value>Invalid Access</value>
+  </data>
+  <data name="MSG_Desc_Uninstall" xml:space="preserve">
+    <value>Localization removed successful</value>
   </data>
   <data name="MSG_Title_CannotOpenLink" xml:space="preserve">
     <value>Could't open hyperlink</value>

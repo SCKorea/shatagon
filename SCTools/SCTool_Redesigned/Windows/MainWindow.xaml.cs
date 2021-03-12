@@ -357,7 +357,7 @@ namespace SCTool_Redesigned.Windows
         {
             _installmode = InstallerMode.uninstall;
             Phase = 6;
-            MessageBox.Show("패치 제거 완료");    //왜인진 몰라도 이거 빼면 frame_all content가 안 비워짐....
+            MessageBox.Show(Properties.Resources.MSG_Desc_Uninstall);    //왜인진 몰라도 이거 빼면 frame_all content가 안 비워짐....
             Phase = 3;
         }
 
@@ -366,9 +366,9 @@ namespace SCTool_Redesigned.Windows
             _installmode = InstallerMode.disable;
             Phase = 6;
             if (RepositoryManager.TargetInstallation.IsEnabled)
-                MessageBox.Show("패치 활성화 완료");
+                MessageBox.Show(Properties.Resources.MSG_Desc_Enable);
             else
-                MessageBox.Show("패치 비활성화 완료");
+                MessageBox.Show(Properties.Resources.MSG_Desc_Disable);
             Phase = 3;
         }
 
