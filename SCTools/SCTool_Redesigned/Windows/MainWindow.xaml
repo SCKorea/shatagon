@@ -38,7 +38,7 @@
         <TextBlock x:Name="NextBtn" Height="30" Margin="0,0,15,10" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="80" HorizontalAlignment="Right" Cursor="Hand"
                    Text="{x:Static lang:Resources.UI_Button_Next}" FontWeight="Bold" Foreground="{StaticResource KeyPointBrush}" FontSize="21" TextAlignment="Right" PreviewMouseDown="NextBtn_PreviewMouseDown" Visibility="Hidden"/>
 
-        <Button x:Name="InstallBtn"    Content="{x:Static lang:Resources.UI_Button_InstallLocalization}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Height="45" Width="240" Margin="0,120,0,0" VerticalAlignment="Center" FontSize="22" Visibility="Visible" Click="InstallBtn_Click" Background="{StaticResource KeyPointBrush}" VerticalContentAlignment="Center"/>
+        <Button x:Name="InstallBtn"    Content="{x:Static lang:Resources.UI_Button_InstallLocalization}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Height="45" Width="240" Margin="0,120,0,0" VerticalAlignment="Center" FontSize="22" Visibility="Visible" Style="{StaticResource keyPointBtnStyle}"  Click="InstallBtn_Click" VerticalContentAlignment="Center"/>
         <Button x:Name="UninstallBtn"  Content="{x:Static lang:Resources.UI_Button_RemoveLocalization}"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Height="30" Width="180" Margin="0,205,0,0" VerticalAlignment="Center" FontSize="14" Visibility="Hidden" Click="UninstallBtn_Click" />
         <Button x:Name="DisableBtn"    Content="{x:Static lang:Resources.UI_Button_DisableLocalization}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Height="30" Width="180" Margin="0,270,0,0" VerticalAlignment="Center" FontSize="14" Visibility="Hidden" Click="DisableBtn_Click"/>
 
