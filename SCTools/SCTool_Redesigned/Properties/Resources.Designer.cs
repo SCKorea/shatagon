@@ -270,6 +270,24 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Localization disabled.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Desc_Disable {
+            get {
+                return ResourceManager.GetString("MSG_Desc_Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Localization enabled.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Desc_Enable {
+            get {
+                return ResourceManager.GetString("MSG_Desc_Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Dear friend,
         ///We are happy to see the interest to our project.
         ///
@@ -289,6 +307,15 @@ namespace SCTool_Redesigned.Properties {
         public static string MSG_Desc_InvalidAccess {
             get {
                 return ResourceManager.GetString("MSG_Desc_InvalidAccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Localization removed successful과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Desc_Uninstall {
+            get {
+                return ResourceManager.GetString("MSG_Desc_Uninstall", resourceCulture);
             }
         }
         

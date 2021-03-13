@@ -181,6 +181,12 @@
   <data name="MSG_Decs_SelectLocalization" xml:space="preserve">
     <value>게임에 적용할 언어팩을 선택하십시오.</value>
   </data>
+  <data name="MSG_Desc_Disable" xml:space="preserve">
+    <value>패치 비활성화 완료</value>
+  </data>
+  <data name="MSG_Desc_Enable" xml:space="preserve">
+    <value>패치 활성화 완료</value>
+  </data>
   <data name="MSG_Desc_InstallWarning" xml:space="preserve">
     <value>여러분,
 본 프로젝트에 관심을 가져주셔서 감사합니다!
@@ -194,6 +200,9 @@
   </data>
   <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
     <value>잘못된 접근입니다.</value>
+  </data>
+  <data name="MSG_Desc_Uninstall" xml:space="preserve">
+    <value>패치 제거 완료</value>
   </data>
   <data name="MSG_Title_CannotOpenLink" xml:space="preserve">
     <value>하이퍼링크를 열 수 없음</value>
