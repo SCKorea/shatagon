@@ -178,7 +178,7 @@ namespace SCTool_Redesigned.Utils
 
                     if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
                     {
-                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v2/releases/check");
+                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v3/releases/check?id=eGhhdGFnb24vc2Nfa28");
                     }
 
                     customGithubRepo.UpdateAsync(cancellationToken).Wait();
@@ -237,6 +237,11 @@ namespace SCTool_Redesigned.Utils
             {
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
+                    if (release.Draft)
+                    {
+                        continue;
+                    }
+
                     //Humanize
                     sb.Append($"# {release.Name}\n");
                     sb.Append($"{XmlConvert.ToString(release.Published.ToLocalTime(), Properties.Resources.UI_Desc_DateTimeFormat)}  \n");
