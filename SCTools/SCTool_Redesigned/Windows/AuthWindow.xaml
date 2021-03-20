@@ -18,7 +18,11 @@
         <TextBlock x:Name="AuthDescLabel" Text="{x:Static lang:Resources.UI_Title_Auth}" TextWrapping="Wrap" FontSize="20" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource TextBrush}" FontWeight="SemiBold"
                HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" TextAlignment="Center"/>
         <Label x:Name="ErrorLabel" Content="{x:Static lang:Resources.UI_Desc_AuthError}" FontSize="14" FontFamily="{StaticResource SCDream5}" Foreground="{StaticResource KeyPointBrush}" FontWeight="SemiBold"
-               HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" Visibility="Hidden"/>
+               HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" Visibility="Hidden">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" ShadowDepth="0"/>
+            </Label.Effect>
+        </Label>
         <Button x:Name="Applybtn" Content="{x:Static lang:Resources.UI_Button_AuthApply}" Background="Transparent" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="100" Height="30" Click="Applybtn_Click" />
         <TextBox x:Name="CodeInputBox" HorizontalAlignment="Center" Height="40" Grid.Row="3" VerticalAlignment="Center" Width="200" AllowDrop="False" IsTabStop="False" MaxLength="6"  Background="{DynamicResource HeavyGreyBrush}" BorderBrush="Transparent"
                      Foreground="{DynamicResource TextBrush}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" IsUndoEnabled="False" MaxLines="1" MinLines="1" TextOptions.TextFormattingMode="Display" AcceptsReturn="False" FontFamily="{StaticResource SCDream5}" CharacterCasing="Lower" TextAlignment="Center">
