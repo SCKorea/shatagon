@@ -103,7 +103,7 @@ namespace SCTool_Redesigned.Windows
 
         private async void Applybtn_Click(object sender, RoutedEventArgs e)
         {
-            var result = await TryAuth(CodeInputBox.Password);
+            var result = await TryAuth(CodeInputBox.Text);
             if (result == 200)
             {
                 _labelblinker.Stop();
