@@ -211,7 +211,7 @@ namespace SCTool_Redesigned.Utils
 
                     if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
                     {
-                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v2/releases/check");
+                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v3/releases/check?id=eGhhdGFnb24vc2Nfa28");
                     }
 
                     //customGithubRepo.UpdateAsync(cancellationToken).Wait();
