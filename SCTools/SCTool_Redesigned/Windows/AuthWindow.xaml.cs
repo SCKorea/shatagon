@@ -50,7 +50,7 @@ namespace SCTool_Redesigned.Windows
                 _status = Int32.Parse(jresult["value"].ToString());
                 if (_status == 0)
                 {
-                    await TryAuth("");//no need to enter code.
+                    await TryAuthAsync("");//no need to enter code.
                 }
             }
             else
@@ -73,7 +73,7 @@ namespace SCTool_Redesigned.Windows
                 ErrorLabel.Visibility = Visibility.Visible;
         }
 
-        public async Task<int> TryAuth(string passwd)
+        public async Task<int> TryAuthAsync(string passwd)
         {
             var values = new Dictionary<string, string>
             {
@@ -101,9 +101,34 @@ namespace SCTool_Redesigned.Windows
             }
         }
 
-        private async void Applybtn_Click(object sender, RoutedEventArgs e)
+        private void Applybtn_Click(object sender, RoutedEventArgs e)
         {
-            var result = await TryAuth(CodeInputBox.Text);
+            SubmitPasswordAsync();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
+
+        private void CodeInputBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SubmitPasswordAsync();
+            }
+        }
+
+        public string GetAuthToken()
+        {
+            return _authtoken;
+        }
+
+        private async void SubmitPasswordAsync()
+        {
+
+            var result = await TryAuthAsync(CodeInputBox.Text);
             if (result == 200)
             {
                 _labelblinker.Stop();
@@ -112,7 +137,11 @@ namespace SCTool_Redesigned.Windows
             }
             else
             {
-                ErrorLabel.Visibility = Visibility.Visible;
+                Dispatcher.Invoke(DispatcherPriority.Background, new Action(() =>
+                {
+                    ErrorLabel.Visibility = Visibility.Visible;
+                }));
+
                 switch (result) //TODO: localization
                 {
                     case 403:
@@ -131,18 +160,7 @@ namespace SCTool_Redesigned.Windows
                         break;
                 }
             }
-        }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Hide();
         }
-
-        public string GetAuthToken()
-        {
-            return _authtoken;
-        }
-
     }
 }

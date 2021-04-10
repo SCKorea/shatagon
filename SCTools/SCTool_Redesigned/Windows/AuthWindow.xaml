@@ -25,7 +25,7 @@
         </Label>
         <Button x:Name="Applybtn" Content="{x:Static lang:Resources.UI_Button_AuthApply}" Background="Transparent" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Bottom" Width="100" Height="30" Click="Applybtn_Click" />
         <TextBox x:Name="CodeInputBox" HorizontalAlignment="Center" Height="40" Grid.Row="3" VerticalAlignment="Center" Width="200" AllowDrop="False" IsTabStop="False" MaxLength="6"  Background="{DynamicResource HeavyGreyBrush}" BorderBrush="Transparent"
-                     Foreground="{DynamicResource TextBrush}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" IsUndoEnabled="False" MaxLines="1" MinLines="1" TextOptions.TextFormattingMode="Display" AcceptsReturn="False" FontFamily="{StaticResource SCDream5}" CharacterCasing="Lower" TextAlignment="Center">
+                     Foreground="{DynamicResource TextBrush}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" IsUndoEnabled="False" MaxLines="1" MinLines="1" TextOptions.TextFormattingMode="Display" AcceptsReturn="False" FontFamily="{StaticResource SCDream5}" CharacterCasing="Lower" TextAlignment="Center" KeyDown="CodeInputBox_KeyDown">
         </TextBox>
 
         
