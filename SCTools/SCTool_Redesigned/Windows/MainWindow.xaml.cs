@@ -312,12 +312,6 @@ namespace SCTool_Redesigned.Windows
         private void Update_ToggleBtn() =>
             DisableBtn.Content = RepositoryManager.TargetInstallation.IsEnabled ? Properties.Resources.UI_Button_DisableLocalization : Properties.Resources.UI_Button_EnableLocalization;
 
-        private void InstallBtn_Click(object sender, RoutedEventArgs e)
-        {
-            _installmode = 0;
-            Phase = 4;
-        }
-
         private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Phase++;
@@ -353,8 +347,26 @@ namespace SCTool_Redesigned.Windows
             Quit();
         }
 
+        private void InstallBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (App.IsRunGame())
+            {
+                MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Decs_TurnOffGame);
+                return;
+            }
+
+            _installmode = 0;
+            Phase = 4;
+        }
+
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (App.IsRunGame())
+            {
+                MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Decs_TurnOffGame);
+                return;
+            }
+
             _installmode = InstallerMode.uninstall;
             Phase = 6;
             MessageBox.Show(Properties.Resources.MSG_Desc_Uninstall);    //왜인진 몰라도 이거 빼면 frame_all content가 안 비워짐....
@@ -363,6 +375,12 @@ namespace SCTool_Redesigned.Windows
 
         private void DisableBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (App.IsRunGame())
+            {
+                MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Decs_TurnOffGame);
+                return;
+            }
+
             _installmode = InstallerMode.disable;
             Phase = 6;
             if (RepositoryManager.TargetInstallation.IsEnabled)
@@ -420,7 +438,7 @@ namespace SCTool_Redesigned.Windows
 
             ((Pages.mainNotes)frame_right.Content).set_note(2);
         }
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Border_MouseLeftDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }

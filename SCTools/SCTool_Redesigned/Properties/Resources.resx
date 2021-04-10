@@ -187,6 +187,9 @@
   <data name="MSG_Decs_SelectLocalization" xml:space="preserve">
     <value>Please select the localization to apply to the game.</value>
   </data>
+  <data name="MSG_Decs_TurnOffGame" xml:space="preserve">
+    <value>The game is running. Please exit the game.</value>
+  </data>
   <data name="MSG_Desc_Disable" xml:space="preserve">
     <value>Localization disabled.</value>
   </data>
@@ -230,6 +233,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="MSG_Title_SelectStarCitizenDirectory" xml:space="preserve">
     <value>Find and select the same folder as "StarCitizen".</value>
+  </data>
+  <data name="MSG_Title_TurnOffGame" xml:space="preserve">
+    <value>Game is Running</value>
   </data>
   <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

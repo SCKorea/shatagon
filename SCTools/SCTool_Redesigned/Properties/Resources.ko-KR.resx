@@ -181,6 +181,9 @@
   <data name="MSG_Decs_SelectLocalization" xml:space="preserve">
     <value>게임에 적용할 언어팩을 선택하십시오.</value>
   </data>
+  <data name="MSG_Decs_TurnOffGame" xml:space="preserve">
+    <value>게임이 실행 중입니다. 게임을 종료하여 주십시오.</value>
+  </data>
   <data name="MSG_Desc_Disable" xml:space="preserve">
     <value>패치 비활성화 완료</value>
   </data>
@@ -208,7 +211,7 @@
     <value>하이퍼링크를 열 수 없음</value>
   </data>
   <data name="MSG_Title_GeneralError" xml:space="preserve">
-    <value>에러</value>
+    <value>오류</value>
   </data>
   <data name="MSG_Title_GeneralWarning" xml:space="preserve">
     <value>경고</value>
@@ -224,6 +227,9 @@
   </data>
   <data name="MSG_Title_SelectStarCitizenDirectory" xml:space="preserve">
     <value>"StarCitizen" 폴더를 찾아 선택하십시오.</value>
+  </data>
+  <data name="MSG_Title_TurnOffGame" xml:space="preserve">
+    <value>게임이 실행되고 있음</value>
   </data>
   <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

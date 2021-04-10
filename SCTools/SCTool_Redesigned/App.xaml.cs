@@ -30,6 +30,13 @@ namespace SCTool_Redesigned
 
             if (!IsOnline())
             {
+                MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_TurnOffGame, SCTool_Redesigned.Properties.Resources.MSG_Title_TurnOffGame);
+                Current.Shutdown();
+                return;
+            }
+
+            if (IsRunGame())
+            {
                 MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInternet, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInternet);
                 Current.Shutdown();
                 return;
@@ -65,6 +72,13 @@ namespace SCTool_Redesigned
         {
             var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
             return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
+        }
+
+        public static bool IsRunGame()
+        {
+            Process[] pname = Process.GetProcessesByName("StarCitizen");
+
+            return pname.Length > 0;
         }
 
         //from Program.Global

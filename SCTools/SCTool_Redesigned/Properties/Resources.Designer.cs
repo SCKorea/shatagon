@@ -270,6 +270,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   The game is running. Please exit the game.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Decs_TurnOffGame {
+            get {
+                return ResourceManager.GetString("MSG_Decs_TurnOffGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Localization disabled.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Desc_Disable {
@@ -379,6 +388,15 @@ namespace SCTool_Redesigned.Properties {
         public static string MSG_Title_SelectStarCitizenDirectory {
             get {
                 return ResourceManager.GetString("MSG_Title_SelectStarCitizenDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Game is Running과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_TurnOffGame {
+            get {
+                return ResourceManager.GetString("MSG_Title_TurnOffGame", resourceCulture);
             }
         }
         
