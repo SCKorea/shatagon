@@ -270,7 +270,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   The game is running. Please exit the game.과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   It looks like the game is running. Localization may not be applied when the game is running.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Decs_TurnOffGame {
             get {

@@ -352,7 +352,6 @@ namespace SCTool_Redesigned.Windows
             if (App.IsRunGame())
             {
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
-                return;
             }
 
             _installmode = 0;
@@ -364,7 +363,6 @@ namespace SCTool_Redesigned.Windows
             if (App.IsRunGame())
             {
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
-                return;
             }
 
             _installmode = InstallerMode.uninstall;
@@ -378,7 +376,6 @@ namespace SCTool_Redesigned.Windows
             if (App.IsRunGame())
             {
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
-                return;
             }
 
             _installmode = InstallerMode.disable;

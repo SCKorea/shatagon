@@ -182,7 +182,7 @@
     <value>게임에 적용할 언어팩을 선택하십시오.</value>
   </data>
   <data name="MSG_Decs_TurnOffGame" xml:space="preserve">
-    <value>게임이 실행 중입니다. 게임을 종료하여 주십시오.</value>
+    <value>게임이 실행 중인 것 같습니다. 게임 실행 중 한국어패치를 설치 및 제거 그리고 비활성화시 오류가 발생할 수 있습니다!</value>
   </data>
   <data name="MSG_Desc_Disable" xml:space="preserve">
     <value>패치 비활성화 완료</value>

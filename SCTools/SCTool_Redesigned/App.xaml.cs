@@ -30,13 +30,6 @@ namespace SCTool_Redesigned
 
             if (!IsOnline())
             {
-                MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_TurnOffGame, SCTool_Redesigned.Properties.Resources.MSG_Title_TurnOffGame);
-                Current.Shutdown();
-                return;
-            }
-
-            if (IsRunGame())
-            {
                 MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInternet, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInternet);
                 Current.Shutdown();
                 return;

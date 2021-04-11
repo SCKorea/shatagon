@@ -188,7 +188,7 @@
     <value>Please select the localization to apply to the game.</value>
   </data>
   <data name="MSG_Decs_TurnOffGame" xml:space="preserve">
-    <value>The game is running. Please exit the game.</value>
+    <value>It looks like the game is running. Localization may not be applied when the game is running.</value>
   </data>
   <data name="MSG_Desc_Disable" xml:space="preserve">
     <value>Localization disabled.</value>
