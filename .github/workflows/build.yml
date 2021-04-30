@@ -21,7 +21,9 @@ jobs:
         uses: nuget/setup-nuget@v1
         
       - name: Setup nuget Repo  
-        run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile $env:APPDATA\NuGet\NuGet.Config
+        run: |
+          dotnet new nugetconfig
+          dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile $env:APPDATA\NuGet\NuGet.Config
           
       - name: Build app
         run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
