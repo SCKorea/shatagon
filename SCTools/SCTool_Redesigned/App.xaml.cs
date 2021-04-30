@@ -16,6 +16,7 @@ using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Windows;
 using System.Windows.Controls;
 using System.Net.NetworkInformation;
+using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned
 {
@@ -94,8 +95,22 @@ namespace SCTool_Redesigned
 
         private static bool IsOnline()
         {
-            var p = new Ping();
-            return p.Send("1.1.1.1", 1000).Status.Equals(IPStatus.Success);
+            var pass = new Ping().Send("1.1.1.1", 1000).Status.Equals(IPStatus.Success);
+
+            if (!pass)
+            {       
+                try
+                {
+                    pass = HttpNetClient.Client.GetStringAsync("https://api.ipify.org").Result.Length > 0;
+
+                } catch (Exception ex)
+                {
+                    pass = false;
+                }
+                
+            }
+
+            return pass;
         }
     }
 }
