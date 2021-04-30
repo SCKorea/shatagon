@@ -22,7 +22,7 @@ jobs:
         
       - name: Setup nuget Repo  
         run: |
-          dotnet new nugetconfig
+          New-Item -Path '$env:APPDATA\NuGet\NuGet.Config' - ItemType File
           dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile $env:APPDATA\NuGet\NuGet.Config
           
       - name: Build app
