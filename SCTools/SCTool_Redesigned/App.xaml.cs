@@ -40,8 +40,6 @@ namespace SCTool_Redesigned
 
             SCTool_Redesigned.Properties.Resources.Culture = CultureInfo.GetCultureInfo(Settings.ToolLanguage ?? CultureInfo.CurrentCulture.Name);
 
-            
-
             if (!IsOnline())
             {
                 MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInternet, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInternet);
@@ -105,10 +103,12 @@ namespace SCTool_Redesigned
                 Current.Shutdown();
             }
 
-            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+            for (int intCounter = Current.Windows.Count - 1; intCounter >= 0; intCounter--)
             {
-                App.Current.Windows[intCounter].Close();
+                Current.Windows[intCounter].Close();
             }
+
+            Logger.Info("Program is terminated.");
         }
 
         private static string GetExecutableDir()
@@ -122,21 +122,28 @@ namespace SCTool_Redesigned
 
         private static bool IsOnline()
         {
+            Logger.Info("Check Internet connection.");
+
             var pass = new Ping().Send("1.1.1.1", 1000).Status.Equals(IPStatus.Success);
 
             if (!pass)
-            {       
+            {
+                Logger.Info("ICMP port is not available, Try different way...");
+
                 try
                 {
                     pass = HttpNetClient.Client.GetStringAsync("https://api.ipify.org").Result.Length > 0;
 
                 } catch (Exception ex)
                 {
+                    Logger.Warn("FAIL: Internet unavailable.");
+
                     pass = false;
                 }
                 
             }
 
+            Logger.Info("SUCCESS: Internet available.");
             return pass;
         }
     }

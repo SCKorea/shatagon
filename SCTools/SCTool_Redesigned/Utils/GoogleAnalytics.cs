@@ -18,7 +18,7 @@ namespace SCTool_Redesigned.Utils
         private static readonly string UA = $"SCTools Redesigned ({Environment.OSVersion.VersionString})";
         private static readonly string UL = CultureInfo.CurrentCulture.Name;
 
-        public static void Sesstion(string uuid, string command, bool wait) => Track(uuid, "event", new Dictionary<string, string> {
+        public static void Session(string uuid, string command, bool wait) => Track(uuid, "event", new Dictionary<string, string> {
             { "sc", command }
         }, wait);
 

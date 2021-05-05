@@ -96,7 +96,7 @@ namespace SCTool_Redesigned.Utils
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error during toggle localization: {App.CurrentGame.Mode}\n+{e.Message}");
+                App.Logger.Error($"Error during toggle localization: {App.CurrentGame.Mode}\n+{e.Message}");
                 //_logger.Error(e, $"Error during toggle localization: {CurrentGame.Mode}");
             }
         }
@@ -235,6 +235,8 @@ namespace SCTool_Redesigned.Utils
 
             if (releases != null)
             {
+                App.Logger.Info("Start releases note parseing.");
+
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
                     if (release.Draft)
@@ -258,6 +260,8 @@ namespace SCTool_Redesigned.Utils
                     sb.Append($"<br/>    \n");
                     sb.Append($"<br/>    \n");
                 }
+
+                App.Logger.Info("finish releases note parseing.");
             }
 
             if (sb.Length <= 0)
@@ -288,38 +292,50 @@ namespace SCTool_Redesigned.Utils
                 markdownUrl = $"https://sc.galaxyhub.kr/api/v1/translate/document/?page={documentName}";
             }
 
-            HttpClient client = HttpNetClient.Client;
+            App.Logger.Info("Start markdown document download.");
 
-            var connectTask = client.GetAsync(markdownUrl);
-            connectTask.Wait();
-
-            HttpResponseMessage httpResponse = connectTask.Result;
-
-            switch (httpResponse.StatusCode)
+            try
             {
-                case System.Net.HttpStatusCode.OK:
-                    using (var httpContent = httpResponse.Content)
-                    {
-                        var content = httpContent.ReadAsStringAsync();
-                        content.Wait();
+                HttpClient client = HttpNetClient.Client;
 
-                        markdown = content.Result;
-                    }
-                    break;
+                var connectTask = client.GetAsync(markdownUrl);
+                connectTask.Wait();
 
-                case System.Net.HttpStatusCode.NotFound:
-                    markdown = Properties.Resources.UI_Desc_NotFoundMarkdown;
-                    break;
+                HttpResponseMessage httpResponse = connectTask.Result;
 
-                default:
-                    markdown = Properties.Resources.UI_Desc_UnableMarkdown;
-                    break;
+                switch (httpResponse.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                        using (var httpContent = httpResponse.Content)
+                        {
+                            var content = httpContent.ReadAsStringAsync();
+                            content.Wait();
+
+                            markdown = content.Result;
+
+                            App.Logger.Info("Finish Markdown document download");
+                        }
+                        break;
+
+                    case System.Net.HttpStatusCode.NotFound:
+                        markdown = Properties.Resources.UI_Desc_NotFoundMarkdown;
+                        break;
+
+                    default:
+                        markdown = Properties.Resources.UI_Desc_UnableMarkdown;
+                        break;
+                }
+
+                //HttpNetClient.Dispose();
+
+                // client.Dispose(); //DO NOT DISPOSE! - If you do this you can see System.ObjectDisposedException.
+
             }
-
-            //HttpNetClient.Dispose();
-
-            // client.Dispose(); //DO NOT DISPOSE! - If you do this you can see System.ObjectDisposedException.
-
+            catch (Exception ex)
+            {
+                App.Logger.Error("" + ex.Message);
+            }
+            
 
             return markdown;
         }

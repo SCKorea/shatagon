@@ -72,7 +72,6 @@ namespace SCTool_Redesigned.Pages
             {
                 link = "https://" + link;
             }
-            Console.WriteLine(link);
 
             try
             {

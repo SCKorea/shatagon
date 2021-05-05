@@ -65,13 +65,16 @@ namespace SCTool_Redesigned.Pages
             try
             {
 #if (!DEBUG)
+                App.Logger.Info("Check for program updates.");
+
                 var availableUpdate = await _updater.CheckForUpdateVersionAsync(_cancellationToken.Token);
 
                 ProgBar.Value = ProgBar.Minimum;
 
                 if (availableUpdate != null)
                 {
-                    //MessageBox.Show("업데이트 있음", "업데이트 확인");
+                    App.Logger.Info("Program is not the latest version.");
+
                     //FIXME:
                     var downloadDialogAdapter = new DownloadProgressDialogAdapter(null, this);
                     var filePath = await _updater.DownloadVersionAsync(availableUpdate, _cancellationToken.Token, downloadDialogAdapter);
@@ -88,17 +91,21 @@ namespace SCTool_Redesigned.Pages
                     }
                 }
 
-                // MessageBox.Show("업데이트 없음", "업데이트 확인");
                 ProgBar.Value = ProgBar.Maximum;
+
+                App.Logger.Info("Program is the latest version.");
 #endif
-                
+
             }
             catch (Exception exception) //TODO: write log and label text, but not on MessageBox
             {
+                App.Logger.Error(exception.Message);
+
                 if (exception is HttpRequestException)
+                {
                     MessageBox.Show($"{Properties.Resources.Localization_Download_ErrorTitle}" + '\n' + exception.Message, $"{Properties.Resources.Localization_Update_ErrorTitle}");
-                else
-                    MessageBox.Show($"{Properties.Resources.Localization_Download_ErrorTitle}", $"{Properties.Resources.Localization_Update_ErrorTitle}");
+                }
+
                 MessageBox.Show($"{Properties.Resources.MSG_Title_GeneralError}:{exception.Message}", $"{Properties.Resources.Localization_Update_ErrorTitle}");
             }
             finally

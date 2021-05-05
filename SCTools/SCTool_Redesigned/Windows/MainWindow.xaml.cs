@@ -37,7 +37,7 @@ namespace SCTool_Redesigned.Windows
             UI = this;
             InitializeComponent();
 
-            GoogleAnalytics.Sesstion(App.Settings.UUID, "start", true);
+            GoogleAnalytics.Session(App.Settings.UUID, "start", true);
 
             Title += " - " + App.Version.ToString(3);
             _PhaseNumber = 0;
@@ -83,7 +83,7 @@ namespace SCTool_Redesigned.Windows
                     case 3: //main Install
                         if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate && _installmode == 0) //Try auth for private repo
                         {
-                            Console.WriteLine($"Try auth at  {_PhaseNumber} to {value}");
+                            //Console.WriteLine($"Try auth at  {_PhaseNumber} to {value}");
                             _author.Owner = this;
                             if (_author.GetAuthToken() == null)
                                 _author.ShowDialog();
@@ -115,7 +115,7 @@ namespace SCTool_Redesigned.Windows
                         }
                         break;
                 }
-                Console.WriteLine($"Change Phase {_PhaseNumber} to {value}");
+                //Console.WriteLine($"Change Phase {_PhaseNumber} to {value}");
                 _PhaseNumber = value;
                 switch (value)
                 {
@@ -294,7 +294,7 @@ namespace SCTool_Redesigned.Windows
                     default:
                         throw new Exception(value.ToString() + " Phase is not exist");
                 }
-                Console.WriteLine($"Change Phase {value} ended");
+                //Console.WriteLine($"Change Phase {value} ended");
             }
         }
 
@@ -329,7 +329,7 @@ namespace SCTool_Redesigned.Windows
 
         internal void Quit()
         {
-            GoogleAnalytics.Sesstion(App.Settings.UUID, "end", true);
+            GoogleAnalytics.Session(App.Settings.UUID, "end", true);
             App.Close();
         }
 

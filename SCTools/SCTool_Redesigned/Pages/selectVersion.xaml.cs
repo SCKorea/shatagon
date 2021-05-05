@@ -24,6 +24,8 @@ namespace SCTool_Redesigned.Pages
     {
         public selectVersion()
         {
+            App.Logger.Info("Opens the game localization version selection window.");
+
             InitializeComponent();
             //VersionSelectListBox.ItemsSource = RepositoryManager.GetReleaseVersions();
             VersionSelectListBox.ItemsSource = RepositoryManager.GetInfos(false);
@@ -47,6 +49,8 @@ namespace SCTool_Redesigned.Pages
             {
                 var verString = VersionSelectListBox.SelectedValue.ToString();
                 RepositoryManager.SetInstallationTarget(verString, verString, (UpdateInfo)VersionSelectListBox.SelectedItem);
+
+                App.Logger.Info("Game localization version selected.");
             }
         }
     }

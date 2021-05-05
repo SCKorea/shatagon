@@ -25,6 +25,8 @@ namespace SCTool_Redesigned.Pages
 
         public selectPatchLang()
         {
+            App.Logger.Info("Opens the game localization language selection window.");
+
             InitializeComponent();
             LocalizationListBox.ItemsSource = RepositoryManager.GetLocalizationList();
         }
@@ -47,9 +49,15 @@ namespace SCTool_Redesigned.Pages
             {
                 App.Settings.GameLanguage = language;
                 if(!RepositoryManager.SetTargetRepository())
-                    MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess, Properties.Resources.MSG_Title_GeneralError,MessageBoxButton.OK,MessageBoxImage.Error);
+                {
+                    MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess, Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
+                    App.Logger.Error("Wrong approach");
+                }
                 else
+                {
                     App.SaveAppSettings();
+                    App.Logger.Info("Game localization language selected.");
+                }
             }
         }
     }

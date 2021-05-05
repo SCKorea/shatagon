@@ -26,6 +26,7 @@ namespace SCTool_Redesigned.Pages
             InitializeComponent();
 
             GoogleAnalytics.Hit(App.Settings.UUID, "/localization/install/finish", "install");
+            App.Logger.Info("Localization installation complete.");
         }
     }
 }

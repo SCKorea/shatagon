@@ -29,6 +29,8 @@ namespace SCTool_Redesigned.Pages
 
         public selectLang()
         {
+            App.Logger.Info("Opens the program language selection window.");
+
             UiLangList = GetSupportedUiLanguages();
 
             InitializeComponent();
@@ -75,6 +77,8 @@ namespace SCTool_Redesigned.Pages
 
                 App.Settings.ToolLanguage = language;
                 App.SaveAppSettings();
+
+                App.Logger.Info("Program language selected.");
             }
         }
     }

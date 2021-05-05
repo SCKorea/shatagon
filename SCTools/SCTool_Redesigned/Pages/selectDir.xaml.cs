@@ -39,6 +39,7 @@ namespace SCTool_Redesigned.Pages
 
         private bool verify_Path(string directoryPath)
         {
+            App.Logger.Info("Check game folder path");
             var gamePath = GameFolders.SearchGameFolder(directoryPath);
 
             if (gamePath != null)
@@ -56,9 +57,13 @@ namespace SCTool_Redesigned.Pages
                     {
                         MainWindow.UI.NextBtn.Visibility = Visibility.Visible;
                     }));
+
+                    App.Logger.Info("Valid game folder path");
                     return true;
                 }
             }
+
+            App.Logger.Info("Invalid game folder path");
             return false;
         }
 
@@ -69,20 +74,25 @@ namespace SCTool_Redesigned.Pages
             while (flag)
             {
                 CommonOpenFileDialog dialog = OpenDialog();
+                App.Logger.Info("Open game folder selection dialog");
 
                 var result = dialog.ShowDialog();
 
                 if (result == CommonFileDialogResult.Ok)
                 {
+                    App.Logger.Info("Close game folder selection dialog");
+
                     var directoryPath = dialog.FileName;
 
                     if (flag = !verify_Path(directoryPath))
                     {
                         MessageBox.Show(Properties.Resources.MSG_Decs_NotGameFolder, Properties.Resources.MSG_Title_NotGameFolder);
+                        App.Logger.Warn("Not a game folder.");
                     }
                 }
                 else
                 {
+                    App.Logger.Info("Close game folder selection dialog");
                     break;
                 }
             }
