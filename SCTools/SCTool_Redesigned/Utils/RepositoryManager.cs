@@ -261,7 +261,7 @@ namespace SCTool_Redesigned.Utils
                     sb.Append($"<br/>    \n");
                 }
 
-                App.Logger.Info("finish releases note parseing.");
+                App.Logger.Info("Finish releases note parseing.");
             }
 
             if (sb.Length <= 0)
@@ -313,7 +313,7 @@ namespace SCTool_Redesigned.Utils
 
                             markdown = content.Result;
 
-                            App.Logger.Info("Finish Markdown document download");
+                            App.Logger.Info("Finish markdown document download");
                         }
                         break;
 
