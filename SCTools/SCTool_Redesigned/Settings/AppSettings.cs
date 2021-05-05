@@ -36,6 +36,9 @@ namespace SCTool_Redesigned.Settings
         [JsonProperty]
         public string UUID { get; set; }
 
+        [JsonProperty]
+        public bool Console { get; set; } = false;
+
         public LocalizationSettings GetGameModeSettings(GameMode gameMode)
         {
             switch (gameMode)

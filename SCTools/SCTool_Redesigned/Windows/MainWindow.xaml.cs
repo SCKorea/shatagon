@@ -330,8 +330,7 @@ namespace SCTool_Redesigned.Windows
         internal void Quit()
         {
             GoogleAnalytics.Sesstion(App.Settings.UUID, "end", true);
-
-            Application.Current.Shutdown();
+            App.Close();
         }
 
         private void LazePageLoad(Frame frame, Page page)

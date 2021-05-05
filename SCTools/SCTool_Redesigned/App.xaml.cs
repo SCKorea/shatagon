@@ -17,6 +17,7 @@ using SCTool_Redesigned.Windows;
 using System.Windows.Controls;
 using System.Net.NetworkInformation;
 using SCTool_Redesigned.Utils;
+using Microsoft.Win32;
 
 namespace SCTool_Redesigned
 {
@@ -25,14 +26,27 @@ namespace SCTool_Redesigned
     /// </summary>
     public partial class App : Application
     {
+        public static NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         App()
         {
+            if (Settings.Console)
+            {
+                ConsoleManager.Show();
+            }
+
+            Logger.Info("Shataogn Patcher");
+            Logger.Info("version: " + typeof(App).Assembly.GetName().Version);
+
             SCTool_Redesigned.Properties.Resources.Culture = CultureInfo.GetCultureInfo(Settings.ToolLanguage ?? CultureInfo.CurrentCulture.Name);
+
+            
 
             if (!IsOnline())
             {
                 MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInternet, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInternet);
-                Current.Shutdown();
+                Close();
+
                 return;
             }
 
@@ -83,6 +97,19 @@ namespace SCTool_Redesigned
         public static Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
 
         public static string ExecutableDir { get; } = GetExecutableDir();
+
+        public static void Close()
+        {
+            if (!ConsoleManager.HasConsole)
+            {
+                Current.Shutdown();
+            }
+
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter >= 0; intCounter--)
+            {
+                App.Current.Windows[intCounter].Close();
+            }
+        }
 
         private static string GetExecutableDir()
         {
