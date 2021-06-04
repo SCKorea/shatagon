@@ -294,6 +294,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="UI_Button_Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="UI_Button_ReInstallLocalization" xml:space="preserve">
+    <value>Reinstall Localization</value>
+  </data>
   <data name="UI_Button_RemoveLocalization" xml:space="preserve">
     <value>Remove Localization</value>
   </data>
@@ -314,6 +317,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="UI_Button_Tooltip_Community_2" xml:space="preserve">
     <value>/r/starcitizen</value>
+  </data>
+  <data name="UI_Button_UpdateLocalization" xml:space="preserve">
+    <value>Update Localization</value>
   </data>
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>Yes</value>

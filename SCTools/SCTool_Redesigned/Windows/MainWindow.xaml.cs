@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using NSW.StarCitizen.Tools.Lib.Global;
+using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Windows
@@ -30,7 +33,7 @@ namespace SCTool_Redesigned.Windows
         private InstallerMode _installmode;
         private PrefaceWindow _prologue;
         private AuthWindow _author;
-        ImageBrush _mainBG, _subBG;
+        private ImageBrush _mainBG, _subBG;
 
         public MainWindow()
         {
@@ -51,6 +54,8 @@ namespace SCTool_Redesigned.Windows
             _subBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG0.png"));
             _subBG.Stretch = Stretch.UniformToFill;
             Phase = 0;
+
+            LocalizationInstallButtonContentSelecter();
         }
 
         public int Phase
@@ -65,7 +70,7 @@ namespace SCTool_Redesigned.Windows
                         logotitle.Content = Properties.Resources.UI_Title_ProgramTitle;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
                         NextBtn.Text = Properties.Resources.UI_Button_Next;
-                        InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
+                        //InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
                         UninstallBtn.Content = Properties.Resources.UI_Button_RemoveLocalization;
                         DisableBtn.Content = Properties.Resources.UI_Button_DisableLocalization;
                         Menu_patchnote.Text = Properties.Resources.UI_Tab_Main_ReleaseNote;
@@ -195,7 +200,7 @@ namespace SCTool_Redesigned.Windows
                         Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
                         Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
 
-                        if (App.Settings.LIVE_Localization.Installations.Count > 0 || App.Settings.PTU_Localization.Installations.Count > 0)
+                        if (IsLocalizationInstalled())
                         {
                             UninstallBtn.Visibility = Visibility.Visible;
                             DisableBtn.Visibility = Visibility.Visible;
@@ -264,6 +269,8 @@ namespace SCTool_Redesigned.Windows
                         Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
                         Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
                         Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
+
+                        LocalizationInstallButtonContentSelecter();
                         break;
 
                     case 7: //installComplete
@@ -285,6 +292,7 @@ namespace SCTool_Redesigned.Windows
                         Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
                         Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
                         Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
+
                         break;
 
                     case 8:
@@ -442,6 +450,60 @@ namespace SCTool_Redesigned.Windows
         private void Quit(object sender, RoutedEventArgs e)
         {
             Quit();
+        }
+
+        private bool IsLocalizationInstalled()
+        {
+            return App.Settings.LIVE_Localization.Installations.Count > 0 || App.Settings.PTU_Localization.Installations.Count > 0;
+        }
+
+        private void LocalizationInstallButtonContentSelecter()
+        {
+            Task.Run(() =>
+            {
+                var installed = 0;
+                var isNewVersion = 0;
+
+                var release = RepositoryManager.GetInfos(false);
+
+                foreach (GameMode gameMode in Enum.GetValues(typeof(GameMode)))
+                {
+                    var data = App.Settings.GetGameModeSettings(gameMode);
+
+                    if (data.Installations.Count > 0)
+                    {
+                        ++installed;
+
+                        var patch = data.Installations.FirstOrDefault();
+                        
+                        if (release.Count() > 0 && !release.FirstOrDefault().Name.Equals(patch.InstalledVersion))
+                        {
+                            Debug.WriteLine(release.FirstOrDefault().Name);
+
+                            ++isNewVersion;
+                        }
+                    }
+                }
+
+                var text = Properties.Resources.UI_Button_InstallLocalization;
+
+                if (installed > 0)
+                {
+                    if (isNewVersion > 0)
+                    {
+                        text = Properties.Resources.UI_Button_UpdateLocalization;
+                    }
+                    else
+                    {
+                        text = Properties.Resources.UI_Button_ReInstallLocalization;
+                    }
+                }
+
+                Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+                {
+                    InstallBtn.Content = text;
+                }));
+            });
         }
     }
 }

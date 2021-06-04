@@ -575,6 +575,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Reinstall Localization과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_ReInstallLocalization {
+            get {
+                return ResourceManager.GetString("UI_Button_ReInstallLocalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Remove Localization과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_RemoveLocalization {
@@ -634,6 +643,15 @@ namespace SCTool_Redesigned.Properties {
         public static string UI_Button_Tooltip_Community_2 {
             get {
                 return ResourceManager.GetString("UI_Button_Tooltip_Community_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update Localization과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string UI_Button_UpdateLocalization {
+            get {
+                return ResourceManager.GetString("UI_Button_UpdateLocalization", resourceCulture);
             }
         }
         

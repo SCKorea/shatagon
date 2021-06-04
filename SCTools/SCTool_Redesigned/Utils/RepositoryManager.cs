@@ -173,16 +173,7 @@ namespace SCTool_Redesigned.Utils
             {
                 Task.Run(() =>
                 {
-                    var customGithubRepo = new CustomGitHubRepository(
-                        HttpNetClient.Client, GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
-
-                    if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
-                    {
-                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v3/releases/check?id=eGhhdGFnb24vc2Nfa28");
-                    }
-
-                    customGithubRepo.UpdateAsync(cancellationToken).Wait();
-
+                    var customGithubRepo = GetCustomGitHubRepository(cache);
                     var getReleases = customGithubRepo.GetReleasesAsync(true, cancellationToken);
                     getReleases.Wait();
 
@@ -199,28 +190,9 @@ namespace SCTool_Redesigned.Utils
 
         public static IEnumerable<UpdateInfo> GetInfos(bool cache = true)
         {
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
-            CancellationToken cancellationToken = tokenSource.Token;
-
             if (!cache || _githubReleases == null)
             {
-                Task.Run(() =>
-                {
-                    var customGithubRepo = new CustomGitHubRepository(
-                        HttpNetClient.Client, GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
-
-                    if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
-                    {
-                        customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v3/releases/check?id=eGhhdGFnb24vc2Nfa28");
-                    }
-
-                    //customGithubRepo.UpdateAsync(cancellationToken).Wait();
-                    customGithubRepo.RefreshUpdatesAsync(cancellationToken).Wait();
-                    //var getReleases = customGithubRepo.GetReleasesAsync(true, cancellationToken);
-                    //getReleases.Wait();
-
-                    _githubReleasesInfo = customGithubRepo.UpdateReleases;
-                }).Wait();
+                Task.Run(() => _githubReleasesInfo = GetCustomGitHubRepository(cache).UpdateReleases).Wait();
             }
 
 
@@ -338,6 +310,32 @@ namespace SCTool_Redesigned.Utils
             
 
             return markdown;
+        }
+
+        private static CustomGitHubRepository _customGitHubRepository = null;
+
+        private static CustomGitHubRepository GetCustomGitHubRepository(bool cache = true)
+        {
+            if (!cache || _githubReleases == null)
+            {
+                CancellationTokenSource tokenSource = new CancellationTokenSource();
+                CancellationToken cancellationToken = tokenSource.Token;
+
+                var customGithubRepo = new CustomGitHubRepository(
+                            HttpNetClient.Client, GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
+
+                if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
+                {
+                    customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v3/releases/check?id=eGhhdGFnb24vc2Nfa28");
+                }
+
+                //customGithubRepo.UpdateAsync(cancellationToken).Wait();
+                customGithubRepo.RefreshUpdatesAsync(cancellationToken).Wait();
+
+                _customGitHubRepository = customGithubRepo;
+            }
+
+            return _customGitHubRepository;
         }
     }
 }

@@ -288,6 +288,9 @@
   <data name="UI_Button_Refresh" xml:space="preserve">
     <value>버전 갱신</value>
   </data>
+  <data name="UI_Button_ReInstallLocalization" xml:space="preserve">
+    <value>패치 재설치</value>
+  </data>
   <data name="UI_Button_RemoveLocalization" xml:space="preserve">
     <value>패치 제거</value>
   </data>
@@ -308,6 +311,9 @@
   </data>
   <data name="UI_Button_Tooltip_Community_2" xml:space="preserve">
     <value>스타 시티즌 한국 커뮤니티</value>
+  </data>
+  <data name="UI_Button_UpdateLocalization" xml:space="preserve">
+    <value>패치 업데이트</value>
   </data>
   <data name="UI_Button_Yes" xml:space="preserve">
     <value>예</value>
