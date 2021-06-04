@@ -39,7 +39,7 @@ jobs:
         uses: papeloto/action-zip@v1
         with:
           files: SCTools\SCTool_Redesigned\bin\Release
-          dest: Release.zip
+          dest: StagonPatcher.zip
           
       - name: Get release
         id: get_release
@@ -54,6 +54,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }} 
-          asset_path: ./Release.zip
+          asset_path: ./StagonPatcher.zip
           asset_name: ShatgonPatcher.zip
           asset_content_type: application/zip    
