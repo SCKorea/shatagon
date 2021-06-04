@@ -14,10 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      # - name: Setup msbuild
-      #   uses: microsoft/setup-msbuild@v1.0.2
-      #   with:
-      #     vs-version: '[16.5,16.6)'
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Setup nuget
         uses: nuget/setup-nuget@v1
@@ -25,11 +23,8 @@ jobs:
 
           
       - name: Build app
-        run: |
-          cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin"
-          .\MSBuild.exe D:\a\Shatagon\Shatagon\SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true -m
-          cd "D:\a\Shatagon\Shatago"
-        
+        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild; /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
+      
       - name: Compress component
         uses: papeloto/action-zip@v1
         with:
