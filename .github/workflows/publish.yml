@@ -33,7 +33,7 @@ jobs:
       #  run:  dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile $env:APPDATA\NuGet\NuGet.Config
         
       - name: Build app
-        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
+        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true -m
       
       - name: Compress component
         uses: papeloto/action-zip@v1
@@ -55,5 +55,5 @@ jobs:
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }} 
           asset_path: ./Release.zip
-          asset_name: Release.zip
+          asset_name: ShatgonPatcher.zip
           asset_content_type: application/zip    

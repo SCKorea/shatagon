@@ -20,10 +20,9 @@ jobs:
       - name: Setup nuget
         uses: nuget/setup-nuget@v1
         
-
           
       - name: Build app
-        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
+        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true -m
       
       - name: Compress component
         uses: papeloto/action-zip@v1
@@ -44,7 +43,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Release.zip
-          asset_name: Release.zip
+          asset_name: StagonPatcher.zip
           tag: dev
           prerelease: true
           overwrite: true
