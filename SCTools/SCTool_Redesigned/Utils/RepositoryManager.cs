@@ -36,6 +36,13 @@ namespace SCTool_Redesigned.Utils
         public static void SetInstalledRepository() //does it make sense? I don't get it...
         {
             //App.Settings.LIVE_Localization += TargetInstallation;
+            var installations = App.Settings.LIVE_Localization.Installations;
+
+            if (installations.Count > 0)
+            {
+                installations.RemoveAll(list => true);
+            }
+
             App.Settings.LIVE_Localization.Installations.Add(TargetInstallation);
             App.SaveAppSettings();
             //_currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
