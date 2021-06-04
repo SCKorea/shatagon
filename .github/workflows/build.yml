@@ -23,7 +23,7 @@ jobs:
 
           
       - name: Build app
-        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild; /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
+        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
       
       - name: Compress component
         uses: papeloto/action-zip@v1
