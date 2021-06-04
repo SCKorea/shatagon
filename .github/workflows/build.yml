@@ -16,6 +16,8 @@ jobs:
         
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v1.0.2
+        with:
+          vs-version: '(16.5)'
 
       - name: Setup nuget
         uses: nuget/setup-nuget@v1
@@ -23,7 +25,7 @@ jobs:
 
           
       - name: Build app
-        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true
+        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true -m
       
       - name: Compress component
         uses: papeloto/action-zip@v1
