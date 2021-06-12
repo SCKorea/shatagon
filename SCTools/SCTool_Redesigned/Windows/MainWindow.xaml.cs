@@ -54,8 +54,6 @@ namespace SCTool_Redesigned.Windows
             _subBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG0.png"));
             _subBG.Stretch = Stretch.UniformToFill;
             Phase = 0;
-
-            LocalizationInstallButtonContentSelecter();
         }
 
         public int Phase
@@ -205,8 +203,8 @@ namespace SCTool_Redesigned.Windows
                             UninstallBtn.Visibility = Visibility.Visible;
                             DisableBtn.Visibility = Visibility.Visible;
                             Update_ToggleBtn();
+                            SetInstallbtnLabel();
                         }
-
                         break;
 
                     case 4: //select Dir
@@ -269,8 +267,6 @@ namespace SCTool_Redesigned.Windows
                         Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
                         Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
                         Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
-
-                        LocalizationInstallButtonContentSelecter();
                         break;
 
                     case 7: //installComplete
@@ -457,7 +453,7 @@ namespace SCTool_Redesigned.Windows
             return App.Settings.LIVE_Localization.Installations.Count > 0 || App.Settings.PTU_Localization.Installations.Count > 0;
         }
 
-        private void LocalizationInstallButtonContentSelecter()
+        private void SetInstallbtnLabel()
         {
             Task.Run(() =>
             {
