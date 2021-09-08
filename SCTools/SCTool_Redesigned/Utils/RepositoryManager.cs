@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xml;
+using Newtonsoft.Json.Linq;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Localization;
 using NSW.StarCitizen.Tools.Lib.Update;
@@ -253,31 +254,50 @@ namespace SCTool_Redesigned.Utils
 
         public static string GetMarkdownDocument(string documentName)
         {
-            string markdown = string.Empty;
-
-            LocalizationSource localization = GetLocalizationSource();
-            string gitUrl = "";
-
-            if (localization.Type.Equals(UpdateRepositoryType.GitHub))
-            {
-                gitUrl = "https://raw.githubusercontent.com/";
-            }
-
-            string markdownUrl = $"{gitUrl}{localization.Repository}/master/{documentName}";
-
-            if (localization.Repository.Contains("sc_ko"))
-            {
-                // The sc_ko repository is private and uses its own api server.
-                markdownUrl = $"https://sc.galaxyhub.kr/api/v1/translate/document/?page={documentName}";
-            }
-
             App.Logger.Info("Start markdown document download.");
+
+            string markdown = string.Empty;
 
             try
             {
                 HttpClient client = HttpNetClient.Client;
+                LocalizationSource localization = GetLocalizationSource();
 
-                var connectTask = client.GetAsync(markdownUrl);
+                string gitUrl = "";
+
+                if (localization.Type.Equals(UpdateRepositoryType.GitHub))
+                {
+                    gitUrl = "https://raw.githubusercontent.com/";
+                }
+
+                Task<HttpResponseMessage> connectTask;
+
+                if (localization.Repository.Contains("sc_ko"))
+                {
+                    documentName = documentName.ToLower();
+
+                    if (documentName == "credit.md")
+                    {
+                        documentName = "license.md";
+                    }
+
+                    // The sc_ko repository is private and uses its own api server.
+
+                    var json = new JObject();
+
+                    json.Add("account_id", "sckorea");
+                    json.Add("repository_name", "translate-website");
+                    json.Add("document_name", $"public/{documentName}");
+                    json.Add("status", false);
+
+                    var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+                    connectTask = client.PostAsync($"https://sc.galaxyhub.kr/api/v4/document", content);
+                }
+                else
+                {
+                    connectTask = client.GetAsync($"{gitUrl}{localization.Repository}/master/{documentName}");
+                }
+
                 connectTask.Wait();
 
                 HttpResponseMessage httpResponse = connectTask.Result;
@@ -314,7 +334,6 @@ namespace SCTool_Redesigned.Utils
             {
                 App.Logger.Error("" + ex.Message);
             }
-            
 
             return markdown;
         }
