@@ -16,6 +16,7 @@ using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
 
 namespace SCTool_Redesigned.Windows
 {
@@ -42,12 +43,16 @@ namespace SCTool_Redesigned.Windows
         }
         private async void CheckTGS()
         {
-            var response = await HttpNetClient.Client.GetAsync("https://sc.galaxyhub.kr/api/v1/distribution/check");
+            var json = new JObject();
+
+            var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhun.kr/api/v4/patcher/mode", content);
+
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var resultstr = await response.Content.ReadAsStringAsync();
                 JObject jresult = JObject.Parse(resultstr);
-                _status = Int32.Parse(jresult["value"].ToString());
+                _status = int.Parse(jresult["data"].ToString());
                 if (_status == 0)
                 {
                     await TryAuthAsync("");//no need to enter code.
@@ -75,22 +80,40 @@ namespace SCTool_Redesigned.Windows
 
         public async Task<int> TryAuthAsync(string passwd)
         {
-            var values = new Dictionary<string, string>
-            {
-                { "password", passwd }
-            };
-            var payload = new System.Net.Http.FormUrlEncodedContent(values);
+            var json = new JObject();
 
-            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v1/repository/token", payload);
+            json.Add("password", passwd);
+
+            var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhun.kr/api/v4/patcher/token", content);
+
+            switch ((int)response.StatusCode)
+            {
+                case 200:
+                    break;
+
+                case 403:
+                    return 403;
+
+                case 422:
+                    return 403;
+
+                case 423:
+                    return 423;
+
+                default:
+                    MessageBox.Show("인증서버 통신 오류");
+                    return -1;
+            }
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var resultstr = await response.Content.ReadAsStringAsync();
                 JObject jresult = JObject.Parse(resultstr);
-                var statcode = Int32.Parse(jresult["status"].ToString());
+                var statcode = int.Parse(jresult["status"].ToString());
                 if (statcode == 200)
                 {
-                    _authtoken = jresult["value"].ToString();
+                    _authtoken = jresult["data"].ToString();
                 }
                 return statcode;
             }

@@ -291,7 +291,7 @@ namespace SCTool_Redesigned.Utils
                     json.Add("status", false);
 
                     var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
-                    connectTask = client.PostAsync($"https://sc.galaxyhub.kr/api/v4/document", content);
+                    connectTask = client.PostAsync("https://sc.galaxyhub.kr/api/v4/document", content);
                 }
                 else
                 {
@@ -352,7 +352,7 @@ namespace SCTool_Redesigned.Utils
 
                 if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
                 {
-                    customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v3/releases/check?id=eGhhdGFnb24vc2Nfa28");
+                    customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v4/release/all?account_id=xhatagon&repository_name=sc_ko&status=0");
                 }
 
                 //customGithubRepo.UpdateAsync(cancellationToken).Wait();
