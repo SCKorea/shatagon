@@ -46,7 +46,7 @@ namespace SCTool_Redesigned.Windows
             var json = new JObject();
 
             var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
-            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhun.kr/api/v4/patcher/mode", content);
+            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v4/patcher/mode", content);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -85,7 +85,7 @@ namespace SCTool_Redesigned.Windows
             json.Add("password", passwd);
 
             var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
-            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhun.kr/api/v4/patcher/token", content);
+            var response = await HttpNetClient.Client.PostAsync("https://sc.galaxyhub.kr/api/v4/patcher/token", content);
 
             switch ((int)response.StatusCode)
             {
