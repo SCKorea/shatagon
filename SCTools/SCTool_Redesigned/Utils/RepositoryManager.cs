@@ -350,9 +350,9 @@ namespace SCTool_Redesigned.Utils
                 var customGithubRepo = new CustomGitHubRepository(
                             HttpNetClient.Client, GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
 
-                if (GetLocalizationSource().Repository.Equals("xhatagon/sc_ko"))
+                if (GetLocalizationSource().Repository.Equals("sckorea/sc_ko"))
                 {
-                    customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v4/release/all?account_id=xhatagon&repository_name=sc_ko&status=0");
+                    customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v4/release/all?account_id=sckorea&repository_name=sc_ko&status=0");
                 }
 
                 //customGithubRepo.UpdateAsync(cancellationToken).Wait();
