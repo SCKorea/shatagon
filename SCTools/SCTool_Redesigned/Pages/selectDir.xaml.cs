@@ -29,14 +29,35 @@ namespace SCTool_Redesigned.Pages
         public selectDir()
         {
             InitializeComponent();
-            verify_Path(Defaultdir);
+            try
+            {
+                verify_Path(getDir());
+            }
+            catch (Exception e)
+            {
+                verify_Path(Defaultdir);
+            }
 
             if (App.Settings.GameFolder != null)
             {
                 PhasePath.Content = App.Settings.GameFolder;
             }
         }
-
+        private string getDir()
+        {
+            string infodir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Star Citizen\\build.info";
+            if(!File.Exists(infodir))
+            {
+                App.Logger.Warn("StarCitizeen build info File does not exist. Maybe not installed?");
+                throw new FileNotFoundException("build.info");
+            }
+            string[] _buildinfo = File.ReadAllLines(infodir);
+            App.Logger.Debug("guessedDir:"+_buildinfo[0].Substring(12, _buildinfo[0].Length - 27));
+            if (_buildinfo[0].Contains("\\LIVE\\Bin64\\StarCitizen.exe"))
+                return _buildinfo[0].Substring(12,_buildinfo[0].Length-27);
+            App.Logger.Warn("Cannot get path from build info");
+            throw new FileFormatException("build.info");
+        }
         private bool verify_Path(string directoryPath)
         {
             App.Logger.Info("Check game folder path");
