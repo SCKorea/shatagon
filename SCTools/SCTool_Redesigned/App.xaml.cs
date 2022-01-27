@@ -48,6 +48,12 @@ namespace SCTool_Redesigned
                 return;
             }
 
+            if (!IsGameInstalled())
+            {
+                MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInstall, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInstall);
+                //TODO: switch directory
+            }
+
             if (Settings.UUID == null)
             {
                 Settings.UUID = Guid.NewGuid().ToString();
@@ -66,8 +72,9 @@ namespace SCTool_Redesigned
         {
             if (_appSettings == null)
             {
-                var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-                _appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(executableDir, AppSettingsFileName)) ?? new AppSettings();
+                //var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+                //_appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(executableDir, AppSettingsFileName)) ?? new AppSettings();
+                _appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(LocalappDir, AppSettingsFileName)) ?? new AppSettings();
             }
 
             return _appSettings;
@@ -121,6 +128,11 @@ namespace SCTool_Redesigned
             if (dirInfo == null)
                 throw new NullReferenceException("No assembly executable directory");
             return dirInfo.FullName;
+        }
+
+        private static bool IsGameInstalled()
+        {
+            return File.Exists(LocalappDir);
         }
 
         private static bool IsOnline()

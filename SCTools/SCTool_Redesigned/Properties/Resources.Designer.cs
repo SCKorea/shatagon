@@ -243,6 +243,16 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Cannot found installation infomation of StarCitizen.
+        ///The localization patch works when the game installed.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Decs_NoInstall {
+            get {
+                return ResourceManager.GetString("MSG_Decs_NoInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Can&apos;t connect to the internet. Check the internet.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Decs_NoInternet {
@@ -352,6 +362,15 @@ namespace SCTool_Redesigned.Properties {
         public static string MSG_Title_GeneralWarning {
             get {
                 return ResourceManager.GetString("MSG_Title_GeneralWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Install not detected과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Title_NoInstall {
+            get {
+                return ResourceManager.GetString("MSG_Title_NoInstall", resourceCulture);
             }
         }
         
