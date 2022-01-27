@@ -48,18 +48,11 @@ namespace SCTool_Redesigned
                 return;
             }
 
-            if (!IsGameInstalled())
-            {
-                MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInstall, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInstall);
-                //TODO: switch directory
-            }
-
             if (Settings.UUID == null)
             {
                 Settings.UUID = Guid.NewGuid().ToString();
                 SaveAppSettings();
             }
-
             InitializeComponent();
         }
 
@@ -72,9 +65,9 @@ namespace SCTool_Redesigned
         {
             if (_appSettings == null)
             {
-                //var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+                var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
                 //_appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(executableDir, AppSettingsFileName)) ?? new AppSettings();
-                _appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(LocalappDir, AppSettingsFileName)) ?? new AppSettings();
+                _appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(LocalappDir, AppSettingsFileName)) ?? JsonHelper.ReadFile<AppSettings>(Path.Combine(executableDir, AppSettingsFileName)) ?? new AppSettings();
             }
 
             return _appSettings;
@@ -83,9 +76,12 @@ namespace SCTool_Redesigned
         public static bool SaveAppSettings() => SaveAppSettings(Settings);
         public static bool SaveAppSettings(AppSettings settings)
         {
-            //var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); //save to excutabledir
-            //return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
-            return JsonHelper.WriteFile(Path.Combine(LocalappDir, AppSettingsFileName), settings);
+            var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            
+            if (Directory.Exists(LocalappDir))
+                return JsonHelper.WriteFile(Path.Combine(LocalappDir, AppSettingsFileName), settings);
+            else
+                return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
         }
 
         public static bool IsRunGame()
@@ -130,9 +126,9 @@ namespace SCTool_Redesigned
             return dirInfo.FullName;
         }
 
-        private static bool IsGameInstalled()
+        public static bool IsGameInstalled()
         {
-            return File.Exists(LocalappDir);
+            return Directory.Exists(LocalappDir);
         }
 
         private static bool IsOnline()

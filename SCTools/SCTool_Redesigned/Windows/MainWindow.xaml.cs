@@ -42,6 +42,12 @@ namespace SCTool_Redesigned.Windows
 
             GoogleAnalytics.Session(App.Settings.UUID, "start", true);
 
+            if (!App.IsGameInstalled())
+            {
+                MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInstall, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInstall);
+                App.Logger.Info("Installation infomation directory does not exist!");
+            }
+
             Title += " - " + App.Version.ToString(3);
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
