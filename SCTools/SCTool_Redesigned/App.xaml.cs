@@ -76,8 +76,9 @@ namespace SCTool_Redesigned
         public static bool SaveAppSettings() => SaveAppSettings(Settings);
         public static bool SaveAppSettings(AppSettings settings)
         {
-            var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
+            //var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName); //save to excutabledir
+            //return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
+            return JsonHelper.WriteFile(Path.Combine(LocalappDir, AppSettingsFileName), settings);
         }
 
         public static bool IsRunGame()
@@ -95,6 +96,8 @@ namespace SCTool_Redesigned
         public static Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
 
         public static string ExecutableDir { get; } = GetExecutableDir();
+
+        public static string LocalappDir { get; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Star Citizen\\";
 
         public static void Close()
         {
