@@ -178,6 +178,10 @@
   <data name="MSG_Decs_CannotOpenLink" xml:space="preserve">
     <value>Could't open hyperlink. It could be an invalid hyperlink.</value>
   </data>
+  <data name="MSG_Decs_NoInstall" xml:space="preserve">
+    <value>Cannot found installation infomation of StarCitizen.
+The localization patch works when the game installed.</value>
+  </data>
   <data name="MSG_Decs_NoInternet" xml:space="preserve">
     <value>Can't connect to the internet. Check the internet.</value>
   </data>
@@ -221,6 +225,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="MSG_Title_GeneralWarning" xml:space="preserve">
     <value>Warning</value>
+  </data>
+  <data name="MSG_Title_NoInstall" xml:space="preserve">
+    <value>Install not detected</value>
   </data>
   <data name="MSG_Title_NoInternet" xml:space="preserve">
     <value>No internet</value>
