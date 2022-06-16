@@ -29,8 +29,10 @@ namespace SCTool_Redesigned.Windows
         internal static MainWindow UI;
 
         public enum InstallerMode { install, uninstall, disable };
-        private int _PhaseNumber;
+        public enum MainBtnMode { install, update, launch };
+        private MainBtnMode _MainBtnState;
         private InstallerMode _installmode;
+        private int _PhaseNumber;
         private PrefaceWindow _prologue;
         private AuthWindow _author;
         private ImageBrush _mainBG, _subBG;
@@ -210,6 +212,7 @@ namespace SCTool_Redesigned.Windows
                             DisableBtn.Visibility = Visibility.Visible;
                             Update_ToggleBtn();
                             SetInstallbtnLabel();
+                            LauchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder+ "\\LIVE", App.LocalappDir);
                         }
                         break;
 
@@ -362,9 +365,20 @@ namespace SCTool_Redesigned.Windows
             {
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
             }
-
-            _installmode = 0;
-            Phase = 4;
+            if (_MainBtnState != MainBtnMode.launch)
+            {
+                _installmode = InstallerMode.install;
+                Phase = 4;
+            }
+            else    //Launch Game
+            {
+                if (LauchTokenManager.Instance.LoadToken())    //TODO: update tokens
+                {
+                    App.RunGame();
+                }
+                else
+                    MessageBox.Show(Properties.Resources.MSG_Title_GeneralError, Properties.Resources.MSG_Desc_InvalidAccess);  //FIXME:Update desc string...?
+            }
         }
 
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
@@ -486,24 +500,37 @@ namespace SCTool_Redesigned.Windows
                         }
                     }
                 }
-
-                var text = Properties.Resources.UI_Button_InstallLocalization;
+                _MainBtnState = MainBtnMode.install;
 
                 if (installed > 0)
                 {
+                    LauchTokenManager.Instance.BeginWatch();
                     if (isNewVersion > 0)
                     {
-                        text = Properties.Resources.UI_Button_UpdateLocalization;
+                        _MainBtnState = MainBtnMode.update;
                     }
                     else
                     {
-                        text = Properties.Resources.UI_Button_ReInstallLocalization;
+                        //text = Properties.Resources.UI_Button_ReInstallLocalization;
+                        _MainBtnState = MainBtnMode.launch;
                     }
                 }
 
+
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
                 {
-                    InstallBtn.Content = text;
+                    switch (_MainBtnState)
+                    {
+                        case MainBtnMode.install:
+                            InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
+                            break;
+                        case MainBtnMode.update:
+                            InstallBtn.Content = Properties.Resources.UI_Button_UpdateLocalization;
+                            break;
+                        case MainBtnMode.launch:
+                            InstallBtn.Content = Properties.Resources.UI_Button_LaunchGame;
+                            break;
+                    }
                 }));
             });
         }

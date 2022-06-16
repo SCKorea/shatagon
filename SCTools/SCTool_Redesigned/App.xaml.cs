@@ -91,6 +91,11 @@ namespace SCTool_Redesigned
             return pname.Length > 0;
         }
 
+        public static void RunGame()
+        {
+            Process.Start(Settings.GameFolder + "\\LIVE\\Bin64\\StarCitizen.exe");
+        }
+
         //from Program.Global
         public static GameInfo CurrentGame { get; set; }
 

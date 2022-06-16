@@ -274,6 +274,9 @@
   <data name="UI_Button_InstallLocalization" xml:space="preserve">
     <value>패치 설치</value>
   </data>
+  <data name="UI_Button_LaunchGame" xml:space="preserve">
+    <value>게임 실행</value>
+  </data>
   <data name="UI_Button_Link_Community_1" xml:space="preserve">
     <value>https://discord.gg/starcitizenkr</value>
   </data>
