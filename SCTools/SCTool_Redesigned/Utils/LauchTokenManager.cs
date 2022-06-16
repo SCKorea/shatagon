@@ -4,12 +4,13 @@ namespace SCTool_Redesigned.Utils
 {
     class LauchTokenManager
     {
-        private static LauchTokenManager instance = null;
-        private static readonly object padlock = new object();
+        private static LauchTokenManager _instance = null;
+        private static readonly object _padlock = new object();
 
         private FileSystemWatcher _watcher = null;
         private string _srcpath, _dstpath;              //source: (game)+\\+ loginData.json dest: localappdata + loginData.json
         private string _tokenName = "loginData.json";
+        private System.DateTime _lastevent = System.DateTime.MinValue;
 
         LauchTokenManager()
         { }
@@ -17,13 +18,13 @@ namespace SCTool_Redesigned.Utils
         {
             get
             {
-                lock(padlock)
+                lock(_padlock)      //make thread-safe
                 {
-                    if(instance == null)
+                    if(_instance == null)
                     {
-                        instance = new LauchTokenManager();
+                        _instance = new LauchTokenManager();
                     }
-                    return instance;
+                    return _instance;
                 }
             }
         }
@@ -37,41 +38,50 @@ namespace SCTool_Redesigned.Utils
         public void BeginWatch()
         {
             if (_watcher != null)    return;
-            _watcher = new FileSystemWatcher(_srcpath);  //<==path
+            _watcher = new FileSystemWatcher(_srcpath);
 
-            _watcher.NotifyFilter = NotifyFilters.CreationTime
-                                  | NotifyFilters.LastWrite
-                                  | NotifyFilters.LastAccess;
+            _watcher.NotifyFilter = NotifyFilters.LastWrite;
+                                  //| NotifyFilters.CreationTime;
+                                  //| NotifyFilters.LastAccess;
             _watcher.EnableRaisingEvents = true;
             _watcher.Filter = _tokenName;
 
-            _watcher.Created += new FileSystemEventHandler(UpdateToken);
             _watcher.Changed += new FileSystemEventHandler(UpdateToken);
 
             NLog.LogManager.GetCurrentClassLogger().Info("Watcher started at "+_srcpath);
         }
         private void UpdateToken(object sender, FileSystemEventArgs e)
         {
-            NLog.LogManager.GetCurrentClassLogger().Info("Triggered Action: "+e.ToString());
-            if (e.ChangeType == WatcherChangeTypes.Deleted)
-                return;
-            NLog.LogManager.GetCurrentClassLogger().Info("Update token!");
+            if ( File.GetLastWriteTime(_srcpath + "\\" + _tokenName).Subtract(_lastevent).Minutes < 1)
+                return; //discard duplicated events
+
             File.Copy(_srcpath + "\\" + _tokenName, _dstpath + _tokenName, true);
-            NLog.LogManager.GetCurrentClassLogger().Info("Copied token!");
-            //이미 있는데 1분안에 갱신된 거라면 복사하지 않는다. src->dest <- watcher가 있는데 어차피 안해도 될듯
+            NLog.LogManager.GetCurrentClassLogger().Info("Token Copied");
+
+            _lastevent = File.GetLastWriteTime(_srcpath + "\\" + _tokenName);
             //FIXME: COPY시 예외들 처리
-            //FIXME: 런칭시 트리거되는 이유?
         }
         public bool LoadToken()
         {
+            if(_watcher == null)
+                throw new System.Exception("LoadToken() without watcher alive");
+
             try
             {
+                _watcher.EnableRaisingEvents = false;
                 File.Copy(_dstpath + _tokenName, _srcpath + "\\" + _tokenName, true);
+            }
+            catch(FileNotFoundException err)
+            {
+                throw new FileNotFoundException("need token to generate"); //need token to generate
             }
             catch(IOException copyErr)
             {
                 return false;
             }
+            _watcher.EnableRaisingEvents = true;
+
+            NLog.LogManager.GetCurrentClassLogger().Info("Token Loaded");
             return true;
         }
     }

@@ -372,12 +372,15 @@ namespace SCTool_Redesigned.Windows
             }
             else    //Launch Game
             {
-                if (LauchTokenManager.Instance.LoadToken())    //TODO: update tokens
+                try
                 {
+                    LauchTokenManager.Instance.LoadToken();
                     App.RunGame();
                 }
-                else
-                    MessageBox.Show(Properties.Resources.MSG_Title_GeneralError, Properties.Resources.MSG_Desc_InvalidAccess);  //FIXME:Update desc string...?
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, Properties.Resources.MSG_Title_GeneralError);  //FIXME:Update desc string...?
+                }
             }
         }
 
