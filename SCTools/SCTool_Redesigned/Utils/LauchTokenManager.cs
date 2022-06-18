@@ -40,9 +40,9 @@ namespace SCTool_Redesigned.Utils
             if (_watcher != null)    return;
             _watcher = new FileSystemWatcher(_srcpath);
 
-            _watcher.NotifyFilter = NotifyFilters.LastWrite;
-                                  //| NotifyFilters.CreationTime;
-                                  //| NotifyFilters.LastAccess;
+            _watcher.NotifyFilter = NotifyFilters.LastWrite
+                                  | NotifyFilters.CreationTime
+                                  | NotifyFilters.LastAccess;
             _watcher.EnableRaisingEvents = true;
             _watcher.Filter = _tokenName;
 
