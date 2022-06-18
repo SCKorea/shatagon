@@ -29,7 +29,7 @@ namespace SCTool_Redesigned.Windows
         internal static MainWindow UI;
 
         public enum InstallerMode { install, uninstall, disable };
-        public enum MainBtnMode { install, update, launch };
+        public enum MainBtnMode { install, update, launch, reinstall };
         private MainBtnMode _MainBtnState;
         private InstallerMode _installmode;
         private int _PhaseNumber;
@@ -514,8 +514,10 @@ namespace SCTool_Redesigned.Windows
                     }
                     else
                     {
-                        //text = Properties.Resources.UI_Button_ReInstallLocalization;
-                        _MainBtnState = MainBtnMode.launch;
+                        if (RepositoryManager.TargetInstallation.IsEnabled)
+                            _MainBtnState = MainBtnMode.launch;
+                        else
+                            _MainBtnState = MainBtnMode.reinstall;
                     }
                 }
 
@@ -532,6 +534,9 @@ namespace SCTool_Redesigned.Windows
                             break;
                         case MainBtnMode.launch:
                             InstallBtn.Content = Properties.Resources.UI_Button_LaunchGame;
+                            break;
+                        case MainBtnMode.reinstall:
+                            InstallBtn.Content = Properties.Resources.UI_Button_ReInstallLocalization;
                             break;
                     }
                 }));
