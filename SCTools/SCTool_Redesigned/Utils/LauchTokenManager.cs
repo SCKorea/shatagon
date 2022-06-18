@@ -42,7 +42,7 @@ namespace SCTool_Redesigned.Utils
 
             _watcher.NotifyFilter = NotifyFilters.LastWrite
                                   | NotifyFilters.CreationTime
-                                  | NotifyFilters.LastAccess;
+                                  | NotifyFilters.FileName;
             _watcher.EnableRaisingEvents = true;
             _watcher.Filter = _tokenName;
 
@@ -52,8 +52,12 @@ namespace SCTool_Redesigned.Utils
         }
         private void UpdateToken(object sender, FileSystemEventArgs e)
         {
-            if ( File.GetLastWriteTime(_srcpath + "\\" + _tokenName).Subtract(_lastevent).Minutes < 1)
+            NLog.LogManager.GetCurrentClassLogger().Info("Watcher awake");
+            if (File.GetLastWriteTime(_srcpath + "\\" + _tokenName).Subtract(_lastevent).Seconds < 2)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Info("but fall by "+ File.GetLastWriteTime(_srcpath + "\\" + _tokenName).Subtract(_lastevent).Seconds.ToString());
                 return; //discard duplicated events
+            }
 
             File.Copy(_srcpath + "\\" + _tokenName, _dstpath + _tokenName, true);
             NLog.LogManager.GetCurrentClassLogger().Info("Token Copied");
