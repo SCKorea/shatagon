@@ -75,15 +75,18 @@ namespace SCTool_Redesigned.Utils
                 _watcher.EnableRaisingEvents = false;
                 File.Copy(_dstpath + _tokenName, _srcpath + "\\" + _tokenName, true);
             }
-            catch(FileNotFoundException err)
+            catch (FileNotFoundException err)
             {
                 throw new FileNotFoundException(Properties.Resources.MSG_Desc_NeedTokenGenerate); //need token to generate
             }
-            catch(IOException copyErr)
+            catch (IOException copyErr)
             {
                 return false;
             }
-            _watcher.EnableRaisingEvents = true;
+            finally
+            {
+                _watcher.EnableRaisingEvents = true;
+            }
 
             NLog.LogManager.GetCurrentClassLogger().Info("Token Loaded");
             return true;
