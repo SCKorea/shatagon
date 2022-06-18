@@ -289,9 +289,9 @@ namespace SCTool_Redesigned.Windows
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
-                        NextBtn.Text = Properties.Resources.UI_Button_Quit;
+                        NextBtn.Text = Properties.Resources.UI_Button_Return;
                         PrevBtn.Visibility = Visibility.Visible;
-                        PrevBtn.Text = Properties.Resources.UI_Button_Return;
+                        PrevBtn.Text = Properties.Resources.UI_Button_Quit;
                         Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
                         Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
                         Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
@@ -327,7 +327,10 @@ namespace SCTool_Redesigned.Windows
 
         private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Phase++;
+            if (Phase != 7)
+                Phase++;
+            else
+                Phase = 3;
         }
 
         private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -335,7 +338,7 @@ namespace SCTool_Redesigned.Windows
             if (Phase != 7)
                 Phase--;
             else
-                Phase = 3;
+                Phase++;
         }
 
         internal bool DoNotCloseMainWindow = false;
