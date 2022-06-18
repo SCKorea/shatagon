@@ -330,6 +330,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Need to Generate Token. Please Launch the game by RSI Launcher with this patcher alive. then launch the game with this patcher.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Desc_NeedTokenGenerate {
+            get {
+                return ResourceManager.GetString("MSG_Desc_NeedTokenGenerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Localization removed successful과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Desc_Uninstall {

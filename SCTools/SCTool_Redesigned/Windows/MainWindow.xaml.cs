@@ -201,7 +201,6 @@ namespace SCTool_Redesigned.Windows
                         Menu_patchnote.IsEnabled = true;  Menu_patchnote.Visibility = Visibility.Visible;
                         Menu_qna.IsEnabled = true;        Menu_qna.Visibility = Visibility.Visible;
                         Menu_credit.IsEnabled = true;     Menu_credit.Visibility = Visibility.Visible;
-                        //Menu_credit_PreviewMouseLeftButtonDown(null,null);
                         Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
                         Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
                         Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
@@ -215,6 +214,7 @@ namespace SCTool_Redesigned.Windows
                             Update_ToggleBtn();
                             LauchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder+ "\\LIVE", App.LocalappDir);
                         }
+
                         break;
 
                     case 4: //select Dir
@@ -332,7 +332,7 @@ namespace SCTool_Redesigned.Windows
                 Phase++;
             else
                 Phase = 3;
-        }
+         }
 
         private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {

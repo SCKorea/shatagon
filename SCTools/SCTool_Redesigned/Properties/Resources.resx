@@ -214,6 +214,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="MSG_Desc_InvalidAccess" xml:space="preserve">
     <value>Invalid Access</value>
   </data>
+  <data name="MSG_Desc_NeedTokenGenerate" xml:space="preserve">
+    <value>Need to Generate Token. Please Launch the game by RSI Launcher with this patcher alive. then launch the game with this patcher.</value>
+  </data>
   <data name="MSG_Desc_Uninstall" xml:space="preserve">
     <value>Localization removed successful</value>
   </data>

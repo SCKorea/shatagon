@@ -64,7 +64,7 @@ namespace SCTool_Redesigned.Utils
         public bool LoadToken()
         {
             if(_watcher == null)
-                throw new System.Exception("LoadToken() without watcher alive");
+                throw new System.Exception(Properties.Resources.MSG_Desc_InvalidAccess);
 
             try
             {
@@ -73,7 +73,7 @@ namespace SCTool_Redesigned.Utils
             }
             catch(FileNotFoundException err)
             {
-                throw new FileNotFoundException("need token to generate"); //need token to generate
+                throw new FileNotFoundException(Properties.Resources.MSG_Desc_NeedTokenGenerate); //need token to generate
             }
             catch(IOException copyErr)
             {
