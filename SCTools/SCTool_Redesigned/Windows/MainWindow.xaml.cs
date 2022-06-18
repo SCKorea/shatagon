@@ -206,12 +206,13 @@ namespace SCTool_Redesigned.Windows
                         Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
                         Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
 
+                        SetInstallbtnLabel();
+
                         if (IsLocalizationInstalled())
                         {
                             UninstallBtn.Visibility = Visibility.Visible;
                             DisableBtn.Visibility = Visibility.Visible;
                             Update_ToggleBtn();
-                            SetInstallbtnLabel();
                             LauchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder+ "\\LIVE", App.LocalappDir);
                         }
                         break;
