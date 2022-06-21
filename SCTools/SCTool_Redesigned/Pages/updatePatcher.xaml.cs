@@ -74,6 +74,8 @@ namespace SCTool_Redesigned.Pages
                 if (availableUpdate != null)
                 {
                     App.Logger.Info("Program is not the latest version.");
+                    App.Logger.Info("New Version found: "+availableUpdate.GetVersion());
+                    App.Logger.Info("Current Version: " + GetUpdateRepository().CurrentVersion);
 
                     //FIXME:
                     var downloadDialogAdapter = new DownloadProgressDialogAdapter(null, this);
@@ -134,7 +136,7 @@ namespace SCTool_Redesigned.Pages
             var updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
 
             updateRepository.AllowPreReleases = App.Settings.Nightly;
-            updateRepository.SetCurrentVersion(App.Version.ToString(3));
+            updateRepository.SetCurrentVersion(App.Version.ToString(4));
 
             return updateRepository;
         }
