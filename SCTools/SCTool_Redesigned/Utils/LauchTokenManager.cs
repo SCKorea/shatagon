@@ -47,6 +47,7 @@ namespace SCTool_Redesigned.Utils
             _watcher.Filter = _tokenName;
 
             _watcher.Changed += new FileSystemEventHandler(UpdateToken);
+            _watcher.Created += new FileSystemEventHandler(UpdateToken);
 
             NLog.LogManager.GetCurrentClassLogger().Info("Watcher started at "+_srcpath);
         }
