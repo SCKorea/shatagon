@@ -390,6 +390,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="App.debug.config" />
+    <None Include="App.release.config" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -452,4 +454,13 @@
     <Error Condition="!Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net45.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net45.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NETFramework.ReferenceAssemblies.net45.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net45.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.NETFramework.ReferenceAssemblies.net45.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net45.targets" Condition="Exists('..\packages\Microsoft.NETFramework.ReferenceAssemblies.net45.1.0.2\build\Microsoft.NETFramework.ReferenceAssemblies.net45.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>del "$(ProjectDir)App.config"
+
+if "$(ConfigurationName)"=="Debug" (
+  copy "$(ProjectDir)App.debug.config" "$(ProjectDir)App.config"
+) else (
+  copy "$(ProjectDir)App.release.config" "$(ProjectDir)App.config"
+)</PreBuildEvent>
+  </PropertyGroup>
 </Project>
