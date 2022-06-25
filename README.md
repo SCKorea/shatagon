@@ -1,13 +1,14 @@
 # Shatagon Patcher
-Star Citizen localization Installer
+Star Citizen Localization Patch Installer
 
-![이미지 010](https://user-images.githubusercontent.com/11701767/110320126-32ed8580-8053-11eb-9930-0b99086ba76e.png)  
+![image](https://user-images.githubusercontent.com/17900502/175770017-70bb6c1f-839e-42cd-b39f-4b4e35235e93.png)
 
 ## Features
 ### Localization features
 - Download and install localization from GitHub repositories
 - Disable localization without full uninstall
 - Full unininstall localization (with cleanup from all files)
+- Launch the game with installed localization
 
 ### General features
 - Information panel that works with the markdown of the repository
@@ -18,6 +19,9 @@ Star Citizen localization Installer
 - Automatic program update
 - Google Analytics integration
 
+### Special features for Korean Localization
+- Download localization data from private repository with daily access code
+
 ## Maintenance
-[Laeng](https://github.com/laeng) and [Marona42](https://github.com/marona42), who met at the Star Citizen Korean Localization Project, are doing maintenance and enhance.  
+[Laeng](https://github.com/laeng) and [marona42](https://github.com/marona42), who met at the Star Citizen Korean Localization Project, are doing maintenance and enhance.  
 If you are interested in the Star Citizen Korean Localization Project, please visit [here](https://sc.galaxyhub.kr).
