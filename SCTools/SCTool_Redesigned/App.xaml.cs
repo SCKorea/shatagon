@@ -84,6 +84,8 @@ namespace SCTool_Redesigned
                 return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
         }
 
+        private static Process _gamePrc = null;
+
         public static bool IsRunGame()
         {
             Process[] pname = Process.GetProcessesByName("StarCitizen");
@@ -93,7 +95,18 @@ namespace SCTool_Redesigned
 
         public static void RunGame()
         {
-            Process.Start(Settings.GameFolder + "\\LIVE\\Bin64\\StarCitizen.exe");
+            if (IsRunGame())
+                return;
+
+            if (_gamePrc == null)
+            {
+                _gamePrc = new Process();
+                _gamePrc.StartInfo.FileName = Settings.GameFolder + "\\LIVE\\Bin64\\StarCitizen.exe";
+                _gamePrc.Exited += (sender, args) => { LauchTokenManager.Instance.UnloadToken(); _gamePrc.EnableRaisingEvents = false; };
+            }
+            _gamePrc.Start();
+            _gamePrc.EnableRaisingEvents = true;
+
         }
 
         //from Program.Global

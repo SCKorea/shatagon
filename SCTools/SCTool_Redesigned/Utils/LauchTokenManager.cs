@@ -92,5 +92,18 @@ namespace SCTool_Redesigned.Utils
             NLog.LogManager.GetCurrentClassLogger().Info("Token Loaded");
             return true;
         }
+        public void UnloadToken()
+        {
+            try
+            {
+                File.Delete(_srcpath + "\\" + _tokenName);
+            }
+            catch (FileNotFoundException err)
+            {
+                throw new FileNotFoundException(Properties.Resources.MSG_Desc_InvalidAccess+err.Message);
+            }
+
+            NLog.LogManager.GetCurrentClassLogger().Info("Token Unloaded");
+        }
     }
 }
