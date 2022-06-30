@@ -27,7 +27,11 @@ namespace SCTool_Redesigned
     public partial class App : Application
     {
         public static NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-
+#if DEBUG
+        public readonly static string ApiServer = "http://dev.muke.us";
+#else
+        public readonly static string ApiServer = "https://sc.galaxyhub.kr";
+#endif
         App()
         {
             if (Settings.Console)
