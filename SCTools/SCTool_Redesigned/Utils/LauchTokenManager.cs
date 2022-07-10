@@ -79,14 +79,15 @@ namespace SCTool_Redesigned.Utils
 
             try
             {
-                if (new FileInfo(_srcpath + "\\" + _tokenName).Length < 6)
-                    throw new FileNotFoundException();
+                if (new FileInfo(_dstpath + _tokenName).Length < 6)
+                { throw new FileNotFoundException("file is empty"); }
 
                 _watcher.EnableRaisingEvents = false;
                 File.Copy(_dstpath + _tokenName, _srcpath + "\\" + _tokenName, true);
             }
             catch (FileNotFoundException err)
             {
+                NLog.LogManager.GetCurrentClassLogger().Error(err.Message);
                 throw new FileNotFoundException(Properties.Resources.MSG_Desc_NeedTokenGenerate); //need token to generate
             }
             catch (IOException copyErr)
