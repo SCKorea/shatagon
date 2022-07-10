@@ -53,17 +53,23 @@ namespace SCTool_Redesigned.Utils
         }
         private void UpdateToken(object sender, FileSystemEventArgs e)
         {
+            string _tokenpath = _srcpath + "\\" + _tokenName;
             NLog.LogManager.GetCurrentClassLogger().Info("Watcher awake");
-            if (File.GetLastWriteTime(_srcpath + "\\" + _tokenName).Subtract(_lastevent).Seconds < 2)
+            if (new FileInfo(_tokenpath).Length < 6)
             {
-                NLog.LogManager.GetCurrentClassLogger().Info("but fall by "+ File.GetLastWriteTime(_srcpath + "\\" + _tokenName).Subtract(_lastevent).Seconds.ToString());
+                NLog.LogManager.GetCurrentClassLogger().Info("but was empty event");
+                return; //discard empty file events
+            }
+            if (File.GetLastWriteTime(_tokenpath).Subtract(_lastevent).Seconds < 2)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Info("but fall by "+ File.GetLastWriteTime(_tokenpath).Subtract(_lastevent).Seconds.ToString());
                 return; //discard duplicated events
             }
 
-            File.Copy(_srcpath + "\\" + _tokenName, _dstpath + _tokenName, true);
+            File.Copy(_tokenpath, _dstpath + _tokenName, true);
             NLog.LogManager.GetCurrentClassLogger().Info("Token Copied");
 
-            _lastevent = File.GetLastWriteTime(_srcpath + "\\" + _tokenName);
+            _lastevent = File.GetLastWriteTime(_tokenpath);
             //FIXME: COPY시 예외들 처리
         }
         public bool LoadToken()
@@ -73,6 +79,9 @@ namespace SCTool_Redesigned.Utils
 
             try
             {
+                if (new FileInfo(_srcpath + "\\" + _tokenName).Length < 6)
+                    throw new FileNotFoundException();
+
                 _watcher.EnableRaisingEvents = false;
                 File.Copy(_dstpath + _tokenName, _srcpath + "\\" + _tokenName, true);
             }
