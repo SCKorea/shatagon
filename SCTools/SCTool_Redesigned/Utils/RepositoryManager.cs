@@ -291,7 +291,7 @@ namespace SCTool_Redesigned.Utils
                     json.Add("status", false);
 
                     var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
-                    connectTask = client.PostAsync("https://sc.galaxyhub.kr/api/v4/document", content);
+                    connectTask = client.PostAsync(App.ApiServer + "/api/v4/document", content);
                 }
                 else
                 {
@@ -352,7 +352,7 @@ namespace SCTool_Redesigned.Utils
 
                 if (GetLocalizationSource().Repository.Equals("sckorea/sc_ko"))
                 {
-                    customGithubRepo.ChangeReleasesUrl("https://sc.galaxyhub.kr/api/v4/release/all?account_id=sckorea&repository_name=sc_ko&status=0");
+                    customGithubRepo.ChangeReleasesUrl(App.ApiServer + "/api/v4/release/all?account_id=sckorea&repository_name=sc_ko&status=0");
                 }
 
                 //customGithubRepo.UpdateAsync(cancellationToken).Wait();
