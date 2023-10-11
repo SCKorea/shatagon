@@ -270,6 +270,7 @@
     <Compile Include="Localization\CustomGitHubLocalizationRepository.cs" />
     <Compile Include="Localization\CustomGitHubRepository.cs" />
     <Compile Include="Localization\CustomLocalizationInstaller.cs" />
+    <Compile Include="Settings\LocalizationSettings.cs" />
     <Compile Include="Update\CustomPackageVerifier.cs" />
     <Compile Include="Update\CustomUpdateInfo.cs" />
     <Compile Include="Utils\LauchTokenManager.cs" />
@@ -307,7 +308,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Settings\AppSettings.cs" />
-    <Compile Include="Settings\LocalizationSettings.cs" />
     <Compile Include="Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>

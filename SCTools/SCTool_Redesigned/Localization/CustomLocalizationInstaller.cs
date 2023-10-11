@@ -69,7 +69,7 @@ namespace SCTool_Redesigned.Localization
                 }
 
                 var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
-                var userConfig = new ConfigParser(userConifgPath);
+                var userConfig = GetConfig(userConifgPath);
 
                 userConfig.SetValue("Localization", "g_language", "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 편집이 필요하다.
                 userConfig.Save();
@@ -119,7 +119,7 @@ namespace SCTool_Redesigned.Localization
                 return UninstallStatus.Failed;
             }
 
-            var userConfig = new ConfigParser(userConifgPath);
+            var userConfig = GetConfig(userConifgPath);
 
             userConfig.SetValue("Localization", "g_language", "english");
             userConfig.Save();
@@ -152,7 +152,7 @@ namespace SCTool_Redesigned.Localization
                 return LocalizationInstallationType.Disabled;
             }
 
-            var userConfig = new ConfigParser(userConifgPath);
+            var userConfig = GetConfig(userConifgPath);
 
             if (userConfig.GetValue("Localization", "g_language") == "english")
             {
@@ -171,7 +171,7 @@ namespace SCTool_Redesigned.Localization
                 return LocalizationInstallationType.None;
             }
 
-            var userConfig = new ConfigParser(userConifgPath);
+            var userConfig = GetConfig(userConifgPath);
 
             if (userConfig.GetValue("Localization", "g_language") == "english")
             {
@@ -189,29 +189,44 @@ namespace SCTool_Redesigned.Localization
             }
         }
 
+        private ConfigParser GetConfig(string path)
+        {
+            var setting = new ConfigParserSettings();
+            setting.MultiLineValues = MultiLineValues.AllowEmptyTopSection;
+
+            return new ConfigParser(path, setting);
+        }
+
         private static bool Unpack(string zipFileName, string destinationFolder)
         {
             using var archive = ZipFile.OpenRead(zipFileName);
+
             if (archive.Entries.Count == 0)
             {
                 _logger.Error($"Failed unpack archive. No entries found: {zipFileName}");
                 return false;
             }
+
             var dataExtracted = false;
             var coreExtracted = false;
             var rootEntry = archive.Entries[0];
             var dataPathStart = GameConstants.DataFolderName + "/";
+
             //extract only data folder and core module
             foreach (var entry in archive.Entries)
             {
                 if (entry.FullName.StartsWith(rootEntry.FullName, true, CultureInfo.InvariantCulture))
                 {
                     var relativePath = entry.FullName.Substring(rootEntry.FullName.Length);
+
                     if (string.IsNullOrEmpty(entry.Name) && relativePath.EndsWith("/"))
                     {
                         var dir = Path.Combine(destinationFolder, relativePath);
+
                         if (!Directory.Exists(dir))
+                        {
                             Directory.CreateDirectory(dir);
+                        }
                     }
                     else if (relativePath.StartsWith(dataPathStart, true, CultureInfo.InvariantCulture))
                     {
@@ -249,6 +264,5 @@ namespace SCTool_Redesigned.Localization
                 }
             }
         }
-       
     }
 }

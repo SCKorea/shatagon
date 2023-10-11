@@ -1,25 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Net.Http;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Windows.Forms;
 using NSW.StarCitizen.Tools.Lib.Update;
-using SCTool_Redesigned.Utils;
 using SCTool_Redesigned.Update;
-using System.IO;
+using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -42,7 +30,7 @@ namespace SCTool_Redesigned.Pages
             {
                 CleanUpdate();
             }
-            
+
         }
 
         private bool CheckUpdated()
