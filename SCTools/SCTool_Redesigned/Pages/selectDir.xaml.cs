@@ -1,18 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using NSW.StarCitizen.Tools.Lib.Global;
@@ -25,7 +14,7 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class selectDir : Page
     {
-        private const string Defaultdir = "C:\\Program Files\\Roberts Space Industries\\StarCitizen";
+        private const string Defaultdir = @"C:\Program Files\Roberts Space Industries\StarCitizen";
         public selectDir()
         {
             InitializeComponent();
@@ -46,15 +35,15 @@ namespace SCTool_Redesigned.Pages
         private string getDir()
         {
             string infofile = App.LocalappDir + "build.info";
-            if(!File.Exists(infofile))
+            if (!File.Exists(infofile))
             {
                 App.Logger.Warn("StarCitizeen build info File does not exist. Maybe not installed?");
                 throw new FileNotFoundException("build.info");
             }
             string[] _buildinfo = File.ReadAllLines(infofile);
-            App.Logger.Debug("guessedDir:"+_buildinfo[0].Substring(12, _buildinfo[0].Length - 27));
+            App.Logger.Debug("guessedDir:" + _buildinfo[0].Substring(12, _buildinfo[0].Length - 27));
             if (_buildinfo[0].Contains("\\LIVE\\Bin64\\StarCitizen.exe"))
-                return _buildinfo[0].Substring(12,_buildinfo[0].Length-27);
+                return _buildinfo[0].Substring(12, _buildinfo[0].Length - 27);
             App.Logger.Warn("Cannot get path from build info");
             throw new FileFormatException("build.info");
         }

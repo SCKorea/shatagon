@@ -1,22 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using NSW.StarCitizen.Tools.Lib.Global;
-using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Windows
@@ -55,7 +48,8 @@ namespace SCTool_Redesigned.Windows
             _prologue = new PrefaceWindow();
             _author = new AuthWindow();
             set_link(App.Settings.GameLanguage);
-            _mainBG = new ImageBrush();            _subBG = new ImageBrush();
+            _mainBG = new ImageBrush();
+            _subBG = new ImageBrush();
             _mainBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG1.png"));
             //_mainBG.ImageSource = new BitmapImage(new Uri(@"/Resources/BG1.png", UriKind.Relative));
             _mainBG.Stretch = Stretch.UniformToFill;
@@ -134,7 +128,7 @@ namespace SCTool_Redesigned.Windows
                         Hide();
                         _prologue.Content = new Pages.updatePatcher();
                         _prologue.Show();
-                        
+
                         break;
 
                     case 1:     //select laucher language
@@ -178,11 +172,16 @@ namespace SCTool_Redesigned.Windows
                         DisableBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
-                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
-                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
-                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
-                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
-                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
+                        Community_link1.IsEnabled = false;
+                        Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false;
+                        Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;
+                        Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;
+                        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;
+                        Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 3: //main Install
@@ -196,11 +195,16 @@ namespace SCTool_Redesigned.Windows
                         InstallBtn.Visibility = Visibility.Visible;
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Hidden;
-                        Community_link1.IsEnabled = true; Community_link1.Visibility = Visibility.Visible;
-                        Community_link2.IsEnabled = true; Community_link2.Visibility = Visibility.Visible;
-                        Menu_patchnote.IsEnabled = true;  Menu_patchnote.Visibility = Visibility.Visible;
-                        Menu_qna.IsEnabled = true;        Menu_qna.Visibility = Visibility.Visible;
-                        Menu_credit.IsEnabled = true;     Menu_credit.Visibility = Visibility.Visible;
+                        Community_link1.IsEnabled = true;
+                        Community_link1.Visibility = Visibility.Visible;
+                        Community_link2.IsEnabled = true;
+                        Community_link2.Visibility = Visibility.Visible;
+                        Menu_patchnote.IsEnabled = true;
+                        Menu_patchnote.Visibility = Visibility.Visible;
+                        Menu_qna.IsEnabled = true;
+                        Menu_qna.Visibility = Visibility.Visible;
+                        Menu_credit.IsEnabled = true;
+                        Menu_credit.Visibility = Visibility.Visible;
                         Menu_patchnote.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
                         Menu_credit.Foreground = (SolidColorBrush)App.Current.Resources["KeyPointBrush"];
                         Menu_qna.Foreground = (SolidColorBrush)App.Current.Resources["TextBrush"];
@@ -212,7 +216,7 @@ namespace SCTool_Redesigned.Windows
                             UninstallBtn.Visibility = Visibility.Visible;
                             DisableBtn.Visibility = Visibility.Visible;
                             Update_ToggleBtn();
-                            LauchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder+ "\\LIVE", App.LocalappDir);
+                            LauchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder + "\\LIVE", App.LocalappDir);
                         }
 
                         break;
@@ -231,11 +235,16 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Text = Properties.Resources.UI_Button_Next;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
-                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
-                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
-                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
-                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
-                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
+                        Community_link1.IsEnabled = false;
+                        Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false;
+                        Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;
+                        Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;
+                        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;
+                        Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 5: //select Version
@@ -252,11 +261,16 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Text = Properties.Resources.UI_Button_Install;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
-                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
-                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
-                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
-                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
-                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
+                        Community_link1.IsEnabled = false;
+                        Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false;
+                        Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;
+                        Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;
+                        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;
+                        Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 6: //installing?
@@ -272,11 +286,16 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Visibility = Visibility.Hidden;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Cancel;
-                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
-                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
-                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
-                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
-                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
+                        Community_link1.IsEnabled = false;
+                        Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false;
+                        Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;
+                        Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;
+                        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;
+                        Menu_credit.Visibility = Visibility.Hidden;
                         break;
 
                     case 7: //installComplete
@@ -293,11 +312,16 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Text = Properties.Resources.UI_Button_Return;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Quit;
-                        Community_link1.IsEnabled = false; Community_link1.Visibility = Visibility.Hidden;
-                        Community_link2.IsEnabled = false; Community_link2.Visibility = Visibility.Hidden;
-                        Menu_patchnote.IsEnabled = false;  Menu_patchnote.Visibility = Visibility.Hidden;
-                        Menu_qna.IsEnabled = false;        Menu_qna.Visibility = Visibility.Hidden;
-                        Menu_credit.IsEnabled = false;     Menu_credit.Visibility = Visibility.Hidden;
+                        Community_link1.IsEnabled = false;
+                        Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false;
+                        Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;
+                        Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;
+                        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;
+                        Menu_credit.Visibility = Visibility.Hidden;
 
                         break;
 
@@ -332,7 +356,7 @@ namespace SCTool_Redesigned.Windows
                 Phase++;
             else
                 Phase = 3;
-         }
+        }
 
         private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -502,7 +526,7 @@ namespace SCTool_Redesigned.Windows
                         ++installed;
 
                         var patch = data.Installations.FirstOrDefault();
-                        
+
                         if (release.Count() > 0 && !release.FirstOrDefault().Name.Equals(patch.InstalledVersion))
                         {
                             Debug.WriteLine(release.FirstOrDefault().Name);
@@ -525,7 +549,7 @@ namespace SCTool_Redesigned.Windows
                         //if (RepositoryManager.TargetInstallation.IsEnabled)
                         //    _MainBtnState = MainBtnMode.launch;
                         //else
-                            _MainBtnState = MainBtnMode.reinstall;
+                        _MainBtnState = MainBtnMode.reinstall;
                     }
                 }
 

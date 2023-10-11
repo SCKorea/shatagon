@@ -18,9 +18,9 @@ namespace SCTool_Redesigned.Utils
         {
             get
             {
-                lock(_padlock)      //make thread-safe
+                lock (_padlock)      //make thread-safe
                 {
-                    if(_instance == null)
+                    if (_instance == null)
                     {
                         _instance = new LauchTokenManager();
                     }
@@ -37,7 +37,8 @@ namespace SCTool_Redesigned.Utils
 
         public void BeginWatch()
         {
-            if (_watcher != null)    return;
+            if (_watcher != null)
+                return;
             _watcher = new FileSystemWatcher(_srcpath);
 
             _watcher.NotifyFilter = NotifyFilters.LastWrite
@@ -49,7 +50,7 @@ namespace SCTool_Redesigned.Utils
             _watcher.Changed += new FileSystemEventHandler(UpdateToken);
             _watcher.Created += new FileSystemEventHandler(UpdateToken);
 
-            NLog.LogManager.GetCurrentClassLogger().Info("Watcher started at "+_srcpath);
+            NLog.LogManager.GetCurrentClassLogger().Info("Watcher started at " + _srcpath);
         }
         private void UpdateToken(object sender, FileSystemEventArgs e)
         {
@@ -62,7 +63,7 @@ namespace SCTool_Redesigned.Utils
             }
             if (File.GetLastWriteTime(_tokenpath).Subtract(_lastevent).Seconds < 2)
             {
-                NLog.LogManager.GetCurrentClassLogger().Info("but fall by "+ File.GetLastWriteTime(_tokenpath).Subtract(_lastevent).Seconds.ToString());
+                NLog.LogManager.GetCurrentClassLogger().Info("but fall by " + File.GetLastWriteTime(_tokenpath).Subtract(_lastevent).Seconds.ToString());
                 return; //discard duplicated events
             }
 
@@ -74,7 +75,7 @@ namespace SCTool_Redesigned.Utils
         }
         public bool LoadToken()
         {
-            if(_watcher == null)
+            if (_watcher == null)
                 throw new System.Exception(Properties.Resources.MSG_Desc_InvalidAccess);
 
             try
@@ -110,7 +111,7 @@ namespace SCTool_Redesigned.Utils
             }
             catch (FileNotFoundException err)
             {
-                throw new FileNotFoundException(Properties.Resources.MSG_Desc_InvalidAccess+err.Message);
+                throw new FileNotFoundException(Properties.Resources.MSG_Desc_InvalidAccess + err.Message);
             }
 
             NLog.LogManager.GetCurrentClassLogger().Info("Token Unloaded");

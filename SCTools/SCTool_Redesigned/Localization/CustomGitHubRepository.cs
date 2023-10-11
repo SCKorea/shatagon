@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -22,7 +21,7 @@ namespace SCTool_Redesigned.Localization
         private readonly CustomUpdateInfo.Factory _gitHubUpdateInfoFactory;
 
         private string _repoReleasesUrl;
-        
+
         public new GitHubDownloadType DownloadType { get; }
         public new string AuthToken { get; set; }
 
@@ -60,7 +59,7 @@ namespace SCTool_Redesigned.Localization
                 {
                     _cache.Remove(DownloadType);
                 }
-                
+
                 _cache.Add(DownloadType, JsonHelper.Read<GitRelease[]>(content));
 
                 return true;
@@ -73,12 +72,12 @@ namespace SCTool_Redesigned.Localization
         {
             if (_cache.Count <= 0 || !_cache.ContainsKey(DownloadType) || cache)
             {
-                await UpdateAsync(cancellationToken);    
+                await UpdateAsync(cancellationToken);
             }
 
             return _cache[DownloadType];
         }
-        
+
         public override async Task<bool> CheckAsync(CancellationToken cancellationToken)
         {
             var cache = _cache;
@@ -101,7 +100,7 @@ namespace SCTool_Redesigned.Localization
         public override async Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken)
         {
             var releases = await GetReleasesAsync(false, cancellationToken);
-            
+
             if (releases != null && releases.Any())
             {
                 return DownloadType switch
@@ -220,5 +219,5 @@ namespace SCTool_Redesigned.Localization
         }
         #endregion
     }
-    
+
 }

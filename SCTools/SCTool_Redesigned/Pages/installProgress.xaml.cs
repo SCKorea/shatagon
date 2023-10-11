@@ -1,19 +1,15 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
-
-using SCTool_Redesigned.Windows;
-using SCTool_Redesigned.Utils;
 using NSW.StarCitizen.Tools.Lib.Global;
-using NSW.StarCitizen.Tools.Lib.Update;
 using NSW.StarCitizen.Tools.Lib.Localization;
+using NSW.StarCitizen.Tools.Lib.Update;
+using SCTool_Redesigned.Utils;
+using SCTool_Redesigned.Windows;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -31,7 +27,7 @@ namespace SCTool_Redesigned.Pages
             //TODO: CHOOSE PTU LIVE 
             foreach (GameInfo gameInfo in GameFolders.GetGameModes(App.Settings.GameFolder))
             {
-                if( gameInfo.Mode == GameMode.LIVE)
+                if (gameInfo.Mode == GameMode.LIVE)
                 {
                     App.CurrentGame = gameInfo;
                     break;
@@ -68,7 +64,7 @@ namespace SCTool_Redesigned.Pages
             {
                 Cursor = Cursors.Wait;
 
-                var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.TargetInstallation.InstalledVersion,this);
+                var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.TargetInstallation.InstalledVersion, this);
                 var filePath = await RepositoryManager.TargetRepository.DownloadAsync(RepositoryManager.TargetInfo, Path.GetTempPath(),
                     _cancellationToken.Token, downloadDialogAdapter);
                 var result = RepositoryManager.TargetRepository.Installer.Install(filePath, App.CurrentGame.RootFolderPath);
@@ -136,7 +132,7 @@ namespace SCTool_Redesigned.Pages
             {
                 RepositoryManager.ToggleLocalization();
 
-                if(!RepositoryManager.TargetInstallation.IsEnabled)
+                if (!RepositoryManager.TargetInstallation.IsEnabled)
                 {
                     RepositoryManager.ToggleLocalization(); //to ensure enabled
                 }
@@ -202,7 +198,7 @@ namespace SCTool_Redesigned.Pages
                 {
                     App.Logger.Error(e, "Error during uninstall localization");
 
-                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText+"\n"+e.Message,
+                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText + "\n" + e.Message,
                         Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }

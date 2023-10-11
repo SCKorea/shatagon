@@ -1,23 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Reflection;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using NSW.StarCitizen.Tools.Lib.Helpers;
-using NSW.StarCitizen.Tools.Lib.Global;
-using SCTool_Redesigned.Settings;
-using SCTool_Redesigned.Windows;
-using System.Windows.Controls;
 using System.Net.NetworkInformation;
+using System.Reflection;
+using System.Windows;
+using NSW.StarCitizen.Tools.Lib.Global;
+using NSW.StarCitizen.Tools.Lib.Helpers;
+using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Utils;
-using Microsoft.Win32;
 
 namespace SCTool_Redesigned
 {
@@ -82,7 +73,7 @@ namespace SCTool_Redesigned
         public static bool SaveAppSettings(AppSettings settings)
         {
             var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            
+
             if (Directory.Exists(LocalappDir))
                 return JsonHelper.WriteFile(Path.Combine(LocalappDir, AppSettingsFileName), settings);
             else
@@ -168,13 +159,14 @@ namespace SCTool_Redesigned
                 {
                     pass = HttpNetClient.Client.GetStringAsync("https://api.ipify.org").Result.Length > 0;
 
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     Logger.Warn("FAIL: Internet unavailable.");
 
                     pass = false;
                 }
-                
+
             }
 
             Logger.Info("SUCCESS: Internet available.");

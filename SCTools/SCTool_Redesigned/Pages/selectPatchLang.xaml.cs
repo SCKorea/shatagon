@@ -1,20 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SCTool_Redesigned.Settings;
-using SCTool_Redesigned.Windows;
 using SCTool_Redesigned.Utils;
+using SCTool_Redesigned.Windows;
 namespace SCTool_Redesigned.Pages
 {
     /// <summary>
@@ -41,14 +28,14 @@ namespace SCTool_Redesigned.Pages
 
             MainWindow.UI.Phase++;
         }
-        
+
 
         private void LocalizationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (LocalizationListBox.SelectedValue is string language)
             {
                 App.Settings.GameLanguage = language;
-                if(!RepositoryManager.SetTargetRepository())
+                if (!RepositoryManager.SetTargetRepository())
                 {
                     MessageBox.Show(Properties.Resources.MSG_Desc_InvalidAccess, Properties.Resources.MSG_Title_GeneralError, MessageBoxButton.OK, MessageBoxImage.Error);
                     App.Logger.Error("Wrong approach");

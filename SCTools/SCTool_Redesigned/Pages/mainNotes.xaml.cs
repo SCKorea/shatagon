@@ -2,28 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Xaml;
 using Markdig;
 using Markdig.Wpf;
-using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.Utils;
-using SCTool_Redesigned.Settings;
-using System.Text.RegularExpressions;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -53,11 +42,11 @@ namespace SCTool_Redesigned.Pages
                     break;
 
                 case 1: //qna
-                    
+
                     ShowMarkdownDocument("QNA.md");
                     break;
                 case 2: //credit
-                    
+
                     ShowMarkdownDocument("CREDIT.md");
                     break;
                 default:

@@ -8,7 +8,8 @@ namespace SCTool_Redesigned.Utils
     {
         private static HttpClient _client;
 
-        public static HttpClient Client {
+        public static HttpClient Client
+        {
             get
             {
                 if (_client == null)
@@ -43,7 +44,7 @@ namespace SCTool_Redesigned.Utils
             client.DefaultRequestHeaders.UserAgent.ParseAdd($"{App.Name}/{App.Version.ToString(3)}");
             client.Timeout = TimeSpan.FromMinutes(1);
 
-            return client; 
+            return client;
         }
     }
 }
