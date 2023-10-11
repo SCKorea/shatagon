@@ -18,7 +18,12 @@
     </FrameworkElement.CommandBindings>
 
     <Grid>
-        <FlowDocumentScrollViewer x:Name="NoteBlock" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="15,20" TextOptions.TextFormattingMode="Display" IsTabStop="False" Focusable="False"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Rectangle x:Name="Titlebar_right" Grid.Row="0"/>
+        <FlowDocumentScrollViewer x:Name="NoteBlock" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="15,20" TextOptions.TextFormattingMode="Display" IsTabStop="False" Focusable="False" Grid.Row="1"/>
     </Grid>
 
 </Page>

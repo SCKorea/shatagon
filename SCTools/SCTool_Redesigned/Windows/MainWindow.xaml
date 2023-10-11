@@ -18,9 +18,10 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Name="Titlebar" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftDown" Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}" Grid.ColumnSpan="2" Fill="Transparent"/>
+        <Rectangle Name="Titlebar" VerticalAlignment="Top" MouseLeftButtonDown="Border_MouseLeftDown" Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}" Grid.ColumnSpan="2" Fill="Transparent" Panel.ZIndex="100"/>
+
         <Button Name="Close" Content="╳" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0" Grid.Column="1" Click="Quit"
-                Style="{StaticResource CloseBtnStyle}" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold"/>
+                Style="{StaticResource CloseBtnStyle}" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Panel.ZIndex="100"/>
 
         <Canvas Name="logoCanvas" Grid.Column="0" Grid.Row="1" HorizontalAlignment="center" Height="120" Margin="0,0,0,160" VerticalAlignment="Center" Width="180">
             <Image Source="/Resources/logo.png" Width="{Binding Path=ActualWidth, ElementName=logoCanvas}" Height="{Binding Path=ActualHeight, ElementName=logoCanvas}" Stretch="Uniform"/>
@@ -30,7 +31,7 @@
 
         <Frame x:Name="frame_all"   NavigationUIVisibility="Hidden" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"/>
         <Frame x:Name="frame_left"  NavigationUIVisibility="Hidden" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"/>
-        <Frame x:Name="frame_right" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"/>
+        <Frame x:Name="frame_right" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.RowSpan="3"/>
 
         <TextBlock x:Name="PrevBtn" Height="30" Margin="15,0,0,10" TextWrapping="Wrap" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Width="80" HorizontalAlignment="Left" Cursor="Hand"
                    Text="{x:Static lang:Resources.UI_Button_Previous}" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontSize="21" PreviewMouseDown="PrevBtn_PreviewMouseDown" Visibility="Hidden" />
