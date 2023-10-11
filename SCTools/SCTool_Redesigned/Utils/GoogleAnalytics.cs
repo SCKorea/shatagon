@@ -15,7 +15,7 @@ namespace SCTool_Redesigned.Utils
 {
     class GoogleAnalytics
     {
-        private static bool Enable = true;
+        private static bool Enable = false;
 
         private static readonly string UA = $"SCTools Redesigned ({Environment.OSVersion.VersionString})";
         private static readonly string UL = CultureInfo.CurrentCulture.Name;
