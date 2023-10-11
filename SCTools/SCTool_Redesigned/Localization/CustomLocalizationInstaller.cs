@@ -1,16 +1,22 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using NLog;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Helpers;
-using NSW.StarCitizen.Tools.Lib.Properties;
+using NSW.StarCitizen.Tools.Lib.Localization;
+using Salaros.Configuration;
+using SCTool_Redesigned.Properties;
 
-namespace NSW.StarCitizen.Tools.Lib.Localization
+namespace SCTool_Redesigned.Localization
 {
-    public class DefaultLocalizationInstaller : ILocalizationInstaller
+    public class CustomLocalizationInstaller : ILocalizationInstaller
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
@@ -21,52 +27,58 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
                 _logger.Error($"Install directory is not exist: {destinationFolder}");
                 return InstallStatus.FileError;
             }
-            DirectoryInfo? unpackDataDir = null;
-            DirectoryInfo? backupDataDir = null;
+
+            DirectoryInfo unpackDataDir = null;
+            DirectoryInfo backupDataDir = null;
             var dataPathDir = new DirectoryInfo(GameConstants.GetDataFolderPath(destinationFolder));
+
             try
             {
                 var unpackDataDirPath = Path.Combine(destinationFolder, "temp_" + Path.GetRandomFileName());
                 unpackDataDir = Directory.CreateDirectory(unpackDataDirPath);
+
                 if (!Unpack(zipFileName, unpackDataDir.FullName))
                 {
                     _logger.Error($"Failed unpack install package to: {unpackDataDirPath}");
                     return InstallStatus.PackageError;
                 }
+
                 var newLibraryPath = Path.Combine(unpackDataDir.FullName, GameConstants.PatcherOriginalName);
-                using var libraryCertVerifier = new FileCertVerifier(Resources.CoreSigning);
-                if (!libraryCertVerifier.VerifyFile(newLibraryPath))
-                {
-                    _logger.Error("Core certificate is invalid. Abort installation");
-                    return InstallStatus.VerifyError;
-                }
+
+                //using var libraryCertVerifier = new FileCertVerifier(Resources.CoreSigning);
+                //if (!libraryCertVerifier.VerifyFile(newLibraryPath))
+                //{
+                //    _logger.Error("Core certificate is invalid. Abort installation");
+                //    return InstallStatus.VerifyError;
+                //}
+
                 if (dataPathDir.Exists)
                 {
                     var backupDataDirPath = Path.Combine(destinationFolder, "backup_" + Path.GetRandomFileName());
+
                     Directory.Move(dataPathDir.FullName, backupDataDirPath);
                     backupDataDir = new DirectoryInfo(backupDataDirPath);
                 }
+
                 Directory.Move(GameConstants.GetDataFolderPath(unpackDataDir.FullName), dataPathDir.FullName);
+
                 if (backupDataDir != null)
                 {
                     FileUtils.DeleteDirectoryNoThrow(backupDataDir, true);
                     backupDataDir = null;
                 }
-                //var enabledLibraryPath = GameConstants.GetEnabledPatcherPath(destinationFolder);
-                //if (File.Exists(enabledLibraryPath))
-                //{
-                //    File.Delete(enabledLibraryPath);
-                //    File.Move(newLibraryPath, enabledLibraryPath);
-                //}
-                //else
-                //{
-                //    var disabledLibraryPath = GameConstants.GetDisabledPatcherPath(destinationFolder);
-                //    if (File.Exists(disabledLibraryPath))
-                //    {
-                //        File.Delete(disabledLibraryPath);
-                //    }
-                //    File.Move(newLibraryPath, disabledLibraryPath);
-                //}
+
+                var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
+
+                if (!File.Exists(userConifgPath))
+                {
+                    File.Create(userConifgPath);
+                }
+
+                var userConfig = new ConfigParser(userConifgPath);
+
+                userConfig.SetValue("shatagon", "g_language", "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 편집이 필요하다.
+
             }
             catch (CryptographicException e)
             {
@@ -94,61 +106,87 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
                     RestoreDirectory(backupDataDir, dataPathDir);
                 }
             }
+
             return InstallStatus.Success;
         }
 
         public UninstallStatus Uninstall(string destinationFolder)
         {
             if (!Directory.Exists(destinationFolder))
+            {
                 return UninstallStatus.Failed;
-            //string enabledLibraryPath = GameConstants.GetEnabledPatcherPath(destinationFolder);
-            //if (File.Exists(enabledLibraryPath) && !FileUtils.DeleteFileNoThrow(enabledLibraryPath))
-            //    return UninstallStatus.Failed;
+            }
+
+            var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
+
+            if (!File.Exists(userConifgPath))
+            {
+                return UninstallStatus.Failed;
+            }
+
+            var userConfig = new ConfigParser(userConifgPath);
+
+            userConfig.SetValue("Localization", "g_language", "english");
+            userConfig.Save();
+
             var result = UninstallStatus.Success;
-            //var disabledLibraryPath = GameConstants.GetDisabledPatcherPath(destinationFolder);
-            //if (File.Exists(disabledLibraryPath) && !FileUtils.DeleteFileNoThrow(disabledLibraryPath))
-            //    result = UninstallStatus.Partial;
             var dataPathDir = new DirectoryInfo(GameConstants.GetDataFolderPath(destinationFolder));
+
             if (dataPathDir.Exists && !FileUtils.DeleteDirectoryNoThrow(dataPathDir, true))
                 result = UninstallStatus.Partial;
+
             return result;
         }
 
         public LocalizationInstallationType GetInstallationType(string destinationFolder)
         {
             if (!Directory.Exists(destinationFolder))
+            {
                 return LocalizationInstallationType.None;
-            //if (File.Exists(GameConstants.GetEnabledPatcherPath(destinationFolder)))
-            //    return LocalizationInstallationType.Enabled;
-            //if (File.Exists(GameConstants.GetDisabledPatcherPath(destinationFolder)))
-            //    return LocalizationInstallationType.Disabled;
-            return LocalizationInstallationType.None;
+            }
+
+            var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
+
+            if (!File.Exists(userConifgPath))
+            {
+                return LocalizationInstallationType.Disabled;
+            }
+
+            var userConfig = new ConfigParser(userConifgPath);
+
+            if (userConfig.GetValue("Localization", "g_language") == "english")
+            {
+                return LocalizationInstallationType.Disabled;
+            }
+
+            return LocalizationInstallationType.Enabled;
         }
 
         public LocalizationInstallationType RevertLocalization(string destinationFolder)
         {
-            //if (!Directory.Exists(destinationFolder))
-            //    return LocalizationInstallationType.None;
-            //string enabledLibraryPath = GameConstants.GetEnabledPatcherPath(destinationFolder);
-            //string disabledLibraryPath = GameConstants.GetDisabledPatcherPath(destinationFolder);
+            var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
 
-            //if (File.Exists(enabledLibraryPath))
-            //{
-            //    if (File.Exists(disabledLibraryPath))
-            //        FileUtils.DeleteFileNoThrow(disabledLibraryPath);
-            //    File.Move(enabledLibraryPath, disabledLibraryPath);
-            //    return LocalizationInstallationType.Disabled;
-            //}
+            if (!File.Exists(userConifgPath))
+            {
+                return LocalizationInstallationType.None;
+            }
 
-            //if (File.Exists(disabledLibraryPath))
-            //{
-            //    if (File.Exists(enabledLibraryPath))
-            //        FileUtils.DeleteFileNoThrow(enabledLibraryPath);
-            //    File.Move(disabledLibraryPath, enabledLibraryPath);
-            //    return LocalizationInstallationType.Enabled;
-            //}
+            var userConfig = new ConfigParser(userConifgPath);
 
-            return LocalizationInstallationType.None;
+            if (userConfig.GetValue("Localization", "g_language") == "english")
+            {
+                userConfig.SetValue("Localization", "g_language", "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 편집이 필요하다.
+                userConfig.Save();
+
+                return LocalizationInstallationType.Enabled;
+            }
+            else
+            {
+                userConfig.SetValue("Localization", "g_language", "english");
+                userConfig.Save();
+
+                return LocalizationInstallationType.Disabled;
+            }
         }
 
         private static bool Unpack(string zipFileName, string destinationFolder)
@@ -211,5 +249,6 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
                 }
             }
         }
+       
     }
 }
