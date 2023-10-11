@@ -369,23 +369,27 @@ namespace SCTool_Redesigned.Windows
             {
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
             }
-            if (_MainBtnState != MainBtnMode.launch)
-            {
-                _installmode = InstallerMode.install;
-                Phase = 4;
-            }
-            else    //Launch Game
-            {
-                try
-                {
-                    LauchTokenManager.Instance.LoadToken();
-                    App.RunGame();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, Properties.Resources.MSG_Title_GeneralError);  //FIXME:Update desc string...?
-                }
-            }
+
+            _installmode = InstallerMode.install;
+            Phase = 4;
+
+            //if (_MainBtnState != MainBtnMode.launch)
+            //{
+            //    _installmode = InstallerMode.install;
+            //    Phase = 4;
+            //}
+            //else    //Launch Game
+            //{
+            //    try
+            //    {
+            //        LauchTokenManager.Instance.LoadToken();
+            //        App.RunGame();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message, Properties.Resources.MSG_Title_GeneralError);  //FIXME:Update desc string...?
+            //    }
+            //}
         }
 
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
@@ -511,16 +515,16 @@ namespace SCTool_Redesigned.Windows
 
                 if (installed > 0)
                 {
-                    LauchTokenManager.Instance.BeginWatch();
+
                     if (isNewVersion > 0)
                     {
                         _MainBtnState = MainBtnMode.update;
                     }
                     else
                     {
-                        if (RepositoryManager.TargetInstallation.IsEnabled)
-                            _MainBtnState = MainBtnMode.launch;
-                        else
+                        //if (RepositoryManager.TargetInstallation.IsEnabled)
+                        //    _MainBtnState = MainBtnMode.launch;
+                        //else
                             _MainBtnState = MainBtnMode.reinstall;
                     }
                 }
