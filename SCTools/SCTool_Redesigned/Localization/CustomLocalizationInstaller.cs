@@ -69,15 +69,10 @@ namespace SCTool_Redesigned.Localization
                 }
 
                 var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
-
-                if (!File.Exists(userConifgPath))
-                {
-                    File.Create(userConifgPath);
-                }
-
                 var userConfig = new ConfigParser(userConifgPath);
 
-                userConfig.SetValue("shatagon", "g_language", "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 편집이 필요하다.
+                userConfig.SetValue("Localization", "g_language", "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 편집이 필요하다.
+                userConfig.Save();
 
             }
             catch (CryptographicException e)
@@ -141,6 +136,11 @@ namespace SCTool_Redesigned.Localization
         public LocalizationInstallationType GetInstallationType(string destinationFolder)
         {
             if (!Directory.Exists(destinationFolder))
+            {
+                return LocalizationInstallationType.None;
+            }
+
+            if (!Directory.Exists(Path.Combine(destinationFolder, "data")))
             {
                 return LocalizationInstallationType.None;
             }
