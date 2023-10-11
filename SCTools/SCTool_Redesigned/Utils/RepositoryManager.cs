@@ -24,7 +24,7 @@ namespace SCTool_Redesigned.Utils
     {
         private static List<LocalizationSource> _repolist;
         private static LocalizationSource _localizationSource;
-        public static GitHubLocalizationRepository TargetRepository { get; private set; }
+        public static CustomGitHubLocalizationRepository TargetRepository { get; private set; }
         public static LocalizationInstallation TargetInstallation { get; private set; }
         public static UpdateInfo TargetInfo { get; private set; }
 
@@ -89,7 +89,7 @@ namespace SCTool_Redesigned.Utils
         {
             try
             {
-                if( TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath) is LocalizationInstallationType toggleresult)
+                if (TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath) is LocalizationInstallationType toggleresult)
                 {
                     if (toggleresult == LocalizationInstallationType.Disabled)
                         TargetInstallation.IsEnabled = false;
@@ -136,7 +136,7 @@ namespace SCTool_Redesigned.Utils
             {
                 if (localization.Name.Equals(App.Settings.GameLanguage))
                 {
-                    TargetRepository = new GitHubLocalizationRepository(HttpNetClient.Client, GameMode.LIVE, localization.Name, localization.Repository);
+                    TargetRepository = new CustomGitHubLocalizationRepository(HttpNetClient.Client, GameMode.LIVE, localization.Name, localization.Repository);
                     if (localization.IsPrivate)
                         TargetRepository.AuthToken = localization.AuthToken;
                     return true;

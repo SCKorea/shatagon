@@ -82,20 +82,20 @@ namespace SCTool_Redesigned.Settings
         public static LocalizationSource DefaultChinese { get; } = new LocalizationSource("简体中文", "terrencetodd/sc_cn_zh", UpdateRepositoryType.GitHub);
 
         public static List<LocalizationSource> DefaultList { get; } = new List<LocalizationSource>() {
-            DefaultRussian,
-            DefaultUkrainian,
+            //DefaultRussian,
+            //DefaultUkrainian,
             DefaultKorean,
-            DefaultPolish,
-            DefaultChinese,
+            //DefaultPolish,
+            //DefaultChinese,
         };
 
         public static List<LocalizationSource> StandardList { get; } = new List<LocalizationSource>() {
-            DefaultRussian,
-            DefaultUkrainian,
+            //DefaultRussian,
+            //DefaultUkrainian,
             DefaultKorean,
-            DefaultPolish,
-            DefaultChinese,
-            DefaultBaseModding
+            //DefaultPolish,
+            //DefaultChinese,
+            //DefaultBaseModding
         };
     }
 }

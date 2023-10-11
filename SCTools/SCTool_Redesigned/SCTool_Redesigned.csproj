@@ -73,6 +73,9 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConfigParser, Version=0.3.8.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Salaros.ConfigParser.0.3.8\lib\net45\ConfigParser.dll</HintPath>
+    </Reference>
     <Reference Include="Costura, Version=5.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.0.2\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
@@ -264,7 +267,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Localization\CustomGitHubLocalizationRepository.cs" />
     <Compile Include="Localization\CustomGitHubRepository.cs" />
+    <Compile Include="Localization\CustomLocalizationInstaller.cs" />
     <Compile Include="Update\CustomPackageVerifier.cs" />
     <Compile Include="Update\CustomUpdateInfo.cs" />
     <Compile Include="Utils\LauchTokenManager.cs" />
