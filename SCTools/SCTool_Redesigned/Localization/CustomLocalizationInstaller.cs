@@ -64,11 +64,8 @@ namespace SCTool_Redesigned.Localization
                 }
 
                 var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
-                var userConfig = GetConfig(userConifgPath);
 
-                userConfig.SetValue("Localization", "g_language", "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 편집이 필요하다.
-                userConfig.Save();
-
+                SetLanguage(GetConfig(userConifgPath), "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
             }
             catch (CryptographicException e)
             {
@@ -109,15 +106,10 @@ namespace SCTool_Redesigned.Localization
 
             var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
 
-            if (!File.Exists(userConifgPath))
+            if (File.Exists(userConifgPath))
             {
-                return UninstallStatus.Failed;
+                SetLanguage(GetConfig(userConifgPath), "english"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
             }
-
-            var userConfig = GetConfig(userConifgPath);
-
-            userConfig.SetValue("Localization", "g_language", "english");
-            userConfig.Save();
 
             var result = UninstallStatus.Success;
             var dataPathDir = new DirectoryInfo(GameConstants.GetDataFolderPath(destinationFolder));
@@ -170,15 +162,13 @@ namespace SCTool_Redesigned.Localization
 
             if (userConfig.GetValue("Localization", "g_language") == "english")
             {
-                userConfig.SetValue("Localization", "g_language", "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 편집이 필요하다.
-                userConfig.Save();
+                SetLanguage(userConfig, "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
 
                 return LocalizationInstallationType.Enabled;
             }
             else
             {
-                userConfig.SetValue("Localization", "g_language", "english");
-                userConfig.Save();
+                SetLanguage(userConfig, "english"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
 
                 return LocalizationInstallationType.Disabled;
             }
@@ -190,6 +180,14 @@ namespace SCTool_Redesigned.Localization
             setting.MultiLineValues = MultiLineValues.AllowEmptyTopSection;
 
             return new ConfigParser(path, setting);
+        }
+
+        private bool SetLanguage(ConfigParser config, string language)
+        {
+            config.SetValue("Localization", "g_languageAudio", "english");
+            config.SetValue("Localization", "g_language", language);
+
+            return config.Save();
         }
 
         private static bool Unpack(string zipFileName, string destinationFolder)

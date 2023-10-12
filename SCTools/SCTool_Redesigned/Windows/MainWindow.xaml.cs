@@ -39,7 +39,7 @@ namespace SCTool_Redesigned.Windows
 
             if (!App.IsGameInstalled())
             {
-                MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Decs_NoInstall, SCTool_Redesigned.Properties.Resources.MSG_Title_NoInstall);
+                MessageBox.Show(Properties.Resources.MSG_Decs_NoInstall, Properties.Resources.MSG_Title_NoInstall);
                 App.Logger.Info("Installation infomation directory does not exist!");
             }
 
@@ -347,8 +347,10 @@ namespace SCTool_Redesigned.Windows
             }));
         }
 
-        private void Update_ToggleBtn() =>
+        private void Update_ToggleBtn()
+        {
             DisableBtn.Content = RepositoryManager.TargetInstallation.IsEnabled ? Properties.Resources.UI_Button_DisableLocalization : Properties.Resources.UI_Button_EnableLocalization;
+        }
 
         private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
