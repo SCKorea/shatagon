@@ -211,6 +211,9 @@
   <data name="MSG_Desc_NeedTokenGenerate" xml:space="preserve">
     <value>토큰 갱신이 필요합니다. 패쳐가 켜져있는 상태에서 RSI 런처를 통해 게임을 한번 실행한 후 패쳐를 통해 게임을 실행해주세요.</value>
   </data>
+  <data name="MSG_Desc_NotFoundLauncher" xml:space="preserve">
+    <value>RSI Launcher 를 찾을 수 없습니다. RSI Launcher를 설치했는지 확인하십시오.</value>
+  </data>
   <data name="MSG_Desc_Uninstall" xml:space="preserve">
     <value>패치 제거 완료</value>
   </data>
@@ -278,7 +281,7 @@
     <value>패치 설치</value>
   </data>
   <data name="UI_Button_LaunchGame" xml:space="preserve">
-    <value>게임 실행</value>
+    <value>게임 런쳐 실행</value>
   </data>
   <data name="UI_Button_Link_Community_1" xml:space="preserve">
     <value>https://discord.gg/starcitizenkr</value>

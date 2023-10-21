@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows;
+using Microsoft.Win32;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Helpers;
 using SCTool_Redesigned.Settings;
@@ -80,29 +81,51 @@ namespace SCTool_Redesigned
                 return JsonHelper.WriteFile(Path.Combine(executableDir, AppSettingsFileName), settings);
         }
 
-        private static Process _gamePrc = null;
-
         public static bool IsRunGame()
         {
-            Process[] pname = Process.GetProcessesByName("StarCitizen");
+            var pname = Process.GetProcessesByName("StarCitizen");
 
             return pname.Length > 0;
         }
 
-        public static void RunGame()
+        public static void RunLauncher()
         {
             if (IsRunGame())
                 return;
 
-            if (_gamePrc == null)
-            {
-                _gamePrc = new Process();
-                _gamePrc.StartInfo.FileName = Settings.GameFolder + "\\LIVE\\Bin64\\StarCitizen.exe";
-                _gamePrc.Exited += (sender, args) => { LauchTokenManager.Instance.UnloadToken(); _gamePrc.EnableRaisingEvents = false; };
-            }
-            _gamePrc.Start();
-            _gamePrc.EnableRaisingEvents = true;
+            var processes = Process.GetProcessesByName("RSI Launcher");
 
+            if (processes.Length > 0)
+            {
+                foreach (var process in processes)
+                {
+                    process.Kill();
+                }
+            }
+
+            string launcherFolder = string.Empty;
+
+            // DO NOT USING ANYCPU PLATFORM!!!!!
+            /* DO NOT USING ANYCPU PLATFORM!!!!!
+             * ref: https://stackoverflow.com/questions/66366722/local-machine-registry-key-values-not-matching-when-trying-to-fetch-from-c-sharp 
+             */
+            using (RegistryKey registry = Registry.LocalMachine.OpenSubKey("SOFTWARE\\81bfc699-f883-50c7-b674-2483b6baae23", false ))
+            {
+                if (registry == null)
+                {
+                    MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Desc_NotFoundLauncher, SCTool_Redesigned.Properties.Resources.MSG_Title_GeneralError);
+                    return;
+                }
+
+                
+
+                launcherFolder = registry.GetValue("InstallLocation").ToString();
+            }
+
+            var launcher = new Process();
+
+            launcher.StartInfo.FileName = Path.Combine(launcherFolder, "RSI Launcher.exe");
+            launcher.Start();
         }
 
         //from Program.Global

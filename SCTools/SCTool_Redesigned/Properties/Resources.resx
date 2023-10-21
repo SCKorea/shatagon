@@ -128,7 +128,7 @@
     <value>https://app.sc.galaxyhub.kr</value>
   </data>
   <data name="Google_Analytics_TrackingID" xml:space="preserve">
-    <value>UA-190778304-1</value>
+    <value>G-5Q476Y5FG2</value>
   </data>
   <data name="Localization_Download_ErrorText" xml:space="preserve">
     <value>Unfortunately, it was an error during download. Please try again.</value>
@@ -217,6 +217,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="MSG_Desc_NeedTokenGenerate" xml:space="preserve">
     <value>Need to Generate Token. Please Launch the game by RSI Launcher with this patcher alive. then launch the game with this patcher.</value>
   </data>
+  <data name="MSG_Desc_NotFoundLauncher" xml:space="preserve">
+    <value>Can't found RSI Launcher. Please Check install The RSI Launcher in  your pc.</value>
+  </data>
   <data name="MSG_Desc_Uninstall" xml:space="preserve">
     <value>Localization removed successful</value>
   </data>
@@ -284,7 +287,7 @@ By clicking "Yes", you confirm that you have read and understood the warning and
     <value>Install Localization</value>
   </data>
   <data name="UI_Button_LaunchGame" xml:space="preserve">
-    <value>Launch Game</value>
+    <value>Open RSI Launch</value>
   </data>
   <data name="UI_Button_Link_Community_1" xml:space="preserve">
     <value>https://robertsspaceindustries.com</value>

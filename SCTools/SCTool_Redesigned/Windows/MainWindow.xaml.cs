@@ -47,7 +47,7 @@ namespace SCTool_Redesigned.Windows
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
             _author = new AuthWindow();
-            set_link(App.Settings.GameLanguage);
+            SetLink(App.Settings.GameLanguage);
             _mainBG = new ImageBrush();
             _subBG = new ImageBrush();
             _mainBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG1.png"));
@@ -336,7 +336,7 @@ namespace SCTool_Redesigned.Windows
             }
         }
 
-        private void set_link(string language)
+        private void SetLink(string language)
         {
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
@@ -396,26 +396,16 @@ namespace SCTool_Redesigned.Windows
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
             }
 
-            _installmode = InstallerMode.install;
-            Phase = 4;
-
-            //if (_MainBtnState != MainBtnMode.launch)
-            //{
-            //    _installmode = InstallerMode.install;
-            //    Phase = 4;
-            //}
-            //else    //Launch Game
-            //{
-            //    try
-            //    {
-            //        LauchTokenManager.Instance.LoadToken();
-            //        App.RunGame();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.Message, Properties.Resources.MSG_Title_GeneralError);  //FIXME:Update desc string...?
-            //    }
-            //}
+            
+            if (_MainBtnState != MainBtnMode.launch)
+            {
+                _installmode = InstallerMode.install;
+                Phase = 4;
+            }
+            else
+            {
+                App.RunLauncher();
+            }
         }
 
         private void UninstallBtn_Click(object sender, RoutedEventArgs e)
@@ -548,10 +538,14 @@ namespace SCTool_Redesigned.Windows
                     }
                     else
                     {
-                        //if (RepositoryManager.TargetInstallation.IsEnabled)
-                        //    _MainBtnState = MainBtnMode.launch;
-                        //else
-                        _MainBtnState = MainBtnMode.reinstall;
+                        if (RepositoryManager.TargetInstallation.IsEnabled)
+                        {
+                            _MainBtnState = MainBtnMode.launch;
+                        }
+                        else
+                        {
+                            _MainBtnState = MainBtnMode.reinstall;
+                        }
                     }
                 }
 

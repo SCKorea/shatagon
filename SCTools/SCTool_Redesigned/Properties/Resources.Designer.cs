@@ -90,7 +90,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   UA-190778304-1과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   G-5Q476Y5FG2과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Google_Analytics_TrackingID {
             get {
@@ -339,6 +339,15 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
+        ///   Can&apos;t found RSI Launcher. Please Check install The RSI Launcher in  your pc.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string MSG_Desc_NotFoundLauncher {
+            get {
+                return ResourceManager.GetString("MSG_Desc_NotFoundLauncher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Localization removed successful과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string MSG_Desc_Uninstall {
@@ -540,7 +549,7 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   Launch Game과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   Open RSI Launch과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string UI_Button_LaunchGame {
             get {
