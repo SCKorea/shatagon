@@ -33,7 +33,7 @@ jobs:
       #  run:  dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile $env:APPDATA\NuGet\NuGet.Config
         
       - name: Build app
-        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackagesConfig=true -m
+        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="x64" /p:RestorePackagesConfig=true -m
       
       - name: Compress component
         uses: papeloto/action-zip@v1
