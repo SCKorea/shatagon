@@ -38,7 +38,7 @@ jobs:
       - name: Compress component
         uses: papeloto/action-zip@v1
         with:
-          files: SCTools\SCTool_Redesigned\bin\Release
+          files: SCTools\SCTool_Redesigned\bin\x64\Release
           dest: Release.zip
           
       - name: Get release
