@@ -556,9 +556,11 @@ namespace SCTool_Redesigned.Windows
                             ++isNewVersion;
                         }
 
-                        var userConfigPath = Path.Combine(App.Settings.GameFolder, mode.ToString(), "user.cfg");
+                        var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
+                        var localizationFile = Path.Combine(gameFolder, "data", "Localization", App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage], "global.ini");
+                        var userConfigPath = Path.Combine(gameFolder, "user.cfg");
 
-                        if (patch.IsEnabled == PatchLanguageManager.IsEnabled(userConfigPath))
+                        if (patch.IsEnabled == PatchLanguageManager.IsEnabled(userConfigPath) && File.Exists(localizationFile))
                         {
                             installed++;
                         }
@@ -627,9 +629,12 @@ namespace SCTool_Redesigned.Windows
                 if (data.Installations.Count > 0)
                 {
                     var patch = data.Installations.FirstOrDefault();
-                    var userConfigPath = Path.Combine(App.Settings.GameFolder, mode.ToString(), "user.cfg");
 
-                    if (patch.IsEnabled && PatchLanguageManager.IsEnabled(userConfigPath))
+                    var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
+                    var localizationFile = Path.Combine(gameFolder, "data", "Localization", App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage], "global.ini");
+                    var userConfigPath = Path.Combine(gameFolder, "user.cfg");
+
+                    if (patch.IsEnabled && PatchLanguageManager.IsEnabled(userConfigPath) && File.Exists(localizationFile))
                     {
                         installed++;
                     }
