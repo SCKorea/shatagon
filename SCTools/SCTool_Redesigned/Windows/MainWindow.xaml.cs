@@ -560,14 +560,20 @@ namespace SCTool_Redesigned.Windows
                         var localizationFile = Path.Combine(gameFolder, "data", "Localization", App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage], "global.ini");
                         var userConfigPath = Path.Combine(gameFolder, "user.cfg");
 
-                        if (patch.IsEnabled == PatchLanguageManager.IsEnabled(userConfigPath) && File.Exists(localizationFile))
+                        var isPatchEnable = PatchLanguageManager.IsEnabled(userConfigPath);
+
+                        if (patch.IsEnabled && isPatchEnable && File.Exists(localizationFile))
                         {
                             installed++;
                         }
                         else
                         {
-                            mismatch++;
+                            if (patch.IsEnabled == isPatchEnable)
+                            {
+                                mismatch++;
+                            }
                         }
+                        
                     }
                 }
 
