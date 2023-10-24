@@ -538,6 +538,7 @@ namespace SCTool_Redesigned.Windows
             {
                 var installed = 0;
                 var isNewVersion = 0;
+                var mismatch = 0;
                 var release = RepositoryManager.GetInfos(false);
 
                 foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
@@ -557,31 +558,37 @@ namespace SCTool_Redesigned.Windows
 
                         var userConfigPath = Path.Combine(App.Settings.GameFolder, mode.ToString(), "user.cfg");
 
-                        if (patch.IsEnabled && PatchLanguageManager.IsEnabled(userConfigPath))
+                        if (patch.IsEnabled == PatchLanguageManager.IsEnabled(userConfigPath))
                         {
                             installed++;
+                        }
+                        else
+                        {
+                            mismatch++;
                         }
                     }
                 }
 
                 _MainBtnState = MainBtnMode.install;
 
-                if (isNewVersion > 0)
+                if (installed > 0)
                 {
-                    _MainBtnState = MainBtnMode.update;
-                }
-                else
-                {
-                    if (installed > 0)
+                    if (isNewVersion > 0)
+                    {
+                        _MainBtnState = MainBtnMode.update;
+                    }
+                    else
                     {
                         _MainBtnState = MainBtnMode.launch;
                     }
-                    else
+                }
+                else
+                {
+                    if (mismatch > 0)
                     {
                         _MainBtnState = MainBtnMode.reinstall;
                     }
                 }
-
 
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
                 {
