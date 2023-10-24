@@ -91,41 +91,11 @@ namespace SCTool_Redesigned
         public static void RunLauncher()
         {
             if (IsRunGame())
+            {
                 return;
-
-            var processes = Process.GetProcessesByName("RSI Launcher");
-
-            if (processes.Length > 0)
-            {
-                foreach (var process in processes)
-                {
-                    process.Kill();
-                }
             }
 
-            string launcherFolder = string.Empty;
-
-            // DO NOT USING ANYCPU PLATFORM!!!!!
-            /* DO NOT USING ANYCPU PLATFORM!!!!!
-             * ref: https://stackoverflow.com/questions/66366722/local-machine-registry-key-values-not-matching-when-trying-to-fetch-from-c-sharp 
-             */
-            using (RegistryKey registry = Registry.LocalMachine.OpenSubKey("SOFTWARE\\81bfc699-f883-50c7-b674-2483b6baae23", false ))
-            {
-                if (registry == null)
-                {
-                    MessageBox.Show(SCTool_Redesigned.Properties.Resources.MSG_Desc_NotFoundLauncher, SCTool_Redesigned.Properties.Resources.MSG_Title_GeneralError);
-                    return;
-                }
-
-                
-
-                launcherFolder = registry.GetValue("InstallLocation").ToString();
-            }
-
-            var launcher = new Process();
-
-            launcher.StartInfo.FileName = Path.Combine(launcherFolder, "RSI Launcher.exe");
-            launcher.Start();
+            GameLauncherManager.Start();
         }
 
         //from Program.Global
@@ -161,11 +131,6 @@ namespace SCTool_Redesigned
             if (dirInfo == null)
                 throw new NullReferenceException("No assembly executable directory");
             return dirInfo.FullName;
-        }
-
-        public static bool IsGameInstalled()
-        {
-            return Directory.Exists(LocalappDir);
         }
 
         private static bool IsOnline()

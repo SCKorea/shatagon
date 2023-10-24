@@ -8,6 +8,7 @@ using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Helpers;
 using NSW.StarCitizen.Tools.Lib.Localization;
 using Salaros.Configuration;
+using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Localization
 {
@@ -65,21 +66,27 @@ namespace SCTool_Redesigned.Localization
 
                 var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
 
-                SetLanguage(GetConfig(userConifgPath), "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
+                PatchLanguageManager.Enable(userConifgPath, App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage]);
             }
             catch (CryptographicException e)
             {
                 _logger.Error(e, "Exception during verify core");
+                _logger.Error(e.Message);
+
                 return InstallStatus.VerifyError;
             }
             catch (IOException e)
             {
                 _logger.Error(e, "I/O exception during install");
+                _logger.Error(e.Message);
+
                 return InstallStatus.FileError;
             }
             catch (Exception e)
             {
                 _logger.Error(e, "Unexpected exception during install");
+                _logger.Error(e.Message);
+
                 return InstallStatus.UnknownError;
             }
             finally
@@ -108,7 +115,7 @@ namespace SCTool_Redesigned.Localization
 
             if (File.Exists(userConifgPath))
             {
-                SetLanguage(GetConfig(userConifgPath), "english"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
+                PatchLanguageManager.Disable(userConifgPath);
             }
 
             var result = UninstallStatus.Success;
@@ -139,9 +146,7 @@ namespace SCTool_Redesigned.Localization
                 return LocalizationInstallationType.Disabled;
             }
 
-            var userConfig = GetConfig(userConifgPath);
-
-            if (userConfig.GetValue("Localization", "g_language") == "english")
+            if (PatchLanguageManager.IsEnabled(userConifgPath))
             {
                 return LocalizationInstallationType.Disabled;
             }
@@ -158,36 +163,19 @@ namespace SCTool_Redesigned.Localization
                 return LocalizationInstallationType.None;
             }
 
-            var userConfig = GetConfig(userConifgPath);
 
-            if (userConfig.GetValue("Localization", "g_language") == "english")
+            if (PatchLanguageManager.IsEnabled(userConifgPath))
             {
-                SetLanguage(userConfig, "korean_(south_korea)"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
-
-                return LocalizationInstallationType.Enabled;
-            }
-            else
-            {
-                SetLanguage(userConfig, "english"); //FIXME - 추후 다국어 지원을 위해서는 수정이 필요하다.
+                PatchLanguageManager.Disable(userConifgPath);
 
                 return LocalizationInstallationType.Disabled;
             }
-        }
+            else
+            {
+                PatchLanguageManager.Enable(userConifgPath, App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage]);
 
-        private ConfigParser GetConfig(string path)
-        {
-            var setting = new ConfigParserSettings();
-            setting.MultiLineValues = MultiLineValues.AllowEmptyTopSection;
-
-            return new ConfigParser(path, setting);
-        }
-
-        private bool SetLanguage(ConfigParser config, string language)
-        {
-            config.SetValue("Localization", "g_languageAudio", "english");
-            config.SetValue("Localization", "g_language", language);
-
-            return config.Save();
+                return LocalizationInstallationType.Enabled;
+            }
         }
 
         private static bool Unpack(string zipFileName, string destinationFolder)
@@ -253,6 +241,8 @@ namespace SCTool_Redesigned.Localization
                 catch (Exception e)
                 {
                     _logger.Error(e, $"Unable restore data from directory: {dir.FullName}");
+                    _logger.Error(e.Message);
+
                     FileUtils.DeleteDirectoryNoThrow(dir, true);
                 }
             }

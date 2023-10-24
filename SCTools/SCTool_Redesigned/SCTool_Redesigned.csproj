@@ -292,6 +292,7 @@
     <Compile Include="Settings\LocalizationSettings.cs" />
     <Compile Include="Update\CustomPackageVerifier.cs" />
     <Compile Include="Update\CustomUpdateInfo.cs" />
+    <Compile Include="Utils\GameLauncherManager.cs" />
     <Compile Include="Utils\LauchTokenManager.cs" />
     <Compile Include="Utils\ConsoleManager.cs" />
     <Compile Include="Utils\GoogleAnalytics.cs" />
@@ -327,6 +328,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Settings\AppSettings.cs" />
+    <Compile Include="Utils\PatchLanguageManager.cs" />
     <Compile Include="Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>

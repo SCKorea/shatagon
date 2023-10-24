@@ -49,8 +49,14 @@ namespace SCTool_Redesigned.Settings
         }
 
         public Dictionary<string, string> GetToolLanguages() => new Dictionary<string, string> {
-                { "en-US", "English" },
-                { "ko-KR", "한국어" }
+            { "en-US", "English" },
+            { "ko-KR", "한국어" }
+        };
+
+        public Dictionary<string, string> GetOfficialLanauages() => new Dictionary<string, string>
+        {
+            { "English", "English" },
+            { "한국어", "korean_(south_korea)" }
         };
 
         public List<LocalizationSource> GetGameLanguages() => LocalizationSource.DefaultList;
