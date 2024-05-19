@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,6 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BG0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BG0.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BG1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BG1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Discord-Logo3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Discord-Logo3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="GmarketSansBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansBold.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -168,6 +177,9 @@
   </data>
   <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
     <value>확인 실패</value>
+  </data>
+  <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MSG_Decs_CannotOpenLink" xml:space="preserve">
     <value>하이퍼링크를 열 수 없습니다. 하이퍼링크 등록이 잘못 된 것일 수 있습니다. </value>
@@ -243,6 +255,9 @@
   </data>
   <data name="MSG_Title_TurnOffGame" xml:space="preserve">
     <value>게임이 실행되고 있음</value>
+  </data>
+  <data name="Ncafe-Logo3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ncafe-Logo3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -418,5 +433,8 @@
   </data>
   <data name="UI_Title_Step_03" xml:space="preserve">
     <value>03</value>
+  </data>
+  <data name="UpdateScript" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update.bat;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

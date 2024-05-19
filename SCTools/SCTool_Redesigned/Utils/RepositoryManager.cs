@@ -18,11 +18,11 @@ namespace SCTool_Redesigned.Utils
 {
     public static class RepositoryManager
     {
-        private static List<LocalizationSource> _repolist;
-        private static LocalizationSource _localizationSource;
-        public static CustomGitHubLocalizationRepository TargetRepository { get; private set; }
-        public static LocalizationInstallation TargetInstallation { get; private set; }
-        public static UpdateInfo TargetInfo { get; private set; }
+        private static List<LocalizationSource>? _repolist;
+        private static LocalizationSource? _localizationSource;
+        public static CustomGitHubLocalizationRepository? TargetRepository { get; private set; }
+        public static LocalizationInstallation? TargetInstallation { get; private set; }
+        public static UpdateInfo? TargetInfo { get; private set; }
 
         static RepositoryManager()
         {
@@ -215,7 +215,7 @@ namespace SCTool_Redesigned.Utils
 
                 foreach (CustomGitHubRepository.GitRelease release in releases)
                 {
-                    if (release.Draft)
+                    if (release.Draft ?? true)
                     {
                         continue;
                     }

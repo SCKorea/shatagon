@@ -91,7 +91,7 @@ namespace SCTool_Redesigned.Utils
                 NLog.LogManager.GetCurrentClassLogger().Error(err.Message);
                 throw new FileNotFoundException(Properties.Resources.MSG_Desc_NeedTokenGenerate); //need token to generate
             }
-            catch (IOException copyErr)
+            catch
             {
                 return false;
             }

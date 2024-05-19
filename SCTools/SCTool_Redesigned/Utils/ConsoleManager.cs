@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Reflection;
 
 namespace SCTool_Redesigned.Utils
 {
@@ -70,26 +71,17 @@ namespace SCTool_Redesigned.Utils
 
         static void InvalidateOutAndError()
         {
-            Type type = typeof(Console);
+            var consoleOut = new StreamWriter(Console.OpenStandardOutput())
+            {
+                AutoFlush = true
+            };
+            Console.SetOut(consoleOut);
 
-            System.Reflection.FieldInfo _out = type.GetField("_out",
-                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-
-            System.Reflection.FieldInfo _error = type.GetField("_error",
-                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-
-            System.Reflection.MethodInfo _InitializeStdOutError = type.GetMethod("InitializeStdOutError",
-                System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-
-            Debug.Assert(_out != null);
-            Debug.Assert(_error != null);
-
-            Debug.Assert(_InitializeStdOutError != null);
-
-            _out.SetValue(null, null);
-            _error.SetValue(null, null);
-
-            _InitializeStdOutError.Invoke(null, new object[] { true });
+            var consoleError = new StreamWriter(Console.OpenStandardError())
+            {
+                AutoFlush = true
+            };
+            Console.SetError(consoleError);
         }
 
         static void SetOutAndErrorNull()
@@ -98,5 +90,4 @@ namespace SCTool_Redesigned.Utils
             Console.SetError(TextWriter.Null);
         }
     }
-
 }

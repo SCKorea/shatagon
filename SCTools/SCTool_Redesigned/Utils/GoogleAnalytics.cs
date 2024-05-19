@@ -34,74 +34,7 @@ namespace SCTool_Redesigned.Utils
 
         public static void Track(string uuid, string type, Dictionary<string, string> data, bool wait = false)
         {
-            if (!Enable)
-            {
-                return;
-            }
-
-
-            string trackingId = Properties.Resources.Google_Analytics_TrackingID;
-
-            if (string.IsNullOrEmpty(trackingId))
-            {
-                return;
-            }
-
-            var task = Task.Run(() =>
-            {
-                try
-                {
-                    var request = (HttpWebRequest)WebRequest.Create("https://google-analytics.com/collect");
-                    request.Method = "POST";
-
-                    // the request body we want to send
-                    var postData = new Dictionary<string, string>
-                {
-                    { "v", "1" },
-                    { "tid", Properties.Resources.Google_Analytics_TrackingID },
-                    { "cid",  uuid },
-                    { "t", type },
-                    { "ds", "web" },
-                    { "ua", UA },
-                    { "ul", UL }
-                };
-
-                    data.ToList().ForEach(x => postData.Add(x.Key, x.Value));
-
-                    var postDataString = postData
-                        .Aggregate("", (data, next) => string.Format("{0}&{1}={2}", data, next.Key, HttpUtility.UrlEncode(next.Value)))
-                        .TrimEnd('&');
-
-                    // set the Content-Length header to the correct value
-                    request.ContentLength = Encoding.UTF8.GetByteCount(postDataString);
-
-                    // write the request body to the request
-                    using (var writer = new StreamWriter(request.GetRequestStream()))
-                    {
-                        writer.Write(postDataString);
-                    }
-
-
-                    var webResponse = (HttpWebResponse)request.GetResponse();
-                    var statusCode = webResponse.StatusCode;
-
-                    webResponse.Close();
-
-                    if (statusCode != HttpStatusCode.OK)
-                    {
-                        throw new HttpException((int)statusCode, "Google Analytics tracking did not return OK 200");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    App.Logger.Warn("GoogleAnalytics: " + ex.Message);
-                }
-            });
-
-            if (wait)
-            {
-                task.Wait();
-            }
+            //TODO
         }
 
         public enum HitType

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
-using Salaros.Configuration;
+using SoftCircuits.IniFileParser;
 
 namespace SCTool_Redesigned.Utils
 {
@@ -14,47 +14,40 @@ namespace SCTool_Redesigned.Utils
     {
         private const string DEFAULT = "english";
 
-        public static bool Enable(string path, string language)
-        {
-            return SetLanguage(path, language);
-        }
+        public static void Enable(string path, string language) => SetLanguage(path, language);
 
-        public static bool Disable(string path)
-        {
-            return SetLanguage(path, DEFAULT);
-        }
+        public static void Disable(string path) => SetLanguage(path, DEFAULT);
 
         public static bool IsEnabled(string path)
         {
+
             if (!File.Exists(path))
             {
                 return false;
             }
 
             var config = GetConfigParser(path);
-            var language = config.GetValue("Localization", "g_language");
+            var language = config.GetSetting("Localization", "g_language");
 
             return !string.IsNullOrEmpty(language) && language != DEFAULT;
         }
 
-        private static ConfigParser GetConfigParser(string path)
+        private static IniFile GetConfigParser(string path)
         {
-            var setting = new ConfigParserSettings
-            {
-                MultiLineValues = MultiLineValues.AllowEmptyTopSection
-            };
+            IniFile ini = new();
+            ini.Load(path);
 
-            return new ConfigParser(path, setting);
+            return ini;
         }
 
-        private static bool SetLanguage(string path, string language)
+        private static void SetLanguage(string path, string language)
         {
             var config = GetConfigParser(path);
 
-            config.SetValue("Localization", "g_languageAudio", DEFAULT);
-            config.SetValue("Localization", "g_language", language);
+            config.SetSetting("Localization", "g_languageAudio", DEFAULT);
+            config.SetSetting("Localization", "g_language", language);
 
-            return config.Save();
+            config.Save(path);
         }
     }
 }
