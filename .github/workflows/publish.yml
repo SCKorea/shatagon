@@ -32,8 +32,10 @@ jobs:
       #- name: Setup nuget Repo  
       #  run:  dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile $env:APPDATA\NuGet\NuGet.Config
         
-      - name: Build app
+      - name: Restore dependency
         run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="x64" -m
+
+      - name: Build app  
         run: msbuild SCTools\SCTool_Redesigned\SCTool_Redesigned.csproj /t:Publish /p:Configuration=Release /p:Platform="x64" /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -m
       
 #      - name: Compress component
