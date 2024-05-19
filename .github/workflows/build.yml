@@ -42,10 +42,12 @@ jobs:
       - name: Create release
         uses: svenstaro/upload-release-action@v2
         with:
+          release_name: "dev"
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: Release.zip
           asset_name: Release.zip
           tag: dev
+          promote: true
           prerelease: true
           overwrite: true
           body: "Warning: This is the development version. You may encounter 30K errors!"
