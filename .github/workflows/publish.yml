@@ -33,13 +33,14 @@ jobs:
       #  run:  dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org --configfile $env:APPDATA\NuGet\NuGet.Config
         
       - name: Build app
-        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="x64" /p:RestorePackagesConfig=true /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=true -m
+        run: msbuild SCTools\SCTools.sln /t:restore /t:SCTool_Redesigned:Rebuild /p:Configuration=Release /p:Platform="x64" -m
+        run: msbuild SCTools\SCTool_Redesigned\SCTool_Redesigned.csproj /t:Publish /p:Configuration=Release /p:Platform="x64" /p:RuntimeIdentifier=win-x64 /p:SelfContained=true /p:PublishSingleFile=true /p:EnableCompressionInSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -m
       
-      - name: Compress component
-        uses: papeloto/action-zip@v1
-        with:
-          files: SCTools\SCTool_Redesigned\bin\x64\Release
-          dest: Release.zip
+#      - name: Compress component
+#        uses: papeloto/action-zip@v1
+#        with:
+#          files: SCTools\SCTool_Redesigned\bin\x64\Release
+#          dest: Release.zip
           
       - name: Get release
         id: get_release
@@ -54,6 +55,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }} 
-          asset_path: ./Release.zip
-          asset_name: Release.zip
+          asset_path: ./SCTools\SCTool_Redesigned\bin\x64\Release\net8.0-windows\win-x64\publish\Shatagon.exe
+          asset_name: Shatagon.exe
+#          asset_path: ./Release.zip
+#          asset_name: Release.zip
           asset_content_type: application/zip    
