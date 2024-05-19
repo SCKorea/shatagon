@@ -1,7 +1,7 @@
 # Shatagon Patcher
 Star Citizen Localization Patch Installer
 
-![image](https://user-images.githubusercontent.com/17900502/175770017-70bb6c1f-839e-42cd-b39f-4b4e35235e93.png)
+![image](https://i.imgur.com/rzFy0Vu.png)
 
 ## Features
 ### Localization features
