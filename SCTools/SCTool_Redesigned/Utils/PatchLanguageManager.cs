@@ -35,6 +35,12 @@ namespace SCTool_Redesigned.Utils
         private static IniFile GetConfigParser(string path)
         {
             IniFile ini = new();
+
+            if (!File.Exists(path))
+            {
+                File.Create(path).Close();
+            }
+
             ini.Load(path);
 
             return ini;
