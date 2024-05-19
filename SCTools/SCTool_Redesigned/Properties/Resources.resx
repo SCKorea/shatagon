@@ -118,6 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="BG0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BG0.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BG1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BG1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Discord-Logo3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Discord-Logo3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="GmarketSansBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\GmarketSansBold.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -174,6 +183,9 @@
   </data>
   <data name="Localization_Verify_ErrorTitle" xml:space="preserve">
     <value>Verification Error</value>
+  </data>
+  <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MSG_Decs_CannotOpenLink" xml:space="preserve">
     <value>Could't open hyperlink. It could be an invalid hyperlink.</value>
@@ -249,6 +261,9 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="MSG_Title_TurnOffGame" xml:space="preserve">
     <value>Game is Running</value>
+  </data>
+  <data name="Ncafe-Logo3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ncafe-Logo3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="SCDream3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fonts\SCDream3.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

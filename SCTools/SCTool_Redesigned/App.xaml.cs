@@ -5,7 +5,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows;
-using Microsoft.Win32;
+using NLog;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Helpers;
 using SCTool_Redesigned.Settings;
@@ -27,6 +27,10 @@ namespace SCTool_Redesigned
 #endif
         App()
         {
+            var nlogConfig = new NLog.Config.LoggingConfiguration();
+            nlogConfig.AddRule(LogLevel.Info, LogLevel.Fatal, new NLog.Targets.ConsoleTarget("logconsole"));
+            LogManager.Configuration = nlogConfig;
+
             if (Settings.Console)
             {
                 ConsoleManager.Show();
@@ -55,14 +59,20 @@ namespace SCTool_Redesigned
 
         private const string AppSettingsFileName = "settings.json";
 
-        private static AppSettings _appSettings;
+        private static AppSettings? _appSettings;
         public static AppSettings Settings => GetAppSettings();
 
         private static AppSettings GetAppSettings()
         {
             if (_appSettings == null)
             {
-                var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+                var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule?.FileName);
+
+                if (executableDir == null || LocalappDir == null)
+                {
+                    throw new NullReferenceException("Dirctory path is empty");
+                }
+
                 //_appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(executableDir, AppSettingsFileName)) ?? new AppSettings();
                 _appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(LocalappDir, AppSettingsFileName)) ?? JsonHelper.ReadFile<AppSettings>(Path.Combine(executableDir, AppSettingsFileName)) ?? new AppSettings();
             }
@@ -73,7 +83,12 @@ namespace SCTool_Redesigned
         public static bool SaveAppSettings() => SaveAppSettings(Settings);
         public static bool SaveAppSettings(AppSettings settings)
         {
-            var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            var executableDir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule?.FileName);
+
+            if (executableDir == null || LocalappDir == null)
+            {
+                throw new NullReferenceException("Dirctory path is empty");
+            }
 
             if (Directory.Exists(LocalappDir))
                 return JsonHelper.WriteFile(Path.Combine(LocalappDir, AppSettingsFileName), settings);
@@ -99,15 +114,15 @@ namespace SCTool_Redesigned
         }
 
         //from Program.Global
-        public static GameInfo CurrentGame { get; set; }
+        public static GameInfo? CurrentGame { get; set; }
 
-        public static string Name { get; } = Assembly.GetExecutingAssembly().GetName().Name;
+        public static string? Name { get; } = Assembly.GetExecutingAssembly().GetName().Name ?? "UNKNOWN";
 
-        public static Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
+        public static Version? Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
 
-        public static string ExecutableDir { get; } = GetExecutableDir();
+        public static string? ExecutableDir { get; } = GetExecutableDir();
 
-        public static string LocalappDir { get; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Star Citizen\\";
+        public static string? LocalappDir { get; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Star Citizen\\";
 
         public static void Close()
         {
@@ -126,8 +141,9 @@ namespace SCTool_Redesigned
 
         private static string GetExecutableDir()
         {
-            var location = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var location = new Uri(Assembly.GetExecutingAssembly().Location);
             var dirInfo = new FileInfo(location.LocalPath).Directory;
+
             if (dirInfo == null)
                 throw new NullReferenceException("No assembly executable directory");
             return dirInfo.FullName;
@@ -137,7 +153,7 @@ namespace SCTool_Redesigned
         {
             Logger.Info("Check Internet connection.");
 
-            var pass = new Ping().Send("1.1.1.1", 1000).Status.Equals(IPStatus.Success);
+            var pass = new Ping().Send("168.126.63.1", 1000).Status.Equals(IPStatus.Success); //KT DNS IP
 
             if (!pass)
             {
@@ -148,7 +164,7 @@ namespace SCTool_Redesigned
                     pass = HttpNetClient.Client.GetStringAsync("https://api.ipify.org").Result.Length > 0;
 
                 }
-                catch (Exception ex)
+                catch
                 {
                     Logger.Warn("FAIL: Internet unavailable.");
 

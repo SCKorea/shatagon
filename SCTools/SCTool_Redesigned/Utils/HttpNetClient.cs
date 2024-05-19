@@ -35,7 +35,7 @@ namespace SCTool_Redesigned.Utils
 
         private static HttpClient CreateHttpClient()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol =  SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             HttpClientHandler handler = new HttpClientHandler();
             //handler.UseProxy = App.Settings.UseHttpProxy;
 

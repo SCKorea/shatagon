@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.Win32;
 using NSW.StarCitizen.Tools.Lib.Global;
 using SCTool_Redesigned.Windows;
 
@@ -22,7 +22,7 @@ namespace SCTool_Redesigned.Pages
             {
                 verify_Path(getDir());
             }
-            catch (Exception e)
+            catch
             {
                 verify_Path(Defaultdir);
             }
@@ -83,16 +83,16 @@ namespace SCTool_Redesigned.Pages
 
             while (flag)
             {
-                CommonOpenFileDialog dialog = OpenDialog();
+                var dialog = OpenDialog();
                 App.Logger.Info("Open game folder selection dialog");
 
                 var result = dialog.ShowDialog();
 
-                if (result == CommonFileDialogResult.Ok)
+                if (result == true)
                 {
                     App.Logger.Info("Close game folder selection dialog");
 
-                    var directoryPath = dialog.FileName;
+                    var directoryPath = dialog.FolderName;
 
                     if (flag = !verify_Path(directoryPath))
                     {
@@ -108,16 +108,10 @@ namespace SCTool_Redesigned.Pages
             }
         }
 
-        private CommonOpenFileDialog OpenDialog()
+        private static OpenFolderDialog OpenDialog() => new()
         {
-            CommonOpenFileDialog dialog = new CommonOpenFileDialog
-            {
-                IsFolderPicker = true,
-                Title = Properties.Resources.MSG_Title_SelectStarCitizenDirectory,
-                InitialDirectory = @"C:\Program Files\Roberts Space Industries"
-            };
-
-            return dialog;
-        }
+            Title = Properties.Resources.MSG_Title_SelectStarCitizenDirectory,
+            InitialDirectory = @"C:\Program Files\Roberts Space Industries"
+        };
     }
 }

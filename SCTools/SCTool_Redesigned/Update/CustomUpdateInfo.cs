@@ -36,7 +36,7 @@ namespace SCTool_Redesigned.Update
                 _namedVersion = namedVersion;
             }
 
-            public UpdateInfo CreateWithDownloadSourceCode(CustomGitHubRepository.GitRelease release)
+            public UpdateInfo? CreateWithDownloadSourceCode(CustomGitHubRepository.GitRelease release)
             {
                 if (string.IsNullOrEmpty(release.Name) || string.IsNullOrEmpty(release.TagName) ||
                     string.IsNullOrEmpty(release.ZipUrl))
@@ -45,12 +45,12 @@ namespace SCTool_Redesigned.Update
                 }
                 return new CustomUpdateInfo(release.Name, release.TagName, release.ZipUrl, _namedVersion)
                 {
-                    PreRelease = release.PreRelease,
+                    PreRelease = release.PreRelease ?? false,
                     Released = release.Published
                 };
             }
 
-            public UpdateInfo CreateWithDownloadAsset(CustomGitHubRepository.GitRelease release)
+            public UpdateInfo? CreateWithDownloadAsset(CustomGitHubRepository.GitRelease release)
             {
                 var downloadUrl = release.Assets.FirstOrDefault()?.ZipUrl;
                 if (string.IsNullOrEmpty(release.Name) || string.IsNullOrEmpty(release.TagName) ||
@@ -60,7 +60,7 @@ namespace SCTool_Redesigned.Update
                 }
                 return new CustomUpdateInfo(release.Name, release.TagName, downloadUrl, _namedVersion)
                 {
-                    PreRelease = release.PreRelease,
+                    PreRelease = release.PreRelease ?? false,
                     Released = release.Published
                 };
             }

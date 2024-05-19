@@ -14,7 +14,7 @@ namespace SCTool_Redesigned.Localization
 {
     class CustomGitHubRepository : GitHubUpdateRepository
     {
-        private static Dictionary<GitHubDownloadType, GitRelease[]> _cache = new Dictionary<GitHubDownloadType, GitRelease[]>();
+        private static IDictionary<GitHubDownloadType, GitRelease[]?> _cache = new Dictionary<GitHubDownloadType, GitRelease[]?>();
 
         private const string GitHubApiUrl = "https://api.github.com/repos";
         private readonly HttpClient _httpClient;
@@ -23,7 +23,7 @@ namespace SCTool_Redesigned.Localization
         private string _repoReleasesUrl;
 
         public new GitHubDownloadType DownloadType { get; }
-        public new string AuthToken { get; set; }
+        public new string? AuthToken { get; set; }
 
         public CustomGitHubRepository(HttpClient httpClient, GitHubDownloadType downloadType, CustomUpdateInfo.Factory gitHubUpdateInfoFactory, string name, string repository) :
             base(httpClient, downloadType, gitHubUpdateInfoFactory.GetBaseGitHubUpdateInfo(), name, repository)
@@ -68,7 +68,7 @@ namespace SCTool_Redesigned.Localization
             return false;
         }
 
-        public async Task<GitRelease[]> GetReleasesAsync(bool cache, CancellationToken cancellationToken)
+        public async Task<GitRelease[]?> GetReleasesAsync(bool cache, CancellationToken cancellationToken)
         {
             if (_cache.Count <= 0 || !_cache.ContainsKey(DownloadType) || cache)
             {
@@ -92,10 +92,8 @@ namespace SCTool_Redesigned.Localization
             return false;
         }
 
-        public override async Task<string> DownloadAsync(UpdateInfo updateInfo, string downloadPath, CancellationToken cancellationToken, IDownloadProgress downloadProgress)
-        {
-            return await base.DownloadAsync(updateInfo, downloadPath, cancellationToken, downloadProgress);
-        }
+        public override async Task<string> DownloadAsync(UpdateInfo updateInfo, string downloadPath, CancellationToken cancellationToken, IDownloadProgress? downloadProgress) =>
+            await base.DownloadAsync(updateInfo, downloadPath, cancellationToken, downloadProgress);
 
         public override async Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken)
         {
@@ -149,21 +147,21 @@ namespace SCTool_Redesigned.Localization
         public new class GitRelease
         {
             [JsonProperty("id")]
-            public int Id { get; private set; }
+            public int? Id { get; private set; }
             [JsonProperty("name")]
-            public string Name { get; }
+            public string? Name { get; }
             [JsonProperty("body")]
-            public string Body { get; }
+            public string? Body { get; }
             [JsonProperty("url")]
-            public string Url { get; }
+            public string? Url { get; }
             [JsonProperty("tag_name")]
-            public string TagName { get; }
+            public string? TagName { get; }
             [JsonProperty("draft")]
-            public bool Draft { get; private set; }
+            public bool? Draft { get; private set; }
             [JsonProperty("prerelease")]
-            public bool PreRelease { get; private set; }
+            public bool? PreRelease { get; private set; }
             [JsonProperty("zipball_url")]
-            public string ZipUrl { get; }
+            public string? ZipUrl { get; }
             [JsonProperty("published_at")]
             public DateTimeOffset Published { get; private set; }
             [JsonProperty("created_at")]
@@ -185,7 +183,7 @@ namespace SCTool_Redesigned.Localization
         public new class GitAsset
         {
             [JsonProperty("browser_download_url")]
-            public string ZipUrl { get; }
+            public string? ZipUrl { get; }
 
             [JsonConstructor]
             public GitAsset(string zipUrl)
@@ -209,13 +207,13 @@ namespace SCTool_Redesigned.Localization
         public new class GitRate
         {
             [JsonProperty("limit")]
-            public int Limit { get; private set; }
+            public int? Limit { get; private set; }
             [JsonProperty("remaining")]
-            public int Remaining { get; private set; }
+            public int? Remaining { get; private set; }
             [JsonProperty("reset")]
-            public long Reset { get; private set; }
+            public long? Reset { get; private set; }
             [JsonProperty("used")]
-            public int Used { get; private set; }
+            public int? Used { get; private set; }
         }
         #endregion
     }

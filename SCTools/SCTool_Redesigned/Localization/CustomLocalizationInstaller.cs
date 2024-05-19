@@ -7,7 +7,6 @@ using NLog;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Helpers;
 using NSW.StarCitizen.Tools.Lib.Localization;
-using Salaros.Configuration;
 using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Localization
@@ -24,8 +23,8 @@ namespace SCTool_Redesigned.Localization
                 return InstallStatus.FileError;
             }
 
-            DirectoryInfo unpackDataDir = null;
-            DirectoryInfo backupDataDir = null;
+            DirectoryInfo? unpackDataDir = null;
+            DirectoryInfo? backupDataDir = null;
             var dataPathDir = new DirectoryInfo(GameConstants.GetDataFolderPath(destinationFolder));
 
             try
