@@ -69,10 +69,10 @@ namespace SCTool_Redesigned.Update
             _updateScriptPath = Path.Combine(_executableDir, "update.bat");
             _updatesStoragePath = Path.Combine(_executableDir, "updates");
             _schedInstallArchivePath = Path.Combine(_updatesStoragePath, "latest.zip");
-            _schedInstallExecutablePath = Path.Combine(_updatesStoragePath, "shatagon.exe");
+            _schedInstallExecutablePath = Path.Combine(_updatesStoragePath, "Shatagon.exe");
             _schedInstallJsonPath = Path.Combine(_updatesStoragePath, "latest.json");
             _installUnpackedDir = Path.Combine(_updatesStoragePath, "latest");
-            _installUnpackedExecutablePath = Path.Combine(_updatesStoragePath, "latest", "shatagon.exe");
+            _installUnpackedExecutablePath = Path.Combine(_updatesStoragePath, "latest", "Shatagon.exe");
             _currentVersion = _updateRepository.CurrentVersion;
         }
 
@@ -147,11 +147,11 @@ namespace SCTool_Redesigned.Update
                     {
                         Directory.CreateDirectory(_updatesStoragePath);
                     }
-                    if (File.Exists(_schedInstallArchivePath))
+                    if (File.Exists(_schedInstallExecutablePath))
                     {
-                        File.Delete(_schedInstallArchivePath);
+                        File.Delete(_schedInstallExecutablePath);
                     }
-                    File.Move(filePath, _schedInstallArchivePath);
+                    File.Move(filePath, _schedInstallExecutablePath);
                     if (JsonHelper.WriteFile(_schedInstallJsonPath, updateInfo))
                     {
                         _updateRepository.SetCurrentVersion(updateInfo.GetVersion());
@@ -176,8 +176,8 @@ namespace SCTool_Redesigned.Update
             _updateRepository.SetCurrentVersion(_currentVersion);
             if (File.Exists(_schedInstallJsonPath))
                 FileUtils.DeleteFileNoThrow(_schedInstallJsonPath);
-            return File.Exists(_schedInstallArchivePath) &&
-                FileUtils.DeleteFileNoThrow(_schedInstallArchivePath);
+            return File.Exists(_schedInstallExecutablePath) &&
+                FileUtils.DeleteFileNoThrow(_schedInstallExecutablePath);
         }
 
         public void RemoveUpdateScript()
@@ -205,7 +205,7 @@ namespace SCTool_Redesigned.Update
         private bool ExtractReadyInstallUpdate()
         {
             var installUnpackedDir = new DirectoryInfo(_installUnpackedDir);
-            var extractTempDir = new DirectoryInfo(Path.Combine(_updatesStoragePath, "temp_" + Path.GetRandomFileName()));
+            //var extractTempDir = new DirectoryInfo(Path.Combine(_updatesStoragePath, "temp_" + Path.GetRandomFileName()));
             try
             {
                 if (installUnpackedDir.Exists && !FileUtils.DeleteDirectoryNoThrow(installUnpackedDir, true))
@@ -214,14 +214,27 @@ namespace SCTool_Redesigned.Update
                     return false;
                 }
 
+                //updates/latest.zip
+                //updates/temp_random
+                //updates/lastest
+                //
+
+                //using var archive = ZipFile.OpenRead(_schedInstallArchivePath);
+
+                //extractTempDir.Create();
+                //archive.ExtractToDirectory(extractTempDir.FullName);
+                //if (!_packageVerifier.VerifyPackage(extractTempDir.FullName))
+                //     throw new NotSupportedException("Not supported upgrade package");
+                //Directory.Move(extractTempDir.FullName, _installUnpackedDir);
+
                 Directory.CreateDirectory(_installUnpackedDir);
-                File.Move(_schedInstallExecutablePath, _installUnpackedExecutablePath);
+                File.Copy(_schedInstallExecutablePath, _installUnpackedExecutablePath);
             }
             catch (Exception e)
             {
                 _logger.Error(e, $"Failed extract update package to: {_installUnpackedDir}");
-                if (extractTempDir.Exists)
-                    FileUtils.DeleteDirectoryNoThrow(extractTempDir, true);
+                //if (extractTempDir.Exists)
+                //    FileUtils.DeleteDirectoryNoThrow(extractTempDir, true);
                 if (installUnpackedDir.Exists)
                     FileUtils.DeleteDirectoryNoThrow(installUnpackedDir, true);
                 return false;

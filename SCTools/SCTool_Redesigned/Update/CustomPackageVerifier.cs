@@ -10,8 +10,7 @@ namespace SCTool_Redesigned.Update
 
         public bool VerifyPackage(string path)
         {
-            if (!File.Exists(Path.Combine(path, $"{ExecutorName}.exe")) ||
-                !File.Exists(Path.Combine(path, $"{ExecutorName}.exe.config")))
+            if (!File.Exists(Path.Combine(path, $"{ExecutorName}.exe")))
             {
                 return false;
             }
