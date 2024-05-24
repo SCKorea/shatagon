@@ -4,7 +4,7 @@ using NSW.StarCitizen.Tools.Lib.Update;
 
 namespace SCTool_Redesigned.Update
 {
-    internal class CustomPackageVerifier : ApplicationUpdater.IPackageVerifier
+    internal class CustomPackageVerifier : CustomApplicationUpdater.IPackageVerifier
     {
         private string ExecutorName = Assembly.GetExecutingAssembly().GetName().Name;
 

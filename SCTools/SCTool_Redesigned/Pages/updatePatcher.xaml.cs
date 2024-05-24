@@ -16,8 +16,8 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class updatePatcher : Page
     {
-        private static ApplicationUpdater _updater = new ApplicationUpdater(GetUpdateRepository(), App.ExecutableDir, Properties.Resources.UpdateScript, new CustomPackageVerifier());
-        private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
+        private static CustomApplicationUpdater _updater = new(GetUpdateRepository(), App.ExecutableDir, Properties.Resources.UpdateScript, new CustomPackageVerifier());
+        private static CancellationTokenSource _cancellationToken = new();  //TODO: Dispose, cancel when exit
         public updatePatcher()
         {
             InitializeComponent();
