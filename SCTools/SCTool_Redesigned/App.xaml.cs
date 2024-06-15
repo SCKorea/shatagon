@@ -141,7 +141,7 @@ namespace SCTool_Redesigned
 
         private static string GetExecutableDir()
         {
-            var location = new Uri(AppContext.BaseDirectory);
+            var location = new Uri(Process.GetCurrentProcess().MainModule.FileName);
             var dirInfo = new FileInfo(location.LocalPath).Directory;
 
             if (dirInfo == null)
