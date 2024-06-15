@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO.Compression;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NLog;
 using NSW.StarCitizen.Tools.Lib.Helpers;
 using NSW.StarCitizen.Tools.Lib.Update;
@@ -21,11 +15,8 @@ namespace SCTool_Redesigned.Update
         private readonly string _updateScriptContent;
         private readonly string _updateScriptPath;
         private readonly string _updatesStoragePath;
-        private readonly string _schedInstallArchivePath;
-        private readonly string _schedInstallExecutablePath;
+        private readonly string _schedInstallFilePath;
         private readonly string _schedInstallJsonPath;
-        private readonly string _installUnpackedDir;
-        private readonly string _installUnpackedExecutablePath;
         private readonly string _currentVersion;
 
         public interface IPackageVerifier
@@ -68,11 +59,8 @@ namespace SCTool_Redesigned.Update
             _packageVerifier = packageVerifier;
             _updateScriptPath = Path.Combine(_executableDir, "update.bat");
             _updatesStoragePath = Path.Combine(_executableDir, "updates");
-            _schedInstallArchivePath = Path.Combine(_updatesStoragePath, "latest.zip");
-            _schedInstallExecutablePath = Path.Combine(_updatesStoragePath, "Shatagon.exe");
+            _schedInstallFilePath = Path.Combine(_updatesStoragePath, "shatagon.exe");
             _schedInstallJsonPath = Path.Combine(_updatesStoragePath, "latest.json");
-            _installUnpackedDir = Path.Combine(_updatesStoragePath, "latest");
-            _installUnpackedExecutablePath = Path.Combine(_updatesStoragePath, "latest", "Shatagon.exe");
             _currentVersion = _updateRepository.CurrentVersion;
         }
 
@@ -105,7 +93,7 @@ namespace SCTool_Redesigned.Update
         public InstallUpdateStatus InstallScheduledUpdate()
         {
             _logger.Info("Install scheduled update");
-            if (ExtractReadyInstallUpdate() && ExtractUpdateScript())
+            if (ExtractUpdateScript())
             {
                 using var updateProcess = new Process();
                 updateProcess.StartInfo.UseShellExecute = false;
@@ -128,7 +116,7 @@ namespace SCTool_Redesigned.Update
             return InstallUpdateStatus.ExtractFilesError;
         }
 
-        public UpdateInfo? GetScheduledUpdateInfo() => File.Exists(_schedInstallArchivePath) ? JsonHelper.ReadFile<GitHubUpdateInfo>(_schedInstallJsonPath) : null;
+        public UpdateInfo? GetScheduledUpdateInfo() => File.Exists(_schedInstallFilePath) ? JsonHelper.ReadFile<GitHubUpdateInfo>(_schedInstallJsonPath) : null;
 
         public bool IsAlreadyInstalledVersion(UpdateInfo updateInfo) =>
             string.Compare(updateInfo.GetVersion(), _currentVersion, StringComparison.OrdinalIgnoreCase) == 0;
@@ -137,7 +125,7 @@ namespace SCTool_Redesigned.Update
 
         public bool ScheduleInstallUpdate(UpdateInfo updateInfo, string filePath)
         {
-            _logger.Info($"Shedule install update with version: {updateInfo.GetVersion()}");
+            _logger.Info($"Schedule install update with version: {updateInfo.GetVersion()}");
             if (File.Exists(filePath))
             {
                 _updateRepository.SetCurrentVersion(_currentVersion);
@@ -147,11 +135,6 @@ namespace SCTool_Redesigned.Update
                     {
                         Directory.CreateDirectory(_updatesStoragePath);
                     }
-                    if (File.Exists(_schedInstallExecutablePath))
-                    {
-                        File.Delete(_schedInstallExecutablePath);
-                    }
-                    File.Move(filePath, _schedInstallExecutablePath);
                     if (JsonHelper.WriteFile(_schedInstallJsonPath, updateInfo))
                     {
                         _updateRepository.SetCurrentVersion(updateInfo.GetVersion());
@@ -176,8 +159,8 @@ namespace SCTool_Redesigned.Update
             _updateRepository.SetCurrentVersion(_currentVersion);
             if (File.Exists(_schedInstallJsonPath))
                 FileUtils.DeleteFileNoThrow(_schedInstallJsonPath);
-            return File.Exists(_schedInstallExecutablePath) &&
-                FileUtils.DeleteFileNoThrow(_schedInstallExecutablePath);
+            return File.Exists(_schedInstallFilePath) &&
+                FileUtils.DeleteFileNoThrow(_schedInstallFilePath);
         }
 
         public void RemoveUpdateScript()
@@ -197,46 +180,6 @@ namespace SCTool_Redesigned.Update
             catch (Exception e)
             {
                 _logger.Error(e, $"Failed extract update script to: {_updateScriptPath}");
-                return false;
-            }
-            return true;
-        }
-
-        private bool ExtractReadyInstallUpdate()
-        {
-            var installUnpackedDir = new DirectoryInfo(_installUnpackedDir);
-            //var extractTempDir = new DirectoryInfo(Path.Combine(_updatesStoragePath, "temp_" + Path.GetRandomFileName()));
-            try
-            {
-                if (installUnpackedDir.Exists && !FileUtils.DeleteDirectoryNoThrow(installUnpackedDir, true))
-                {
-                    _logger.Error($"Already exist extract directory can't be removed: {_installUnpackedDir}");
-                    return false;
-                }
-
-                //updates/latest.zip
-                //updates/temp_random
-                //updates/lastest
-                //
-
-                //using var archive = ZipFile.OpenRead(_schedInstallArchivePath);
-
-                //extractTempDir.Create();
-                //archive.ExtractToDirectory(extractTempDir.FullName);
-                //if (!_packageVerifier.VerifyPackage(extractTempDir.FullName))
-                //     throw new NotSupportedException("Not supported upgrade package");
-                //Directory.Move(extractTempDir.FullName, _installUnpackedDir);
-
-                Directory.CreateDirectory(_installUnpackedDir);
-                File.Copy(_schedInstallExecutablePath, _installUnpackedExecutablePath);
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e, $"Failed extract update package to: {_installUnpackedDir}");
-                //if (extractTempDir.Exists)
-                //    FileUtils.DeleteDirectoryNoThrow(extractTempDir, true);
-                if (installUnpackedDir.Exists)
-                    FileUtils.DeleteDirectoryNoThrow(installUnpackedDir, true);
                 return false;
             }
             return true;
