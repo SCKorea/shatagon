@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows;
@@ -153,28 +154,18 @@ namespace SCTool_Redesigned
         {
             Logger.Info("Check Internet connection.");
 
-            var pass = new Ping().Send("168.126.63.1", 1000).Status.Equals(IPStatus.Success); //KT DNS IP
-
-            if (!pass)
+            try
             {
-                Logger.Info("ICMP port is not available, Try different way...");
+                using var client = new HttpClient();
+                var content = new StringContent(string.Empty);
+                var response = client.PostAsync("https://sc.galaxyhub.kr/api/v4/patcher/mode", content).Result;
 
-                try
-                {
-                    pass = HttpNetClient.Client.GetStringAsync("https://api.ipify.org").Result.Length > 0;
-
-                }
-                catch
-                {
-                    Logger.Warn("FAIL: Internet unavailable.");
-
-                    pass = false;
-                }
-
+                return response.IsSuccessStatusCode;
             }
-
-            Logger.Info("SUCCESS: Internet available.");
-            return pass;
+            catch
+            {
+                return false;
+            }
         }
     }
 }
