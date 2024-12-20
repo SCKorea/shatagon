@@ -54,6 +54,8 @@ namespace NSW.StarCitizen.Tools.Lib.Global
             {
                 if (string.Compare(folderName, mode.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
                     return true;
+                if (string.Compare(folderName, "4.0_PREVIEW") == 0)
+                    return true; 
             }
             return false;
         }

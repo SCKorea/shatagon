@@ -12,7 +12,7 @@ namespace NSW.StarCitizen.Tools.Lib.Global
 
         public static GameInfo? Create(GameMode mode, string gamePath)
         {
-            var rootFolderPath = GameConstants.GetGameModePath(gamePath, mode);
+            var rootFolderPath = Path.Combine(gamePath, "4.0_PREVIEW");
             if (Directory.Exists(rootFolderPath))
             {
                 var exeFilePath = GameConstants.GetGameExePath(rootFolderPath);
