@@ -556,7 +556,8 @@ namespace SCTool_Redesigned.Windows
                             ++isNewVersion;
                         }
 
-                        var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
+                        //var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
+                        var gameFolder = Path.Combine(App.Settings.GameFolder, "4.0_PREVIEW");
                         var localizationFile = Path.Combine(gameFolder, "data", "Localization", App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage], "global.ini");
                         var userConfigPath = Path.Combine(gameFolder, "user.cfg");
 
@@ -636,7 +637,8 @@ namespace SCTool_Redesigned.Windows
                 {
                     var patch = data.Installations.FirstOrDefault();
 
-                    var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
+                    //var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
+                    var gameFolder = Path.Combine(App.Settings.GameFolder, "4.0_PREVIEW");
                     var localizationFile = Path.Combine(gameFolder, "data", "Localization", App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage], "global.ini");
                     var userConfigPath = Path.Combine(gameFolder, "user.cfg");
 
