@@ -37,7 +37,7 @@ namespace SCTool_Redesigned.Pages
             string infofile = App.LocalappDir + "build.info";
             if (!File.Exists(infofile))
             {
-                App.Logger.Warn("StarCitizeen build info File does not exist. Maybe not installed?");
+                App.Logger.Warn("StarCitizen build info File does not exist. Maybe not installed?");
                 throw new FileNotFoundException("build.info");
             }
             string[] _buildinfo = File.ReadAllLines(infofile);
