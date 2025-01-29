@@ -109,7 +109,17 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 5:  //select Version
+
+                    case 5:
+                        if (App.Settings.SelectedGameVersion == "")
+                        {
+                            MessageBox.Show("한국어패치를 설치할 게임 버전을 선택하십시오.", "설치된 게임 버전 선택", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        break;
+
+                    case 6:  //select Version
                         if (!RepositoryManager.IsAvailable())
                         {
                             //_logger.Error($"Install localization mode path unavailable: {CurrentGame.RootFolderPath}");
@@ -273,7 +283,33 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 5: //select Version
+                    case 5: //selesct installed game channel
+                        Background = _subBG;
+                        frame_left.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.selectChannel();
+                        logoCanvas.Visibility = Visibility.Hidden;
+                        logotitle.Visibility = Visibility.Hidden;
+                        InstallBtn.Visibility = Visibility.Hidden;
+                        UninstallBtn.Visibility = Visibility.Hidden;
+                        DisableBtn.Visibility = Visibility.Hidden;
+                        NextBtn.Visibility = (App.Settings.GameFolder == null) ? Visibility.Hidden : Visibility.Visible;
+                        NextBtn.Text = Properties.Resources.UI_Button_Next;
+                        PrevBtn.Visibility = Visibility.Visible;
+                        PrevBtn.Text = Properties.Resources.UI_Button_Previous;
+                        Community_link1.IsEnabled = false;
+                        Community_link1.Visibility = Visibility.Hidden;
+                        Community_link2.IsEnabled = false;
+                        Community_link2.Visibility = Visibility.Hidden;
+                        Menu_patchnote.IsEnabled = false;
+                        Menu_patchnote.Visibility = Visibility.Hidden;
+                        Menu_qna.IsEnabled = false;
+                        Menu_qna.Visibility = Visibility.Hidden;
+                        Menu_credit.IsEnabled = false;
+                        Menu_credit.Visibility = Visibility.Hidden;
+                        break;
+
+                    case 6: //select Version //old 5
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -300,7 +336,7 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 6: //installing?
+                    case 7: //installing?
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -326,7 +362,7 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 7: //installComplete
+                    case 8: //installComplete
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -353,7 +389,7 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 8:
+                    case 9:
                         Application.Current.Shutdown();
 
                         break;
@@ -383,7 +419,7 @@ namespace SCTool_Redesigned.Windows
 
         private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Phase != 7)
+            if (Phase != 8)
             {
                 Phase++;
             }
@@ -395,7 +431,7 @@ namespace SCTool_Redesigned.Windows
 
         private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Phase != 7)
+            if (Phase != 8)
             {
                 Phase--;
             }

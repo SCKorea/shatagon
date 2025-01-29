@@ -35,6 +35,8 @@ namespace SCTool_Redesigned.Settings
         [JsonProperty]
         public bool Console { get; set; } = false;
 
+        public string SelectedGameVersion = "";
+
         public LocalizationSettings GetGameModeSettings(GameMode gameMode)
         {
             switch (gameMode)
