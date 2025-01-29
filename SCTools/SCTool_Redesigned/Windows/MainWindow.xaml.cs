@@ -110,6 +110,16 @@ namespace SCTool_Redesigned.Windows
                         break;
 
 
+                    case 4: //select dir
+                        if (App.Settings.GameFolder == "")
+                        {
+                            MessageBox.Show("게임이 설치된 폴더를 선택하십시오.", "게임 설치 폴더 선택", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        break;
+
+
                     case 5:
                         if (App.Settings.SelectedGameVersion == "")
                         {
