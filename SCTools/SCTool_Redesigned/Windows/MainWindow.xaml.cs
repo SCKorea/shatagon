@@ -120,10 +120,10 @@ namespace SCTool_Redesigned.Windows
                         break;
 
 
-                    case 5:
-                        if (App.Settings.SelectedGameVersion == "")
+                    case 5: //select game mode 
+                        if (App.SelectedGameMode == "")
                         {
-                            MessageBox.Show("한국어패치를 설치할 게임 버전을 선택하십시오.", "설치된 게임 버전 선택", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("한국어패치를 설치할 게임 모드를 선택하십시오.", "설치된 게임 모드 선택", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
 
@@ -293,11 +293,11 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 5: //selesct installed game channel
+                    case 5: //selesct installed game mode
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
-                        frame_all.Content = new Pages.selectChannel();
+                        frame_all.Content = new Pages.selectMode();
                         logoCanvas.Visibility = Visibility.Hidden;
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;

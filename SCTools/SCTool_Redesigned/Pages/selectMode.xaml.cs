@@ -13,15 +13,15 @@ namespace SCTool_Redesigned.Pages
     /// <summary>
     /// selectDir.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class selectChannel : Page
+    public partial class selectMode : Page
     {
         private const string Defaultdir = @"C:\Program Files\Roberts Space Industries\StarCitizen";
-        public selectChannel()
+        public selectMode()
         {
-            App.Settings.SelectedGameVersion = "";
+            App.SelectedGameMode = "";
 
             InitializeComponent();
-            UpdateInstalledChannel();
+            UpdateInstalledGameMode();
         }
 
 
@@ -34,21 +34,20 @@ namespace SCTool_Redesigned.Pages
 
             var selected = ChannelSelectListBox.SelectedItem.ToString() ?? "";
 
-            App.Settings.SelectedGameVersion = ChannelSelectListBox.SelectedItem.ToString() ?? "";
+            App.SelectedGameMode = ChannelSelectListBox.SelectedItem.ToString() ?? "";
             App.Logger.Info($"Selected {selected} folder");
         }
 
-        private void RefreshBtn_Click(object sender, RoutedEventArgs e) => UpdateInstalledChannel();
+        private void RefreshBtn_Click(object sender, RoutedEventArgs e) => UpdateInstalledGameMode();
 
-        private void UpdateInstalledChannel()
+        private void UpdateInstalledGameMode()
         {
             var currentSelection = ChannelSelectListBox.SelectedItem;
 
-            // 버전 목록 가져오기
-            var chennels = GetInstalledGameChannel();
+            var chennels = GetInstalledGameMode();
             ChannelSelectListBox.ItemsSource = chennels;
 
-            // 이전 선택 항목 복원
+
             if (currentSelection != null && chennels.Contains(currentSelection.ToString() ?? ""))
             {
                 ChannelSelectListBox.SelectedItem = currentSelection;
@@ -60,7 +59,7 @@ namespace SCTool_Redesigned.Pages
         }
 
 
-        private List<string> GetInstalledGameChannel()
+        private List<string> GetInstalledGameMode()
         {
             App.Logger.Info("Find installed Game Folders");
 
@@ -73,7 +72,7 @@ namespace SCTool_Redesigned.Pages
 
             foreach (var innerFolder in gamefolders)
             {
-                if(innerFolder.GetFiles("Data.p4k").FirstOrDefault() == null)
+                if(innerFolder.GetFiles("StarCitizen_Launcher.exe").FirstOrDefault() == null)
                 {
                     continue;
                 }
