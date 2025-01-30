@@ -24,16 +24,38 @@ namespace SCTool_Redesigned.Pages
         {
             InitializeComponent();
 
-            //TODO: CHOOSE PTU LIVE 
+            var gameMode = App.SelectedGameMode;
+
+            if (gameMode == "")
+            {
+                App.Logger.Info("Not selected game mode.");
+
+                return;
+            }
+
+            App.Logger.Info($"Game Folder Name: {gameMode}");
+
             foreach (GameInfo gameInfo in GameFolders.GetGameModes(App.Settings.GameFolder))
             {
-                if (gameInfo.Mode == GameMode.LIVE)
+                App.Logger.Info(gameInfo.Mode);
+
+                if (gameInfo.Mode == gameMode)
                 {
                     App.CurrentGame = gameInfo;
                     break;
                 }
             }
 
+            if (App.CurrentGame == null)
+            {
+                App.Logger.Info($"Not found matched mode, check game folder or starcitizen.exe");
+
+                return;
+            }
+
+            App.Logger.Info($"Game Mode: {App.CurrentGame.Mode}");
+
+           
             GameSettings = new GameSettings(App.CurrentGame);
 
             switch (mode)
@@ -52,6 +74,8 @@ namespace SCTool_Redesigned.Pages
                     break;
             }
 
+
+            App.SelectedGameMode = "";
         }
 
         public async void InstallVersionAsync()
@@ -65,9 +89,16 @@ namespace SCTool_Redesigned.Pages
                 Cursor = Cursors.Wait;
 
                 var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.TargetInstallation.InstalledVersion, this);
-                var filePath = await RepositoryManager.TargetRepository.DownloadAsync(RepositoryManager.TargetInfo, Path.GetTempPath(),
-                    _cancellationToken.Token, downloadDialogAdapter);
+                var filePath = await RepositoryManager.TargetRepository.DownloadAsync(
+                        RepositoryManager.TargetInfo,
+                        Path.GetTempPath(),
+                        _cancellationToken.Token,
+                        downloadDialogAdapter
+                    );
                 var result = RepositoryManager.TargetRepository.Installer.Install(filePath, App.CurrentGame.RootFolderPath);
+
+                App.Logger.Info($"install path: {App.CurrentGame.RootFolderPath}");
+                App.Logger.Info($"install result: {result}");
 
                 switch (result)
                 {

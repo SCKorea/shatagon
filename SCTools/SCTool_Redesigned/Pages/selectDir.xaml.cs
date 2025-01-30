@@ -22,7 +22,7 @@ namespace SCTool_Redesigned.Pages
 
             if (!IsCorrectGameFolder(App.Settings.GameFolder ?? ""))
             {
-                App.Logger.Warn("StarCitizen p4k File does not exist. Maybe not installed?");
+                App.Logger.Warn("StarCitizen.exe File does not exist. Maybe not installed?");
 
                 App.Settings.GameFolder = "";
                 App.SaveAppSettings();
@@ -49,7 +49,9 @@ namespace SCTool_Redesigned.Pages
 
                 foreach (var folder in gameFolders)
                 {
-                    if (folder.GetFiles("Data.p4k").FirstOrDefault() != null)
+                    var gameExe = GameConstants.GetGameExePath(folder.FullName);
+
+                    if (!string.IsNullOrEmpty(gameExe) && File.Exists(gameExe))
                     {
                         return true;
                     }

@@ -44,15 +44,18 @@ namespace SCTool_Redesigned.Pages
         {
             var currentSelection = ChannelSelectListBox.SelectedItem;
 
-            var chennels = GetInstalledGameMode();
-            ChannelSelectListBox.ItemsSource = chennels;
+            var modes = GetInstalledGameMode();
+            ChannelSelectListBox.ItemsSource = modes;
 
 
-            if (currentSelection != null && chennels.Contains(currentSelection.ToString() ?? ""))
+            if (currentSelection != null && modes.Contains(currentSelection.ToString() ?? ""))
             {
                 ChannelSelectListBox.SelectedItem = currentSelection;
+
+                return;
             }
-            else if (chennels.Count > 0)
+
+            if (modes.Count > 0)
             {
                 ChannelSelectListBox.SelectedIndex = 0;
             }
@@ -72,7 +75,9 @@ namespace SCTool_Redesigned.Pages
 
             foreach (var innerFolder in gamefolders)
             {
-                if(innerFolder.GetFiles("StarCitizen_Launcher.exe").FirstOrDefault() == null)
+                var gameExe = GameConstants.GetGameExePath(innerFolder.FullName);
+
+                if (string.IsNullOrEmpty(gameExe) || !File.Exists(GameConstants.GetGameExePath(innerFolder.FullName)))
                 {
                     continue;
                 }

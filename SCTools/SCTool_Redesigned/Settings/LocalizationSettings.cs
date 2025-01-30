@@ -17,7 +17,7 @@ namespace SCTool_Redesigned.Settings
     public class LocalizationInstallation
     {
         [JsonProperty]
-        public GameMode Mode { get; }
+        public string Mode { get; }
 
         [JsonProperty]
         public string Repository { get; }
@@ -39,6 +39,15 @@ namespace SCTool_Redesigned.Settings
 
         [JsonConstructor]
         public LocalizationInstallation(GameMode mode, string repository, UpdateRepositoryType type)
+        {
+            Mode = mode.ToString();
+            Repository = repository;
+            Type = type;
+            IsEnabled = false;
+        }
+
+        [JsonConstructor]
+        public LocalizationInstallation(string mode, string repository, UpdateRepositoryType type)
         {
             Mode = mode;
             Repository = repository;

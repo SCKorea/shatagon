@@ -21,14 +21,18 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
             // system.cfg
             var systemConfigFile = new CfgFile(GameConstants.GetSystemConfigPath(_currentGame.RootFolderPath));
             var systemConfigData = systemConfigFile.Read();
+
             LoadLanguageInfo(systemConfigData, languageInfo);
+
             // user.cfg
             var userConfigFile = new CfgFile(GameConstants.GetUserConfigPath(_currentGame.RootFolderPath));
             var userConfigData = userConfigFile.Read();
+
             if (FixUserConfigLanguageInfo(userConfigData, languageInfo))
             {
                 userConfigFile.Save(userConfigData);
             }
+
             LanguageInfo = languageInfo;
         }
 
@@ -38,14 +42,18 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
             {
                 if (string.Compare(LanguageInfo.Current, languageName, StringComparison.OrdinalIgnoreCase) == 0)
                     return true;
+
                 var userConfigFile = new CfgFile(GameConstants.GetUserConfigPath(_currentGame.RootFolderPath));
                 var userConfigData = userConfigFile.Read();
+
                 userConfigData.AddOrUpdateRow(GameConstants.CurrentLanguageKey, languageName);
+
                 if (userConfigFile.Save(userConfigData))
                 {
                     LanguageInfo.Current = languageName;
                     return true;
                 }
+
                 return false;
             }
             return false;
@@ -55,12 +63,14 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
         {
             var userConfigFile = new CfgFile(GameConstants.GetUserConfigPath(_currentGame.RootFolderPath));
             var userConfigData = userConfigFile.Read();
+
             if (userConfigData.RemoveRow(GameConstants.CurrentLanguageKey) != null &&
                 userConfigFile.Save(userConfigData))
             {
                 LanguageInfo.Current = null;
                 return true;
             }
+
             return false;
         }
 
@@ -69,6 +79,7 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
             if (cfgData.Any())
             {
                 var anyFieldFixed = cfgData.RemoveRow(GameConstants.SystemLanguagesKey) != null;
+
                 if (cfgData.TryGetValue(GameConstants.CurrentLanguageKey, out var value) && (value != null))
                 {
                     if (languageInfo.Languages.Contains(value))
@@ -91,12 +102,15 @@ namespace NSW.StarCitizen.Tools.Lib.Localization
             if (cfgData.TryGetValue(GameConstants.SystemLanguagesKey, out var value) && (value != null))
             {
                 languageInfo.Languages.Clear();
+
                 var languages = value.Split(',');
+
                 foreach (var language in languages)
                 {
                     languageInfo.Languages.Add(language.Trim());
                 }
             }
+
             if (cfgData.TryGetValue(GameConstants.CurrentLanguageKey, out value) && (value != null))
             {
                 languageInfo.Current = value;
