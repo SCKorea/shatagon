@@ -53,8 +53,15 @@ namespace SCTool_Redesigned.Utils
 
         public static void SetInstallationRepository(LocalizationInstallation localizationInstallation)
         {
-            App.Settings.LIVE_Localization.Installations.Add(localizationInstallation);
+            var installations = App.Settings.LIVE_Localization.Installations;
+            var installation = installations.Find(installation => installation.Mode.Equals(localizationInstallation.Mode));
 
+            if (installation != null)
+            {
+                App.Settings.LIVE_Localization.Installations.Remove(installation);
+            }
+
+            App.Settings.LIVE_Localization.Installations.Add(localizationInstallation);
             App.SaveAppSettings();
         }
 
@@ -66,14 +73,7 @@ namespace SCTool_Redesigned.Utils
 
         public static LocalizationInstallation? GetInstallationRepository(string gameMode)
         {
-            var installation = App.Settings.LIVE_Localization.Installations.Find(item => item.Mode == gameMode);
-
-            if (installation == null)
-            {
-                App.Logger.Info($"Not found LocalizationInstallation for {gameMode}");
-
-                return TargetInstallation;
-            }
+            var installation = App.Settings.LIVE_Localization.Installations.Find(item => item.Mode.Equals(gameMode));
 
             return installation;
         }
@@ -110,37 +110,6 @@ namespace SCTool_Redesigned.Utils
             TargetRepository = targetRepository;
 
             return true;
-        }
-
-        public static void ToggleTargetInstallationStatus()
-        {
-            var repository = TargetRepository;
-            var installation = TargetInstallation;
-
-            if (repository == null || installation == null)
-            {
-                App.Logger.Error("TargetInstallation or TargetInstallation is not registered");
-                return;
-            }
-
-            var destinationPath = Path.Combine(App.Settings.GameFolder, repository.Name);
-            var status = repository.Installer.RevertLocalization(destinationPath);
-
-            if (status == LocalizationInstallationType.Disabled)
-            {
-                installation.IsEnabled = false;
-            }
-
-            if (status == LocalizationInstallationType.Enabled)
-            {
-                installation.IsEnabled = true;
-            }
-
-            if (status == LocalizationInstallationType.None)
-            {
-                RemoveInstallationRepository(installation);
-            }
-
         }
 
         public static void RemoveInstalledRepository()

@@ -651,7 +651,7 @@ namespace SCTool_Redesigned.Windows
 
                 _MainBtnState = MainBtnMode.install;
 
-                if (installed.Count > 0 && mismatch.Count == 0 && update.Count == 0)
+                if (installedGameFolders.Count == installed.Count && mismatch.Count == 0 && update.Count == 0)
                 {
                     _MainBtnState = MainBtnMode.launch;
                 }

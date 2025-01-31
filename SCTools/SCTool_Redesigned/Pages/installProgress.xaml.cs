@@ -75,7 +75,7 @@ namespace SCTool_Redesigned.Pages
 
                 case MainWindow.InstallerMode.disable:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationPH;
-                    RepositoryManager.ToggleTargetInstallationStatus();
+                    Disable();
                     break;
             }
 
@@ -83,29 +83,28 @@ namespace SCTool_Redesigned.Pages
             App.SelectedGameMode = "";
         }
 
-        public async void InstallVersionAsync(GameInfo gameInfo, GameSettings gameSettings)
+        private async void InstallVersionAsync(GameInfo gameInfo, GameSettings gameSettings)
         {
             App.Logger.Info("Start localization installation");
 
-            bool status = false;
-
             Cursor = Cursors.Wait;
+            var targetInstallation = RepositoryManager.TargetInstallation;
 
-            var installedRepository = RepositoryManager.GetInstallationRepository(gameInfo.Mode);
-
-            if (installedRepository == null)
+            if (targetInstallation == null)
             {
-                App.Logger.Error("Not found Game Info");
+                App.Logger.Error("Not found TargetInstallation");
 
                 MessageBox.Show(
                     Properties.Resources.Localization_Install_ErrorText,
                     Properties.Resources.Localization_Install_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error
                 );
 
+                MainWindow.UI.Phase--;
+
                 return;
             }
 
-            var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(installedRepository.InstalledVersion, this);
+            var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(targetInstallation.InstalledVersion, this);
             var targetRepository = RepositoryManager.TargetRepository;
             var targetUpdateInfo = RepositoryManager.TargetInfo;
 
@@ -121,6 +120,8 @@ namespace SCTool_Redesigned.Pages
                 return;
             }
 
+            bool status = false;
+
             try
             {
                 var tempPath = Path.GetTempPath();
@@ -133,11 +134,6 @@ namespace SCTool_Redesigned.Pages
                 switch (result)
                 {
                     case InstallStatus.Success:
-                        gameSettings.Load();
-
-                        ProgBar.Value = ProgBar.Maximum;
-                        RepositoryManager.SetInstallationRepository(installedRepository);
-
                         status = true;
 
                         break;
@@ -175,20 +171,25 @@ namespace SCTool_Redesigned.Pages
                         break;
                 }
             }
+            catch (HttpRequestException e)
+            {
+                App.Logger.Error(e, "Error during install localization");
+                MessageBox.Show(
+                    Properties.Resources.Localization_Download_ErrorText + '\n' + e.Message,
+                    Properties.Resources.Localization_Download_ErrorTitle,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
             catch (Exception e)
             {
                 App.Logger.Error(e, "Error during install localization");
-
-                if (e is HttpRequestException)
-                {
-                    MessageBox.Show(Properties.Resources.Localization_Download_ErrorText + '\n' + e.Message,
-                        Properties.Resources.Localization_Download_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    MessageBox.Show(Properties.Resources.Localization_Download_ErrorText,
-                        Properties.Resources.Localization_Download_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show(
+                    Properties.Resources.Localization_Download_ErrorText,
+                    Properties.Resources.Localization_Download_ErrorTitle,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
             finally
             {
@@ -203,26 +204,37 @@ namespace SCTool_Redesigned.Pages
                 return;
             }
 
-            var targetInstallation = RepositoryManager.TargetInstallation;
-
-            if (targetInstallation == null)
-            {
-                App.Logger.Info("TargetInstallation is not registered");
-                MainWindow.UI.Phase--;
-
-                return;
-            }
-
+            ProgBar.Value = ProgBar.Maximum;
+            gameSettings.Load();
+ 
             if (targetInstallation.IsEnabled == false)
             {
-                RepositoryManager.ToggleTargetInstallationStatus();
+                var destinationPath = Path.Combine(App.Settings.GameFolder, targetInstallation.Mode);
+                var installationType = targetRepository.Installer.RevertLocalization(destinationPath);
+
+                if (installationType == LocalizationInstallationType.Disabled)
+                {
+                    targetInstallation.IsEnabled = false;
+                }
+
+                if (installationType == LocalizationInstallationType.Enabled)
+                {
+                    targetInstallation.IsEnabled = true;
+                }
+
+                if (installationType == LocalizationInstallationType.None)
+                {
+                    RepositoryManager.RemoveInstallationRepository(targetInstallation);
+                }
             }
+
+            RepositoryManager.SetInstallationRepository(targetInstallation);
 
             App.Logger.Info("Finish localization installation");
             MainWindow.UI.Phase++;
         }
 
-        public void Uninstall(GameInfo gameInfo, GameSettings gameSettings)
+        private void Uninstall(GameInfo gameInfo, GameSettings gameSettings)
         {
             App.Logger.Info("Start localization uninstallation");
 
@@ -235,7 +247,6 @@ namespace SCTool_Redesigned.Pages
 
                 return;
             }
-
 
             try
             {
@@ -284,6 +295,13 @@ namespace SCTool_Redesigned.Pages
                     Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void Disable()
+        {
+
+        }
+
+
 
         public void DisableInstallation()
         {
