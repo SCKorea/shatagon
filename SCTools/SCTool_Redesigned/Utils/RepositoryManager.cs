@@ -67,7 +67,10 @@ namespace SCTool_Redesigned.Utils
 
         public static bool RemoveInstallationRepository(LocalizationInstallation installation)
         {
-            return App.Settings.LIVE_Localization.Installations.Remove(installation);
+            var result = App.Settings.LIVE_Localization.Installations.Remove(installation);
+            App.SaveAppSettings();
+
+            return result;
         }
 
 

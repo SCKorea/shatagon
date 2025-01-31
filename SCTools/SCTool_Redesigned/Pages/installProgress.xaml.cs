@@ -5,11 +5,13 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Localization;
 using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.Utils;
 using SCTool_Redesigned.Windows;
+using static SCTool_Redesigned.Windows.MainWindow;
 
 namespace SCTool_Redesigned.Pages
 {
@@ -238,7 +240,8 @@ namespace SCTool_Redesigned.Pages
         {
             App.Logger.Info("Start localization uninstallation");
 
-            var targetInstallation = RepositoryManager.TargetInstallation;
+            var gameMode = App.SelectedGameMode;
+            var targetInstallation = RepositoryManager.GetInstallationRepository(gameMode);
             var targetRepository = RepositoryManager.TargetRepository;
 
             if (targetInstallation == null || targetRepository == null)
@@ -248,6 +251,8 @@ namespace SCTool_Redesigned.Pages
                 return;
             }
 
+            var status = false;
+
             try
             {
                 var uninstallStatus = targetRepository.Installer.Uninstall(gameInfo.RootFolderPath);
@@ -255,13 +260,8 @@ namespace SCTool_Redesigned.Pages
                 switch (uninstallStatus)
                 {
                     case UninstallStatus.Success:
-                        gameSettings.RemoveCurrentLanguage();
-                        gameSettings.Load();
 
-                        ProgBar.Value = ProgBar.Minimum;
-
-                        RepositoryManager.RemoveInstallationRepository(targetInstallation);
-                        App.Logger.Info("Finish localization uninstallation");
+                        status = true;
 
                         break;
 
@@ -294,6 +294,26 @@ namespace SCTool_Redesigned.Pages
                 MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText + "\n" + e.Message,
                     Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            if (status == false)
+            {
+                MainWindow.UI.Phase--;
+                return;
+            }
+
+            gameSettings.Load();
+
+            ProgBar.Value = ProgBar.Minimum;
+
+            RepositoryManager.RemoveInstallationRepository(targetInstallation);
+            App.Logger.Info("Finish localization uninstallation");
+
+            //MessageBox.Show(Properties.Resources.MSG_Desc_Uninstall);    //왜인진 몰라도 이거 빼면 frame_all content가 안 비워짐....
+
+            MainWindow.UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                MainWindow.UI.Phase = 8;
+            }));
         }
 
         private void Disable()

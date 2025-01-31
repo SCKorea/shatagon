@@ -35,19 +35,6 @@ namespace SCTool_Redesigned.Settings
         [JsonProperty]
         public bool Console { get; set; } = false;
 
-        public LocalizationSettings GetGameModeSettings(GameMode gameMode)
-        {
-            switch (gameMode)
-            {
-                case GameMode.LIVE:
-                    return LIVE_Localization;
-                case GameMode.PTU:
-                    return PTU_Localization;
-                default:
-                    throw new NotSupportedException("Not supported game mode: " + gameMode);
-            }
-        }
-
         public LocalizationSettings GetLocalizationSettings()
         {
             return LIVE_Localization;

@@ -103,10 +103,20 @@ namespace SCTool_Redesigned.Windows
                                 _author.ShowDialog();
                             }
 
-                            if ((RepositoryManager.TargetRepository.AuthToken = RepositoryManager.GetLocalizationSource().AuthToken = _author.GetAuthToken()) == null) //Failed to auth
+                            if (RepositoryManager.TargetRepository == null)
                             {
-                                return; //cancel Phase progressing
+                                return;
                             }
+
+                            string authToken = _author.GetAuthToken();
+
+                            if (authToken == null)
+                            {
+                                return;
+                            }
+
+                            RepositoryManager.GetLocalizationSource().AuthToken = _author.GetAuthToken();
+                            RepositoryManager.TargetRepository.AuthToken = _author.GetAuthToken();
                         }
 
                         break;
@@ -258,14 +268,6 @@ namespace SCTool_Redesigned.Windows
 
                         SetInstallbtnLabel();
 
-                        if (IsLocalizationInstalled())
-                        {
-                            UninstallBtn.Visibility = Visibility.Visible;
-                            DisableBtn.Visibility = Visibility.Visible;
-                            Update_ToggleBtn();
-                            LaunchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder + "\\LIVE", App.LocalappDir);
-                        }
-
                         break;
 
                     case 4: //select Dir
@@ -299,7 +301,7 @@ namespace SCTool_Redesigned.Windows
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
-                        frame_all.Content = new Pages.selectMode();
+                        frame_all.Content = new Pages.selectMode(_installmode);
                         logoCanvas.Visibility = Visibility.Hidden;
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
@@ -378,7 +380,7 @@ namespace SCTool_Redesigned.Windows
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
-                        frame_all.Content = new Pages.installComplete();
+                        frame_all.Content = new Pages.installComplete(_installmode);
                         logoCanvas.Visibility = Visibility.Hidden;
                         logotitle.Visibility = Visibility.Hidden;
                         InstallBtn.Visibility = Visibility.Hidden;
@@ -423,33 +425,71 @@ namespace SCTool_Redesigned.Windows
                 Community_link2.ToolTip = Properties.Resources.UI_Button_Tooltip_Community_2;
             }));
         }
-
-        private void Update_ToggleBtn()
-        {
-            DisableBtn.Content = IsLocalizationInstalled() ? Properties.Resources.UI_Button_DisableLocalization : Properties.Resources.UI_Button_EnableLocalization;
-        }
-
         private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Phase != 8)
+            switch (Phase)
             {
-                Phase++;
-            }
-            else
-            {
-                Phase = 3;
+                case 5:
+                    if (_installmode == InstallerMode.install)
+                    {
+                        Phase++;
+                        break;
+                    }
+
+                    Phase = 7;
+                    break;
+
+                case 7:
+                    if (_installmode == InstallerMode.install)
+                    {
+                        Phase++;
+                        break;
+                    }
+
+                    Phase = 8;
+                    break;
+
+                case 8:
+                    Phase = 3;
+                    break;
+
+                default:
+                    Phase++;
+                    break;
             }
         }
 
         private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Phase != 8)
+            switch (Phase)
             {
-                Phase--;
-            }
-            else
-            {
-                Phase++;
+                case 5:
+                    if (_installmode == InstallerMode.install)
+                    {
+                        Phase--;
+                        break;
+                    }
+
+                    Phase = 7;
+                    break;
+
+                case 7:
+                    if (_installmode == InstallerMode.install)
+                    {
+                        Phase--;
+                        break;
+                    }
+
+                    Phase = 5;
+                    break;
+
+                case 8:
+                    Phase = 3;
+                    break;
+
+                default:
+                    Phase--;
+                    break;
             }
         }
 
@@ -481,7 +521,6 @@ namespace SCTool_Redesigned.Windows
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
             }
 
-            
             if (_MainBtnState != MainBtnMode.launch)
             {
                 _installmode = InstallerMode.install;
@@ -501,13 +540,14 @@ namespace SCTool_Redesigned.Windows
             }
 
             _installmode = InstallerMode.uninstall;
-            Phase = 6;
-            MessageBox.Show(Properties.Resources.MSG_Desc_Uninstall);    //왜인진 몰라도 이거 빼면 frame_all content가 안 비워짐....
-            Phase = 3;
+            Phase = 4;
         }
 
         private void DisableBtn_Click(object sender, RoutedEventArgs e)
         {
+            // TODO
+
+            /*
             if (App.IsRunGame())
             {
                 MessageBox.Show(Properties.Resources.MSG_Decs_TurnOffGame, Properties.Resources.MSG_Title_TurnOffGame);
@@ -520,6 +560,7 @@ namespace SCTool_Redesigned.Windows
             else
                 MessageBox.Show(Properties.Resources.MSG_Desc_Disable);
             Phase = 3;
+            */
         }
 
         private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_1);
@@ -687,40 +728,14 @@ namespace SCTool_Redesigned.Windows
                             InstallBtn.Content = Properties.Resources.UI_Button_ReInstallLocalization;
                             break;
                     }
+
+                    if (installed.Count > 0)
+                    {
+                        UninstallBtn.Visibility = Visibility.Visible;
+                        //DisableBtn.Visibility = Visibility.Visible; //TODO
+                    }
                 }));
             });
-        }
-
-        private bool IsLocalizationInstalled()
-        {
-            var installed = 0;
-
-            if (!Directory.Exists(App.Settings.GameFolder))
-            {
-                return false;
-            }
-
-            foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
-            {
-                var data = App.Settings.GetGameModeSettings(mode);
-
-                if (data.Installations.Count > 0)
-                {
-                    var patch = data.Installations.FirstOrDefault();
-
-                    var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
-                    var localizationFile = Path.Combine(gameFolder, "data", "Localization", App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage], "global.ini");
-                    var userConfigPath = Path.Combine(gameFolder, "user.cfg");
-
-                    if (patch.IsEnabled && PatchLanguageManager.IsEnabled(userConfigPath) && File.Exists(localizationFile))
-                    {
-                        installed++;
-                    }
-                }
-
-            }
-
-            return installed > 0;
         }
 
         private bool IsGameInstalled()
