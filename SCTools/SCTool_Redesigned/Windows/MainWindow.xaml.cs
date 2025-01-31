@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using NLog;
+using NLog.Config;
+using NLog.LayoutRenderers;
 using NSW.StarCitizen.Tools.Lib.Global;
 using SCTool_Redesigned.Utils;
 
@@ -261,7 +263,7 @@ namespace SCTool_Redesigned.Windows
                             UninstallBtn.Visibility = Visibility.Visible;
                             DisableBtn.Visibility = Visibility.Visible;
                             Update_ToggleBtn();
-                            LauchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder + "\\LIVE", App.LocalappDir);
+                            LaunchTokenManager.Instance.UpdateLauchTokenManager(App.Settings.GameFolder + "\\LIVE", App.LocalappDir);
                         }
 
                         break;
@@ -582,66 +584,90 @@ namespace SCTool_Redesigned.Windows
         {
             Task.Run(() =>
             {
-                var installed = 0;
-                var isNewVersion = 0;
-                var mismatch = 0;
+                List<string> installed = [];
+                List<string> update = [];
+                List<string> mismatch = [];
                 var release = RepositoryManager.GetInfos(false);
+                var gameFolder = App.Settings.GameFolder;
+                
+                List<string> installedGameFolders = [];
 
-                foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
+                if (!string.IsNullOrEmpty(gameFolder))
                 {
-                    var data = App.Settings.GetGameModeSettings(mode);
+                    installedGameFolders = GameFolderManager.GetInstalledFolder(gameFolder);
+                }
 
-                    if (data.Installations.Count > 0)
+                App.Logger.Info("Installed Game Mode");
+                App.Logger.Info(string.Join(", ", [.. installedGameFolders]));
+
+                var installData = App.Settings.GetLocalizationSettings();
+                var releasedVersion = release.FirstOrDefault();
+
+                foreach (var mode in installedGameFolders)
+                {
+                    var installation = installData.Installations.Find(installation => installation.Mode == mode);
+
+                    if (installation == null)
                     {
-                        var patch = data.Installations.FirstOrDefault();
+                        continue;
+                    }
 
-                        if (release.Count() > 0 && !release.FirstOrDefault().Name.Equals(patch.InstalledVersion))
+                    var installedVersion = installation.InstalledVersion;
+
+                    if (releasedVersion != null && !installedVersion.Equals(releasedVersion.Name))
+                    {
+                        update.Add(mode);
+                    }
+
+                    var LanguageName = App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage];
+                    var localizationFile = Path.Combine(gameFolder, mode, "data", "Localization", LanguageName, "global.ini");
+                    var userConfig = Path.Combine(gameFolder, mode, "user.cfg");
+                    var existLocalizationFile = File.Exists(localizationFile);
+                    var existUserConfig = File.Exists(userConfig);
+                    var isEnablePatchUserConfig = false;
+
+                    if (existUserConfig)
+                    {
+                        isEnablePatchUserConfig = PatchLanguageManager.IsEnabled(userConfig);
+                    }
+
+                    if (installation.IsEnabled && isEnablePatchUserConfig)
+                    {
+                        if (existLocalizationFile == true)
                         {
-                            Debug.WriteLine(release.FirstOrDefault().Name);
-
-                            ++isNewVersion;
+                            installed.Add(mode);
                         }
 
-                        var gameFolder = Path.Combine(App.Settings.GameFolder, mode.ToString());
-                        var localizationFile = Path.Combine(gameFolder, "data", "Localization", App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage], "global.ini");
-                        var userConfigPath = Path.Combine(gameFolder, "user.cfg");
-
-                        var isPatchEnable = PatchLanguageManager.IsEnabled(userConfigPath);
-
-                        if (patch.IsEnabled && isPatchEnable && File.Exists(localizationFile))
+                        if (existLocalizationFile == false)
                         {
-                            installed++;
+                            mismatch.Add(mode);
                         }
-                        else
-                        {
-                            if (patch.IsEnabled == isPatchEnable)
-                            {
-                                mismatch++;
-                            }
-                        }
-                        
                     }
                 }
+
+                App.Logger.Info("Installation Status");
+                App.Logger.Info($"Installed: {installed.Count} | Mismatch: {mismatch.Count} | Update: {update.Count}");
+                
 
                 _MainBtnState = MainBtnMode.install;
 
-                if (installed > 0)
+                if (installed.Count > 0 && mismatch.Count == 0 && update.Count == 0)
                 {
-                    if (isNewVersion > 0)
-                    {
-                        _MainBtnState = MainBtnMode.update;
-                    }
-                    else
-                    {
-                        _MainBtnState = MainBtnMode.launch;
-                    }
+                    _MainBtnState = MainBtnMode.launch;
                 }
-                else
+
+                if (mismatch.Count > 0)
                 {
-                    if (mismatch > 0)
-                    {
-                        _MainBtnState = MainBtnMode.reinstall;
-                    }
+                    App.Logger.Info($"Mismatch: {string.Join(", ", [.. mismatch])}");
+
+                    _MainBtnState = MainBtnMode.reinstall;
+                }
+
+                if (update.Count > 0)
+                {
+                    App.Logger.Info($"Update: {string.Join(", ", [.. update])}");
+
+                    _MainBtnState = MainBtnMode.update;
                 }
 
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate

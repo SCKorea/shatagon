@@ -1,11 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Localization;
@@ -18,7 +21,7 @@ namespace SCTool_Redesigned.Utils
 {
     public static class RepositoryManager
     {
-        private static List<LocalizationSource>? _repolist;
+        private static List<LocalizationSource>? _languageRepo;
         private static LocalizationSource? _localizationSource;
         public static CustomGitHubLocalizationRepository? TargetRepository { get; private set; }
         public static LocalizationInstallation? TargetInstallation { get; private set; }
@@ -26,182 +29,209 @@ namespace SCTool_Redesigned.Utils
 
         static RepositoryManager()
         {
-            _repolist = App.Settings.GetGameLanguages();
-            TargetInstallation = App.Settings.LIVE_Localization.Installations.FirstOrDefault();
+            _languageRepo = App.Settings.GetGameLanguages();
             _localizationSource = null;
+            TargetInstallation = null;
         }
-        public static void SetInstalledRepository() //does it make sense? I don't get it...
-        {
-            //App.Settings.LIVE_Localization += TargetInstallation;
-            var installations = App.Settings.LIVE_Localization.Installations;
 
-            if (installations.Count > 0)
+        public static void SetTargetInstallation(string gameMode, string version, UpdateInfo updateInfo)
+        {
+            var localizationSource = GetLocalizationSource();
+            var localizationInstallation = new LocalizationInstallation(gameMode, localizationSource.Repository, UpdateRepositoryType.GitHub)
             {
-                installations.RemoveAll(list => true);
+                LastVersion = version,
+                InstalledVersion = version,
+                IsEnabled = false,
+                AllowPreRelease = App.Settings.Nightly
+            };
+
+            TargetInstallation = localizationInstallation;
+            TargetInfo = updateInfo;
+
+            App.SaveAppSettings();
+        }
+
+        public static void SetInstallationRepository(LocalizationInstallation localizationInstallation)
+        {
+            App.Settings.LIVE_Localization.Installations.Add(localizationInstallation);
+
+            App.SaveAppSettings();
+        }
+
+        public static bool RemoveInstallationRepository(LocalizationInstallation installation)
+        {
+            return App.Settings.LIVE_Localization.Installations.Remove(installation);
+        }
+
+
+        public static LocalizationInstallation? GetInstallationRepository(string gameMode)
+        {
+            var installation = App.Settings.LIVE_Localization.Installations.Find(item => item.Mode == gameMode);
+
+            if (installation == null)
+            {
+                App.Logger.Info($"Not found LocalizationInstallation for {gameMode}");
+
+                return TargetInstallation;
             }
 
-            App.Settings.LIVE_Localization.Installations.Add(TargetInstallation);
-            App.SaveAppSettings();
-            //_currentInstalled.InstalledVersion = TargetInstallation.InstalledVersion;
-            //_currentInstalled.LastVersion = TargetInstallation.LastVersion;
+            return installation;
         }
+
+        public static bool SetTargetRepository()
+        {
+            if (_languageRepo == null)
+            {
+                return false;
+            }
+
+            CustomGitHubLocalizationRepository? targetRepository = null;
+
+            foreach (var repo in _languageRepo)
+            {
+                if (!repo.Name.Equals(App.Settings.GameLanguage))
+                {
+                    continue;
+                }
+
+                targetRepository = new CustomGitHubLocalizationRepository(
+                    HttpNetClient.Client,
+                    GameMode.LIVE, //Dummy flag. it doesn't affect actual operation.
+                    repo.Name,
+                    repo.Repository
+                );
+
+                if (repo.IsPrivate)
+                {
+                    targetRepository.AuthToken = repo.AuthToken;
+                }
+            }
+
+            TargetRepository = targetRepository;
+
+            return true;
+        }
+
+        public static void ToggleTargetInstallationStatus()
+        {
+            var repository = TargetRepository;
+            var installation = TargetInstallation;
+
+            if (repository == null || installation == null)
+            {
+                App.Logger.Error("TargetInstallation or TargetInstallation is not registered");
+                return;
+            }
+
+            var destinationPath = Path.Combine(App.Settings.GameFolder, repository.Name);
+            var status = repository.Installer.RevertLocalization(destinationPath);
+
+            if (status == LocalizationInstallationType.Disabled)
+            {
+                installation.IsEnabled = false;
+            }
+
+            if (status == LocalizationInstallationType.Enabled)
+            {
+                installation.IsEnabled = true;
+            }
+
+            if (status == LocalizationInstallationType.None)
+            {
+                RemoveInstallationRepository(installation);
+            }
+
+        }
+
         public static void RemoveInstalledRepository()
         {
             App.Settings.LIVE_Localization.Installations.Clear();
             App.SaveAppSettings();
         }
-        public static void SetInstallationTarget(string select, string last, UpdateInfo info)
-        {
-            string lowerSelect = select.ToLower();
-            GameMode mode = GameMode.LIVE;
-
-            if (lowerSelect.Contains("ptu"))
-            {
-                mode = GameMode.PTU;
-            }
-
-            if (TargetInstallation == null || !TargetInstallation.Mode.Equals(mode))
-            {
-                TargetInstallation = new LocalizationInstallation(mode, _localizationSource.Repository, UpdateRepositoryType.GitHub);
-            }
-
-            /*
-            //TODO: make selection between LIVE and PTU
-            if (TargetInstallation == null)
-            {
-                TargetInstallation = new LocalizationInstallation(GameMode.LIVE, _localizationSource.Repository, UpdateRepositoryType.GitHub);
-            }
-            */
-
-            TargetInstallation.LastVersion = last;
-            TargetInstallation.InstalledVersion = select;
-            TargetInstallation.AllowPreRelease = false; //TODO: options?
-            TargetInfo = info;
-
-            App.SaveAppSettings();
-        }
-
-        public static void ToggleLocalization()
-        {
-            try
-            {
-                if (TargetRepository.Installer.RevertLocalization(App.CurrentGame.RootFolderPath) is LocalizationInstallationType toggleresult)
-                {
-                    if (toggleresult == LocalizationInstallationType.Disabled)
-                        TargetInstallation.IsEnabled = false;
-                    else if (toggleresult == LocalizationInstallationType.Enabled)
-                        TargetInstallation.IsEnabled = true;
-                    else //status: None = no installation is not exist in directory.
-                    {
-                        RemoveInstalledRepository();
-                    }
-                }
-                App.SaveAppSettings();
-            }
-            catch (Exception e)
-            {
-                App.Logger.Error($"Error during toggle localization: {App.CurrentGame.Mode}\n+{e.Message}");
-                //_logger.Error(e, $"Error during toggle localization: {CurrentGame.Mode}");
-            }
-        }
 
         public static List<string> GetLocalizationList()
         {
-            var list = new List<string>();
+            var languages = _languageRepo;
 
-            foreach (LocalizationSource localization in _repolist)
+            if (languages == null)
             {
-                list.Add(localization.Name);
+                return [];
             }
-            return list;
+
+            return languages.ConvertAll(source => source.Name);
         }
 
-        public static bool IsAvailable()
-        {
-            //Console.WriteLine("TargetInfo: " + (TargetInfo != null ? "OK" : "NO"));
-            //Console.WriteLine("TargetRepository: " + (TargetRepository != null ? "OK" : "NO"));
-            if (TargetInfo != null && TargetRepository != null)
-                return true;
-            else
-                return false;
-        }
-
-        public static bool SetTargetRepository()
-        {
-            foreach (LocalizationSource localization in _repolist)
-            {
-                if (localization.Name.Equals(App.Settings.GameLanguage))
-                {
-                    TargetRepository = new CustomGitHubLocalizationRepository(HttpNetClient.Client, GameMode.LIVE, localization.Name, localization.Repository);
-                    if (localization.IsPrivate)
-                        TargetRepository.AuthToken = localization.AuthToken;
-                    return true;
-                }
-            }
-            return false;
-        }
+        public static bool IsAvailable() => TargetInfo != null && TargetRepository != null;
 
         public static LocalizationSource GetLocalizationSource()
         {
-            if (_localizationSource == null)
+            var sources = _localizationSource;
+
+            if (sources != null)
             {
-                string launguageName = App.Settings.GameLanguage;
-
-                foreach (LocalizationSource gameLanguage in App.Settings.GetGameLanguages())
-                {
-                    if (gameLanguage.Name.Equals(launguageName))
-                    {
-                        _localizationSource = gameLanguage;
-                        break;
-                    }
-                }
-
-                if (_localizationSource == null)
-                {
-                    //Get orignal loaclization Pack.
-                    _localizationSource = LocalizationSource.DefaultBaseModding;
-                }
+                return sources;
             }
+
+            var gameLanguage = App.Settings.GameLanguage;
+            var gameLanguages = App.Settings.GetGameLanguages();
+
+            sources = gameLanguages.Find(language => language.Name.Equals(gameLanguage));
+
+            if (sources == null)
+            {
+                sources = LocalizationSource.DefaultBaseModding;
+            }
+
+            _localizationSource = sources;
 
             return _localizationSource;
         }
 
-        private static CustomGitHubRepository.GitRelease[] _githubReleases;
+        private static CustomGitHubRepository.GitRelease[] _githubReleases = [];
 
         private static CustomGitHubRepository.GitRelease[] GetReleases(bool cache)
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken cancellationToken = tokenSource.Token;
 
-            if (!cache || _githubReleases == null)
+            if (cache && _githubReleases.Length > 0)
             {
-                Task.Run(() =>
-                {
-                    var customGithubRepo = GetCustomGitHubRepository(cache);
-                    var getReleases = customGithubRepo.GetReleasesAsync(true, cancellationToken);
-                    getReleases.Wait();
-
-                    _githubReleases = getReleases.Result;
-                }).Wait();
+                return _githubReleases;
             }
 
+            Task.Run(() =>
+            {
+                var customGithubRepo = GetCustomGitHubRepository(cache);
+                var getReleases = customGithubRepo.GetReleasesAsync(true, cancellationToken);
+                getReleases.Wait();
+
+                _githubReleases = getReleases.Result ?? [];
+            }).Wait();
 
             return _githubReleases;
         }
 
 
-        private static IEnumerable<UpdateInfo> _githubReleasesInfo = null;
+        private static IEnumerable<UpdateInfo> _githubReleasesInfo = [];
 
         public static IEnumerable<UpdateInfo> GetInfos(bool cache = true)
         {
-            if (!cache || _githubReleases == null)
+            if (cache && _githubReleases.Length > 0)
             {
-                Task.Run(() => _githubReleasesInfo = GetCustomGitHubRepository(cache).UpdateReleases).Wait();
+                return _githubReleasesInfo;
             }
 
+            Task.Run(() =>
+            {
+                var releases = GetCustomGitHubRepository(cache).UpdateReleases;
+
+                _githubReleasesInfo = releases ?? [];
+            }).Wait();
 
             return _githubReleasesInfo;
         }
+
+        //
 
         public static string GetReleaseNote(bool cache = true)
         {
@@ -279,12 +309,13 @@ namespace SCTool_Redesigned.Utils
 
                     // The sc_ko repository is private and uses its own api server.
 
-                    var json = new JObject();
-
-                    json.Add("account_id", "sckorea");
-                    json.Add("repository_name", "translate-website");
-                    json.Add("document_name", $"public/{documentName}");
-                    json.Add("status", false);
+                    var json = new JObject
+                    {
+                        { "account_id", "sckorea" },
+                        { "repository_name", "translate-website" },
+                        { "document_name", $"public/{documentName}" },
+                        { "status", false }
+                    };
 
                     var content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
                     connectTask = client.PostAsync(App.ApiServer + "/api/v4/document", content);
@@ -344,7 +375,11 @@ namespace SCTool_Redesigned.Utils
                 CancellationToken cancellationToken = tokenSource.Token;
 
                 var customGithubRepo = new CustomGitHubRepository(
-                            HttpNetClient.Client, GitHubDownloadType.Sources, CustomUpdateInfo.Factory.NewWithVersionByName(), "SCTools", GetLocalizationSource().Repository);
+                            HttpNetClient.Client, GitHubDownloadType.Sources,
+                            CustomUpdateInfo.Factory.NewWithVersionByName(),
+                            "SCTools",
+                            GetLocalizationSource().Repository
+                );
 
                 if (GetLocalizationSource().Repository.Equals("sckorea/sc_ko"))
                 {

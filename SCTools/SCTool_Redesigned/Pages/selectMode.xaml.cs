@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using System.Xml.Serialization;
 using Microsoft.Win32;
 using NSW.StarCitizen.Tools.Lib.Global;
+using SCTool_Redesigned.Utils;
 using SCTool_Redesigned.Windows;
 
 namespace SCTool_Redesigned.Pages
@@ -66,26 +67,10 @@ namespace SCTool_Redesigned.Pages
         {
             App.Logger.Info("Find installed Game Folders");
 
-            string path = App.Settings.GameFolder;
+            var path = App.Settings.GameFolder;
+            var installedGameFolders = GameFolderManager.GetInstalledFolder(path);
 
-            DirectoryInfo parentFolder = new DirectoryInfo(path);
-            DirectoryInfo[] gamefolders = parentFolder.GetDirectories();
-
-            List<string> installedGameFolders = [];
-
-            foreach (var innerFolder in gamefolders)
-            {
-                var gameExe = GameConstants.GetGameExePath(innerFolder.FullName);
-
-                if (string.IsNullOrEmpty(gameExe) || !File.Exists(GameConstants.GetGameExePath(innerFolder.FullName)))
-                {
-                    continue;
-                }
-
-                installedGameFolders.Add(innerFolder.Name);
-            }
-
-            App.Logger.Info($"Found {gamefolders.Length} folders");
+            App.Logger.Info($"Found {installedGameFolders.Count} installed game folders");
 
             return installedGameFolders;
         }

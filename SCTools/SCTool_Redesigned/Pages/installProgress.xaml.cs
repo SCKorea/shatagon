@@ -19,7 +19,8 @@ namespace SCTool_Redesigned.Pages
     public partial class installProgress : Page
     {
         private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
-        private GameSettings GameSettings;
+        //private GameSettings _gameSettings;
+
         public installProgress(MainWindow.InstallerMode mode)
         {
             InitializeComponent();
@@ -35,42 +36,46 @@ namespace SCTool_Redesigned.Pages
 
             App.Logger.Info($"Game Folder Name: {gameMode}");
 
-            foreach (GameInfo gameInfo in GameFolders.GetGameModes(App.Settings.GameFolder))
-            {
-                App.Logger.Info(gameInfo.Mode);
+            GameInfo? gameInfo = null;
 
-                if (gameInfo.Mode == gameMode)
+            foreach (var info in GameFolders.GetGameModes(App.Settings.GameFolder))
+            {
+                App.Logger.Info(info.Mode);
+
+                if (info.Mode == gameMode)
                 {
-                    App.CurrentGame = gameInfo;
+                    gameInfo = info;
                     break;
                 }
             }
 
-            if (App.CurrentGame == null)
+            if (gameInfo == null)
             {
                 App.Logger.Info($"Not found matched mode, check game folder or starcitizen.exe");
 
                 return;
             }
 
-            App.Logger.Info($"Game Mode: {App.CurrentGame.Mode}");
+            var gameSetting = new GameSettings(gameInfo);
 
-           
-            GameSettings = new GameSettings(App.CurrentGame);
+            App.Logger.Info($"Game Mode: {gameInfo.Mode}");
+          
 
             switch (mode)
             {
                 case MainWindow.InstallerMode.install:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationInstall;
-                    InstallVersionAsync();
+                    InstallVersionAsync(gameInfo, gameSetting);
                     break;
+
                 case MainWindow.InstallerMode.uninstall:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationUninstall;
-                    Uninstall();
+                    Uninstall(gameInfo, gameSetting);
                     break;
+
                 case MainWindow.InstallerMode.disable:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationPH;
-                    RepositoryManager.ToggleLocalization();
+                    RepositoryManager.ToggleTargetInstallationStatus();
                     break;
             }
 
@@ -78,35 +83,63 @@ namespace SCTool_Redesigned.Pages
             App.SelectedGameMode = "";
         }
 
-        public async void InstallVersionAsync()
+        public async void InstallVersionAsync(GameInfo gameInfo, GameSettings gameSettings)
         {
             App.Logger.Info("Start localization installation");
 
             bool status = false;
 
+            Cursor = Cursors.Wait;
+
+            var installedRepository = RepositoryManager.GetInstallationRepository(gameInfo.Mode);
+
+            if (installedRepository == null)
+            {
+                App.Logger.Error("Not found Game Info");
+
+                MessageBox.Show(
+                    Properties.Resources.Localization_Install_ErrorText,
+                    Properties.Resources.Localization_Install_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error
+                );
+
+                return;
+            }
+
+            var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(installedRepository.InstalledVersion, this);
+            var targetRepository = RepositoryManager.TargetRepository;
+            var targetUpdateInfo = RepositoryManager.TargetInfo;
+
+            if (targetRepository == null || targetUpdateInfo == null)
+            {
+                App.Logger.Error("Not found Patch Repository or Repository info");
+
+                MessageBox.Show(
+                    Properties.Resources.Localization_Install_ErrorText,
+                    Properties.Resources.Localization_Install_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error
+                );
+
+                return;
+            }
+
             try
             {
-                Cursor = Cursors.Wait;
+                var tempPath = Path.GetTempPath();
+                var patchZipFile = await targetRepository.DownloadAsync(targetUpdateInfo, tempPath, _cancellationToken.Token, downloadDialogAdapter);
+                var result = targetRepository.Installer.Install(patchZipFile, gameInfo.RootFolderPath);
 
-                var downloadDialogAdapter = new InstallDownloadProgressDialogAdapter(RepositoryManager.TargetInstallation.InstalledVersion, this);
-                var filePath = await RepositoryManager.TargetRepository.DownloadAsync(
-                        RepositoryManager.TargetInfo,
-                        Path.GetTempPath(),
-                        _cancellationToken.Token,
-                        downloadDialogAdapter
-                    );
-                var result = RepositoryManager.TargetRepository.Installer.Install(filePath, App.CurrentGame.RootFolderPath);
-
-                App.Logger.Info($"install path: {App.CurrentGame.RootFolderPath}");
+                App.Logger.Info($"install path: {gameInfo.RootFolderPath}");
                 App.Logger.Info($"install result: {result}");
 
                 switch (result)
                 {
                     case InstallStatus.Success:
-                        GameSettings.Load();
+                        gameSettings.Load();
+
                         ProgBar.Value = ProgBar.Maximum;
-                        RepositoryManager.SetInstalledRepository();
+                        RepositoryManager.SetInstallationRepository(installedRepository);
+
                         status = true;
+
                         break;
 
                     case InstallStatus.PackageError:
@@ -114,6 +147,7 @@ namespace SCTool_Redesigned.Pages
 
                         MessageBox.Show(Properties.Resources.Localization_Package_ErrorText,
                             Properties.Resources.Localization_Package_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+
                         break;
 
                     case InstallStatus.VerifyError:
@@ -121,6 +155,7 @@ namespace SCTool_Redesigned.Pages
 
                         MessageBox.Show(Properties.Resources.Localization_Verify_ErrorText,
                             Properties.Resources.Localization_Verify_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+
                         break;
 
                     case InstallStatus.FileError:
@@ -128,6 +163,7 @@ namespace SCTool_Redesigned.Pages
 
                         MessageBox.Show(Properties.Resources.Localization_File_ErrorText,
                             Properties.Resources.Localization_File_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+
                         break;
 
                     default:
@@ -135,12 +171,12 @@ namespace SCTool_Redesigned.Pages
 
                         MessageBox.Show(Properties.Resources.Localization_Install_ErrorText,
                             Properties.Resources.Localization_Install_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+
                         break;
                 }
             }
             catch (Exception e)
             {
-
                 App.Logger.Error(e, "Error during install localization");
 
                 if (e is HttpRequestException)
@@ -159,79 +195,93 @@ namespace SCTool_Redesigned.Pages
                 Cursor = null;  //Cursor to default
             }
 
-            if (status)
-            {
-                RepositoryManager.ToggleLocalization();
-
-                if (!RepositoryManager.TargetInstallation.IsEnabled)
-                {
-                    RepositoryManager.ToggleLocalization(); //to ensure enabled
-                }
-
-                App.Logger.Info("Finish localization installation");
-                MainWindow.UI.Phase++;
-            }
-            else
+            if (status == false)
             {
                 App.Logger.Info("Fail localization installation");
                 MainWindow.UI.Phase--;
+
+                return;
             }
+
+            var targetInstallation = RepositoryManager.TargetInstallation;
+
+            if (targetInstallation == null)
+            {
+                App.Logger.Info("TargetInstallation is not registered");
+                MainWindow.UI.Phase--;
+
+                return;
+            }
+
+            if (targetInstallation.IsEnabled == false)
+            {
+                RepositoryManager.ToggleTargetInstallationStatus();
+            }
+
+            App.Logger.Info("Finish localization installation");
+            MainWindow.UI.Phase++;
         }
 
-        public void Uninstall()
+        public void Uninstall(GameInfo gameInfo, GameSettings gameSettings)
         {
             App.Logger.Info("Start localization uninstallation");
 
-            if (RepositoryManager.TargetInstallation.InstalledVersion != null)
+            var targetInstallation = RepositoryManager.TargetInstallation;
+            var targetRepository = RepositoryManager.TargetRepository;
+
+            if (targetInstallation == null || targetRepository == null)
             {
-                if (!App.CurrentGame.IsAvailable())
+                App.Logger.Info("TargetInstallation or TargetRepository is not registered");
+
+                return;
+            }
+
+
+            try
+            {
+                var uninstallStatus = targetRepository.Installer.Uninstall(gameInfo.RootFolderPath);
+
+                switch (uninstallStatus)
                 {
-                    App.Logger.Error("Uninstall localization mode path unavailable");
-                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText,
-                        Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    case UninstallStatus.Success:
+                        gameSettings.RemoveCurrentLanguage();
+                        gameSettings.Load();
+
+                        ProgBar.Value = ProgBar.Minimum;
+
+                        RepositoryManager.RemoveInstallationRepository(targetInstallation);
+                        App.Logger.Info("Finish localization uninstallation");
+
+                        break;
+
+                    case UninstallStatus.Partial:
+                        gameSettings.RemoveCurrentLanguage();
+                        gameSettings.Load();
+
+                        ProgBar.Value = ProgBar.Maximum;
+
+                        RepositoryManager.RemoveInstallationRepository(targetInstallation);
+
+                        App.Logger.Warn("Localization uninstalled partially");
+
+                        MessageBox.Show(Properties.Resources.Localization_Uninstall_WarningText,
+                                Properties.Resources.Localization_Uninstall_WarningTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        break;
+
+                    default:
+                        App.Logger.Error("Failed uninstall localization");
+
+                        MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText,
+                            Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                        break;
                 }
+            }
+            catch (Exception e)
+            {
+                App.Logger.Error(e, "Error during uninstall localization");
 
-                try
-                {
-                    switch (RepositoryManager.TargetRepository.Installer.Uninstall(App.CurrentGame.RootFolderPath))
-                    {
-                        case UninstallStatus.Success:
-                            GameSettings.RemoveCurrentLanguage();
-                            GameSettings.Load();
-                            ProgBar.Value = ProgBar.Maximum;
-                            RepositoryManager.RemoveInstalledRepository();
-
-                            App.Logger.Info("Finish localization uninstallation");
-                            break;
-
-                        case UninstallStatus.Partial:
-                            GameSettings.RemoveCurrentLanguage();
-                            GameSettings.Load();
-                            ProgBar.Value = ProgBar.Maximum;
-                            RepositoryManager.RemoveInstalledRepository();
-
-                            App.Logger.Warn("Localization uninstalled partially");
-
-                            MessageBox.Show(Properties.Resources.Localization_Uninstall_WarningText,
-                                    Properties.Resources.Localization_Uninstall_WarningTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
-                            break;
-
-                        default:
-                            App.Logger.Error("Failed uninstall localization");
-
-                            MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText,
-                                Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                            break;
-                    }
-                }
-                catch (Exception e)
-                {
-                    App.Logger.Error(e, "Error during uninstall localization");
-
-                    MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText + "\n" + e.Message,
-                        Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show(Properties.Resources.Localization_Uninstall_ErrorText + "\n" + e.Message,
+                    Properties.Resources.Localization_Uninstall_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

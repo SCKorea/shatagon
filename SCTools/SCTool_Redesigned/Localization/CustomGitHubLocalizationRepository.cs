@@ -25,7 +25,10 @@ namespace SCTool_Redesigned.Localization
         public override async Task<List<UpdateInfo>> GetAllAsync(CancellationToken cancellationToken)
         {
             var updates = await base.GetAllAsync(cancellationToken).ConfigureAwait(false);
-            return updates.Where(i => IsTagNameForMode(i.TagName, Mode)).ToList();
+
+            return updates;
+
+            //return updates.Where(i => IsTagNameForMode(i.TagName, Mode)).ToList();
         }
 
         private static bool IsTagNameForMode(string tagName, GameMode mode)
