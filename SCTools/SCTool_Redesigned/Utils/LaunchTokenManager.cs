@@ -2,9 +2,9 @@ using System.IO;
 
 namespace SCTool_Redesigned.Utils
 {
-    class LauchTokenManager
+    class LaunchTokenManager
     {
-        private static LauchTokenManager _instance = null;
+        private static LaunchTokenManager _instance = null;
         private static readonly object _padlock = new object();
 
         private FileSystemWatcher _watcher = null;
@@ -12,9 +12,9 @@ namespace SCTool_Redesigned.Utils
         private string _tokenName = "loginData.json";
         private System.DateTime _lastevent = System.DateTime.MinValue;
 
-        LauchTokenManager()
+        LaunchTokenManager()
         { }
-        public static LauchTokenManager Instance
+        public static LaunchTokenManager Instance
         {
             get
             {
@@ -22,7 +22,7 @@ namespace SCTool_Redesigned.Utils
                 {
                     if (_instance == null)
                     {
-                        _instance = new LauchTokenManager();
+                        _instance = new LaunchTokenManager();
                     }
                     return _instance;
                 }

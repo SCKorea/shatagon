@@ -1,4 +1,5 @@
 using System;
+using System.Dynamic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,63 +19,85 @@ namespace SCTool_Redesigned.Pages
         public selectDir()
         {
             InitializeComponent();
+
+            if (!IsCorrectGameFolder(App.Settings.GameFolder ?? ""))
+            {
+                App.Logger.Warn("StarCitizen.exe File does not exist. Maybe not installed?");
+
+                App.Settings.GameFolder = "";
+                App.SaveAppSettings();
+            }
+        }
+
+        private static bool IsInstalledGame(string path)
+        {
             try
             {
-                verify_Path(getDir());
-            }
-            catch
-            {
-                verify_Path(Defaultdir);
-            }
-
-            if (App.Settings.GameFolder != null)
-            {
-                PhasePath.Content = App.Settings.GameFolder;
-            }
-        }
-        private string getDir()
-        {
-            string infofile = App.LocalappDir + "build.info";
-            if (!File.Exists(infofile))
-            {
-                App.Logger.Warn("StarCitizen build info File does not exist. Maybe not installed?");
-                throw new FileNotFoundException("build.info");
-            }
-            string[] _buildinfo = File.ReadAllLines(infofile);
-            App.Logger.Debug("guessedDir:" + _buildinfo[0].Substring(12, _buildinfo[0].Length - 27));
-            if (_buildinfo[0].Contains("\\LIVE\\Bin64\\StarCitizen.exe"))
-                return _buildinfo[0].Substring(12, _buildinfo[0].Length - 27);
-            App.Logger.Warn("Cannot get path from build info");
-            throw new FileFormatException("build.info");
-        }
-        private bool verify_Path(string directoryPath)
-        {
-            App.Logger.Info("Check game folder path");
-            var gamePath = GameFolders.SearchGameFolder(directoryPath);
-
-            if (gamePath != null)
-            {
-                var gameModes = GameFolders.GetGameModes(gamePath);
-
-                foreach (var gameMode in gameModes)
+                if (string.IsNullOrEmpty(path))
                 {
-                    App.Settings.GameFolder = gamePath;
-                    App.SaveAppSettings();
+                    return false;
+                }
 
-                    PhasePath.Content = gamePath;
+                DirectoryInfo parentFolder = new DirectoryInfo(path);
 
-                    MainWindow.UI.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+                if (!parentFolder.Exists)
+                {
+                    return false;
+                }
+
+                DirectoryInfo[] gameFolders = parentFolder.GetDirectories();
+
+                foreach (var folder in gameFolders)
+                {
+                    var gameExe = GameConstants.GetGameExePath(folder.FullName);
+
+                    if (!string.IsNullOrEmpty(gameExe) && File.Exists(gameExe))
                     {
-                        MainWindow.UI.NextBtn.Visibility = Visibility.Visible;
-                    }));
-
-                    App.Logger.Info("Valid game folder path");
-                    return true;
+                        return true;
+                    }
                 }
             }
+            catch (UnauthorizedAccessException)
+            {
+                App.Logger.Info("Folder Access Denied");
 
-            App.Logger.Info("Invalid game folder path");
+                return false;
+            }
+            
             return false;
+        }
+
+        private bool IsCorrectGameFolder(string path)
+        {
+            App.Logger.Info("Check game folder path");
+
+            if (IsInstalledGame(path) == false)
+            {
+                return false;
+            }
+
+            var verifyedPath = GameFolders.SearchGameFolder(path);
+
+            if (verifyedPath == null)
+            {
+                App.Logger.Info("Invalid game folder path");
+
+                return false;
+            }
+
+            App.Settings.GameFolder = verifyedPath;
+            App.SaveAppSettings();
+
+            PhasePath.Content = verifyedPath;
+
+            MainWindow.UI.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                MainWindow.UI.NextBtn.Visibility = Visibility.Visible;
+            }));
+
+            App.Logger.Info("Valid game folder path");
+
+            return true;
         }
 
         private void dialogBtn_Click(object sender, RoutedEventArgs e)
@@ -88,22 +111,20 @@ namespace SCTool_Redesigned.Pages
 
                 var result = dialog.ShowDialog();
 
-                if (result == true)
-                {
-                    App.Logger.Info("Close game folder selection dialog");
-
-                    var directoryPath = dialog.FolderName;
-
-                    if (flag = !verify_Path(directoryPath))
-                    {
-                        MessageBox.Show(Properties.Resources.MSG_Decs_NotGameFolder, Properties.Resources.MSG_Title_NotGameFolder);
-                        App.Logger.Warn("Not a game folder.");
-                    }
-                }
-                else
+                if (result != true)
                 {
                     App.Logger.Info("Close game folder selection dialog");
                     break;
+                }
+
+                App.Logger.Info("Close game folder selection dialog");
+
+                var directoryPath = dialog.FolderName;
+
+                if (flag = !IsCorrectGameFolder(directoryPath))
+                {
+                    MessageBox.Show(Properties.Resources.MSG_Decs_NotGameFolder, Properties.Resources.MSG_Title_NotGameFolder);
+                    App.Logger.Warn("Not a game folder.");
                 }
             }
         }

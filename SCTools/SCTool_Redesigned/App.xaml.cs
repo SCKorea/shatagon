@@ -125,6 +125,8 @@ namespace SCTool_Redesigned
 
         public static string? LocalappDir { get; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Star Citizen\\";
 
+        public static string SelectedGameMode { get; set; } = "";
+
         public static void Close()
         {
             if (!ConsoleManager.HasConsole)

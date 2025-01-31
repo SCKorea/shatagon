@@ -33,13 +33,22 @@ namespace SCTool_Redesigned.Pages
         {
             var version = VersionSelectListBox.SelectedValue;
 
-            if (version != null)
+            if (version == null)
             {
-                var verString = VersionSelectListBox.SelectedValue.ToString();
-                RepositoryManager.SetInstallationTarget(verString, verString, (UpdateInfo)VersionSelectListBox.SelectedItem);
-
-                App.Logger.Info("Game localization version selected.");
+                return;
             }
+
+            var versionName = VersionSelectListBox.SelectedValue.ToString();
+            var gameMode = App.SelectedGameMode;
+
+            if (string.IsNullOrEmpty(versionName) || string.IsNullOrEmpty(gameMode))
+            {
+                App.Logger.Info("Not found version or game mode");
+                return;
+            }
+
+            RepositoryManager.SetTargetInstallation(gameMode, versionName, (UpdateInfo)VersionSelectListBox.SelectedItem);
+            App.Logger.Info("Game localization version selected.");
         }
     }
 }
