@@ -13,6 +13,8 @@ using NLog;
 using NLog.Config;
 using NLog.LayoutRenderers;
 using NSW.StarCitizen.Tools.Lib.Global;
+using NSW.StarCitizen.Tools.Lib.Update;
+using SCTool_Redesigned.Settings;
 using SCTool_Redesigned.Utils;
 
 namespace SCTool_Redesigned.Windows
@@ -135,7 +137,7 @@ namespace SCTool_Redesigned.Windows
                     case 5: //select game mode 
                         if (App.SelectedGameMode == "")
                         {
-                            MessageBox.Show("한국어패치를 설치할 게임 모드를 선택하십시오.", "설치된 게임 모드 선택", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("설치된 게임 버전을 선택하십시오.", "설치된 게임 버전 선택", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
                         }
 
@@ -470,7 +472,7 @@ namespace SCTool_Redesigned.Windows
                         break;
                     }
 
-                    Phase = 7;
+                    Phase = 4;
                     break;
 
                 case 7:
@@ -650,7 +652,21 @@ namespace SCTool_Redesigned.Windows
 
                     if (installation == null)
                     {
-                        continue;
+                        // Registering patch that actually exist but are not registered
+                        var userCfgPath = Path.Combine(gameFolder, mode, "user.cfg");
+
+                        if (!PatchLanguageManager.IsEnabled(userCfgPath))
+                        {
+                            continue;
+                        }
+
+                        installation = new LocalizationInstallation(mode, "", UpdateRepositoryType.GitHub)
+                        {
+                            IsEnabled = true
+                        };
+
+                        RepositoryManager.SetInstallationRepository(installation);
+                        App.SaveAppSettings();
                     }
 
                     var installedVersion = installation.InstalledVersion;
