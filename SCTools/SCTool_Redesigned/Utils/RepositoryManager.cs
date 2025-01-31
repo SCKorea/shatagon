@@ -355,7 +355,7 @@ namespace SCTool_Redesigned.Utils
 
                 if (GetLocalizationSource().Repository.Equals("sckorea/sc_ko"))
                 {
-                    customGithubRepo.ChangeReleasesUrl(App.ApiServer + "/api/v4/release/all?account_id=sckorea&repository_name=sc_ko&status=0");
+                    customGithubRepo.ChangeReleasesUrl($"{App.ApiServer}/api/v4/release/all?account_id=sckorea&repository_name=sc_ko&status=0&prerelease={Convert.ToInt32(App.Settings.Nightly)}");
                 }
 
                 //customGithubRepo.UpdateAsync(cancellationToken).Wait();
