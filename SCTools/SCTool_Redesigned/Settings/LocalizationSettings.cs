@@ -17,7 +17,7 @@ namespace SCTool_Redesigned.Settings
     public class LocalizationInstallation
     {
         [JsonProperty]
-        public GameMode Mode { get; }
+        public string Mode { get; }
 
         [JsonProperty]
         public string Repository { get; }
@@ -26,24 +26,23 @@ namespace SCTool_Redesigned.Settings
         public UpdateRepositoryType Type { get; }
 
         [JsonProperty]
-        public string InstalledVersion { get; set; }
+        public string InstalledVersion { get; set; } = "";
 
         [JsonProperty]
-        public string LastVersion { get; set; }
+        public string LastVersion { get; set; } = "";
 
         [JsonProperty]
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } = false;
 
         [JsonProperty]
-        public bool AllowPreRelease { get; set; }
+        public bool AllowPreRelease { get; set; } = false;
 
         [JsonConstructor]
-        public LocalizationInstallation(GameMode mode, string repository, UpdateRepositoryType type)
+        public LocalizationInstallation(string mode, string repository, UpdateRepositoryType type)
         {
             Mode = mode;
             Repository = repository;
             Type = type;
-            IsEnabled = false;
         }
     }
 

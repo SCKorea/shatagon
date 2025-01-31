@@ -17,6 +17,8 @@ namespace NSW.StarCitizen.Tools.Lib.Global
 
         public static string GetGameModePath(string gamePath, GameMode mode) => Path.Combine(gamePath, mode.ToString());
 
+        public static string GetGameModePath(string gamePath, string mode) => Path.Combine(gamePath, mode);
+
         public static string GetGameExePath(string gameModePath) => Path.Combine(gameModePath, BinFolderName, GameExeName);
 
         public static string GetEnabledPatcherPath(string gameModePath) => Path.Combine(gameModePath, BinFolderName, PatcherLibraryName);

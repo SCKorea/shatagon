@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SCKorea Team")]
 [assembly: AssemblyProduct("Shatagon Patcher")]
-[assembly: AssemblyCopyright("Copyright © 2021-2023 SCKorea Team")]
+[assembly: AssemblyCopyright("Copyright © 2021-2025 SCKorea Team")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Windows;
 // 모든 값을 지정하거나 아래와 같이 '*'를 사용하여 빌드 번호 및 수정 번호를
 // 기본값으로 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.4.2")]
-[assembly: AssemblyFileVersion("1.3.4.2")]
+[assembly: AssemblyVersion("1.4.0.0")]
+[assembly: AssemblyFileVersion("1.4.0.0")]

@@ -5,7 +5,7 @@ namespace NSW.StarCitizen.Tools.Lib.Global
 {
     public sealed class GameInfo
     {
-        public GameMode Mode { get; }
+        public string Mode { get; }
         public string RootFolderPath { get; }
         public string ExeFilePath { get; }
         public string ExeVersion { get; }
@@ -13,6 +13,7 @@ namespace NSW.StarCitizen.Tools.Lib.Global
         public static GameInfo? Create(GameMode mode, string gamePath)
         {
             var rootFolderPath = GameConstants.GetGameModePath(gamePath, mode);
+
             if (Directory.Exists(rootFolderPath))
             {
                 var exeFilePath = GameConstants.GetGameExePath(rootFolderPath);
@@ -21,14 +22,40 @@ namespace NSW.StarCitizen.Tools.Lib.Global
                     var exeVersionInfo = FileVersionInfo.GetVersionInfo(exeFilePath);
                     if (exeVersionInfo.FileVersion != null)
                     {
-                        return new GameInfo(mode, rootFolderPath, exeFilePath, exeVersionInfo.FileVersion);
+                        return new GameInfo(mode.ToString(), rootFolderPath, exeFilePath, exeVersionInfo.FileVersion);
                     }
                 }
             }
             return null;
         }
 
-        private GameInfo(GameMode mode, string rootFolderPath, string exeFilePath, string exeFileVersion)
+        public static GameInfo? Create(string mode, string gamePath)
+        {
+            var rootFolderPath = GameConstants.GetGameModePath(gamePath, mode);
+
+            if (!Directory.Exists(rootFolderPath))
+            {
+                return null;
+            }
+
+            var exeFilePath = GameConstants.GetGameExePath(rootFolderPath);
+
+            if (!File.Exists(exeFilePath))
+            {
+                return null;
+            }
+
+            var exeVersionInfo = FileVersionInfo.GetVersionInfo(exeFilePath);
+
+            if (exeVersionInfo.FileVersion == null)
+            {
+                return null;
+            }
+
+            return new GameInfo(mode, rootFolderPath, exeFilePath, exeVersionInfo.FileVersion);
+        }
+
+        private GameInfo(string mode, string rootFolderPath, string exeFilePath, string exeFileVersion)
         {
             Mode = mode;
             RootFolderPath = rootFolderPath;

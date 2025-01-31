@@ -9,13 +9,13 @@ namespace SCTool_Redesigned.Settings
     public class AppSettings
     {
         [JsonProperty]
-        public string GameFolder { get; set; }
+        public string GameFolder { get; set; } = "";
 
         [JsonProperty]
-        public string ToolLanguage { get; set; }
+        public string ToolLanguage { get; set; } = "";
 
         [JsonProperty]
-        public string GameLanguage { get; set; }
+        public string GameLanguage { get; set; } = "";
 
         [JsonProperty]
         public LocalizationSettings LIVE_Localization { get; } = new LocalizationSettings();
@@ -30,22 +30,14 @@ namespace SCTool_Redesigned.Settings
         public bool AcceptInstallWarning { get; set; }
 
         [JsonProperty]
-        public string UUID { get; set; }
+        public string UUID { get; set; } = "";
 
         [JsonProperty]
         public bool Console { get; set; } = false;
 
-        public LocalizationSettings GetGameModeSettings(GameMode gameMode)
+        public LocalizationSettings GetLocalizationSettings()
         {
-            switch (gameMode)
-            {
-                case GameMode.LIVE:
-                    return LIVE_Localization;
-                case GameMode.PTU:
-                    return PTU_Localization;
-                default:
-                    throw new NotSupportedException("Not supported game mode: " + gameMode);
-            }
+            return LIVE_Localization;
         }
 
         public Dictionary<string, string> GetToolLanguages() => new Dictionary<string, string> {
