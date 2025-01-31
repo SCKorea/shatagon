@@ -71,7 +71,7 @@ namespace SCTool_Redesigned
 
                 if (executableDir == null || LocalappDir == null)
                 {
-                    throw new NullReferenceException("Dirctory path is empty");
+                    throw new NullReferenceException("Directory path is empty");
                 }
 
                 //_appSettings = JsonHelper.ReadFile<AppSettings>(Path.Combine(executableDir, AppSettingsFileName)) ?? new AppSettings();
@@ -88,7 +88,7 @@ namespace SCTool_Redesigned
 
             if (executableDir == null || LocalappDir == null)
             {
-                throw new NullReferenceException("Dirctory path is empty");
+                throw new NullReferenceException("Directory path is empty");
             }
 
             if (Directory.Exists(LocalappDir))

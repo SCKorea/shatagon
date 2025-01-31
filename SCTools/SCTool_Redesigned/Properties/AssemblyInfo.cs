@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SCKorea Team")]
 [assembly: AssemblyProduct("Shatagon Patcher")]
-[assembly: AssemblyCopyright("Copyright © 2021-2023 SCKorea Team")]
+[assembly: AssemblyCopyright("Copyright © 2021-2025 SCKorea Team")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
