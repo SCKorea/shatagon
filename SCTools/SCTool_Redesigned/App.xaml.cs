@@ -50,7 +50,7 @@ namespace SCTool_Redesigned
                 return;
             }
 
-            if (Settings.UUID == null)
+            if (string.IsNullOrWhiteSpace(Settings.UUID))
             {
                 Settings.UUID = Guid.NewGuid().ToString();
                 SaveAppSettings();

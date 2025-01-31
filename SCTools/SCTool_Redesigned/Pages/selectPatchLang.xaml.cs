@@ -16,6 +16,7 @@ namespace SCTool_Redesigned.Pages
 
             InitializeComponent();
             LocalizationListBox.ItemsSource = RepositoryManager.GetLocalizationList();
+            LocalizationListBox.SelectedIndex = 0;
         }
 
         private void applyBtn_Click(object sender, RoutedEventArgs e)

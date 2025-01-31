@@ -123,7 +123,7 @@ namespace SCTool_Redesigned.Pages
             var updateInfoFactory = GitHubUpdateInfo.Factory.NewWithVersionByTagName();
             var updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
 
-            //updateRepository.AllowPreReleases = App.Settings.Nightly;
+            updateRepository.AllowPreReleases = false;
             updateRepository.SetCurrentVersion(App.Version.ToString(4));
 
             return updateRepository;

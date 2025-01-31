@@ -25,13 +25,14 @@ namespace SCTool_Redesigned.Pages
             InitializeComponent();
 
             LangListBox.ItemsSource = UiLangList;
-            LangListBox.SelectedValue = Properties.Resources.Culture.Name;
+            LangListBox.SelectedValue = CultureInfo.InstalledUICulture.Name;
 
             GoogleAnalytics.Hit(App.Settings.UUID, "/install", "Program Install");
         }
 
         private static Dictionary<string, string> GetSupportedUiLanguages()
         {
+            /*
             var languages = App.Settings.GetToolLanguages();
             var neutralCultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures)
                 .Where(c => Directory.Exists(c.TwoLetterISOLanguageName));
@@ -46,6 +47,9 @@ namespace SCTool_Redesigned.Pages
             }
 
             return languages;
+            */
+
+            return App.Settings.GetToolLanguages();
         }
 
         private void applyBtn_Click(object sender, RoutedEventArgs e)

@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -48,11 +49,10 @@ namespace SCTool_Redesigned.Windows
                 App.Logger.Info("Game isn't installed.");
             }
 
-            Title += " - " + App.Version.ToString(3);
+            Title += " - " + App.Version?.ToString(4);
             _PhaseNumber = 0;
             _prologue = new PrefaceWindow();
             _author = new AuthWindow();
-            SetLink(App.Settings.GameLanguage);
             _mainBG = new ImageBrush();
             _subBG = new ImageBrush();
             _mainBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG1.png"));
@@ -60,6 +60,7 @@ namespace SCTool_Redesigned.Windows
             _mainBG.Stretch = Stretch.UniformToFill;
             _subBG.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Shatagon;component/Resources/BG0.png"));
             _subBG.Stretch = Stretch.UniformToFill;
+
             Phase = 0;
         }
 
@@ -95,6 +96,7 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 3: //main Install
+                        SetLink(App.Settings.ToolLanguage);
                         if (_PhaseNumber != value && RepositoryManager.GetLocalizationSource().IsPrivate && _installmode == 0) //Try auth for private repo
                         {
                             //Console.WriteLine($"Try auth at  {_PhaseNumber} to {value}");
@@ -125,7 +127,7 @@ namespace SCTool_Redesigned.Windows
 
 
                     case 4: //select dir
-                        if (App.Settings.GameFolder == "")
+                        if (string.IsNullOrWhiteSpace(App.Settings.GameFolder))
                         {
                             MessageBox.Show("게임이 설치된 폴더를 선택하십시오.", "게임 설치 폴더 선택", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
@@ -135,7 +137,7 @@ namespace SCTool_Redesigned.Windows
 
 
                     case 5: //select game mode 
-                        if (App.SelectedGameMode == "")
+                        if (string.IsNullOrWhiteSpace(App.SelectedGameMode))
                         {
                             MessageBox.Show("설치된 게임 버전을 선택하십시오.", "설치된 게임 버전 선택", MessageBoxButton.OK, MessageBoxImage.Error);
                             return;
@@ -182,7 +184,7 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 1:     //select laucher language
-                        if (App.Settings.ToolLanguage != null)
+                        if (string.IsNullOrWhiteSpace(App.Settings.ToolLanguage) == false)
                         {
                             Phase = 2;
                             break;
@@ -200,7 +202,7 @@ namespace SCTool_Redesigned.Windows
                         Background = _mainBG;
                         Show();
 
-                        if (App.Settings.GameLanguage != null)
+                        if (string.IsNullOrWhiteSpace(App.Settings.GameLanguage) == false)
                         {
 
                             if (!RepositoryManager.SetTargetRepository())
@@ -565,9 +567,17 @@ namespace SCTool_Redesigned.Windows
             */
         }
 
-        private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_1);
+        private void Open_Community_1(object sender, MouseButtonEventArgs e) => Process.Start(new ProcessStartInfo
+        {
+            FileName = Properties.Resources.UI_Button_Link_Community_1,
+            UseShellExecute = true
+        });
 
-        private void Open_Community_2(object sender, MouseButtonEventArgs e) => Process.Start(Properties.Resources.UI_Button_Link_Community_2);
+        private void Open_Community_2(object sender, MouseButtonEventArgs e) => Process.Start(new ProcessStartInfo
+        {
+            FileName = Properties.Resources.UI_Button_Link_Community_2,
+            UseShellExecute = true
+        });
 
         private Image Base64ToImage(string image)
         {
@@ -708,7 +718,7 @@ namespace SCTool_Redesigned.Windows
 
                 _MainBtnState = MainBtnMode.install;
 
-                if (installedGameFolders.Count == installed.Count && mismatch.Count == 0 && update.Count == 0)
+                if (installedGameFolders.Count == installed.Count && installed.Count > 0 && mismatch.Count == 0 && update.Count == 0)
                 {
                     _MainBtnState = MainBtnMode.launch;
                 }
