@@ -1,13 +1,15 @@
 using System;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using NLog;
 using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Helpers;
 using NSW.StarCitizen.Tools.Lib.Localization;
 using SCTool_Redesigned.Utils;
+using SCTool_Redesigned.Update;
 
 namespace SCTool_Redesigned.Localization
 {
@@ -38,15 +40,6 @@ namespace SCTool_Redesigned.Localization
                     return InstallStatus.PackageError;
                 }
 
-                var newLibraryPath = Path.Combine(unpackDataDir.FullName, GameConstants.PatcherOriginalName);
-
-                //using var libraryCertVerifier = new FileCertVerifier(Resources.CoreSigning);
-                //if (!libraryCertVerifier.VerifyFile(newLibraryPath))
-                //{
-                //    _logger.Error("Core certificate is invalid. Abort installation");
-                //    return InstallStatus.VerifyError;
-                //}
-
                 if (dataPathDir.Exists)
                 {
                     var backupDataDirPath = Path.Combine(destinationFolder, "backup_" + Path.GetRandomFileName());
@@ -57,15 +50,15 @@ namespace SCTool_Redesigned.Localization
 
                 Directory.Move(GameConstants.GetDataFolderPath(unpackDataDir.FullName), dataPathDir.FullName);
 
+                var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
+
+                PatchLanguageManager.Enable(userConifgPath, App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage]);
+
                 if (backupDataDir != null)
                 {
                     FileUtils.DeleteDirectoryNoThrow(backupDataDir, true);
                     backupDataDir = null;
                 }
-
-                var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
-
-                PatchLanguageManager.Enable(userConifgPath, App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage]);
             }
             catch (CryptographicException e)
             {
@@ -180,50 +173,67 @@ namespace SCTool_Redesigned.Localization
         private static bool Unpack(string zipFileName, string destinationFolder)
         {
             using var archive = ZipFile.OpenRead(zipFileName);
-
-            if (archive.Entries.Count == 0)
+            var language = App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage];
+            var target = $"data/Localization/{language}/global.ini";
+            var variantEnabled = RepositoryManager.GetLocalizationSource().HasVariant;
+            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var destinations = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var selected = new List<(string Relative, ZipArchiveEntry Entry)>();
+            var matches = 0;
+            var newAsset = archive.Entries.Count == 1 &&
+                archive.Entries[0].FullName.Equals(target, StringComparison.Ordinal);
+            if (variantEnabled && RepositoryManager.TargetInfo is CustomUpdateInfo info &&
+                !VariantCatalog.IsLegacy(info) && !newAsset)
             {
-                _logger.Error($"Failed unpack archive. No entries found: {zipFileName}");
+                _logger.Error($"Variant ZIP must contain only {target}: {zipFileName}");
                 return false;
             }
 
-            var dataExtracted = false;
-            var coreExtracted = false;
-            var rootEntry = archive.Entries[0];
-            var dataPathStart = GameConstants.DataFolderName + "/";
-
-            //extract only data folder and core module
             foreach (var entry in archive.Entries)
             {
-                if (entry.FullName.StartsWith(rootEntry.FullName, true, CultureInfo.InvariantCulture))
+                var name = entry.FullName;
+                var segments = name.Split('/');
+                if (name.StartsWith('/') || name.Contains('\\') || name.Contains(':') ||
+                    segments.Any(segment => segment == ".." || segment == ".") || !seen.Add(name))
                 {
-                    var relativePath = entry.FullName.Substring(rootEntry.FullName.Length);
-
-                    if (string.IsNullOrEmpty(entry.Name) && relativePath.EndsWith("/"))
-                    {
-                        var dir = Path.Combine(destinationFolder, relativePath);
-
-                        if (!Directory.Exists(dir))
-                        {
-                            Directory.CreateDirectory(dir);
-                        }
-                    }
-                    else if (relativePath.StartsWith(dataPathStart, true, CultureInfo.InvariantCulture))
-                    {
-                        entry.ExtractToFile(Path.Combine(destinationFolder, relativePath), true);
-                        dataExtracted = true;
-                    }
-                    else if (relativePath.Equals(GameConstants.PatcherOriginalName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        entry.ExtractToFile(Path.Combine(destinationFolder, relativePath), true);
-                        coreExtracted = true;
-                    }
+                    _logger.Error($"Unsafe or duplicate ZIP entry: {name}");
+                    return false;
                 }
+                if (newAsset)
+                {
+                    selected.Add((target, entry));
+                    matches++;
+                    break;
+                }
+
+                // Historical source ZIPs have exactly one repository root directory.
+                if (segments.Length < 2 || string.IsNullOrWhiteSpace(segments[0]))
+                    continue;
+                var relative = name.StartsWith("data/", StringComparison.OrdinalIgnoreCase)
+                    ? name : name.Substring(segments[0].Length + 1);
+                if (relative.Equals(target, StringComparison.OrdinalIgnoreCase))
+                    matches++;
+                if (string.IsNullOrEmpty(entry.Name) ||
+                    !relative.StartsWith("data/", StringComparison.OrdinalIgnoreCase) ||
+                    (variantEnabled && !relative.Equals(target, StringComparison.OrdinalIgnoreCase)))
+                    continue;
+                var destination = variantEnabled ? target : relative;
+                if (!destinations.Add(destination) || entry.Length > 150L * 1024 * 1024)
+                    return false;
+                selected.Add((destination, entry));
             }
-            if (!dataExtracted || !coreExtracted)
+
+            if (matches != 1 || selected.Count == 0 ||
+                selected.SingleOrDefault(pair => pair.Relative.Equals(target, StringComparison.OrdinalIgnoreCase)).Entry?.Length == 0)
             {
-                _logger.Error($"Wrong localization archive: hasData={dataExtracted}, hasCore={coreExtracted}");
+                _logger.Error($"ZIP must contain one valid {target}: {zipFileName}");
                 return false;
+            }
+            foreach (var (relative, entry) in selected)
+            {
+                var output = Path.Combine(destinationFolder, Path.Combine(relative.Split('/')));
+                Directory.CreateDirectory(Path.GetDirectoryName(output)!);
+                entry.ExtractToFile(output);
             }
             return true;
         }

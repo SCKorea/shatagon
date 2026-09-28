@@ -403,6 +403,15 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="UI_Desc_SelectLocalizationVersion" xml:space="preserve">
     <value>Select Localization Version.</value>
   </data>
+  <data name="UI_Desc_SelectLocalizationVariant" xml:space="preserve">
+    <value>Select a translation variant.</value>
+  </data>
+  <data name="UI_Desc_LegacyVariant" xml:space="preserve">
+    <value>This release predates variant support. Its original translation will be installed.</value>
+  </data>
+  <data name="UI_Button_ChangeVariant" xml:space="preserve">
+    <value>Change variant</value>
+  </data>
   <data name="UI_Desc_UnableMarkdown" xml:space="preserve">
     <value>**The document cannot be loaded.**</value>
   </data>

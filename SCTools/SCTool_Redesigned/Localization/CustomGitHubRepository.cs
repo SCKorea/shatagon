@@ -14,7 +14,7 @@ namespace SCTool_Redesigned.Localization
 {
     class CustomGitHubRepository : GitHubUpdateRepository
     {
-        private static IDictionary<GitHubDownloadType, GitRelease[]?> _cache = new Dictionary<GitHubDownloadType, GitRelease[]?>();
+        private static IDictionary<string, GitRelease[]?> _cache = new Dictionary<string, GitRelease[]?>();
 
         private const string GitHubApiUrl = "https://api.github.com/repos";
         private readonly HttpClient _httpClient;
@@ -43,6 +43,7 @@ namespace SCTool_Redesigned.Localization
         {
             using var requestMessage = buildRequestMessage(_repoReleasesUrl);
             using var response = await _httpClient.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
 
             int rateRemain = 60;
 
@@ -55,12 +56,7 @@ namespace SCTool_Redesigned.Localization
             {
                 var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                if (_cache.ContainsKey(DownloadType))
-                {
-                    _cache.Remove(DownloadType);
-                }
-
-                _cache.Add(DownloadType, JsonHelper.Read<GitRelease[]>(content));
+                _cache[_repoReleasesUrl] = JsonHelper.Read<GitRelease[]>(content);
 
                 return true;
             }
@@ -70,12 +66,12 @@ namespace SCTool_Redesigned.Localization
 
         public async Task<GitRelease[]?> GetReleasesAsync(bool cache, CancellationToken cancellationToken)
         {
-            if (_cache.Count <= 0 || !_cache.ContainsKey(DownloadType) || cache)
+            if (!cache || !_cache.ContainsKey(_repoReleasesUrl))
             {
                 await UpdateAsync(cancellationToken);
             }
 
-            return _cache[DownloadType];
+            return _cache[_repoReleasesUrl];
         }
 
         public override async Task<bool> CheckAsync(CancellationToken cancellationToken)
@@ -149,7 +145,7 @@ namespace SCTool_Redesigned.Localization
             [JsonProperty("id")]
             public int? Id { get; private set; }
             [JsonProperty("name")]
-            public string? Name { get; }
+            public string? Name { get; private set; }
             [JsonProperty("body")]
             public string? Body { get; }
             [JsonProperty("url")]
@@ -182,14 +178,12 @@ namespace SCTool_Redesigned.Localization
 
         public new class GitAsset
         {
+            [JsonProperty("name")]
+            public string? Name { get; private set; }
+            [JsonProperty("url")]
+            public string? ApiUrl { get; private set; }
             [JsonProperty("browser_download_url")]
-            public string? ZipUrl { get; }
-
-            [JsonConstructor]
-            public GitAsset(string zipUrl)
-            {
-                ZipUrl = zipUrl;
-            }
+            public string? ZipUrl { get; private set; }
         }
 
         public new class GitRateLimit

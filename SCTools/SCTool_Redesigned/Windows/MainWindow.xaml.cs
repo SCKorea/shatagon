@@ -174,6 +174,7 @@ namespace SCTool_Redesigned.Windows
 
                 //Console.WriteLine($"Change Phase {_PhaseNumber} to {value}");
                 _PhaseNumber = value;
+                VariantBtn.Visibility = Visibility.Hidden;
                 switch (value)
                 {
                     case 0:     //launcher update
@@ -338,7 +339,8 @@ namespace SCTool_Redesigned.Windows
                         UninstallBtn.Visibility = Visibility.Hidden;
                         DisableBtn.Visibility = Visibility.Hidden;
                         NextBtn.Visibility = Visibility.Visible;
-                        NextBtn.Text = Properties.Resources.UI_Button_Install;
+                        NextBtn.Text = RepositoryManager.GetLocalizationSource().HasVariant
+                            ? Properties.Resources.UI_Button_Next : Properties.Resources.UI_Button_Install;
                         PrevBtn.Visibility = Visibility.Visible;
                         PrevBtn.Text = Properties.Resources.UI_Button_Previous;
                         Community_link1.IsEnabled = false;
@@ -354,7 +356,23 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 7: //installing?
+                    case 7: //select variant
+                        Background = _subBG;
+                        frame_left.Content = null;
+                        frame_right.Content = null;
+                        frame_all.Content = new Pages.selectVariant();
+                        logoCanvas.Visibility = Visibility.Hidden;
+                        logotitle.Visibility = Visibility.Hidden;
+                        InstallBtn.Visibility = Visibility.Hidden;
+                        UninstallBtn.Visibility = Visibility.Hidden;
+                        DisableBtn.Visibility = Visibility.Hidden;
+                        NextBtn.Visibility = Visibility.Visible;
+                        NextBtn.Text = Properties.Resources.UI_Button_Install;
+                        PrevBtn.Visibility = Visibility.Visible;
+                        PrevBtn.Text = Properties.Resources.UI_Button_Previous;
+                        break;
+
+                    case 8: //installing
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -380,7 +398,7 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 8: //installComplete
+                    case 9: //installComplete
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -407,7 +425,7 @@ namespace SCTool_Redesigned.Windows
 
                         break;
 
-                    case 9:
+                    case 10:
                         Application.Current.Shutdown();
 
                         break;
@@ -440,20 +458,24 @@ namespace SCTool_Redesigned.Windows
                         break;
                     }
 
-                    Phase = 7;
+                    Phase = 8;
                     break;
 
-                case 7:
+                case 6:
+                    Phase = _installmode == InstallerMode.install && RepositoryManager.GetLocalizationSource().HasVariant ? 7 : 8;
+                    break;
+
+                case 8:
                     if (_installmode == InstallerMode.install)
                     {
                         Phase++;
                         break;
                     }
 
-                    Phase = 8;
+                    Phase = 9;
                     break;
 
-                case 8:
+                case 9:
                     Phase = 3;
                     break;
 
@@ -478,16 +500,22 @@ namespace SCTool_Redesigned.Windows
                     break;
 
                 case 7:
+                    Phase = 6;
+                    break;
+
+                case 8:
                     if (_installmode == InstallerMode.install)
                     {
-                        Phase--;
+                        if (frame_all.Content is Pages.installProgress progress && !progress.CancelDownload())
+                            break;
+                        Phase = RepositoryManager.GetLocalizationSource().HasVariant ? 7 : 6;
                         break;
                     }
 
                     Phase = 5;
                     break;
 
-                case 8:
+                case 9:
                     Phase = 3;
                     break;
 
@@ -544,6 +572,12 @@ namespace SCTool_Redesigned.Windows
             }
 
             _installmode = InstallerMode.uninstall;
+            Phase = 4;
+        }
+
+        private void VariantBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _installmode = InstallerMode.install;
             Phase = 4;
         }
 
@@ -681,7 +715,11 @@ namespace SCTool_Redesigned.Windows
 
                     var installedVersion = installation.InstalledVersion;
 
-                    if (releasedVersion != null && !installedVersion.Equals(releasedVersion.Name))
+                    var matchesLatest = releasedVersion != null &&
+                        (!string.IsNullOrEmpty(installation.InstalledTag)
+                            ? installation.InstalledTag.Equals(releasedVersion.TagName, StringComparison.Ordinal)
+                            : installedVersion.Equals(releasedVersion.Name, StringComparison.Ordinal));
+                    if (releasedVersion != null && !matchesLatest)
                     {
                         update.Add(mode);
                     }
@@ -758,6 +796,8 @@ namespace SCTool_Redesigned.Windows
                     if (installed.Count > 0)
                     {
                         UninstallBtn.Visibility = Visibility.Visible;
+                        VariantBtn.Visibility = RepositoryManager.GetLocalizationSource().HasVariant
+                            ? Visibility.Visible : Visibility.Hidden;
                         //DisableBtn.Visibility = Visibility.Visible; //TODO
                     }
                 }));

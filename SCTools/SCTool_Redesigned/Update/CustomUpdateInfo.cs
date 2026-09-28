@@ -8,6 +8,7 @@ namespace SCTool_Redesigned.Update
     class CustomUpdateInfo : UpdateInfo
     {
         private readonly bool _namedVersion;
+        public CustomGitHubRepository.GitAsset[] Assets { get; }
 
         public override string GetVersion() => _namedVersion ? Name : TagName;
 
@@ -15,13 +16,14 @@ namespace SCTool_Redesigned.Update
         public CustomUpdateInfo(string name, string tagName, string downloadUrl)
             : base(name, tagName, downloadUrl)
         {
-
+            Assets = [];
         }
 
-        private CustomUpdateInfo(string name, string tagName, string downloadUrl, bool namedVersion)
+        private CustomUpdateInfo(string name, string tagName, string downloadUrl, bool namedVersion, CustomGitHubRepository.GitAsset[] assets)
             : base(name, tagName, downloadUrl)
         {
             _namedVersion = namedVersion;
+            Assets = assets;
         }
 
         public class Factory
@@ -43,7 +45,7 @@ namespace SCTool_Redesigned.Update
                 {
                     return null;
                 }
-                return new CustomUpdateInfo(release.Name, release.TagName, release.ZipUrl, _namedVersion)
+                return new CustomUpdateInfo(release.Name, release.TagName, release.ZipUrl, _namedVersion, release.Assets ?? [])
                 {
                     PreRelease = release.PreRelease ?? false,
                     Released = release.Published
@@ -58,7 +60,7 @@ namespace SCTool_Redesigned.Update
                 {
                     return null;
                 }
-                return new CustomUpdateInfo(release.Name, release.TagName, downloadUrl, _namedVersion)
+                return new CustomUpdateInfo(release.Name, release.TagName, downloadUrl, _namedVersion, release.Assets ?? [])
                 {
                     PreRelease = release.PreRelease ?? false,
                     Released = release.Published

@@ -18,7 +18,7 @@ namespace SCTool_Redesigned.Pages
             switch (mode)
             {
                 case MainWindow.InstallerMode.install:
-                    PhaseNumber.Content = "04";
+                    PhaseNumber.Content = RepositoryManager.GetLocalizationSource().HasVariant ? "05" : "04";
                     Phasetext.Content = "설치 완료";
                     App.Logger.Info("Localization installation complete.");
                     break;

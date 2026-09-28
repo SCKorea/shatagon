@@ -10,6 +10,8 @@ using NSW.StarCitizen.Tools.Lib.Global;
 using NSW.StarCitizen.Tools.Lib.Localization;
 using NSW.StarCitizen.Tools.Lib.Update;
 using SCTool_Redesigned.Utils;
+using SCTool_Redesigned.Localization;
+using SCTool_Redesigned.Update;
 using SCTool_Redesigned.Windows;
 using static SCTool_Redesigned.Windows.MainWindow;
 
@@ -20,7 +22,15 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class installProgress : Page
     {
-        private static CancellationTokenSource _cancellationToken = new CancellationTokenSource();  //TODO: Dispose, cancel when exit
+        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        private bool _installStarted;
+
+        public bool CancelDownload()
+        {
+            if (_installStarted) return false;
+            _cancellationToken.Cancel();
+            return true;
+        }
         //private GameSettings _gameSettings;
 
         public installProgress(MainWindow.InstallerMode mode)
@@ -82,7 +92,6 @@ namespace SCTool_Redesigned.Pages
             }
 
 
-            App.SelectedGameMode = "";
         }
 
         private async void InstallVersionAsync(GameInfo gameInfo, GameSettings gameSettings)
@@ -101,7 +110,7 @@ namespace SCTool_Redesigned.Pages
                     Properties.Resources.Localization_Install_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error
                 );
 
-                MainWindow.UI.Phase--;
+                ReturnToSelection();
 
                 return;
             }
@@ -119,15 +128,38 @@ namespace SCTool_Redesigned.Pages
                     Properties.Resources.Localization_Install_ErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error
                 );
 
+                ReturnToSelection();
                 return;
             }
 
             bool status = false;
+            string? patchZipFile = null;
+            var actualVariant = "legacy";
 
             try
             {
                 var tempPath = Path.GetTempPath();
-                var patchZipFile = await targetRepository.DownloadAsync(targetUpdateInfo, tempPath, _cancellationToken.Token, downloadDialogAdapter);
+                if (RepositoryManager.GetLocalizationSource().HasVariant)
+                {
+                    if (targetUpdateInfo is not CustomUpdateInfo info)
+                        throw new InvalidOperationException("Release metadata is missing");
+                    var selected = VariantCatalog.Resolve(info, RepositoryManager.TargetVariant);
+                    actualVariant = selected.ActualVariant;
+                    App.Logger.Info($"Variant: requested={RepositoryManager.TargetVariant}, actual={actualVariant}, tag={info.TagName}");
+                    if (selected.Warning != null && actualVariant != "legacy")
+                    {
+                        App.Logger.Warn(selected.Warning);
+                        MessageBox.Show(selected.Warning, Properties.Resources.MSG_Title_GeneralWarning,
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    patchZipFile = await targetRepository.DownloadVariantAsync(selected, tempPath, _cancellationToken.Token, downloadDialogAdapter);
+                }
+                else
+                {
+                    patchZipFile = await targetRepository.DownloadAsync(targetUpdateInfo, tempPath, _cancellationToken.Token, downloadDialogAdapter);
+                }
+                _cancellationToken.Token.ThrowIfCancellationRequested();
+                _installStarted = true;
                 var result = targetRepository.Installer.Install(patchZipFile, gameInfo.RootFolderPath);
 
                 App.Logger.Info($"install path: {gameInfo.RootFolderPath}");
@@ -173,6 +205,10 @@ namespace SCTool_Redesigned.Pages
                         break;
                 }
             }
+            catch (OperationCanceledException)
+            {
+                App.Logger.Info("Localization download canceled");
+            }
             catch (HttpRequestException e)
             {
                 App.Logger.Error(e, "Error during install localization");
@@ -196,12 +232,18 @@ namespace SCTool_Redesigned.Pages
             finally
             {
                 Cursor = null;  //Cursor to default
+                if (patchZipFile != null && File.Exists(patchZipFile))
+                {
+                    try { File.Delete(patchZipFile); }
+                    catch (IOException e) { App.Logger.Warn(e, "Unable to delete temporary ZIP"); }
+                }
             }
 
             if (status == false)
             {
                 App.Logger.Info("Fail localization installation");
-                MainWindow.UI.Phase--;
+                if (MainWindow.UI.Phase == 8)
+                    ReturnToSelection();
 
                 return;
             }
@@ -230,10 +272,16 @@ namespace SCTool_Redesigned.Pages
                 }
             }
 
+            targetInstallation.InstalledVariant = actualVariant;
             RepositoryManager.SetInstallationRepository(targetInstallation);
 
             App.Logger.Info("Finish localization installation");
             MainWindow.UI.Phase++;
+        }
+
+        private static void ReturnToSelection()
+        {
+            MainWindow.UI.Phase = RepositoryManager.GetLocalizationSource().HasVariant ? 7 : 6;
         }
 
         private void Uninstall(GameInfo gameInfo, GameSettings gameSettings)
@@ -297,7 +345,7 @@ namespace SCTool_Redesigned.Pages
 
             if (status == false)
             {
-                MainWindow.UI.Phase--;
+                MainWindow.UI.Phase = 5;
                 return;
             }
 
@@ -312,7 +360,7 @@ namespace SCTool_Redesigned.Pages
 
             MainWindow.UI.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
-                MainWindow.UI.Phase = 8;
+                MainWindow.UI.Phase = 9;
             }));
         }
 

@@ -26,6 +26,14 @@ namespace SCTool_Redesigned.Utils
         public static CustomGitHubLocalizationRepository? TargetRepository { get; private set; }
         public static LocalizationInstallation? TargetInstallation { get; private set; }
         public static UpdateInfo? TargetInfo { get; private set; }
+        public static string TargetVariant { get; private set; } = VariantCatalog.DefaultSelection;
+
+        public static void SelectVariant(string id)
+        {
+            if (!VariantCatalog.Options.Any(option => option.Id == id) && id != "legacy")
+                throw new ArgumentException($"Unknown variant: {id}");
+            TargetVariant = id;
+        }
 
         static RepositoryManager()
         {
@@ -37,18 +45,21 @@ namespace SCTool_Redesigned.Utils
         public static void SetTargetInstallation(string gameMode, string version, UpdateInfo updateInfo)
         {
             var localizationSource = GetLocalizationSource();
+            var installed = GetInstallationRepository(gameMode);
             var localizationInstallation = new LocalizationInstallation(gameMode, localizationSource.Repository, UpdateRepositoryType.GitHub)
             {
                 LastVersion = version,
                 InstalledVersion = version,
-                IsEnabled = false,
+                InstalledTag = updateInfo.TagName,
+                IsEnabled = installed?.IsEnabled ?? false,
                 AllowPreRelease = App.Settings.Nightly
             };
 
             TargetInstallation = localizationInstallation;
             TargetInfo = updateInfo;
-
-            App.SaveAppSettings();
+            TargetVariant = installed != null && installed.Repository == localizationSource.Repository &&
+                VariantCatalog.Options.Any(option => option.Id == installed.InstalledVariant)
+                ? installed.InstalledVariant : VariantCatalog.DefaultSelection;
         }
 
         public static void SetInstallationRepository(LocalizationInstallation localizationInstallation)
@@ -83,6 +94,7 @@ namespace SCTool_Redesigned.Utils
 
         public static bool SetTargetRepository()
         {
+            _localizationSource = null;
             if (_languageRepo == null)
             {
                 return false;
@@ -341,7 +353,7 @@ namespace SCTool_Redesigned.Utils
 
         private static CustomGitHubRepository GetCustomGitHubRepository(bool cache = true)
         {
-            if (!cache || _githubReleases == null)
+            if (!cache || _customGitHubRepository == null)
             {
                 CancellationTokenSource tokenSource = new CancellationTokenSource();
                 CancellationToken cancellationToken = tokenSource.Token;
