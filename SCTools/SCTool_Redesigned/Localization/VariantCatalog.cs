@@ -33,7 +33,7 @@ namespace SCTool_Redesigned.Localization
             if (IsLegacy(info))
             {
                 return new VariantDownload("legacy", info.DownloadUrl, false,
-                    $"{info.TagName} 릴리즈는 variant를 지원하지 않습니다. 해당 릴리즈의 기존 번역을 설치합니다.");
+                    $"{info.TagName} 릴리즈는 기능선택을 지원하지 않습니다. 해당 릴리즈의 기존 번역을 설치합니다.");
             }
             if (!Options.Any(option => option.Id == requested))
                 throw new InvalidOperationException($"Unknown variant: {requested}");
@@ -46,7 +46,7 @@ namespace SCTool_Redesigned.Localization
             {
                 actual = Fallback;
                 chosen = assets.SingleOrDefault(asset => asset.Name == $"sc-ko-{info.TagName}-{Fallback}.zip");
-                warning = $"{info.TagName}의 {requested} 파일이 없어 기본 variant를 설치합니다.";
+                warning = $"{info.TagName}의 {requested} 파일이 없어 번역을 적용합니다.";
             }
             if (chosen == null)
                 throw new InvalidOperationException($"No default variant asset for {info.TagName}");
