@@ -201,6 +201,8 @@ namespace SCTool_Redesigned.Localization
                 }
                 if (newAsset)
                 {
+                    if (entry.Length > 150L * 1024 * 1024)
+                        return false;
                     selected.Add((target, entry));
                     matches++;
                     break;
@@ -223,8 +225,9 @@ namespace SCTool_Redesigned.Localization
                 selected.Add((destination, entry));
             }
 
-            if (matches != 1 || selected.Count == 0 ||
-                selected.SingleOrDefault(pair => pair.Relative.Equals(target, StringComparison.OrdinalIgnoreCase)).Entry?.Length == 0)
+            var globalEntry = selected.SingleOrDefault(pair =>
+                pair.Relative.Equals(target, StringComparison.OrdinalIgnoreCase)).Entry;
+            if (matches != 1 || globalEntry == null || globalEntry.Length == 0)
             {
                 _logger.Error($"ZIP must contain one valid {target}: {zipFileName}");
                 return false;
