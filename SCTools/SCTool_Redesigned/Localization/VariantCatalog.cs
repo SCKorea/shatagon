@@ -15,13 +15,13 @@ namespace SCTool_Redesigned.Localization
     internal static class VariantCatalog
     {
         // Mirrors release/variants.json in the translation repository until its tagged manifest is available.
-        public const string DefaultSelection = "all";
+        public const string DefaultSelection = "cd";
         public const string Fallback = "standard";
         public static readonly IReadOnlyList<VariantOption> Options = new[]
         {
-            new VariantOption("standard", "기본", "미션 정보 없음"),
-            new VariantOption("bp", "BP", "청사진과 평판"),
-            new VariantOption("cd", "BP + 쿨다운", "청사진, 평판, 쿨다운"),
+            new VariantOption("standard", "기본", "추가 정보 기능 없음"),
+            new VariantOption("bp", "청사진", "청사진 + 평판"),
+            new VariantOption("cd", "쿨다운", "청사진 + 평판 + 쿨다운"),
             new VariantOption("all", "전체", "모든 미션 정보")
         };
 
@@ -46,7 +46,7 @@ namespace SCTool_Redesigned.Localization
             {
                 actual = Fallback;
                 chosen = assets.SingleOrDefault(asset => asset.Name == $"sc-ko-{info.TagName}-{Fallback}.zip");
-                warning = $"{info.TagName}의 {requested} 파일이 없어 번역을 적용합니다.";
+                warning = $"{info.TagName}의 {requested} 파일이 없어 일반 번역을 적용합니다.";
             }
             if (chosen == null)
                 throw new InvalidOperationException($"No default variant asset for {info.TagName}");
