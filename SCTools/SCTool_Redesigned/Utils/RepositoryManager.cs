@@ -51,7 +51,7 @@ namespace SCTool_Redesigned.Utils
                 LastVersion = version,
                 InstalledVersion = version,
                 InstalledTag = updateInfo.TagName,
-                IsEnabled = installed?.IsEnabled ?? false,
+                IsEnabled = installed?.IsEnabled ?? true,
                 AllowPreRelease = App.Settings.Nightly
             };
 

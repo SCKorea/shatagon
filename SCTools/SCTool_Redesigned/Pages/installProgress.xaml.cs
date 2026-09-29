@@ -68,8 +68,6 @@ namespace SCTool_Redesigned.Pages
                 return;
             }
 
-            var gameSetting = new GameSettings(gameInfo);
-
             App.Logger.Info($"Game Mode: {gameInfo.Mode}");
           
 
@@ -77,12 +75,12 @@ namespace SCTool_Redesigned.Pages
             {
                 case MainWindow.InstallerMode.install:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationInstall;
-                    InstallVersionAsync(gameInfo, gameSetting);
+                    InstallVersionAsync(gameInfo);
                     break;
 
                 case MainWindow.InstallerMode.uninstall:
                     Phasetext.Content = Properties.Resources.UI_Desc_LocailzationUninstall;
-                    Uninstall(gameInfo, gameSetting);
+                    Uninstall(gameInfo, new GameSettings(gameInfo));
                     break;
 
                 case MainWindow.InstallerMode.disable:
@@ -94,7 +92,7 @@ namespace SCTool_Redesigned.Pages
 
         }
 
-        private async void InstallVersionAsync(GameInfo gameInfo, GameSettings gameSettings)
+        private async void InstallVersionAsync(GameInfo gameInfo)
         {
             App.Logger.Info("Start localization installation");
 
@@ -249,28 +247,12 @@ namespace SCTool_Redesigned.Pages
             }
 
             ProgBar.Value = ProgBar.Maximum;
-            gameSettings.Load();
- 
-            if (targetInstallation.IsEnabled == false)
-            {
-                var destinationPath = Path.Combine(App.Settings.GameFolder, targetInstallation.Mode);
-                var installationType = targetRepository.Installer.RevertLocalization(destinationPath);
 
-                if (installationType == LocalizationInstallationType.Disabled)
-                {
-                    targetInstallation.IsEnabled = false;
-                }
-
-                if (installationType == LocalizationInstallationType.Enabled)
-                {
-                    targetInstallation.IsEnabled = true;
-                }
-
-                if (installationType == LocalizationInstallationType.None)
-                {
-                    RepositoryManager.RemoveInstallationRepository(targetInstallation);
-                }
-            }
+            // The installer writes the custom language to user.cfg. GameSettings.Load() validates
+            // it against system.cfg's sys_languages list and can remove it on some game installs.
+            // A successful install should leave the patch enabled, including when repairing an
+            // installation previously recorded as disabled.
+            targetInstallation.IsEnabled = true;
 
             targetInstallation.InstalledVariant = actualVariant;
             RepositoryManager.SetInstallationRepository(targetInstallation);
