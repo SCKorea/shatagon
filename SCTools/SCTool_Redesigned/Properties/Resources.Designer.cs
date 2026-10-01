@@ -1040,34 +1040,9 @@ namespace SCTool_Redesigned.Properties {
             }
         }
         
-        /// <summary>
-        ///   @echo off
-        ///
-        ///set workpath=%~dp0
-        ///set updatepath=%workpath%updates\
-        ///set latestpath=%updatepath%latest\
-        ///
-        ///timeout 1
-        ///xcopy &quot;%latestpath%*.*&quot; &quot;%workpath%&quot; /s /k /h /y
-        ///if not errorlevel 0 goto update_error
-        ///
-        ///del &quot;%updatepath%latest.json&quot;
-        ///del &quot;%updatepath%latest.zip&quot;
-        ///del /q &quot;%latestpath%*&quot;
-        ///for /d %%p in (&quot;%latestpath%*.*&quot;) do rmdir /s /q &quot;%%p&quot;
-        ///rmdir /s /q &quot;%latestpath%&quot;
-        ///
-        ///start &quot;&quot; &quot;%workpath%Shatagon.exe&quot; update_status 0
-        ///exit
-        ///
-        ///:update_error
-        ///
-        ///start &quot;&quot; &quot;%workpath%Shatagon.exe&quot; update_status 1&quot;
-        ///exit과(와) 유사한 지역화된 문자열을 찾습니다.
-        /// </summary>
-        public static string UpdateScript {
+        public static string MSG_Desc_ApplicationUpdateFailed {
             get {
-                return ResourceManager.GetString("UpdateScript", resourceCulture);
+                return ResourceManager.GetString("MSG_Desc_ApplicationUpdateFailed", resourceCulture);
             }
         }
     }

@@ -12,16 +12,15 @@ namespace SCTool_Redesigned.Update
         private readonly IUpdateRepository _updateRepository;
         private readonly IPackageVerifier _packageVerifier;
         private readonly string _executableDir;
-        private readonly string _updateScriptContent;
-        private readonly string _updateScriptPath;
         private readonly string _updatesStoragePath;
         private readonly string _schedInstallFilePath;
         private readonly string _schedInstallJsonPath;
+        private readonly string _updateHelperPath;
         private readonly string _currentVersion;
 
         public interface IPackageVerifier
         {
-            bool VerifyPackage(string path);
+            bool VerifyPackage(string path, string? expectedVersion = null);
         }
 
         public event EventHandler MonitorStarted
@@ -49,18 +48,17 @@ namespace SCTool_Redesigned.Update
         }
 
         public CustomApplicationUpdater(IUpdateRepository updateRepository, string executableDir,
-            string updateScriptContent, IPackageVerifier packageVerifier)
+            IPackageVerifier packageVerifier)
         {
             if (updateRepository.CurrentVersion == null)
                 throw new InvalidOperationException("update repository current version is not set");
             _updateRepository = updateRepository;
             _executableDir = executableDir;
-            _updateScriptContent = updateScriptContent;
             _packageVerifier = packageVerifier;
-            _updateScriptPath = Path.Combine(_executableDir, "update.bat");
             _updatesStoragePath = Path.Combine(_executableDir, "updates");
-            _schedInstallFilePath = Path.Combine(_updatesStoragePath, "shatagon.exe");
+            _schedInstallFilePath = Path.Combine(_updatesStoragePath, "Shatagon.exe");
             _schedInstallJsonPath = Path.Combine(_updatesStoragePath, "latest.json");
+            _updateHelperPath = Path.Combine(_updatesStoragePath, $"helper-{Environment.ProcessId}-{Guid.NewGuid():N}", "Shatagon.exe");
             _currentVersion = _updateRepository.CurrentVersion;
         }
 
@@ -72,61 +70,166 @@ namespace SCTool_Redesigned.Update
 
         public async Task<UpdateInfo?> CheckForUpdateVersionAsync(CancellationToken cancellationToken)
         {
-            var latestUpdateInfo = await _updateRepository.GetLatestAsync(cancellationToken);
-            if (latestUpdateInfo != null && string.Compare(latestUpdateInfo.GetVersion(),
-                _currentVersion, StringComparison.OrdinalIgnoreCase) != 0)
+            if (UpdateProcessHelper.UpdateFailed)
+                return null;
+
+            if (!ReleaseVersion.TryParse(_currentVersion, out var currentVersion))
             {
-                return latestUpdateInfo;
+                _logger.Warn($"Cannot compare current application version: {_currentVersion}");
+                return null;
             }
-            return null;
+
+            var releases = await _updateRepository.GetAllAsync(cancellationToken);
+            UpdateInfo? newestUpdateInfo = null;
+            var newestVersion = currentVersion;
+
+            foreach (var release in releases)
+            {
+                if (!_updateRepository.AllowPreReleases && release.PreRelease)
+                    continue;
+
+                if (!ReleaseVersion.TryParse(release.GetVersion(), out var releaseVersion))
+                {
+                    _logger.Warn($"Ignoring release with an invalid version: {release.GetVersion()}");
+                    continue;
+                }
+
+                if (releaseVersion > newestVersion)
+                {
+                    newestVersion = releaseVersion;
+                    newestUpdateInfo = release;
+                }
+            }
+
+            return newestUpdateInfo;
         }
 
         public async Task<string> DownloadVersionAsync(UpdateInfo version, CancellationToken cancellationToken, IDownloadProgress downloadProgress)
         {
+            if (!ReleaseVersion.IsNewer(version.GetVersion(), _currentVersion))
+                throw new InvalidOperationException($"Refusing to download non-newer version {version.GetVersion()} over {_currentVersion}.");
+
             if (!Directory.Exists(_updatesStoragePath))
             {
                 Directory.CreateDirectory(_updatesStoragePath);
             }
-            return await _updateRepository.DownloadAsync(version, _updatesStoragePath, cancellationToken, downloadProgress);
+
+            var downloadedFilePath = await _updateRepository.DownloadAsync(version, _updatesStoragePath, cancellationToken, downloadProgress);
+            if (!File.Exists(downloadedFilePath))
+                throw new FileNotFoundException("The downloaded update executable was not found.", downloadedFilePath);
+
+            var updatesDirectory = Path.GetFullPath(_updatesStoragePath);
+            var downloadedFullPath = Path.GetFullPath(downloadedFilePath);
+            var downloadedDirectory = Path.GetDirectoryName(downloadedFullPath);
+            var pathComparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            if (downloadedDirectory == null || !string.Equals(downloadedDirectory, updatesDirectory, pathComparison))
+                throw new InvalidDataException("The downloaded update is outside the updates directory.");
+
+            if (!string.Equals(Path.GetExtension(downloadedFullPath), ".exe", StringComparison.OrdinalIgnoreCase))
+                throw new InvalidDataException("The downloaded update is not an executable file.");
+
+            if (!PathsEqual(downloadedFullPath, _schedInstallFilePath))
+                throw new InvalidDataException("The downloaded asset is not Shatagon.exe.");
+
+            if (!_packageVerifier.VerifyPackage(_updatesStoragePath, version.GetVersion()))
+                throw new InvalidDataException("The downloaded update does not contain a valid Shatagon.exe executable.");
+
+            return _schedInstallFilePath;
         }
 
-        public InstallUpdateStatus InstallScheduledUpdate()
+        public InstallUpdateStatus InstallScheduledUpdate() =>
+            InstallScheduledUpdateAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+        public async Task<InstallUpdateStatus> InstallScheduledUpdateAsync(CancellationToken cancellationToken)
         {
             _logger.Info("Install scheduled update");
-            if (ExtractUpdateScript())
+            var scheduledUpdate = GetScheduledUpdateInfo();
+            if (scheduledUpdate == null || !ReleaseVersion.IsNewer(scheduledUpdate.GetVersion(), _currentVersion) ||
+                !_packageVerifier.VerifyPackage(_updatesStoragePath, scheduledUpdate.GetVersion()))
             {
-                using var updateProcess = new Process();
-                updateProcess.StartInfo.UseShellExecute = false;
-                updateProcess.StartInfo.RedirectStandardInput = false;
-                updateProcess.StartInfo.RedirectStandardOutput = false;
-                updateProcess.StartInfo.RedirectStandardError = false;
-                updateProcess.StartInfo.ErrorDialog = false;
-                updateProcess.StartInfo.CreateNoWindow = true;
-                updateProcess.StartInfo.WorkingDirectory = _executableDir;
-                updateProcess.StartInfo.FileName = _updateScriptPath;
-                if (!updateProcess.Start())
-                {
-                    RemoveUpdateScript();
-                    _logger.Info($"Failed launch updater script: {_updateScriptPath}");
-                    return InstallUpdateStatus.LaunchScriptError;
-                }
-                return InstallUpdateStatus.Success;
+                _logger.Error($"Scheduled update executable is missing or invalid: {_schedInstallFilePath}");
+                CancelScheduleInstallUpdate();
+                return InstallUpdateStatus.ExtractFilesError;
             }
-            CancelScheduleInstallUpdate();
-            return InstallUpdateStatus.ExtractFilesError;
+
+            try
+            {
+                var currentExecutable = Environment.ProcessPath;
+                if (string.IsNullOrWhiteSpace(currentExecutable) || !File.Exists(currentExecutable))
+                    throw new FileNotFoundException("The running application executable could not be found.", currentExecutable);
+                if (!PathsEqual(currentExecutable, Path.Combine(_executableDir, CustomPackageVerifier.ExecutableName)))
+                    throw new InvalidOperationException("Self-update requires running the installed Shatagon.exe.");
+
+                if (!Directory.Exists(_updatesStoragePath))
+                    Directory.CreateDirectory(_updatesStoragePath);
+
+                var helperDirectory = Path.GetDirectoryName(_updateHelperPath);
+                if (string.IsNullOrWhiteSpace(helperDirectory))
+                    throw new InvalidOperationException("The update helper directory could not be determined.");
+                Directory.CreateDirectory(helperDirectory);
+
+                UpdateProcessHelper.PrepareHelperFiles(currentExecutable, _updateHelperPath);
+                var pipeName = UpdateProcessHelper.CreateStartupPipeName();
+                using var startupPipe = UpdateProcessHelper.CreateStartupPipe(pipeName);
+
+                using var updateProcess = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = _updateHelperPath,
+                        WorkingDirectory = _executableDir,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+                updateProcess.StartInfo.ArgumentList.Add(UpdateProcessHelper.UpdateHelperArgument);
+                updateProcess.StartInfo.ArgumentList.Add(Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                updateProcess.StartInfo.ArgumentList.Add(scheduledUpdate.GetVersion());
+                updateProcess.StartInfo.ArgumentList.Add(Convert.ToHexString(UpdateProcessHelper.ComputeHash(_schedInstallFilePath)));
+                updateProcess.StartInfo.ArgumentList.Add(pipeName);
+
+                var helperReady = false;
+                try
+                {
+                    helperReady = updateProcess.Start() &&
+                        await UpdateProcessHelper.WaitForStartupAsync(startupPipe, updateProcess, cancellationToken).ConfigureAwait(false) == "ready";
+                    if (helperReady)
+                        return InstallUpdateStatus.Success;
+                }
+                finally
+                {
+                    if (!helperReady)
+                        UpdateProcessHelper.StopProcess(updateProcess);
+                }
+
+                _logger.Info($"Failed to launch update helper: {_updateHelperPath}");
+                return InstallUpdateStatus.LaunchScriptError;
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, $"Failed to launch update helper: {_updateHelperPath}");
+                return InstallUpdateStatus.LaunchScriptError;
+            }
         }
 
         public UpdateInfo? GetScheduledUpdateInfo() => File.Exists(_schedInstallFilePath) ? JsonHelper.ReadFile<GitHubUpdateInfo>(_schedInstallJsonPath) : null;
 
         public bool IsAlreadyInstalledVersion(UpdateInfo updateInfo) =>
-            string.Compare(updateInfo.GetVersion(), _currentVersion, StringComparison.OrdinalIgnoreCase) == 0;
+            ReleaseVersion.AreEqual(updateInfo.GetVersion(), _currentVersion);
 
         public void ApplyScheduledUpdateProps(UpdateInfo updateInfo) => _updateRepository.SetCurrentVersion(updateInfo.GetVersion());
 
         public bool ScheduleInstallUpdate(UpdateInfo updateInfo, string filePath)
         {
             _logger.Info($"Schedule install update with version: {updateInfo.GetVersion()}");
-            if (File.Exists(filePath))
+            if (!ReleaseVersion.IsNewer(updateInfo.GetVersion(), _currentVersion))
+            {
+                _logger.Warn($"Refusing to schedule non-newer version {updateInfo.GetVersion()} over {_currentVersion}.");
+                return false;
+            }
+
+            if (File.Exists(filePath) && PathsEqual(filePath, _schedInstallFilePath) &&
+                _packageVerifier.VerifyPackage(_updatesStoragePath, updateInfo.GetVersion()))
             {
                 _updateRepository.SetCurrentVersion(_currentVersion);
                 try
@@ -154,6 +257,12 @@ namespace SCTool_Redesigned.Update
             return false;
         }
 
+        private static bool PathsEqual(string left, string right)
+        {
+            var pathComparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            return string.Equals(Path.GetFullPath(left), Path.GetFullPath(right), pathComparison);
+        }
+
         public bool CancelScheduleInstallUpdate()
         {
             _updateRepository.SetCurrentVersion(_currentVersion);
@@ -163,26 +272,5 @@ namespace SCTool_Redesigned.Update
                 FileUtils.DeleteFileNoThrow(_schedInstallFilePath);
         }
 
-        public void RemoveUpdateScript()
-        {
-            if (File.Exists(_updateScriptPath))
-            {
-                FileUtils.DeleteFileNoThrow(_updateScriptPath);
-            }
-        }
-
-        private bool ExtractUpdateScript()
-        {
-            try
-            {
-                File.WriteAllText(_updateScriptPath, _updateScriptContent);
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e, $"Failed extract update script to: {_updateScriptPath}");
-                return false;
-            }
-            return true;
-        }
     }
 }

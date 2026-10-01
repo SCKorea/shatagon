@@ -26,7 +26,7 @@ namespace SCTool_Redesigned
 #else
         public readonly static string ApiServer = "https://sc.galaxyhub.kr";
 #endif
-        App()
+        internal App()
         {
             var nlogConfig = new NLog.Config.LoggingConfiguration();
             nlogConfig.AddRule(LogLevel.Info, LogLevel.Fatal, new NLog.Targets.ConsoleTarget("logconsole"));

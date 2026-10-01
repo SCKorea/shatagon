@@ -28,6 +28,8 @@ namespace SCTool_Redesigned.Localization
             DirectoryInfo? unpackDataDir = null;
             DirectoryInfo? backupDataDir = null;
             var dataPathDir = new DirectoryInfo(GameConstants.GetDataFolderPath(destinationFolder));
+            var dataFolderReplaced = false;
+            var installationCompleted = false;
 
             try
             {
@@ -49,16 +51,23 @@ namespace SCTool_Redesigned.Localization
                 }
 
                 Directory.Move(GameConstants.GetDataFolderPath(unpackDataDir.FullName), dataPathDir.FullName);
+                dataFolderReplaced = true;
 
                 var userConifgPath = Path.Combine(destinationFolder, "user.cfg");
 
-                PatchLanguageManager.Enable(userConifgPath, App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage]);
+                if (!PatchLanguageManager.Enable(userConifgPath, App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage]))
+                {
+                    _logger.Error($"Failed to set the selected language in user.cfg: {userConifgPath}");
+                    return InstallStatus.FileError;
+                }
 
                 if (backupDataDir != null)
                 {
                     FileUtils.DeleteDirectoryNoThrow(backupDataDir, true);
                     backupDataDir = null;
                 }
+
+                installationCompleted = true;
             }
             catch (CryptographicException e)
             {
@@ -91,6 +100,10 @@ namespace SCTool_Redesigned.Localization
                 {
                     RestoreDirectory(backupDataDir, dataPathDir);
                 }
+                else if (dataFolderReplaced && !installationCompleted && Directory.Exists(dataPathDir.FullName))
+                {
+                    FileUtils.DeleteDirectoryNoThrow(dataPathDir, true);
+                }
             }
 
             return InstallStatus.Success;
@@ -107,7 +120,11 @@ namespace SCTool_Redesigned.Localization
 
             if (File.Exists(userConifgPath))
             {
-                PatchLanguageManager.Disable(userConifgPath);
+                if (!PatchLanguageManager.Disable(userConifgPath))
+                {
+                    _logger.Error($"Failed to reset the selected language in user.cfg: {userConifgPath}");
+                    return UninstallStatus.Failed;
+                }
             }
 
             var result = UninstallStatus.Success;
@@ -138,12 +155,9 @@ namespace SCTool_Redesigned.Localization
                 return LocalizationInstallationType.Disabled;
             }
 
-            if (PatchLanguageManager.IsEnabled(userConifgPath))
-            {
-                return LocalizationInstallationType.Disabled;
-            }
-
-            return LocalizationInstallationType.Enabled;
+            return PatchLanguageManager.IsEnabled(userConifgPath)
+                ? LocalizationInstallationType.Enabled
+                : LocalizationInstallationType.Disabled;
         }
 
         public LocalizationInstallationType RevertLocalization(string destinationFolder)
@@ -158,15 +172,16 @@ namespace SCTool_Redesigned.Localization
 
             if (PatchLanguageManager.IsEnabled(userConifgPath))
             {
-                PatchLanguageManager.Disable(userConifgPath);
-
-                return LocalizationInstallationType.Disabled;
+                return PatchLanguageManager.Disable(userConifgPath)
+                    ? LocalizationInstallationType.Disabled
+                    : GetInstallationType(destinationFolder);
             }
             else
             {
-                PatchLanguageManager.Enable(userConifgPath, App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage]);
-
-                return LocalizationInstallationType.Enabled;
+                return PatchLanguageManager.Enable(userConifgPath,
+                    App.Settings.GetOfficialLanauages()[App.Settings.GameLanguage])
+                    ? LocalizationInstallationType.Enabled
+                    : GetInstallationType(destinationFolder);
             }
         }
 

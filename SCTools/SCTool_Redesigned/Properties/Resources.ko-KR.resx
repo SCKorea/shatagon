@@ -449,7 +449,7 @@
   <data name="UI_Title_Step_03" xml:space="preserve">
     <value>03</value>
   </data>
-  <data name="UpdateScript" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\update.bat;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="MSG_Desc_ApplicationUpdateFailed" xml:space="preserve">
+    <value>프로그램 업데이트에 실패했습니다. 현재 버전으로 계속 사용할 수 있습니다. 프로그램을 다시 실행하면 업데이트를 다시 시도합니다.</value>
   </data>
 </root>

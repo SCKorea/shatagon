@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Shatagon</AssemblyName>
+    <Product>Shatagon Patcher</Product>
+    <FixtureVersion Condition="'$(FixtureVersion)' == ''">1.4.1.2</FixtureVersion>
+    <FixtureAssemblyVersion Condition="'$(FixtureAssemblyVersion)' == ''">$(FixtureVersion)</FixtureAssemblyVersion>
+    <AssemblyVersion>$(FixtureAssemblyVersion)</AssemblyVersion>
+    <FileVersion>$(FixtureVersion)</FileVersion>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../Update/CustomApplicationUpdater.cs" Link="CustomApplicationUpdater.cs" />
+    <Compile Include="../../../Update/CustomPackageVerifier.cs" Link="CustomPackageVerifier.cs" />
+    <Compile Include="../../../Update/ReleaseVersion.cs" Link="ReleaseVersion.cs" />
+    <Compile Include="../../../Update/UpdateProcessHelper.cs" Link="UpdateProcessHelper.cs" />
+    <ProjectReference Include="../../../../SCToolsLib/SCToolsLib.csproj" />
+  </ItemGroup>
+</Project>

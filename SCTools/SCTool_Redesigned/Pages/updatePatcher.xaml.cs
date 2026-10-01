@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Windows;
@@ -16,36 +15,13 @@ namespace SCTool_Redesigned.Pages
     /// </summary>
     public partial class updatePatcher : Page
     {
-        private static CustomApplicationUpdater _updater = new(GetUpdateRepository(), App.ExecutableDir, Properties.Resources.UpdateScript, new CustomPackageVerifier());
+        private static CustomApplicationUpdater _updater = new(GetUpdateRepository(), App.ExecutableDir, new CustomPackageVerifier());
         private static CancellationTokenSource _cancellationToken = new();  //TODO: Dispose, cancel when exit
         public updatePatcher()
         {
             InitializeComponent();
 
-            if (!CheckUpdated())
-            {
-                TryUpdateAsync();
-            }
-            else
-            {
-                CleanUpdate();
-            }
-
-        }
-
-        private bool CheckUpdated()
-        {
-            var batchFile = System.IO.Path.Combine(App.ExecutableDir, "update.bat");
-
-            return File.Exists(batchFile);
-        }
-
-        private void CleanUpdate()
-        {
-            _updater.RemoveUpdateScript();
-
-            NextPhase();
-
+            TryUpdateAsync();
         }
 
         private async void TryUpdateAsync()
@@ -53,6 +29,13 @@ namespace SCTool_Redesigned.Pages
             try
             {
 #if (!DEBUG)
+                if (UpdateProcessHelper.UpdateFailed)
+                {
+                    App.Logger.Error("Self-update failed. Continuing with the current version without retrying this startup.");
+                    MessageBox.Show(Properties.Resources.MSG_Desc_ApplicationUpdateFailed, App.Name);
+                    return;
+                }
+
                 App.Logger.Info("Check for program updates.");
 
                 var availableUpdate = await _updater.CheckForUpdateVersionAsync(_cancellationToken.Token);
@@ -63,22 +46,22 @@ namespace SCTool_Redesigned.Pages
                 {
                     App.Logger.Info("Program is not the latest version.");
                     App.Logger.Info("New Version found: "+availableUpdate.GetVersion());
-                    App.Logger.Info("Current Version: " + GetUpdateRepository().CurrentVersion);
+                    App.Logger.Info("Current Version: " + App.Version?.ToString(4));
 
                     //FIXME:
                     var downloadDialogAdapter = new DownloadProgressDialogAdapter(null, this);
                     var filePath = await _updater.DownloadVersionAsync(availableUpdate, _cancellationToken.Token, downloadDialogAdapter);
 
-                    _updater.ScheduleInstallUpdate(availableUpdate, filePath);
+                    if (!_updater.ScheduleInstallUpdate(availableUpdate, filePath))
+                        throw new InvalidOperationException($"Failed to schedule update {availableUpdate.GetVersion()}.");
 
-                    if (InstallScheduledUpdate())
+                    if (await InstallScheduledUpdateAsync())
                     {
                         GoogleAnalytics.Hit(App.Settings.UUID, "/update", "Program Update");
 
                         Windows.MainWindow.UI.Quit();
-
-                        return;
                     }
+                    return;
                 }
 
                 ProgBar.Value = ProgBar.Maximum;
@@ -104,14 +87,14 @@ namespace SCTool_Redesigned.Pages
             }
         }
 
-        private static bool InstallScheduledUpdate()
+        private static async Task<bool> InstallScheduledUpdateAsync()
         {
-            var result = _updater.InstallScheduledUpdate();
+            var result = await _updater.InstallScheduledUpdateAsync(_cancellationToken.Token);
 
             if (result != InstallUpdateStatus.Success)
             {
-                //_logger.Error($"Failed launch install update: {result}");
-                MessageBox.Show($"{Properties.Resources.Localization_Update_ErrorTitle}" + @" - " + result.ToString("d"), App.Name); //FOR DEBUG
+                App.Logger.Error($"Failed to prepare self-update: {result}");
+                MessageBox.Show(Properties.Resources.MSG_Desc_ApplicationUpdateFailed, App.Name);
                 return false;
             }
             return true;
@@ -120,8 +103,7 @@ namespace SCTool_Redesigned.Pages
         private static IUpdateRepository GetUpdateRepository()
         {
             var repository = "SCKorea/Shatagon";
-            var updateInfoFactory = GitHubUpdateInfo.Factory.NewWithVersionByTagName();
-            var updateRepository = new GitHubUpdateRepository(HttpNetClient.Client, GitHubDownloadType.Assets, updateInfoFactory, App.Name, repository);
+            var updateRepository = new ApplicationUpdateRepository(HttpNetClient.Client, App.Name, repository);
 
             updateRepository.AllowPreReleases = false;
             updateRepository.SetCurrentVersion(App.Version.ToString(4));

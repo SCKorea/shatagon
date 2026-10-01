@@ -448,7 +448,7 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   <data name="UI_Title_Step_03" xml:space="preserve">
     <value>03</value>
   </data>
-  <data name="UpdateScript" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\update.bat;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="MSG_Desc_ApplicationUpdateFailed" xml:space="preserve">
+    <value>The application update failed. You can continue using the current version. Restart the application to try updating again.</value>
   </data>
 </root>

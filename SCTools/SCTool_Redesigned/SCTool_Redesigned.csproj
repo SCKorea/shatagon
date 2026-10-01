@@ -11,7 +11,7 @@
     <AssemblyName>Shatagon</AssemblyName>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <Platforms>AnyCPU;x64</Platforms>
-    <StartupObject>SCTool_Redesigned.App</StartupObject>
+    <StartupObject>SCTool_Redesigned.Program</StartupObject>
     <ApplicationIcon>Resources\shatagon.ico</ApplicationIcon>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -21,6 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Tests\**\*.cs" />
     <None Remove="Resources\BG0.png" />
     <None Remove="Resources\BG1.png" />
     <None Remove="Resources\Discord-Logo3.png" />
@@ -31,15 +32,10 @@
     <None Remove="Resources\fonts\SCDream9.otf" />
     <None Remove="Resources\logo.png" />
     <None Remove="Resources\Ncafe-Logo3.png" />
-    <None Remove="Resources\update.bat" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\shatagon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\update.bat" />
   </ItemGroup>
 
   <ItemGroup>
