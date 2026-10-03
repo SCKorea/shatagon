@@ -404,7 +404,7 @@
     <value>설치할 패치 버전을 선택해주세요</value>
   </data>
   <data name="UI_Desc_SelectLocalizationVariant" xml:space="preserve">
-    <value>설치할 패치 번역 부가기능을 선택해주세요</value>
+    <value>설치할 번역 부가기능을 선택해주세요</value>
   </data>
   <data name="UI_Desc_LegacyVariant" xml:space="preserve">
     <value>이전 릴리즈는 기능 선택을 지원하지 않습니다. 해당 릴리즈의 기존 번역을 설치합니다.</value>
@@ -451,5 +451,14 @@
   </data>
   <data name="MSG_Desc_ApplicationUpdateFailed" xml:space="preserve">
     <value>프로그램 업데이트에 실패했습니다. 현재 버전으로 계속 사용할 수 있습니다. 프로그램을 다시 실행하면 업데이트를 다시 시도합니다.</value>
+  </data>
+  <data name="UI_Desc_FeatureLoading" xml:space="preserve">
+    <value>선택한 릴리즈의 부가기능을 불러오는 중입니다…</value>
+  </data>
+  <data name="UI_Desc_FeatureLoadFailed" xml:space="preserve">
+    <value>이 릴리즈의 부가기능을 불러오지 못했습니다. 연결과 인증 상태를 확인한 뒤 다시 시도해주세요.</value>
+  </data>
+  <data name="UI_Desc_FeatureBaseOnly" xml:space="preserve">
+    <value>모든 체크를 해제하면 기본 번역만 설치합니다.</value>
   </data>
 </root>

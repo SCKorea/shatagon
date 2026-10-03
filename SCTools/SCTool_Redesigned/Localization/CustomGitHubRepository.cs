@@ -30,7 +30,7 @@ namespace SCTool_Redesigned.Localization
         {
             DownloadType = downloadType;
             _httpClient = httpClient;
-            _repoReleasesUrl = $"{GitHubApiUrl}/{repository}/releases";
+            _repoReleasesUrl = $"{GitHubApiUrl}/{repository}/releases?per_page=100";
             _gitHubUpdateInfoFactory = gitHubUpdateInfoFactory;
         }
 
@@ -97,10 +97,12 @@ namespace SCTool_Redesigned.Localization
 
             if (releases != null && releases.Any())
             {
+                var visibleReleases = AllowPreReleases ? releases : releases.Where(release =>
+                    release.Draft != true && release.PreRelease != true);
                 return DownloadType switch
                 {
-                    GitHubDownloadType.Assets => GetAssetUpdates(releases).ToList(),
-                    GitHubDownloadType.Sources => GetSourceCodeUpdates(releases).ToList(),
+                    GitHubDownloadType.Assets => GetAssetUpdates(visibleReleases).ToList(),
+                    GitHubDownloadType.Sources => GetSourceCodeUpdates(visibleReleases).ToList(),
                     _ => throw new NotSupportedException("Not supported download type"),
                 };
             }
@@ -131,7 +133,8 @@ namespace SCTool_Redesigned.Localization
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
 
-            if (AuthToken != null)
+            if (AuthToken != null && Uri.TryCreate(requestUri, UriKind.Absolute, out var uri) &&
+                uri.Scheme == Uri.UriSchemeHttps && uri.Host.Equals("api.github.com", StringComparison.OrdinalIgnoreCase))
             {
                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("token", AuthToken);
             }
@@ -159,7 +162,7 @@ namespace SCTool_Redesigned.Localization
             [JsonProperty("zipball_url")]
             public string? ZipUrl { get; }
             [JsonProperty("published_at")]
-            public DateTimeOffset Published { get; private set; }
+            public DateTimeOffset? Published { get; private set; }
             [JsonProperty("created_at")]
             public DateTimeOffset Created { get; private set; }
             [JsonProperty("assets")]

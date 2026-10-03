@@ -78,6 +78,7 @@ namespace SCTool_Redesigned.Windows
                         NextBtn.Text = Properties.Resources.UI_Button_Next;
                         //InstallBtn.Content = Properties.Resources.UI_Button_InstallLocalization;
                         UninstallBtn.Content = Properties.Resources.UI_Button_RemoveLocalization;
+                        VariantBtn.Content = Properties.Resources.UI_Button_ChangeVariant;
                         DisableBtn.Content = Properties.Resources.UI_Button_DisableLocalization;
                         Menu_patchnote.Text = Properties.Resources.UI_Tab_Main_ReleaseNote;
                         Menu_qna.Text = Properties.Resources.UI_Tab_Main_Qna;
@@ -174,6 +175,8 @@ namespace SCTool_Redesigned.Windows
 
                 //Console.WriteLine($"Change Phase {_PhaseNumber} to {value}");
                 _PhaseNumber = value;
+                NextBtn.IsEnabled = true;
+                NextBtn.Opacity = 1;
                 VariantBtn.Visibility = Visibility.Hidden;
                 switch (value)
                 {
@@ -357,6 +360,8 @@ namespace SCTool_Redesigned.Windows
                         break;
 
                     case 7: //select variant
+                        NextBtn.IsEnabled = false;
+                        NextBtn.Opacity = 0.4;
                         Background = _subBG;
                         frame_left.Content = null;
                         frame_right.Content = null;
@@ -449,6 +454,7 @@ namespace SCTool_Redesigned.Windows
         }
         private void NextBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!NextBtn.IsEnabled) return;
             switch (Phase)
             {
                 case 5:
@@ -463,6 +469,11 @@ namespace SCTool_Redesigned.Windows
 
                 case 6:
                     Phase = _installmode == InstallerMode.install && RepositoryManager.GetLocalizationSource().HasVariant ? 7 : 8;
+                    break;
+
+                case 7:
+                    if (frame_all.Content is Pages.selectVariant && RepositoryManager.FeatureSelectionReady)
+                        Phase = 8;
                     break;
 
                 case 8:
@@ -483,6 +494,13 @@ namespace SCTool_Redesigned.Windows
                     Phase++;
                     break;
             }
+        }
+
+        internal void SetFeatureSelectionAvailable(bool available)
+        {
+            if (Phase != 7) return;
+            NextBtn.IsEnabled = available;
+            NextBtn.Opacity = available ? 1 : 0.4;
         }
 
         private void PrevBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)

@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Windows;
@@ -24,10 +26,12 @@ namespace SCTool_Redesigned.Pages
     {
         private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
         private bool _installStarted;
+        private bool _navigationCanceled;
 
         public bool CancelDownload()
         {
             if (_installStarted) return false;
+            _navigationCanceled = true;
             _cancellationToken.Cancel();
             return true;
         }
@@ -133,24 +137,29 @@ namespace SCTool_Redesigned.Pages
             bool status = false;
             string? patchZipFile = null;
             var actualVariant = "legacy";
+            IReadOnlyList<string>? actualFeatures = null;
 
             try
             {
                 var tempPath = Path.GetTempPath();
                 if (RepositoryManager.GetLocalizationSource().HasVariant)
                 {
-                    if (targetUpdateInfo is not CustomUpdateInfo info)
-                        throw new InvalidOperationException("Release metadata is missing");
-                    var selected = VariantCatalog.Resolve(info, RepositoryManager.TargetVariant);
-                    actualVariant = selected.ActualVariant;
-                    App.Logger.Info($"Variant: requested={RepositoryManager.TargetVariant}, actual={actualVariant}, tag={info.TagName}");
-                    if (selected.Warning != null && actualVariant != "legacy")
+                    var release = RepositoryManager.TargetRelease;
+                    if (release == null || release.Info.Tag != targetUpdateInfo.TagName || !RepositoryManager.FeatureSelectionReady)
+                        throw new InvalidOperationException("The selected release's feature catalog is not ready");
+                    var prepared = await targetRepository.PrepareFeaturesAsync(release,
+                        RepositoryManager.TargetFeatures, tempPath, _cancellationToken.Token, downloadDialogAdapter);
+                    patchZipFile = prepared.ZipPath;
+                    actualVariant = prepared.LegacyVariant;
+                    actualFeatures = prepared.Features;
+                    App.Logger.Info($"Features: requested={string.Join(",", RepositoryManager.TargetFeatures)}, actual={string.Join(",", actualFeatures ?? [])}, tag={release.Info.Tag}");
+                    if (prepared.Warnings.Count > 0)
                     {
-                        App.Logger.Warn(selected.Warning);
-                        MessageBox.Show(selected.Warning, Properties.Resources.MSG_Title_GeneralWarning,
+                        var warning = string.Join("\n", prepared.Warnings);
+                        App.Logger.Warn(warning);
+                        MessageBox.Show(warning, Properties.Resources.MSG_Title_GeneralWarning,
                             MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
-                    patchZipFile = await targetRepository.DownloadVariantAsync(selected, tempPath, _cancellationToken.Token, downloadDialogAdapter);
                 }
                 else
                 {
@@ -210,7 +219,7 @@ namespace SCTool_Redesigned.Pages
             catch (HttpRequestException e)
             {
                 App.Logger.Error(e, "Error during install localization");
-                MessageBox.Show(
+                if (!_cancellationToken.IsCancellationRequested) MessageBox.Show(
                     Properties.Resources.Localization_Download_ErrorText + '\n' + e.Message,
                     Properties.Resources.Localization_Download_ErrorTitle,
                     MessageBoxButton.OK,
@@ -220,8 +229,8 @@ namespace SCTool_Redesigned.Pages
             catch (Exception e)
             {
                 App.Logger.Error(e, "Error during install localization");
-                MessageBox.Show(
-                    Properties.Resources.Localization_Download_ErrorText,
+                if (!_cancellationToken.IsCancellationRequested) MessageBox.Show(
+                    Properties.Resources.Localization_Download_ErrorText + '\n' + e.Message,
                     Properties.Resources.Localization_Download_ErrorTitle,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
@@ -240,7 +249,7 @@ namespace SCTool_Redesigned.Pages
             if (status == false)
             {
                 App.Logger.Info("Fail localization installation");
-                if (MainWindow.UI.Phase == 8)
+                if (!_navigationCanceled && MainWindow.UI.Phase == 8)
                     ReturnToSelection();
 
                 return;
@@ -255,6 +264,7 @@ namespace SCTool_Redesigned.Pages
             targetInstallation.IsEnabled = true;
 
             targetInstallation.InstalledVariant = actualVariant;
+            targetInstallation.InstalledFeatures = actualFeatures?.ToList();
             RepositoryManager.SetInstallationRepository(targetInstallation);
 
             App.Logger.Info("Finish localization installation");
@@ -374,6 +384,7 @@ namespace SCTool_Redesigned.Pages
         public void ReportContentSize(long value)
         {
             _totalContentSize = value;
+            _downloadedSize = 0;
             UpdateDialogTaskInfo();
         }
 
@@ -385,19 +396,22 @@ namespace SCTool_Redesigned.Pages
 
         private void UpdateDialogTaskInfo()
         {
-
-            float downloadSizeMBytes = (float)_downloadedSize / (1024 * 1024);
-            if (_totalContentSize > 0)
+            long downloaded = _downloadedSize;
+            long total = _totalContentSize;
+            void Update()
             {
-                _dialog.ProgBar.Value = _downloadedSize * _dialog.ProgBar.Maximum / _totalContentSize;
-                float contentSizeMBytes = (float)_totalContentSize / (1024 * 1024);
-                _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB/{contentSizeMBytes:0.00} MB";
+                float downloadSizeMBytes = (float)downloaded / (1024 * 1024);
+                _dialog.ProgBar.IsIndeterminate = total <= 0;
+                if (total > 0)
+                {
+                    _dialog.ProgBar.Value = downloaded * _dialog.ProgBar.Maximum / total;
+                    float contentSizeMBytes = (float)total / (1024 * 1024);
+                    _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB/{contentSizeMBytes:0.00} MB";
+                }
+                else _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB";
             }
-            else
-            {
-                _dialog.ProgBar.IsIndeterminate = true;
-                _dialog.DescText.Content = $"{downloadSizeMBytes:0.00} MB";
-            }
+            if (_dialog.Dispatcher.CheckAccess()) Update();
+            else if (!_dialog.Dispatcher.HasShutdownStarted) _dialog.Dispatcher.BeginInvoke(new Action(Update));
         }
     }
 }

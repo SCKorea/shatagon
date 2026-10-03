@@ -404,13 +404,13 @@ By clicking "Yes", you confirm that you have read and understood the warning and
     <value>Select Localization Version.</value>
   </data>
   <data name="UI_Desc_SelectLocalizationVariant" xml:space="preserve">
-    <value>Select a translation variant.</value>
+    <value>Select optional translation features.</value>
   </data>
   <data name="UI_Desc_LegacyVariant" xml:space="preserve">
     <value>This release predates variant support. Its original translation will be installed.</value>
   </data>
   <data name="UI_Button_ChangeVariant" xml:space="preserve">
-    <value>Change variant</value>
+    <value>Change features</value>
   </data>
   <data name="UI_Desc_UnableMarkdown" xml:space="preserve">
     <value>**The document cannot be loaded.**</value>
@@ -450,5 +450,14 @@ By clicking "Yes", you confirm that you have read and understood the warning and
   </data>
   <data name="MSG_Desc_ApplicationUpdateFailed" xml:space="preserve">
     <value>The application update failed. You can continue using the current version. Restart the application to try updating again.</value>
+  </data>
+  <data name="UI_Desc_FeatureLoading" xml:space="preserve">
+    <value>Loading features for the selected release…</value>
+  </data>
+  <data name="UI_Desc_FeatureLoadFailed" xml:space="preserve">
+    <value>Unable to load this release's features. Check your connection and authentication, then retry.</value>
+  </data>
+  <data name="UI_Desc_FeatureBaseOnly" xml:space="preserve">
+    <value>Clear all checkboxes to install the base translation only.</value>
   </data>
 </root>

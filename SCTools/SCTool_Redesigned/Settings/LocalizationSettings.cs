@@ -35,6 +35,10 @@ namespace SCTool_Redesigned.Settings
         [JsonProperty]
         public string InstalledVariant { get; set; } = "legacy";
 
+        // null: no modern selection record; []: the user explicitly selected base only.
+        [JsonProperty]
+        public List<string>? InstalledFeatures { get; set; }
+
         [JsonProperty]
         public string LastVersion { get; set; } = "";
 

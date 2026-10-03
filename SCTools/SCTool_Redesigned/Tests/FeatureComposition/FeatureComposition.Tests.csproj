@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <FeatureTestFramework Condition="'$(FeatureTestFramework)' == ''">net8.0</FeatureTestFramework>
+    <TargetFramework>$(FeatureTestFramework)</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NuGetAudit>false</NuGetAudit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Localization/VariantCatalog.cs" Link="VariantCatalog.cs" />
+    <Compile Include="../../Localization/ReleaseManifest.cs" Link="ReleaseManifest.cs" />
+    <Compile Include="../../Localization/LocalizationComposer.cs" Link="LocalizationComposer.cs" />
+    <Compile Include="../../Localization/FeatureSelection.cs" Link="FeatureSelection.cs" />
+    <Compile Include="../../Localization/LocalizationReleaseClient.cs" Link="LocalizationReleaseClient.cs" />
+    <Compile Include="../../Localization/LegacyReleaseTags.cs" Link="LegacyReleaseTags.cs" />
+  </ItemGroup>
+</Project>

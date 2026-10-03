@@ -40,15 +40,17 @@ namespace SCTool_Redesigned.Update
 
             public UpdateInfo? CreateWithDownloadSourceCode(CustomGitHubRepository.GitRelease release)
             {
-                if (string.IsNullOrEmpty(release.Name) || string.IsNullOrEmpty(release.TagName) ||
-                    string.IsNullOrEmpty(release.ZipUrl))
+                if (string.IsNullOrEmpty(release.TagName) ||
+                    (string.IsNullOrEmpty(release.ZipUrl) && release.Draft != true))
                 {
                     return null;
                 }
-                return new CustomUpdateInfo(release.Name, release.TagName, release.ZipUrl, _namedVersion, release.Assets ?? [])
+                // GitHub drafts have no source archive yet; feature releases use their assets.
+                var name = string.IsNullOrEmpty(release.Name) ? release.TagName : release.Name;
+                return new CustomUpdateInfo(name, release.TagName, release.ZipUrl ?? "", _namedVersion, release.Assets ?? [])
                 {
-                    PreRelease = release.PreRelease ?? false,
-                    Released = release.Published
+                    PreRelease = release.PreRelease == true || release.Draft == true,
+                    Released = release.Published ?? release.Created
                 };
             }
 
@@ -62,8 +64,8 @@ namespace SCTool_Redesigned.Update
                 }
                 return new CustomUpdateInfo(release.Name, release.TagName, downloadUrl, _namedVersion, release.Assets ?? [])
                 {
-                    PreRelease = release.PreRelease ?? false,
-                    Released = release.Published
+                    PreRelease = release.PreRelease == true || release.Draft == true,
+                    Released = release.Published ?? release.Created
                 };
             }
 

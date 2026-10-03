@@ -40,6 +40,14 @@ namespace SCTool_Redesigned.Settings
             return LIVE_Localization;
         }
 
+        public bool GetAllowPreRelease(string mode, string repository)
+        {
+            var installation = GetLocalizationSettings().Installations.Find(item =>
+                string.Equals(item.Mode, mode, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(item.Repository, repository, StringComparison.OrdinalIgnoreCase));
+            return installation?.AllowPreRelease ?? Nightly;
+        }
+
         public Dictionary<string, string> GetToolLanguages() => new Dictionary<string, string> {
             { "en-US", "English" },
             { "ko-KR", "한국어" }

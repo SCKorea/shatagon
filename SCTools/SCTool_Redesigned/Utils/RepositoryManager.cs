@@ -26,13 +26,50 @@ namespace SCTool_Redesigned.Utils
         public static CustomGitHubLocalizationRepository? TargetRepository { get; private set; }
         public static LocalizationInstallation? TargetInstallation { get; private set; }
         public static UpdateInfo? TargetInfo { get; private set; }
-        public static string TargetVariant { get; private set; } = VariantCatalog.DefaultSelection;
+        public static IReadOnlyList<string> TargetFeatures { get; private set; } = [];
+        internal static LocalizationRelease? TargetRelease { get; private set; }
+        internal static bool FeatureSelectionReady => TargetRelease != null &&
+            TargetRelease.Info.Tag == TargetInfo?.TagName &&
+            (TargetRelease.Format != LocalizationReleaseFormat.LegacyPacks || TargetFeatures.Count == 1);
 
-        public static void SelectVariant(string id)
+        internal static IReadOnlyList<string> SetFeatureRelease(LocalizationRelease release)
         {
-            if (!VariantCatalog.Options.Any(option => option.Id == id) && id != "legacy")
-                throw new ArgumentException($"Unknown variant: {id}");
-            TargetVariant = id;
+            if (release.Info.Tag != TargetInfo?.TagName)
+                throw new InvalidOperationException("Feature catalog belongs to a different release");
+            // Returning from a failed/canceled download keeps the current checkbox selection.
+            if (TargetRelease != null && TargetRelease.Info.Tag == release.Info.Tag)
+            {
+                TargetRelease = release;
+                SelectFeatures(TargetFeatures);
+                return [];
+            }
+            TargetRelease = release;
+            if (release.Catalog == null)
+            {
+                TargetFeatures = [];
+                return [];
+            }
+            var restored = FeatureSelection.Restore(release.Catalog,
+                TargetInstallation?.InstalledFeatures, TargetInstallation?.InstalledVariant);
+            TargetFeatures = restored.Selected.ToArray();
+            return restored.Warnings;
+        }
+
+        internal static void SelectFeatures(IEnumerable<string> ids)
+        {
+            var release = TargetRelease ?? throw new InvalidOperationException("Feature catalog is not loaded");
+            var selected = ids.ToArray();
+            if (release.Format == LocalizationReleaseFormat.HistoricalSource)
+            {
+                if (selected.Length != 0) throw new ArgumentException("Historical release has no features");
+            }
+            else
+            {
+                selected = release.Catalog!.OrderedSelection(selected);
+                if (!release.Catalog.IsModern && selected.Length != 1)
+                    throw new ArgumentException("Select exactly one legacy translation pack");
+            }
+            TargetFeatures = selected;
         }
 
         static RepositoryManager()
@@ -51,15 +88,16 @@ namespace SCTool_Redesigned.Utils
                 LastVersion = version,
                 InstalledVersion = version,
                 InstalledTag = updateInfo.TagName,
+                InstalledVariant = installed?.Repository == localizationSource.Repository ? installed.InstalledVariant : "legacy",
+                InstalledFeatures = installed?.Repository == localizationSource.Repository ? installed.InstalledFeatures?.ToList() : null,
                 IsEnabled = installed?.IsEnabled ?? true,
-                AllowPreRelease = App.Settings.Nightly
+                AllowPreRelease = App.Settings.GetAllowPreRelease(gameMode, localizationSource.Repository)
             };
 
             TargetInstallation = localizationInstallation;
             TargetInfo = updateInfo;
-            TargetVariant = installed != null && installed.Repository == localizationSource.Repository &&
-                VariantCatalog.Options.Any(option => option.Id == installed.InstalledVariant)
-                ? installed.InstalledVariant : VariantCatalog.DefaultSelection;
+            TargetRelease = null;
+            TargetFeatures = [];
         }
 
         public static void SetInstallationRepository(LocalizationInstallation localizationInstallation)
@@ -178,7 +216,7 @@ namespace SCTool_Redesigned.Utils
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken cancellationToken = tokenSource.Token;
 
-            if (cache && _githubReleases.Length > 0)
+            if (cache && _githubReleases.Length > 0 && IsReleaseCacheCurrent())
             {
                 return _githubReleases;
             }
@@ -200,7 +238,7 @@ namespace SCTool_Redesigned.Utils
 
         public static IEnumerable<UpdateInfo> GetInfos(bool cache = true)
         {
-            if (cache && _githubReleases.Length > 0)
+            if (cache && _githubReleasesInfo.Any() && IsReleaseCacheCurrent())
             {
                 return _githubReleasesInfo;
             }
@@ -236,7 +274,7 @@ namespace SCTool_Redesigned.Utils
 
                     //Humanize
                     sb.Append($"# {release.Name}\n");
-                    sb.Append($"{XmlConvert.ToString(release.Published.ToLocalTime(), Properties.Resources.UI_Desc_DateTimeFormat)}  \n");
+                    sb.Append($"{XmlConvert.ToString((release.Published ?? release.Created).ToLocalTime(), Properties.Resources.UI_Desc_DateTimeFormat)}  \n");
                     sb.Append($"<br/>    \n");
 
                     var body = release.Body;
@@ -351,29 +389,46 @@ namespace SCTool_Redesigned.Utils
 
         private static CustomGitHubRepository _customGitHubRepository = null;
 
+        private static bool IsReleaseCacheCurrent()
+        {
+            var source = GetLocalizationSource();
+            return _customGitHubRepository != null &&
+                string.Equals(_customGitHubRepository.Repository, source.Repository, StringComparison.OrdinalIgnoreCase) &&
+                _customGitHubRepository.AllowPreReleases == App.Settings.GetAllowPreRelease(App.SelectedGameMode, source.Repository);
+        }
+
         private static CustomGitHubRepository GetCustomGitHubRepository(bool cache = true)
         {
-            if (!cache || _customGitHubRepository == null)
+            if (!cache || !IsReleaseCacheCurrent())
             {
                 CancellationTokenSource tokenSource = new CancellationTokenSource();
                 CancellationToken cancellationToken = tokenSource.Token;
 
+                var source = GetLocalizationSource();
+                var allowPreRelease = App.Settings.GetAllowPreRelease(App.SelectedGameMode, source.Repository);
+                var useReleaseProxy = !allowPreRelease && source.Repository.Equals("sckorea/sc_ko", StringComparison.OrdinalIgnoreCase);
                 var customGithubRepo = new CustomGitHubRepository(
                             HttpNetClient.Client, GitHubDownloadType.Sources,
                             CustomUpdateInfo.Factory.NewWithVersionByName(),
                             "SCTools",
-                            GetLocalizationSource().Repository
-                );
-
-                if (GetLocalizationSource().Repository.Equals("sckorea/sc_ko"))
+                            source.Repository
+                )
                 {
-                    customGithubRepo.ChangeReleasesUrl($"{App.ApiServer}/api/v4/release/all?account_id=sckorea&repository_name=sc_ko&status=0&prerelease={Convert.ToInt32(App.Settings.Nightly)}");
+                    AllowPreReleases = allowPreRelease,
+                    AuthToken = source.IsPrivate && !useReleaseProxy ? source.AuthToken : null
+                };
+
+                if (useReleaseProxy)
+                {
+                    customGithubRepo.ChangeReleasesUrl($"{App.ApiServer}/api/v4/release/all?account_id=sckorea&repository_name=sc_ko&status=0&prerelease=0");
                 }
 
                 //customGithubRepo.UpdateAsync(cancellationToken).Wait();
                 customGithubRepo.RefreshUpdatesAsync(cancellationToken).Wait();
 
                 _customGitHubRepository = customGithubRepo;
+                _githubReleases = [];
+                _githubReleasesInfo = [];
             }
 
             return _customGitHubRepository;

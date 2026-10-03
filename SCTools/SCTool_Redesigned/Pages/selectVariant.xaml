@@ -2,11 +2,35 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:lang="clr-namespace:SCTool_Redesigned.Properties"
-      Title="selectVariant">
-    <Grid>
-        <Label Content="04" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,40,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource GmarketSansB}" FontSize="36"/>
-        <Label Content="{x:Static lang:Resources.UI_Desc_SelectLocalizationVariant}" HorizontalAlignment="Left" Margin="50,90,0,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="18"/>
-        <ComboBox x:Name="VariantSelectListBox" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" Width="650" Height="35" FontFamily="{StaticResource SCDream5}" FontSize="16" SelectionChanged="VariantSelectListBox_SelectionChanged"/>
-        <TextBlock x:Name="LegacyNotice" Text="{x:Static lang:Resources.UI_Desc_LegacyVariant}" HorizontalAlignment="Left" Margin="50,150,50,0" VerticalAlignment="Top" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="17" TextWrapping="Wrap" Visibility="Collapsed"/>
+      Title="selectVariant" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
+    <Grid Margin="50,35,50,15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="04" FontWeight="Bold" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource GmarketSansB}" FontSize="36"/>
+        <TextBlock Grid.Row="1" Text="{x:Static lang:Resources.UI_Desc_SelectLocalizationVariant}" Margin="0,5,0,10" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="18" TextWrapping="Wrap"/>
+        <TextBlock x:Name="NoticeText" Grid.Row="2" Margin="0,0,0,10" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="14" TextWrapping="Wrap"/>
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl x:Name="FeatureItems">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Margin="0,0,12,12" HorizontalContentAlignment="Stretch" IsChecked="{Binding IsSelected, Mode=TwoWay}" Tag="{Binding}" Checked="Feature_SelectionChanged" Unchecked="Feature_SelectionChanged" Foreground="{StaticResource TextBrush}">
+                            <StackPanel Margin="6,0,0,0">
+                                <TextBlock Text="{Binding Name}" FontFamily="{StaticResource SCDream5}" FontSize="16" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Description}" Margin="0,4,0,0" FontFamily="{StaticResource SCDream5}" FontSize="13" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </CheckBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <StackPanel Grid.Row="4" Margin="0,8,0,0">
+            <TextBlock x:Name="StatusText" Foreground="{StaticResource TextBrush}" FontFamily="{StaticResource SCDream5}" FontSize="14" TextWrapping="Wrap"/>
+            <Button x:Name="RetryBtn" Content="{x:Static lang:Resources.UI_Button_Refresh}" Width="120" Height="30" HorizontalAlignment="Left" Margin="0,8,0,0" Style="{StaticResource subBtnStyle}" Visibility="Collapsed" Click="RetryBtn_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

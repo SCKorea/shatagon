@@ -198,7 +198,7 @@ namespace SCTool_Redesigned.Localization
             var newAsset = archive.Entries.Count == 1 &&
                 archive.Entries[0].FullName.Equals(target, StringComparison.Ordinal);
             if (variantEnabled && RepositoryManager.TargetInfo is CustomUpdateInfo info &&
-                !VariantCatalog.IsLegacy(info) && !newAsset)
+                !((info.Assets?.Length ?? 0) == 0 && LegacyReleaseTags.All.Contains(info.TagName)) && !newAsset)
             {
                 _logger.Error($"Variant ZIP must contain only {target}: {zipFileName}");
                 return false;
