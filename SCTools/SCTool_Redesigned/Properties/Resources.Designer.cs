@@ -71,56 +71,6 @@ namespace SCTool_Redesigned.Properties {
         }
         
         /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] BG0 {
-            get {
-                object obj = ResourceManager.GetObject("BG0", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] BG1 {
-            get {
-                object obj = ResourceManager.GetObject("BG1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] Discord_Logo3 {
-            get {
-                object obj = ResourceManager.GetObject("Discord-Logo3", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] GmarketSansBold {
-            get {
-                object obj = ResourceManager.GetObject("GmarketSansBold", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] GmarketSansMedium {
-            get {
-                object obj = ResourceManager.GetObject("GmarketSansMedium", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   https://app.sc.galaxyhub.kr과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Google_Analytics_Site {
@@ -270,16 +220,6 @@ namespace SCTool_Redesigned.Properties {
         public static string Localization_Verify_ErrorTitle {
             get {
                 return ResourceManager.GetString("Localization_Verify_ErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] logo {
-            get {
-                object obj = ResourceManager.GetObject("logo", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -484,46 +424,6 @@ namespace SCTool_Redesigned.Properties {
         public static string MSG_Title_TurnOffGame {
             get {
                 return ResourceManager.GetString("MSG_Title_TurnOffGame", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] Ncafe_Logo3 {
-            get {
-                object obj = ResourceManager.GetObject("Ncafe-Logo3", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] SCDream3 {
-            get {
-                object obj = ResourceManager.GetObject("SCDream3", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] SCDream5 {
-            get {
-                object obj = ResourceManager.GetObject("SCDream5", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        public static byte[] SCDream9 {
-            get {
-                object obj = ResourceManager.GetObject("SCDream9", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

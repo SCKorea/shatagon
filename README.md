@@ -3,6 +3,12 @@ Star Citizen Localization Patch Installer
 
 ![image](https://i.imgur.com/rzFy0Vu.png)
 
+## Requirements
+
+Windows 10/11 x64 with the [.NET 8 Desktop Runtime (x64)](https://dotnet.microsoft.com/download/dotnet/8.0) installed. The patcher executable does not include the .NET runtime.
+
+If the required runtime is missing, the executable displays the standard .NET installation prompt. Choose the download option, install the Desktop Runtime, and run the patcher again.
+
 ## Features
 ### Localization features
 - Download and install localization from GitHub repositories
